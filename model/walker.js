@@ -32,38 +32,35 @@ var Walker = function() {
 
     };
 
+    var getFootPrint = function(rect) {
+        return Rect(rect.x, rect.y + 8, 16, 8);
+    };
+
     var attemptMove_parent = my.attemptMove;
     my.attemptMove = function(room, rectNew, xChange, yChange) {
 
         // Get the new foot print to check for wall intersection
-        var footPrint = Rect(rectNew.x, rectNew.y + 8, 16, 8);
+        var footPrint = getFootPrint(rectNew);
 
         var wall = room.intersectsWall(footPrint);
         // Check for wall intersection
         if (wall) {
-
+            // stop short
             switch(moving) {
                 case Directions.top:
-                    my.rect.y = wall.y + 8;
+                    rectNew.y = wall.y + 8;
                     break;
                 case Directions.bottom:
-                    my.rect.y = wall.y - 16;
+                    rectNew.y = wall.y - 16;
                     break;
                 case Directions.left:
-                    my.rect.x = wall.x + 16;
+                    rectNew.x = wall.x + 16;
                     break;
                 case Directions.right:
-                    my.rect.x = wall.x - 16;
+                    rectNew.x = wall.x - 16;
                     break;
             }
 
-            // make flush with wall, this might not work with push?
-            //my.rect.x = Math.round(my.rect.x);
-            //my.rect.y = Math.round(my.rect.y);
-
-            // change the target to be flush with the wall.
-            //OnWallEvent(list[0]);
-            return; //Shouldn't need this
         }
 
         // no problems, complete move
@@ -73,7 +70,11 @@ var Walker = function() {
     my.setMoving = function(direction) {
         if (direction == moving) return; // no need to double set
         moving = direction;
-        needsCheckAutoMove = true;
+
+        if (direction) {
+            needsCheckAutoMove = true;
+        }
+
     };
 
 
@@ -91,33 +92,37 @@ var Walker = function() {
         if (automove) {
 
             // clean up if we are close enough
-            if (Math.abs(automove.y) < 0.001 && Math.abs(automove.x) < 0.001) {
-
+            if (Math.abs(automove.y) < 0.01 && Math.abs(automove.x) < 0.01) {
                 my.rect = automove.final;
                 automove = null;
-
-                //my.rect.x = Math.round(my.rect.x);
-                //my.rect.y = Math.round(my.rect.y);
             }
             else {
-                my.setFacing(automove.facing);
-
-                my.velocity.x = absMin(automove.x, automove.speed * sign(automove.x));
-                my.velocity.y = absMin(automove.y, automove.speed * sign(automove.y));
-
-                if (automove.x != 0) {
-                    automove.x -= my.velocity.x;
-                }
-                if (automove.y != 0) {
-                    automove.y -= my.velocity.y;
-                }
-
+                determineVelocityFromAutomove();
                 return;
             }
 
         }
 
         // Process move normally
+        determineVelocityFromMoving();
+    };
+
+    var determineVelocityFromAutomove = function() {
+        my.setFacing(automove.facing);
+
+        my.velocity.x = absMin(automove.x, automove.speed * sign(automove.x));
+        my.velocity.y = absMin(automove.y, automove.speed * sign(automove.y));
+
+        if (automove.x != 0) {
+            automove.x -= my.velocity.x;
+        }
+        if (automove.y != 0) {
+            automove.y -= my.velocity.y;
+        }
+    };
+
+    var determineVelocityFromMoving = function() {
+
         my.velocity.x = 0;
         my.velocity.y = 0;
         switch (moving) {
@@ -138,7 +143,6 @@ var Walker = function() {
                 my.velocity.y = my.speed;
                 break;
         }
-
     };
 
     my.setFacing = function(direction) {
@@ -157,8 +161,6 @@ var Walker = function() {
         // Already auto moving, ignore
         if (automove) { return; }
 
-        var proposed, intersects;
-
         // Check for auto correction
         if (moving == Directions.top || moving == Directions.bottom) {
 
@@ -175,15 +177,12 @@ var Walker = function() {
             var rectLeft = Rect(Math.round(my.rect.x - toLeftGuide), my.rect.y, my.rect.width, my.rect.height);
             var rectRight = Rect(Math.round(my.rect.x + toRightGuide), my.rect.y, my.rect.width, my.rect.height);
 
-            var intersectsLeft = room.intersectsWall(rectLeft);
-            var intersectsRight = room.intersectsWall(rectRight);
-
-            if (intersectsLeft && intersectsRight) {
-                console.log("Invalid leftRightMove");
-                return;
-            }
+            var intersectsLeft = room.intersectsWall(getFootPrint(rectLeft));
+            var intersectsRight = room.intersectsWall(getFootPrint(rectRight));
 
             var goLeft = false;
+
+            // determine if either direction is invalid
             if (intersectsLeft) {
                 goLeft = false;
             }
@@ -219,16 +218,12 @@ var Walker = function() {
             var rectTop = Rect(my.rect.x, Math.round(my.rect.y - toTopGuide), my.rect.width, my.rect.height);
             var rectBottom = Rect(my.rect.x, Math.round(my.rect.y + toBottomGuide), my.rect.width, my.rect.height);
 
-            var intersectsTop = room.intersectsWall(rectTop);
-            var intersectsBottom = room.intersectsWall(rectBottom);
+            var intersectsTop = room.intersectsWall(getFootPrint(rectTop));
+            var intersectsBottom = room.intersectsWall(getFootPrint(rectBottom));
 
             var goTop = false;
 
-            if (intersectsTop && intersectsBottom) {
-                console.log("invalidTopBottom");
-                return;
-            }
-
+            // determine if either direction is invalid
             if (intersectsTop) {
                 goTop = false;
             }
@@ -239,7 +234,6 @@ var Walker = function() {
                 // both are valid, favor lesser movement amount
                 goTop = toTopGuide <= 4;
             }
-
 
             //finalize one way or the other
             if (goTop) {

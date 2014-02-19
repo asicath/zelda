@@ -159,7 +159,7 @@ var View = (function() {
         }
 
         // Draw the cached image
-        ctx.drawImage(sprite.cache[key], Math.floor(x) * pixelScale, Math.floor(y) * pixelScale);
+        ctx.drawImage(sprite.cache[key], x * pixelScale, y * pixelScale);
 
     };
 
