@@ -6,15 +6,20 @@ var Sprites = {};
 
 loadSprites('assets/outside.gif', function(outsideSprites) {
     loadSprites('assets/link.gif', function(linkSprites) {
+        loadSprites('assets/octopus.gif', function(octopus) {
 
-        Sprites.link = linkSprites;
-        Sprites.outside = outsideSprites;
 
-        loadRoom('assets/ow07-06.js', function(room) {
+            Sprites.link = linkSprites;
+            Sprites.outside = outsideSprites;
+            Sprites.octopus = octopus;
 
-            startDraw(room);
+            loadRoom('assets/ow07-06.js', function(room) {
 
-            gamepadSupport.init();
+                startDraw(room);
+
+                gamepadSupport.init();
+
+            });
 
         });
     });

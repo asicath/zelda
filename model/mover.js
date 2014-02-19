@@ -31,7 +31,7 @@ var Mover = function() {
             var rectOld = my.rect;
 
             // Calculate the new position based on velocity.
-            var rectNew = Rect(rectOld.x + my.velocity.x, rectOld.y + my.velocity.y, rectOld.width, rectOld.height);
+            var rectNew = new Rect(rectOld.x + my.velocity.x, rectOld.y + my.velocity.y, rectOld.width, rectOld.height);
 
             //this.checkForEdgeEvent(
             my.attemptMove(room, rectNew, my.velocity.x, my.velocity.y);

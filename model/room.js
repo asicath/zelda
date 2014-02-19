@@ -3,6 +3,20 @@ var loadRoom = function(filename, success) {
     $.getJSON(filename).done(function(data) {
 
         var room = Room(data);
+
+        // setup demo room
+
+        // create the player and add
+        room.entities.push(PlayerWalker());
+
+        // Create a random walk monster and add
+        room.entities.push(RandomWalker());
+        room.entities.push(RandomWalker());
+        room.entities.push(RandomWalker());
+
+        room.entities[3].palette = Palettes.MonsterBlue;
+
+
         success(room);
 
     }).fail(function(e1, e2, e3) {
@@ -15,14 +29,16 @@ var Room = function(data) {
     var my = {};
 
     my.tiles = data.tiles;
-    my.entities = [];
 
-    my.playerEntity = PlayerEntity();
-    my.entities.push(my.playerEntity);
+    // init tiles
+    for (var i = my.tiles.length - 1; i > 0; i--) {
+        my.tiles[i].rect = new Rect(my.tiles[i].x, my.tiles[i].y, 16, 16);
+    }
 
     my.sprites = Sprites.outside;
+    my.rect = new Rect(0, 0, 256, 176);
 
-    my.rect = Rect(0, 0, 256, 176);
+    my.entities = [];
 
     my.executeFrame = function(world) {
 
@@ -36,25 +52,15 @@ var Room = function(data) {
     };
 
     my.intersectsWall = function(rect) {
-        var tile, xDiff, yDiff, intersects;
+        var tile;
         for (var i = my.tiles.length - 1; i > 0; i--) {
             tile = my.tiles[i];
             if (tile.type == "wall") {
-
-                intersects = !( tile.x >= rect.x + rect.width || tile.x + 16 <= rect.x || tile.y >= rect.y + rect.height || tile.y + 16 <= rect.y );
-
-                if (intersects) return tile;
+                if (tile.rect.intersects(rect)) return tile;
             }
         }
 
         return false;
-    };
-
-    var intersectRect = function(r1, r2) {
-        return !(r2.left > r1.right ||
-            r2.right < r1.left ||
-            r2.top > r1.bottom ||
-            r2.bottom < r1.top);
     };
 
     return my;

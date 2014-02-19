@@ -1,8 +1,13 @@
 
-var PlayerEntity = function() {
+var PlayerWalker = function() {
     var my = Walker();
 
-    my.rect = Rect(128, 88, 16, 16);
+    my.rect = new Rect(128, 88, 16, 16);
+
+    // has a smaller foot print than the monsters
+    my.footPrint = new Rect(0, 8, 16, 8);
+
+    my.spriteIndexes = [0, 3, 6, 9];
 
     my.sprites = Sprites.link;
     my.spriteIndex = 0;
@@ -31,16 +36,16 @@ var PlayerEntity = function() {
         // change sprite
         switch (direction) {
             case Directions.top:
-                my.spriteIndex = 0;
+                my.spriteIndex = my.spriteIndexes[0];
                 break;
             case Directions.bottom:
-                my.spriteIndex = 3;
+                my.spriteIndex = my.spriteIndexes[1];
                 break;
             case Directions.left:
-                my.spriteIndex = 6;
+                my.spriteIndex = my.spriteIndexes[2];
                 break;
             case Directions.right:
-                my.spriteIndex = 9;
+                my.spriteIndex = my.spriteIndexes[3];
                 break;
         }
     };
@@ -122,43 +127,43 @@ var PlayerEntity = function() {
      */
 
 
-
+    my.playerId = 0;
 
     var checkInput = function() {
 
 
 
-        if (playerInput.up && !moving[Directions.top]) {
+        if (playerInput[my.playerId].up && !moving[Directions.top]) {
             startMoving(Directions.top);
         }
-        else if (!playerInput.up && moving[Directions.top]) {
+        else if (!playerInput[my.playerId].up && moving[Directions.top]) {
             endMoving(Directions.top);
         }
 
-        if (playerInput.down && !moving[Directions.bottom]) {
+        if (playerInput[my.playerId].down && !moving[Directions.bottom]) {
             startMoving(Directions.bottom);
         }
-        else if (!playerInput.down && moving[Directions.bottom]) {
+        else if (!playerInput[my.playerId].down && moving[Directions.bottom]) {
             endMoving(Directions.bottom);
         }
 
-        if (playerInput.left && !moving[Directions.left]) {
+        if (playerInput[my.playerId].left && !moving[Directions.left]) {
             startMoving(Directions.left);
         }
-        else if (!playerInput.left && moving[Directions.left]) {
+        else if (!playerInput[my.playerId].left && moving[Directions.left]) {
             endMoving(Directions.left);
         }
 
-        if (playerInput.right && !moving[Directions.right]) {
+        if (playerInput[my.playerId].right && !moving[Directions.right]) {
             startMoving(Directions.right);
         }
-        else if (!playerInput.right && moving[Directions.right]) {
+        else if (!playerInput[my.playerId].right && moving[Directions.right]) {
             endMoving(Directions.right);
         }
 
 
 
-        if (playerInput.flash) {
+        if (playerInput[my.playerId].flash) {
             my.palette = flashPalates[Math.floor(flashIndex % 12 / 4)];
             flashIndex++;
             flashing = true;

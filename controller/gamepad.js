@@ -160,11 +160,13 @@ var gamepadSupport = {
     updateDisplay: function(gamepadId) {
         var gamepad = gamepadSupport.gamepads[gamepadId];
 
+        var playerId = parseInt(gamepadId);
+
         // dpad
-        playerInput.up = gamepad.buttons[12] > 0;
-        playerInput.down = gamepad.buttons[13] > 0;
-        playerInput.left = gamepad.buttons[14] > 0;
-        playerInput.right = gamepad.buttons[15] > 0;
+        playerInput[playerId].up = gamepad.buttons[12] > 0;
+        playerInput[playerId].down = gamepad.buttons[13] > 0;
+        playerInput[playerId].left = gamepad.buttons[14] > 0;
+        playerInput[playerId].right = gamepad.buttons[15] > 0;
 
         /*
         var threshold = 0.3;
@@ -174,7 +176,7 @@ var gamepadSupport = {
         playerInput.right = gamepad.axes[0] > threshold;
         */
 
-        playerInput.flash = gamepad.buttons[0] > 0;
+        playerInput[playerId].flash = gamepad.buttons[0] > 0;
 
         /*
 

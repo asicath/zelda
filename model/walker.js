@@ -32,8 +32,10 @@ var Walker = function() {
 
     };
 
+    my.footPrint = new Rect(0, 0, 16, 16);
+
     var getFootPrint = function(rect) {
-        return Rect(rect.x, rect.y + 8, 16, 8);
+        return new Rect(rect.x, rect.y + my.footPrint.y, my.footPrint.width, my.footPrint.height);
     };
 
     var attemptMove_parent = my.attemptMove;
@@ -48,16 +50,17 @@ var Walker = function() {
             // stop short
             switch(moving) {
                 case Directions.top:
-                    rectNew.y = wall.y + 8;
+                    // hit wall from the bottom
+                    rectNew.y = wall.y + 16 - my.footPrint.y;
                     break;
                 case Directions.bottom:
-                    rectNew.y = wall.y - 16;
+                    rectNew.y = wall.y - my.rect.height;
                     break;
                 case Directions.left:
-                    rectNew.x = wall.x + 16;
+                    rectNew.x = wall.x + 16 - my.footPrint.x;
                     break;
                 case Directions.right:
-                    rectNew.x = wall.x - 16;
+                    rectNew.x = wall.x - my.rect.width;
                     break;
             }
 
@@ -155,7 +158,6 @@ var Walker = function() {
     // ******* Auto move
     var GuideSize = 8; // 8 * World.Factor;
 
-    // TODO Check to see if proposed automove position intersects with wall, take other route if so
     var checkForAutoMove = function(room) {
 
         // Already auto moving, ignore
@@ -174,8 +176,8 @@ var Walker = function() {
             var toRightGuide = GuideSize - toLeftGuide;
 
             // check to make sure it is valid
-            var rectLeft = Rect(Math.round(my.rect.x - toLeftGuide), my.rect.y, my.rect.width, my.rect.height);
-            var rectRight = Rect(Math.round(my.rect.x + toRightGuide), my.rect.y, my.rect.width, my.rect.height);
+            var rectLeft = new Rect(Math.round(my.rect.x - toLeftGuide), my.rect.y, my.rect.width, my.rect.height);
+            var rectRight = new Rect(Math.round(my.rect.x + toRightGuide), my.rect.y, my.rect.width, my.rect.height);
 
             var intersectsLeft = room.intersectsWall(getFootPrint(rectLeft));
             var intersectsRight = room.intersectsWall(getFootPrint(rectRight));
@@ -215,8 +217,8 @@ var Walker = function() {
 
             var toBottomGuide = GuideSize - toTopGuide;
 
-            var rectTop = Rect(my.rect.x, Math.round(my.rect.y - toTopGuide), my.rect.width, my.rect.height);
-            var rectBottom = Rect(my.rect.x, Math.round(my.rect.y + toBottomGuide), my.rect.width, my.rect.height);
+            var rectTop = new Rect(my.rect.x, Math.round(my.rect.y - toTopGuide), my.rect.width, my.rect.height);
+            var rectBottom = new Rect(my.rect.x, Math.round(my.rect.y + toBottomGuide), my.rect.width, my.rect.height);
 
             var intersectsTop = room.intersectsWall(getFootPrint(rectTop));
             var intersectsBottom = room.intersectsWall(getFootPrint(rectBottom));
@@ -272,22 +274,11 @@ var Walker = function() {
 
 /*
 
-public Rectangle getRectFootPrint() {
-    return getRectFootPrint(this.rect);
-}
-
-public Rectangle getRectFootPrint(Rectangle rectPos) {
-    if (this._rectFootPrint == Rectangle.Empty) { return rectPos; }
-    return new Rectangle(rectPos.X + this._rectFootPrint.X, rectPos.Y + this._rectFootPrint.Y, this._rectFootPrint.Width, this._rectFootPrint.Height);
-}
-
-
 private void OnWallEvent(Wall wall) {
     if (WallEvent != null) {
         WallEvent(wall);
     }
 }
-
 
 public void push(Direction direction, int distance, int speed) {
     int x = 0;
@@ -309,7 +300,5 @@ public void push(Direction direction, int distance, int speed) {
 
     this.setAutoMove(x, y, speed, this.facing);
 }
-
-
 
 */
