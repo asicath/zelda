@@ -12,7 +12,7 @@ var View = (function() {
 
 
 
-    my.drawRoom = function(room, sprites, linkSprites) {
+    my.drawRoom = function(room) {
 
         var start = new Date();
 
@@ -41,11 +41,11 @@ var View = (function() {
             var ctx = buffer.getContext('2d');
 
             // draw to the virtual screen
-            var palates = [Palettes.OutsideGreen, Palettes.OutsideBrown, Palettes.OutsideGrey, Palettes.AllBlack];
+            var palettes = [Palettes.OutsideGreen, Palettes.OutsideBrown, Palettes.OutsideGrey, Palettes.AllBlack];
             var i = 0;
             while (i < room.tiles.length) {
                 var t = room.tiles[i];
-                drawSprite(ctx, upscaleFactor, sprites[t.index], t.x, t.y, palates[t.palate]);
+                drawSprite(ctx, upscaleFactor, room.sprites[t.index], t.x, t.y, palettes[t.palette]);
                 i++;
             }
 
@@ -83,8 +83,15 @@ var View = (function() {
         // draw to the real screen
         ctx.drawImage(room.sizedImage, 0, 0);
 
-        //now the chars
-        drawSprite(ctx, factor, linkSprites[room.playerEntity.linkI + room.playerEntity.linkStep], room.playerEntity.linkX, room.playerEntity.linkY, room.playerEntity.palate);
+
+
+        // now the entities
+        for (var i = room.entities.length-1; i >= 0; i--) {
+            drawEntity(ctx, room.entities[i]);
+        }
+
+
+
 
 
         renderTime[renderIndex] = new Date() - start;
@@ -100,6 +107,10 @@ var View = (function() {
 
         ctx.fillText('max render time:' + max, 0, 40);
 
+
+
+
+
         ctx.restore();
     };
 
@@ -109,23 +120,28 @@ var View = (function() {
     var frameCount = 0;
 
 
-    var drawSprite = function(ctx, pixelScale, sprite, x, y, palate) {
+    var drawEntity = function(ctx, entity) {
+        drawSprite(ctx, factor, entity.getSprite(), entity.rect.x, entity.rect.y, entity.palette);
+    };
+
+
+    var drawSprite = function(ctx, pixelScale, sprite, x, y, palette) {
 
         if (!sprite.cache) sprite.cache = {};
 
-        var key = palate.name + '_' + pixelScale.toString();
+        var key = palette.name + '_' + pixelScale.toString();
 
         if (!sprite.cache[key]) {
             var pixelScaleUp = Math.ceil(pixelScale);
 
             if (pixelScale == pixelScaleUp) {
                 // direct draw, no need to upscale
-                sprite.cache[key] = createSpriteCanvas(pixelScale, sprite, palate);
+                sprite.cache[key] = createSpriteCanvas(pixelScale, sprite, palette);
             }
             else {
                 // get the upscaled image
                 var upscaleKey = pixelScaleUp.toString();
-                sprite.cache[upscaleKey] = createSpriteCanvas(pixelScaleUp, sprite, palate);
+                sprite.cache[upscaleKey] = createSpriteCanvas(pixelScaleUp, sprite, palette);
 
                 // now downscale
                 var img = document.createElement('canvas');
@@ -142,33 +158,33 @@ var View = (function() {
         }
 
         // Draw the cached image
-        ctx.drawImage(sprite.cache[key], x * pixelScale, y * pixelScale);
+        ctx.drawImage(sprite.cache[key], Math.floor(x) * pixelScale, Math.floor(y) * pixelScale);
 
     };
 
 
     // Return a canvas object with the sprite rendered to it
-    var createSpriteCanvas = function(pixelScale, sprite, palate) {
+    var createSpriteCanvas = function(pixelScale, sprite, palette) {
         var img = document.createElement('canvas');
         img.width = sprite.width * pixelScale;
         img.height = sprite.height * pixelScale;
         var context = img.getContext('2d');
 
         // do the actual rendering of the pixels
-        drawSpriteFromPixels(context, pixelScale, sprite, palate);
+        drawSpriteFromPixels(context, pixelScale, sprite, palette);
 
         return img;
     };
 
 
     // Draw the raw pixels of a sprite to the specified canvas context
-    var drawSpriteFromPixels = function(ctx, pixelScale, sprite, palate) {
+    var drawSpriteFromPixels = function(ctx, pixelScale, sprite, palette) {
         var i = 0;
         while (i < sprite.pixels.length) {
 
             var p = sprite.pixels[i];
 
-            ctx.fillStyle = p.getColor(palate);
+            ctx.fillStyle = p.getColor(palette);
             ctx.fillRect(
                 p.x * pixelScale,
                 p.y * pixelScale,

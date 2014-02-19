@@ -88,11 +88,11 @@ var Pixel = function(i, x, y) {
         return p.r == exports.r && p.g == exports.g && p.b == exports.b;
     };
 
-    exports.getColor = function(palate) {
-        if (!palate) {
-            palate = Palettes.Default;
+    exports.getColor = function(palette) {
+        if (!palette) {
+            palette = Palettes.Default;
         }
-        var color = palate.colors[exports.i];
+        var color = palette.colors[exports.i];
         return 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ', ' + (color[3] / 255) + ')'
     };
 

@@ -1,31 +1,42 @@
 
 var PlayerEntity = function() {
-    var my = Entity();
+    var my = Mover();
 
-    my.linkX = 128;
-    my.linkY = 88;
-    my.linkI = 0;
+    my.rect = {
+        x: 128,
+        y: 88,
+        width: 16,
+        height: 16
+    };
 
-    my.linkStep = 0;
-    my.palate = Palettes.LinkGreen;
-    my.flashIndex = 0;
+    my.sprites = Sprites.link;
+    my.spriteIndex = 0;
+    my.palette = Palettes.LinkGreen;
+
+    var linkStep = 0;
+    var flashIndex = 0;
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
+        checkInput();
         executeFrame_parent(room);
 
-        checkInput();
+
+    };
+
+    my.getSprite = function() {
+        return my.sprites[my.spriteIndex + linkStep];
     };
 
 
 
-    var stepAmount = 2;
+    var speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
     var swapStepCount = 0;
 
     var swapStep = function() {
-        if (swapStepCount++ % 4 == 0) {
-            my.linkStep = my.linkStep > 0 ? 0 : 1;
+        if (swapStepCount++ % 6 == 0) {
+            linkStep = linkStep > 0 ? 0 : 1;
         }
     };
 
@@ -35,35 +46,50 @@ var PlayerEntity = function() {
         Palettes.MonsterRed
     ];
 
+    var flashing = false;
+
     var checkInput = function() {
 
+        my.velocity.x = 0;
+        my.velocity.y = 0;
+
         if (playerInput.up) {
-            my.linkY -= stepAmount;
-            my.linkI = 0;
+            //my.rect.y -= speed;
+            my.velocity.y = -speed;
+            my.spriteIndex = 0;
             swapStep();
         }
 
         else if (playerInput.down) {
-            my.linkY += stepAmount;
-            my.linkI = 3;
+            //my.rect.y += speed;
+            my.velocity.y = speed;
+            my.spriteIndex = 3;
             swapStep();
         }
 
         else if (playerInput.left) {
-            my.linkX -= stepAmount;
-            my.linkI = 6;
+            //my.rect.x -= speed;
+            my.velocity.x = -speed;
+            my.spriteIndex = 6;
             swapStep();
         }
 
         else if (playerInput.right) {
-            my.linkX += stepAmount;
-            my.linkI = 9;
+            //my.rect.x += speed;
+            my.velocity.x = speed;
+            my.spriteIndex = 9;
             swapStep();
         }
 
+
         if (playerInput.flash) {
-            my.palate = flashPalates[Math.floor(my.flashIndex % 12 / 4)];
-            my.flashIndex++;
+            my.palette = flashPalates[Math.floor(flashIndex % 12 / 4)];
+            flashIndex++;
+            flashing = true;
+        }
+        else if (flashing) {
+            flashing = false;
+            my.palette = Palettes.LinkGreen;
         }
 
     };

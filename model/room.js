@@ -20,6 +20,10 @@ var Room = function(data) {
     my.playerEntity = PlayerEntity();
     my.entities.push(my.playerEntity);
 
+    my.sprites = Sprites.outside;
+
+    my.rect = Rect(0, 0, 256, 176);
+
     my.executeFrame = function(world) {
 
         // do room stuff
