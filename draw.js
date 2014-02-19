@@ -27,7 +27,7 @@ var drawRoom = function(room, sprites, linkSprites) {
         console.log(factor);
 
         // Create the virtual screen
-        var upscaleFactor = 4; // Math.ceil(factor); // must be integer
+        var upscaleFactor = Math.ceil(factor); // must be integer
         var buffer = document.createElement('canvas');
         buffer.width = virtualWidth * upscaleFactor;
         buffer.height = virtualHeight * upscaleFactor;
@@ -173,20 +173,7 @@ var drawSpriteFromPixels = function(ctx, pixelScale, sprite, palate) {
     }
 };
 
-$(document).on('keypress', function(e1, e2, e3) {
 
-    var stepAmount = 3;
-
-    switch (e1.which) {
-        case 119: linkY-=stepAmount; linkI = 0; break;
-        case 115: linkY+=stepAmount; linkI = 3; break;
-        case  97: linkX-=stepAmount; linkI = 6; break;
-        case 100: linkX+=stepAmount; linkI = 9; break;
-    }
-
-    linkStep = linkStep > 0 ? 0 : 1;
-
-});
 
 var fullscreen = function() {
 
@@ -203,69 +190,28 @@ var fullscreen = function() {
 
 
 
+var startDraw = function(room, sprites, linkSprites) {
+
+    fullscreen();
+
+    //setInterval(function() {
+    //    drawRoom(room, sprites, linkSprites);
+    //}, 17);
+
+    function animate() {
+        requestAnimFrame( animate );
+        drawRoom(room, sprites, linkSprites);
+    }
+
+    animate();
 
 
 
-
-
-
-
-
-
-
-
-// requestAnim shim layer by Paul Irish
-window.requestAnimFrame = ( function() {
-    return  window.requestAnimationFrame       ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame    ||
-        window.oRequestAnimationFrame      ||
-        window.msRequestAnimationFrame     ||
-        function (
-            /* function */ callback,
-            /* DOMElement */ element) {
-            window.setTimeout(callback, 1000 / 60);
-        };
-})();
-
-
-loadSprites('outside.gif', function(sprites) {
-    loadSprites('link.gif', function(linkSprites) {
-
-        $.getJSON('ow07-06.js').done(function(room) {
-
-            fullscreen();
-
-            //setInterval(function() {
-            //    drawRoom(room, sprites, linkSprites);
-            //}, 17);
-
-            function animate() {
-                requestAnimFrame( animate );
-                drawRoom(room, sprites, linkSprites);
-            }
-
-            animate();
-
-
-
-            $(window).resize(function() {
-                fullscreen();
-                room.sizedImage = null;
-            });
-
-
-        }).fail(function(e1, e2, e3) {
-            console.log( "error" );
-        });
+    $(window).resize(function() {
+        fullscreen();
+        room.sizedImage = null;
     });
-});
-
-
-
-
-
-
+};
 
 
 
