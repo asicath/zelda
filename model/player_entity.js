@@ -50,7 +50,6 @@ var PlayerEntity = function() {
     };
 
 
-
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
     var swapStepCount = 0;

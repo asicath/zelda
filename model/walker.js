@@ -13,7 +13,7 @@ var Walker = function() {
     my.speed = 0; //this.speed = Walker.CalculateSpeed(256 * World.Factor, World.TicksPerSecond, seconds);
 
     my.facing = Directions.top;    // Direction  this._facing = Directions.Top;
-    var lastReleased = Directions.top;
+    var lastMoved = Directions.top;
     var moving = {
         top: false,
         bottom: false,
@@ -87,8 +87,6 @@ var Walker = function() {
                 automove.y -= my.velocity.y;
             }
 
-            //if (automove.y < 0.001 && automove.y > -0.001 && automove.x < 0.001 && automove.x > -0.001) {automove = null;}
-
             if (automove.y == 0 && automove.x == 0) {automove = null;}
 
             return;
@@ -96,6 +94,7 @@ var Walker = function() {
 
         // get the direction that we are moving
         var movingPriority = getMovingPriority();
+        lastMoved = movingPriority || lastMoved;
 
         // Process move normally
         my.velocity.x = 0;
@@ -132,7 +131,7 @@ var Walker = function() {
             return;
         }
         moving[direction] = true;
-        //checkForAutoMove();
+        checkForAutoMove();
     };
 
     my.endMoving = function(direction) {
@@ -142,86 +141,54 @@ var Walker = function() {
             return;
         }
         moving[direction] = false;
-        lastReleased = direction;
-        //checkForAutoMove();
+        checkForAutoMove();
     };
 
 
     // ******* Auto move
-
-    var choose = function(favor, other) {
-        return favor;
-        //return favor * 1 < other ? favor : other;
-    };
+    var GuideSize = 8; // 8 * World.Factor;
 
     var checkForAutoMove = function() {
 
-        return;
-
         // Already auto moving, ignore
-        if (automove) {
-            return;
-        }
-
-        var GuideSize = 8; // 8 * World.Factor;
+        if (automove) { return; }
 
         // Check for auto correction
-        // TODO make guide move backwards if the char hasnt progressed enough
         if (moving[Directions.top] || moving[Directions.bottom]) {
 
-            /// The minimum amount to move for the entity to be on the guide line
-            var toLeftGuide = -my.rect.x % GuideSize;
-            var toRightGuide = toLeftGuide == 0 ? 0 : toLeftGuide + GuideSize;
-
-            // Determine direction of the automove
-            var x = 0;
-            if (moving[Directions.left] || lastReleased == Directions.left) {
-                x = toLeftGuide;
-                x = choose(toLeftGuide, toRightGuide);
+            // The minimum amount to move for the entity to be on the guide line
+            var toLeftGuide = my.rect.x % GuideSize;
+            if (toLeftGuide == 0) {
+                // no correction needed
             }
-            else if (moving[Directions.right] || lastReleased == Directions.right) {
-                x = toRightGuide;
-                x = choose(toRightGuide, toLeftGuide);
+            if (toLeftGuide <= 4) {
+                // move left to guideline
+                setAutoMove(-toLeftGuide, 0, my.speed, Directions.left);
             }
             else {
-                x = absMin(toLeftGuide, toRightGuide);
+                // move right to guideline
+                var toRightGuide = GuideSize - toLeftGuide;
+                setAutoMove(toRightGuide, 0, my.speed, Directions.right);
             }
 
-            //x = absMin(toLeftGuide, toRightGuide);
-
-            if (x != 0) {
-                var direction = Directions.right;
-                if (x < 0) {direction = Directions.left;}
-                setAutoMove(x, 0, my.speed, direction);
-            }
         }
         else if (moving[Directions.left] || moving[Directions.right]) {
 
-            /// The minimum amount to move for the entity to be on the guide line
-            var toTopGuide = -my.rect.y % GuideSize;
-            var toBottomGuide = toTopGuide == 0 ? 0 : toTopGuide + GuideSize;
-
-            // Determine direction of the automove
-            var y = 0;
-            if (moving[Directions.top] || lastReleased == Directions.top) {
-                y = toTopGuide;
-                y = choose(toTopGuide, toBottomGuide);
+            // The minimum amount to move for the entity to be on the guide line
+            var toTopGuide = my.rect.y % GuideSize;
+            if (toTopGuide == 0) {
+                // no correction needed
             }
-            else if (moving[Directions.bottom] || lastReleased == Directions.bottom) {
-                y = toBottomGuide;
-                y = choose(toBottomGuide, toTopGuide);
+            else if (toTopGuide <= 4) {
+                // move up to guideline
+                setAutoMove(0, -toTopGuide, my.speed, Directions.top);
             }
             else {
-                y = absMin(toTopGuide, toBottomGuide);
+                // move down to guideline
+                var toBottomGuide = GuideSize - toTopGuide;
+                setAutoMove(0, toBottomGuide, my.speed, Directions.bottom);
             }
 
-            //y = absMin(toTopGuide, toBottomGuide);
-
-            if (y != 0) {
-                var direction = Directions.bottom;
-                if (y < 0) {direction = Directions.top;}
-                setAutoMove(0, y, my.speed, direction);
-            }
         }
     };
 
