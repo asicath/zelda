@@ -108,8 +108,9 @@ var View = (function() {
         ctx.fillText('max render time:' + max, 0, 40);
 
 
-
-
+        var link = room.entities[0];
+        ctx.fillText('x:' + link.rect.x, 0, 60);
+        ctx.fillText('y:' + link.rect.y, 0, 80);
 
         ctx.restore();
     };

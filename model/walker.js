@@ -13,13 +13,10 @@ var Walker = function() {
     my.speed = 0; //this.speed = Walker.CalculateSpeed(256 * World.Factor, World.TicksPerSecond, seconds);
 
     my.facing = Directions.top;    // Direction  this._facing = Directions.Top;
-    var lastMoved = Directions.top;
-    var moving = {
-        top: false,
-        bottom: false,
-        left: false,
-        right: false
-    };
+
+    var needsCheckAutoMove = false;
+
+    var moving = null; // the current direction that the entity is moving
 
     //var _rectFootPrint; // Rectangle
 
@@ -28,7 +25,7 @@ var Walker = function() {
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
 
-        determineVelocity();
+        determineVelocity(room);
 
         // Mover uses velocity
         executeFrame_parent(room);
@@ -38,34 +35,45 @@ var Walker = function() {
     var attemptMove_parent = my.attemptMove;
     my.attemptMove = function(room, rectNew, xChange, yChange) {
 
-        /* TODO AutoMove
         // Get the new foot print to check for wall intersection
-        var rectFootPrint = getRectFootPrint(rectNew);
+        var footPrint = Rect(rectNew.x, rectNew.y + 8, 16, 8);
 
+        var wall = room.intersectsWall(footPrint);
         // Check for wall intersection
-        var list = room.getIntersectingEntities(rectFootPrint, Entity.EntityType.Wall);
-        if (list.length != 0) {
+        if (wall) {
+
+            switch(moving) {
+                case Directions.top:
+                    my.rect.y = wall.y + 8;
+                    break;
+                case Directions.bottom:
+                    my.rect.y = wall.y - 16;
+                    break;
+                case Directions.left:
+                    my.rect.x = wall.x + 16;
+                    break;
+                case Directions.right:
+                    my.rect.x = wall.x - 16;
+                    break;
+            }
+
+            // make flush with wall, this might not work with push?
+            //my.rect.x = Math.round(my.rect.x);
+            //my.rect.y = Math.round(my.rect.y);
+
             // change the target to be flush with the wall.
-            OnWallEvent(list[0]);
+            //OnWallEvent(list[0]);
             return; //Shouldn't need this
         }
-        */
 
         // no problems, complete move
         attemptMove_parent(room, rectNew, xChange, yChange);
     };
 
-    my.isMoving = function(direction) {
-        return moving[direction];
-    };
-
-    // determine which way the entity is walking if any
-    var getMovingPriority = function() {
-        if (moving[Directions.top]) { return Directions.top; }
-        if (moving[Directions.bottom]) { return Directions.bottom; }
-        if (moving[Directions.left]) { return Directions.left; }
-        if (moving[Directions.right]) { return Directions.right; }
-        return null;
+    my.setMoving = function(direction) {
+        if (direction == moving) return; // no need to double set
+        moving = direction;
+        needsCheckAutoMove = true;
     };
 
 
@@ -73,33 +81,46 @@ var Walker = function() {
         return number && number / Math.abs(number);
     };
 
-    var determineVelocity = function() {
+    var determineVelocity = function(room) {
+
+        if (!automove && needsCheckAutoMove) {
+            checkForAutoMove(room);
+            needsCheckAutoMove = false;
+        }
 
         if (automove) {
 
-            my.velocity.x = absMin(automove.x, automove.speed * sign(automove.x));
-            my.velocity.y = absMin(automove.y, automove.speed * sign(automove.y));
+            // clean up if we are close enough
+            if (Math.abs(automove.y) < 0.001 && Math.abs(automove.x) < 0.001) {
 
-            if (automove.x != 0) {
-                automove.x -= my.velocity.x;
+                my.rect = automove.final;
+                automove = null;
+
+                //my.rect.x = Math.round(my.rect.x);
+                //my.rect.y = Math.round(my.rect.y);
             }
-            if (automove.y != 0) {
-                automove.y -= my.velocity.y;
+            else {
+                my.setFacing(automove.facing);
+
+                my.velocity.x = absMin(automove.x, automove.speed * sign(automove.x));
+                my.velocity.y = absMin(automove.y, automove.speed * sign(automove.y));
+
+                if (automove.x != 0) {
+                    automove.x -= my.velocity.x;
+                }
+                if (automove.y != 0) {
+                    automove.y -= my.velocity.y;
+                }
+
+                return;
             }
 
-            if (automove.y == 0 && automove.x == 0) {automove = null;}
-
-            return;
         }
-
-        // get the direction that we are moving
-        var movingPriority = getMovingPriority();
-        lastMoved = movingPriority || lastMoved;
 
         // Process move normally
         my.velocity.x = 0;
         my.velocity.y = 0;
-        switch (movingPriority) {
+        switch (moving) {
             case Directions.left:
                 my.setFacing(Directions.left);
                 my.velocity.x = -my.speed;
@@ -124,70 +145,112 @@ var Walker = function() {
         my.facing = direction;
     };
 
-    my.startMoving = function(direction) {
-        console.log("start move: " + direction);
-        if (moving[direction]) {
-            console.log("Already moving " + direction);
-            return;
-        }
-        moving[direction] = true;
-        checkForAutoMove();
-    };
 
-    my.endMoving = function(direction) {
-        console.log("end move: " + direction);
-        if (!moving[direction]) {
-            console.log("Not moving " + direction);
-            return;
-        }
-        moving[direction] = false;
-        checkForAutoMove();
-    };
 
 
     // ******* Auto move
     var GuideSize = 8; // 8 * World.Factor;
 
-    var checkForAutoMove = function() {
+    // TODO Check to see if proposed automove position intersects with wall, take other route if so
+    var checkForAutoMove = function(room) {
 
         // Already auto moving, ignore
         if (automove) { return; }
 
+        var proposed, intersects;
+
         // Check for auto correction
-        if (moving[Directions.top] || moving[Directions.bottom]) {
+        if (moving == Directions.top || moving == Directions.bottom) {
 
             // The minimum amount to move for the entity to be on the guide line
             var toLeftGuide = my.rect.x % GuideSize;
             if (toLeftGuide == 0) {
                 // no correction needed
+                return;
             }
-            if (toLeftGuide <= 4) {
+
+            var toRightGuide = GuideSize - toLeftGuide;
+
+            // check to make sure it is valid
+            var rectLeft = Rect(Math.round(my.rect.x - toLeftGuide), my.rect.y, my.rect.width, my.rect.height);
+            var rectRight = Rect(Math.round(my.rect.x + toRightGuide), my.rect.y, my.rect.width, my.rect.height);
+
+            var intersectsLeft = room.intersectsWall(rectLeft);
+            var intersectsRight = room.intersectsWall(rectRight);
+
+            if (intersectsLeft && intersectsRight) {
+                console.log("Invalid leftRightMove");
+                return;
+            }
+
+            var goLeft = false;
+            if (intersectsLeft) {
+                goLeft = false;
+            }
+            else if (intersectsRight) {
+                goLeft = true;
+            }
+            else {
+                // both are valid, favor lesser movement amount
+                goLeft = toLeftGuide <= 4;
+            }
+
+            if (goLeft) {
                 // move left to guideline
-                setAutoMove(-toLeftGuide, 0, my.speed, Directions.left);
+                setAutoMove(-toLeftGuide, 0, my.speed, Directions.left, rectLeft);
             }
             else {
                 // move right to guideline
-                var toRightGuide = GuideSize - toLeftGuide;
-                setAutoMove(toRightGuide, 0, my.speed, Directions.right);
+                setAutoMove(toRightGuide, 0, my.speed, Directions.right, rectRight);
             }
 
         }
-        else if (moving[Directions.left] || moving[Directions.right]) {
+        else if (moving == Directions.left || moving == Directions.right) {
 
             // The minimum amount to move for the entity to be on the guide line
             var toTopGuide = my.rect.y % GuideSize;
             if (toTopGuide == 0) {
                 // no correction needed
+                return;
             }
-            else if (toTopGuide <= 4) {
+
+            var toBottomGuide = GuideSize - toTopGuide;
+
+            var rectTop = Rect(my.rect.x, Math.round(my.rect.y - toTopGuide), my.rect.width, my.rect.height);
+            var rectBottom = Rect(my.rect.x, Math.round(my.rect.y + toBottomGuide), my.rect.width, my.rect.height);
+
+            var intersectsTop = room.intersectsWall(rectTop);
+            var intersectsBottom = room.intersectsWall(rectBottom);
+
+            var goTop = false;
+
+            if (intersectsTop && intersectsBottom) {
+                console.log("invalidTopBottom");
+                return;
+            }
+
+            if (intersectsTop) {
+                goTop = false;
+            }
+            else if (intersectsBottom) {
+                goTop = true;
+            }
+            else {
+                // both are valid, favor lesser movement amount
+                goTop = toTopGuide <= 4;
+            }
+
+
+            //finalize one way or the other
+            if (goTop) {
                 // move up to guideline
-                setAutoMove(0, -toTopGuide, my.speed, Directions.top);
+                setAutoMove(0, -toTopGuide, my.speed, Directions.top, rectTop);
             }
             else {
                 // move down to guideline
-                var toBottomGuide = GuideSize - toTopGuide;
-                setAutoMove(0, toBottomGuide, my.speed, Directions.bottom);
+                setAutoMove(0, toBottomGuide, my.speed, Directions.bottom, rectBottom);
             }
+
 
         }
     };
@@ -199,14 +262,14 @@ var Walker = function() {
         return b;
     };
 
-    var setAutoMove = function(x, y, speed, direction) {
+    var setAutoMove = function(x, y, speed, direction, final) {
         automove = {
             x: x,
             y: y,
             speed: speed,
-            facing: direction
+            facing: direction,
+            final: final
         };
-        this.facing = direction; //remove this eventually...
     };
 
 
@@ -214,12 +277,6 @@ var Walker = function() {
 };
 
 /*
-
-static protected int CalculateSpeed(int pixels, double ticksPerSecond, double seconds) {
-    double ticks = ticksPerSecond * seconds;
-    double pixelsPerTick = (double)pixels / ticks;
-    return (int)Math.Floor(pixelsPerTick);
-}
 
 public Rectangle getRectFootPrint() {
     return getRectFootPrint(this.rect);
@@ -231,60 +288,11 @@ public Rectangle getRectFootPrint(Rectangle rectPos) {
 }
 
 
-
-
-#region Facing
-
-public delegate void FacingChangeEventHandler(Direction direction);
-public event FacingChangeEventHandler FacingChangeEvent;
-
-public Direction facing {
-    get { return this._facing; }
-    set {
-        if (this._facing == value) {return;} // Ignore if already facing
-        this._facing = value;
-        OnFacingChange(this._facing);
-    }
-}
-
-private void OnFacingChange(Direction direction) {
-    if (FacingChangeEvent != null) {
-        FacingChangeEvent(direction);
-    }
-}
-
-#endregion
-
-
-#region WallEvent
-
-public delegate void WallEventHandler(Wall wall);
-public event WallEventHandler WallEvent;
-
 private void OnWallEvent(Wall wall) {
     if (WallEvent != null) {
         WallEvent(wall);
     }
 }
-
-#endregion
-
-
-#region MovingControls
-
-
-
-private int movingCount {
-    get {
-        int count = 0;
-        if (this.moving[Directions.Top]) { count++; }
-        if (this.moving[Directions.Bottom]) { count++; }
-        if (this.moving[Directions.Left]) { count++; }
-        if (this.moving[Directions.Right]) { count++; }
-        return count;
-    }
-}
-
 
 
 public void push(Direction direction, int distance, int speed) {
@@ -307,30 +315,6 @@ public void push(Direction direction, int distance, int speed) {
 
     this.setAutoMove(x, y, speed, this.facing);
 }
-
-
-
-public void endMoving() {
-    this.moving[Directions.Top] = false;
-    this.moving[Directions.Bottom] = false;
-    this.moving[Directions.Left] = false;
-    this.moving[Directions.Right] = false;
-}
-
-
-
-
-
-#endregion
-
-
-#region Velocity
-
-
-
-
-
-#endregion
 
 
 

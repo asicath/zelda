@@ -49,7 +49,7 @@ var PlayerEntity = function() {
         return my.sprites[my.spriteIndex + linkStep];
     };
 
-
+    
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
     var swapStepCount = 0;
@@ -68,36 +68,92 @@ var PlayerEntity = function() {
 
     var flashing = false;
 
+
+
+    var moving = {
+        top: false,
+        bottom: false,
+        left: false,
+        right: false
+    };
+
+    // determine which way the entity is walking if any
+    var getMovingPriority = function() {
+        if (moving[Directions.top]) { return Directions.top; }
+        if (moving[Directions.bottom]) { return Directions.bottom; }
+        if (moving[Directions.left]) { return Directions.left; }
+        if (moving[Directions.right]) { return Directions.right; }
+        return null;
+    };
+
+    var startMoving = function(direction) {
+        //console.log("start move: " + direction);
+        if (moving[direction]) {
+            console.log("Already moving " + direction);
+            return;
+        }
+        moving[direction] = true;
+        my.setMoving(getMovingPriority());
+    };
+
+    var endMoving = function(direction) {
+        //console.log("end move: " + direction);
+        if (!moving[direction]) {
+            console.log("Not moving " + direction);
+            return;
+        }
+        moving[direction] = false;
+        my.setMoving(getMovingPriority());
+    };
+
+    /*
+
+     private int movingCount {
+     get {
+     int count = 0;
+     if (this.moving[Directions.Top]) { count++; }
+     if (this.moving[Directions.Bottom]) { count++; }
+     if (this.moving[Directions.Left]) { count++; }
+     if (this.moving[Directions.Right]) { count++; }
+     return count;
+     }
+     }
+
+     */
+
+
+
+
     var checkInput = function() {
 
 
 
-        if (playerInput.up && !my.isMoving(Directions.top)) {
-            my.startMoving(Directions.top);
+        if (playerInput.up && !moving[Directions.top]) {
+            startMoving(Directions.top);
         }
-        else if (!playerInput.up && my.isMoving(Directions.top)) {
-            my.endMoving(Directions.top);
-        }
-
-        if (playerInput.down && !my.isMoving(Directions.bottom)) {
-            my.startMoving(Directions.bottom);
-        }
-        else if (!playerInput.down && my.isMoving(Directions.bottom)) {
-            my.endMoving(Directions.bottom);
+        else if (!playerInput.up && moving[Directions.top]) {
+            endMoving(Directions.top);
         }
 
-        if (playerInput.left && !my.isMoving(Directions.left)) {
-            my.startMoving(Directions.left);
+        if (playerInput.down && !moving[Directions.bottom]) {
+            startMoving(Directions.bottom);
         }
-        else if (!playerInput.left && my.isMoving(Directions.left)) {
-            my.endMoving(Directions.left);
+        else if (!playerInput.down && moving[Directions.bottom]) {
+            endMoving(Directions.bottom);
         }
 
-        if (playerInput.right && !my.isMoving(Directions.right)) {
-            my.startMoving(Directions.right);
+        if (playerInput.left && !moving[Directions.left]) {
+            startMoving(Directions.left);
         }
-        else if (!playerInput.right && my.isMoving(Directions.right)) {
-            my.endMoving(Directions.right);
+        else if (!playerInput.left && moving[Directions.left]) {
+            endMoving(Directions.left);
+        }
+
+        if (playerInput.right && !moving[Directions.right]) {
+            startMoving(Directions.right);
+        }
+        else if (!playerInput.right && moving[Directions.right]) {
+            endMoving(Directions.right);
         }
 
 
