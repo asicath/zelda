@@ -9,6 +9,10 @@ var Mover = function() {
 
     my.velocity = { x: 0, y: 0 };
 
+    my.hasVelocity = function() {
+        return my.velocity.x != 0 || my.velocity.y != 0;
+    };
+
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
         executeFrame_parent(room);
@@ -61,16 +65,16 @@ var Mover = function() {
     /// </summary>
     var isOffEdge = function(room, rect) {
         if (rect.x < 0) {
-            return Direction.Left;
+            return Directions.left;
         }
         if (rect.y < 0) {
-            return Direction.Top;
+            return Directions.top;
         }
         if (rect.x + rect.width >= room.rect.width) {
-            return Direction.Right;
+            return Directions.right;
         }
         if (rect.y + rect.height >= room.rect.height) {
-            return Direction.Bottom;
+            return Directions.bottom;
         }
         return null;
     };

@@ -14,6 +14,8 @@ loadSprites('assets/outside.gif', function(outsideSprites) {
 
             startDraw(room);
 
+            gamepadSupport.init();
+
         });
     });
 });

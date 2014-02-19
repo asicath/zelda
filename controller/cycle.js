@@ -59,6 +59,8 @@ var startDraw = function(room, sprites, linkSprites) {
     // cycle initiating model frames events and view drawing
     function animate() {
 
+        gamepadSupport.pollStatus();
+
         // setup the next frame draw
         requestAnimFrame( animate );
 

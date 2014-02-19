@@ -1,13 +1,8 @@
 
 var PlayerEntity = function() {
-    var my = Mover();
+    var my = Walker();
 
-    my.rect = {
-        x: 128,
-        y: 88,
-        width: 16,
-        height: 16
-    };
+    my.rect = Rect(128, 88, 16, 16);
 
     my.sprites = Sprites.link;
     my.spriteIndex = 0;
@@ -19,9 +14,35 @@ var PlayerEntity = function() {
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
         checkInput();
+
+        // Walker uses input
         executeFrame_parent(room);
 
+        if (my.hasVelocity()) {
+            swapStep();
+        }
 
+    };
+
+    var setFacing_parent = my.setFacing;
+    my.setFacing = function(direction) {
+        setFacing_parent(direction);
+
+        // change sprite
+        switch (direction) {
+            case Directions.top:
+                my.spriteIndex = 0;
+                break;
+            case Directions.bottom:
+                my.spriteIndex = 3;
+                break;
+            case Directions.left:
+                my.spriteIndex = 6;
+                break;
+            case Directions.right:
+                my.spriteIndex = 9;
+                break;
+        }
     };
 
     my.getSprite = function() {
@@ -30,7 +51,7 @@ var PlayerEntity = function() {
 
 
 
-    var speed = 80/60; // can move 80 pixels in 1s or 60 frames
+    my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
     var swapStepCount = 0;
 
@@ -50,36 +71,36 @@ var PlayerEntity = function() {
 
     var checkInput = function() {
 
-        my.velocity.x = 0;
-        my.velocity.y = 0;
 
-        if (playerInput.up) {
-            //my.rect.y -= speed;
-            my.velocity.y = -speed;
-            my.spriteIndex = 0;
-            swapStep();
+
+        if (playerInput.up && !my.isMoving(Directions.top)) {
+            my.startMoving(Directions.top);
+        }
+        else if (!playerInput.up && my.isMoving(Directions.top)) {
+            my.endMoving(Directions.top);
         }
 
-        else if (playerInput.down) {
-            //my.rect.y += speed;
-            my.velocity.y = speed;
-            my.spriteIndex = 3;
-            swapStep();
+        if (playerInput.down && !my.isMoving(Directions.bottom)) {
+            my.startMoving(Directions.bottom);
+        }
+        else if (!playerInput.down && my.isMoving(Directions.bottom)) {
+            my.endMoving(Directions.bottom);
         }
 
-        else if (playerInput.left) {
-            //my.rect.x -= speed;
-            my.velocity.x = -speed;
-            my.spriteIndex = 6;
-            swapStep();
+        if (playerInput.left && !my.isMoving(Directions.left)) {
+            my.startMoving(Directions.left);
+        }
+        else if (!playerInput.left && my.isMoving(Directions.left)) {
+            my.endMoving(Directions.left);
         }
 
-        else if (playerInput.right) {
-            //my.rect.x += speed;
-            my.velocity.x = speed;
-            my.spriteIndex = 9;
-            swapStep();
+        if (playerInput.right && !my.isMoving(Directions.right)) {
+            my.startMoving(Directions.right);
         }
+        else if (!playerInput.right && my.isMoving(Directions.right)) {
+            my.endMoving(Directions.right);
+        }
+
 
 
         if (playerInput.flash) {

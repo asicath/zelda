@@ -10,8 +10,10 @@ var Directions = {
 var Walker = function() {
     var my = Mover();
 
-    var speed; //this.speed = Walker.CalculateSpeed(256 * World.Factor, World.TicksPerSecond, seconds);
-    var _facing = Directions.top;    // Direction  this._facing = Direction.Top;
+    my.speed = 0; //this.speed = Walker.CalculateSpeed(256 * World.Factor, World.TicksPerSecond, seconds);
+
+    my.facing = Directions.top;    // Direction  this._facing = Directions.Top;
+    var lastReleased = Directions.top;
     var moving = {
         top: false,
         bottom: false,
@@ -19,32 +21,22 @@ var Walker = function() {
         right: false
     };
 
-    var xAutoMove = 0;
-    var yAutoMove = 0;
-    var autoMoveSpeed = 0;
-    var lastReleased = Directions.top;
+    //var _rectFootPrint; // Rectangle
 
-    var _rectFootPrint; // Rectangle
-
+    var automove = null;
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
-        executeFrame_parent(room);
 
-        /* TODO AutoMove
-        // Process automove clean up
-        if (xAutoMove != 0) {
-            xAutoMove -= xVelocityAuto;
-        }
-        if (yAutoMove != 0) {
-            yAutoMove -= yVelocityAuto;
-        }
-        */
+        determineVelocity();
+
+        // Mover uses velocity
+        executeFrame_parent(room);
 
     };
 
     var attemptMove_parent = my.attemptMove;
-    var attemptMove = function(room, rectNew, xChange, yChange) {
+    my.attemptMove = function(room, rectNew, xChange, yChange) {
 
         /* TODO AutoMove
         // Get the new foot print to check for wall intersection
@@ -63,78 +55,204 @@ var Walker = function() {
         attemptMove_parent(room, rectNew, xChange, yChange);
     };
 
-    my.xVelocity = function() {
+    my.isMoving = function(direction) {
+        return moving[direction];
+    };
 
-        /* TODO AutoMove
-        // Return the auto v
-        if (xVelocityAuto != 0) {
-            return xVelocityAuto;
+    // determine which way the entity is walking if any
+    var getMovingPriority = function() {
+        if (moving[Directions.top]) { return Directions.top; }
+        if (moving[Directions.bottom]) { return Directions.bottom; }
+        if (moving[Directions.left]) { return Directions.left; }
+        if (moving[Directions.right]) { return Directions.right; }
+        return null;
+    };
+
+
+    var sign = function(number) {
+        return number && number / Math.abs(number);
+    };
+
+    var determineVelocity = function() {
+
+        if (automove) {
+
+            my.velocity.x = absMin(automove.x, automove.speed * sign(automove.x));
+            my.velocity.y = absMin(automove.y, automove.speed * sign(automove.y));
+
+            if (automove.x != 0) {
+                automove.x -= my.velocity.x;
+            }
+            if (automove.y != 0) {
+                automove.y -= my.velocity.y;
+            }
+
+            //if (automove.y < 0.001 && automove.y > -0.001 && automove.x < 0.001 && automove.x > -0.001) {automove = null;}
+
+            if (automove.y == 0 && automove.x == 0) {automove = null;}
+
+            return;
         }
 
-        // No xVelocity if yAutoMoving
-        if (this.yAutoMove != 0) { return 0; }
-        */
+        // get the direction that we are moving
+        var movingPriority = getMovingPriority();
 
         // Process move normally
-        switch (this.movingPriority) {
-            case Direction.Left:
-                this.facing = Direction.Left;
-                return -speed;
-            case Direction.Right:
-                this.facing = Direction.Right;
-                return speed;
+        my.velocity.x = 0;
+        my.velocity.y = 0;
+        switch (movingPriority) {
+            case Directions.left:
+                my.setFacing(Directions.left);
+                my.velocity.x = -my.speed;
+                break;
+            case Directions.right:
+                my.setFacing(Directions.right);
+                my.velocity.x = my.speed;
+                break;
+            case Directions.top:
+                my.setFacing(Directions.top);
+                my.velocity.y = -my.speed;
+                break;
+            case Directions.bottom:
+                my.setFacing(Directions.bottom);
+                my.velocity.y = my.speed;
+                break;
         }
-        return 0;
+
     };
 
-    my.yVelocity = function() {
-
-        /* TODO AutoMove
-        // Return the auto v
-        if (yVelocityAuto != 0) {
-            return yVelocityAuto;
-        }
-
-        // No xVelocity if yAutoMoving
-        if (this.xAutoMove != 0) { return 0; }
-        */
-
-        // Move normally
-        switch (this.movingPriority) {
-            case Direction.Top:
-                this.facing = Direction.Top;
-                return -speed;
-            case Direction.Bottom:
-                this.facing = Direction.Bottom;
-                return speed;
-        }
-        return 0;
+    my.setFacing = function(direction) {
+        my.facing = direction;
     };
 
+    my.startMoving = function(direction) {
+        console.log("start move: " + direction);
+        if (moving[direction]) {
+            console.log("Already moving " + direction);
+            return;
+        }
+        moving[direction] = true;
+        //checkForAutoMove();
+    };
+
+    my.endMoving = function(direction) {
+        console.log("end move: " + direction);
+        if (!moving[direction]) {
+            console.log("Not moving " + direction);
+            return;
+        }
+        moving[direction] = false;
+        lastReleased = direction;
+        //checkForAutoMove();
+    };
+
+
+    // ******* Auto move
+
+    var choose = function(favor, other) {
+        return favor;
+        //return favor * 1 < other ? favor : other;
+    };
+
+    var checkForAutoMove = function() {
+
+        return;
+
+        // Already auto moving, ignore
+        if (automove) {
+            return;
+        }
+
+        var GuideSize = 8; // 8 * World.Factor;
+
+        // Check for auto correction
+        // TODO make guide move backwards if the char hasnt progressed enough
+        if (moving[Directions.top] || moving[Directions.bottom]) {
+
+            /// The minimum amount to move for the entity to be on the guide line
+            var toLeftGuide = -my.rect.x % GuideSize;
+            var toRightGuide = toLeftGuide == 0 ? 0 : toLeftGuide + GuideSize;
+
+            // Determine direction of the automove
+            var x = 0;
+            if (moving[Directions.left] || lastReleased == Directions.left) {
+                x = toLeftGuide;
+                x = choose(toLeftGuide, toRightGuide);
+            }
+            else if (moving[Directions.right] || lastReleased == Directions.right) {
+                x = toRightGuide;
+                x = choose(toRightGuide, toLeftGuide);
+            }
+            else {
+                x = absMin(toLeftGuide, toRightGuide);
+            }
+
+            //x = absMin(toLeftGuide, toRightGuide);
+
+            if (x != 0) {
+                var direction = Directions.right;
+                if (x < 0) {direction = Directions.left;}
+                setAutoMove(x, 0, my.speed, direction);
+            }
+        }
+        else if (moving[Directions.left] || moving[Directions.right]) {
+
+            /// The minimum amount to move for the entity to be on the guide line
+            var toTopGuide = -my.rect.y % GuideSize;
+            var toBottomGuide = toTopGuide == 0 ? 0 : toTopGuide + GuideSize;
+
+            // Determine direction of the automove
+            var y = 0;
+            if (moving[Directions.top] || lastReleased == Directions.top) {
+                y = toTopGuide;
+                y = choose(toTopGuide, toBottomGuide);
+            }
+            else if (moving[Directions.bottom] || lastReleased == Directions.bottom) {
+                y = toBottomGuide;
+                y = choose(toBottomGuide, toTopGuide);
+            }
+            else {
+                y = absMin(toTopGuide, toBottomGuide);
+            }
+
+            //y = absMin(toTopGuide, toBottomGuide);
+
+            if (y != 0) {
+                var direction = Directions.bottom;
+                if (y < 0) {direction = Directions.top;}
+                setAutoMove(0, y, my.speed, direction);
+            }
+        }
+    };
+
+    var absMin = function(a, b) {
+        if (Math.abs(a) < Math.abs(b)) {
+            return a;
+        }
+        return b;
+    };
+
+    var setAutoMove = function(x, y, speed, direction) {
+        automove = {
+            x: x,
+            y: y,
+            speed: speed,
+            facing: direction
+        };
+        this.facing = direction; //remove this eventually...
+    };
 
 
     return my;
 };
 
 /*
-static private int GuideSize = 8 * World.Factor;
-
-static public int AbsMin(int a, int b) {
-    if (Math.Abs(a) < Math.Abs(b)) {
-        return a;
-    }
-    return b;
-}
 
 static protected int CalculateSpeed(int pixels, double ticksPerSecond, double seconds) {
     double ticks = ticksPerSecond * seconds;
     double pixelsPerTick = (double)pixels / ticks;
     return (int)Math.Floor(pixelsPerTick);
 }
-
-
-
-
 
 public Rectangle getRectFootPrint() {
     return getRectFootPrint(this.rect);
@@ -187,55 +305,35 @@ private void OnWallEvent(Wall wall) {
 
 #region MovingControls
 
-public void startMoving(Direction direction) {
-    if (this.moving[direction]) {
-        throw new Exception("Already moving " + direction.ToString());
-    }
-    this.moving[direction] = true;
-    checkForAutoMove();
-}
 
-public void endMoving(Direction direction) {
-    if (!this.moving[direction]) {
-        throw new Exception("Not moving " + direction.ToString());
-    }
-    this.moving[direction] = false;
-    lastReleased = direction;
-    checkForAutoMove();
-}
 
 private int movingCount {
     get {
         int count = 0;
-        if (this.moving[Direction.Top]) { count++; }
-        if (this.moving[Direction.Bottom]) { count++; }
-        if (this.moving[Direction.Left]) { count++; }
-        if (this.moving[Direction.Right]) { count++; }
+        if (this.moving[Directions.Top]) { count++; }
+        if (this.moving[Directions.Bottom]) { count++; }
+        if (this.moving[Directions.Left]) { count++; }
+        if (this.moving[Directions.Right]) { count++; }
         return count;
     }
 }
 
-public void setAutoMove(int x, int y, int speed, Direction direction) {
-    this.xAutoMove = x;
-    this.yAutoMove = y;
-    this.autoMoveSpeed = speed;
-    this.facing = direction;
-}
+
 
 public void push(Direction direction, int distance, int speed) {
     int x = 0;
     int y = 0;
     switch (direction) {
-        case Direction.Top:
+        case Directions.Top:
             y = -distance;
             break;
-        case Direction.Bottom:
+        case Directions.Bottom:
             y = distance;
             break;
-        case Direction.Left:
+        case Directions.Left:
             x = -distance;
             break;
-        case Direction.Right:
+        case Directions.Right:
             x = distance;
             break;
     }
@@ -243,74 +341,18 @@ public void push(Direction direction, int distance, int speed) {
     this.setAutoMove(x, y, speed, this.facing);
 }
 
-protected void checkForAutoMove() {
 
-    // Already auto moving, ignore
-    if (xAutoMove != 0 || yAutoMove != 0) {
-        return;
-    }
-
-    //Check for auto correction
-    if (this.moving[Direction.Top] || this.moving[Direction.Bottom]) {
-
-        // Determine direction of the automove
-        int x = 0;
-        if (this.moving[Direction.Left] || lastReleased == Direction.Left) {
-            x = this.toLeftGuide;
-        }
-        else if (this.moving[Direction.Right] || lastReleased == Direction.Right) {
-            x = this.toRightGuide;
-        }
-        else {
-            x = this.xCorrect;
-        }
-
-        if (x != 0) {
-            Direction direction = Direction.Right;
-            if (x < 0) {direction = Direction.Left;}
-            this.setAutoMove(x, 0, this.speed, direction);
-        }
-    }
-    else if (this.moving[Direction.Left] || this.moving[Direction.Right]) {
-
-        // Determine direction of the automove
-        int y = 0;
-        if (this.moving[Direction.Top] || lastReleased == Direction.Top) {
-            y = this.toTopGuide;
-        }
-        else if (this.moving[Direction.Bottom] || lastReleased == Direction.Bottom) {
-            y = this.toBottomGuide;
-        }
-        else {
-            y = this.yCorrect;
-        }
-
-        if (y != 0) {
-            Direction direction = Direction.Bottom;
-            if (y < 0) {direction = Direction.Top;}
-            this.setAutoMove(0, y, this.speed, direction);
-        }
-    }
-}
 
 public void endMoving() {
-    this.moving[Direction.Top] = false;
-    this.moving[Direction.Bottom] = false;
-    this.moving[Direction.Left] = false;
-    this.moving[Direction.Right] = false;
+    this.moving[Directions.Top] = false;
+    this.moving[Directions.Bottom] = false;
+    this.moving[Directions.Left] = false;
+    this.moving[Directions.Right] = false;
 }
 
 
 
-public Direction movingPriority {
-    get {
-        if (this.moving[Direction.Top]) {return Direction.Top;}
-        if (this.moving[Direction.Bottom]) { return Direction.Bottom; }
-        if (this.moving[Direction.Left]) { return Direction.Left; }
-        if (this.moving[Direction.Right]) { return Direction.Right; }
-        return Direction.None;
-    }
-}
+
 
 #endregion
 
@@ -319,70 +361,10 @@ public Direction movingPriority {
 
 
 
-protected int xVelocityAuto {
-    get {
-        if (xAutoMove != 0) {
-            return AbsMin(this.xAutoMove, this.autoMoveSpeed * Math.Sign(xAutoMove));
-        }
-        return 0;
-    }
-}
 
-protected int yVelocityAuto {
-    get {
-        if (yAutoMove != 0) {
-            return AbsMin(this.yAutoMove, this.autoMoveSpeed * Math.Sign(yAutoMove));
-        }
-        return 0;
-    }
-}
 
 #endregion
 
 
-#region FindGuide
 
-/// <summary>
-/// The minimum amount to move for the entity to be on the guide line
-/// </summary>
-private int xCorrect {
-    get {
-        return Walker.AbsMin(toLeftGuide, toRightGuide);
-    }
-}
-private int toLeftGuide {
-    get {
-        return -this.rect.X % Walker.GuideSize;
-    }
-}
-private int toRightGuide {
-    get {
-        int v = this.toLeftGuide;
-        if (v == 0) { return 0; }
-        return Walker.GuideSize + v;
-    }
-}
-
-/// <summary>
-/// The minimum amount to move for the entity to be on the guide line
-/// </summary>
-private int yCorrect {
-    get {
-        return Walker.AbsMin(toTopGuide, toBottomGuide);
-    }
-}
-private int toTopGuide {
-    get {
-        return -this.rect.Y % Walker.GuideSize;
-    }
-}
-private int toBottomGuide {
-    get {
-        int v = this.toTopGuide;
-        if (v == 0) {return 0;}
-        return Walker.GuideSize + v;
-    }
-}
-
-#endregion
 */
