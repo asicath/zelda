@@ -10,6 +10,9 @@ var drawRoom = function(room, sprites, linkSprites) {
     var canvas = document.getElementById('img');
 
     if (!room.sizedImage) {
+
+        //var start = new Date();
+
         var virtualWidth = 256;
         var virtualHeight = 176;
 
@@ -24,7 +27,7 @@ var drawRoom = function(room, sprites, linkSprites) {
         console.log(factor);
 
         // Create the virtual screen
-        var upscaleFactor = Math.ceil(factor); // must be integer
+        var upscaleFactor = 4; // Math.ceil(factor); // must be integer
         var buffer = document.createElement('canvas');
         buffer.width = virtualWidth * upscaleFactor;
         buffer.height = virtualHeight * upscaleFactor;
@@ -39,7 +42,8 @@ var drawRoom = function(room, sprites, linkSprites) {
             i++;
         }
 
-
+        console.log(new Date() - start);
+        var start = new Date();
 
 
         // downscale to exact screen size
@@ -52,6 +56,9 @@ var drawRoom = function(room, sprites, linkSprites) {
 
 
         room.sizedImage = resize;
+
+        console.log(new Date() - start);
+        var start = new Date();
     }
 
 
@@ -73,20 +80,82 @@ var drawRoom = function(room, sprites, linkSprites) {
     drawSprite(ctx, factor, linkSprites[linkI + linkStep], linkX, linkY, Palates.LinkGreen);
 
 
-    var renderTime = new Date() - start;
-    ctx.font = '20pt Calibri';
+    renderTime[renderIndex] = new Date() - start;
+    renderIndex = (renderIndex + 1) % 60;
+
+    ctx.font = '10pt Calibri';
     ctx.fillStyle = 'white';
     ctx.fillText('frame count:' + frameCount++, 0, 20);
-    ctx.fillText('render time:' + renderTime, 0, 40);
+    var max = -1;
+    for (var i = 0; i < renderTime.length; i++) {
+        if (max < renderTime[i]) max = renderTime[i];
+    }
+
+    ctx.fillText('max render time:' + max, 0, 40);
 
     ctx.restore();
 };
+
+var renderTime = [];
+var renderIndex = 0;
 
 var frameCount = 0;
 
 
 var drawSprite = function(ctx, pixelScale, sprite, x, y, palate) {
 
+    if (!sprite.cache) sprite.cache = {};
+
+    var key = pixelScale.toString();
+
+    if (!sprite.cache[key]) {
+        var pixelScaleUp = Math.ceil(pixelScale);
+
+        if (pixelScale == pixelScaleUp) {
+            // direct draw, no need to upscale
+            sprite.cache[key] = createSpriteCanvas(pixelScale, sprite, palate);
+        }
+        else {
+            // get the upscaled image
+            var upscaleKey = pixelScaleUp.toString();
+            sprite.cache[upscaleKey] = createSpriteCanvas(pixelScaleUp, sprite, palate);
+
+            // now downscale
+            var img = document.createElement('canvas');
+            img.width = Math.ceil(sprite.width * pixelScale);
+            img.height = Math.ceil(sprite.height * pixelScale);
+            var context = img.getContext('2d');
+
+            context.drawImage(sprite.cache[upscaleKey], 0, 0, sprite.width * pixelScale, sprite.height * pixelScale);
+
+            sprite.cache[key] = img;
+        }
+
+
+    }
+
+    // Draw the cached image
+    ctx.drawImage(sprite.cache[key], x * pixelScale, y * pixelScale);
+
+};
+
+
+// Return a canvas object with the sprite rendered to it
+var createSpriteCanvas = function(pixelScale, sprite, palate) {
+    var img = document.createElement('canvas');
+    img.width = sprite.width * pixelScale;
+    img.height = sprite.height * pixelScale;
+    var context = img.getContext('2d');
+
+    // do the actual rendering of the pixels
+    drawSpriteFromPixels(context, pixelScale, sprite, palate);
+
+    return img;
+};
+
+
+// Draw the raw pixels of a sprite to the specified canvas context
+var drawSpriteFromPixels = function(ctx, pixelScale, sprite, palate) {
     var i = 0;
     while (i < sprite.pixels.length) {
 
@@ -94,15 +163,14 @@ var drawSprite = function(ctx, pixelScale, sprite, x, y, palate) {
 
         ctx.fillStyle = p.getColor(palate);
         ctx.fillRect(
-            x * pixelScale + p.x * pixelScale,
-            y * pixelScale + p.y * pixelScale,
+            p.x * pixelScale,
+            p.y * pixelScale,
             pixelScale,
             pixelScale
         );
 
         i++;
     }
-
 };
 
 $(document).on('keypress', function(e1, e2, e3) {
@@ -136,15 +204,50 @@ var fullscreen = function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+// requestAnim shim layer by Paul Irish
+window.requestAnimFrame = ( function() {
+    return  window.requestAnimationFrame       ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        window.oRequestAnimationFrame      ||
+        window.msRequestAnimationFrame     ||
+        function (
+            /* function */ callback,
+            /* DOMElement */ element) {
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();
+
+
 loadSprites('outside.gif', function(sprites) {
     loadSprites('link.gif', function(linkSprites) {
 
         $.getJSON('ow07-06.js').done(function(room) {
 
             fullscreen();
-            setInterval(function() {
+
+            //setInterval(function() {
+            //    drawRoom(room, sprites, linkSprites);
+            //}, 17);
+
+            function animate() {
+                requestAnimFrame( animate );
                 drawRoom(room, sprites, linkSprites);
-            }, 17);
+            }
+
+            animate();
+
+
 
             $(window).resize(function() {
                 fullscreen();
@@ -157,3 +260,13 @@ loadSprites('outside.gif', function(sprites) {
         });
     });
 });
+
+
+
+
+
+
+
+
+
+
