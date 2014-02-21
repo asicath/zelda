@@ -1,5 +1,5 @@
 
-var loadSprites = function(imgUrl, success) {
+var loadSprites = function(imgUrl, map, success) {
 
     var img = new Image();
     img.src = imgUrl;
@@ -15,13 +15,30 @@ var loadSprites = function(imgUrl, success) {
         ctx.drawImage(img, 0, 0, img.width, img.height);
 
         var sprites = [];
-        var xStart = 0;
 
-        while (xStart < img.width) {
+
+        if (!map) {
+            var xStart = 0;
+            map = [];
+            while (xStart < img.width) {
+                map.push({
+                    x: xStart,
+                    y: 0,
+                    width: 16,
+                    height: 16
+                });
+                xStart += 16;
+            }
+        }
+
+        for (var j = 0; j < map.length; j++) {
+
+            var info = map[j];
+
             // Look at the pixels
-            var pixelData = ctx.getImageData(xStart, 0, 16, 16).data;
+            var pixelData = ctx.getImageData(info.x, info.y, info.width, info.height).data;
 
-            var sprite = Sprite(16, 16);
+            var sprite = Sprite(info.width, info.height);
 
             var i = 0;
             while (i < pixelData.length) {
@@ -48,7 +65,7 @@ var loadSprites = function(imgUrl, success) {
 
             sprites.push(sprite);
 
-            xStart += 16;
+
         }
 
         success(sprites);

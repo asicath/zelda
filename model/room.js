@@ -7,7 +7,7 @@ var loadRoom = function(filename, success) {
         // setup demo room
 
         // create the player and add
-        room.entities.push(PlayerWalker());
+        room.entities.push(Player());
 
         // Create a random walk monster and add
         room.entities.push(RandomWalker());
@@ -16,6 +16,7 @@ var loadRoom = function(filename, success) {
 
         room.entities[3].palette = Palettes.MonsterBlue;
 
+        //room.entities.push(Sword());
 
         success(room);
 
@@ -27,6 +28,8 @@ var loadRoom = function(filename, success) {
 
 var Room = function(data) {
     var my = {};
+
+    my.removeAfterFrame = [];
 
     my.tiles = data.tiles;
 
@@ -44,10 +47,25 @@ var Room = function(data) {
 
         // do room stuff
 
+
         // do entities
         for (var i = my.entities.length-1; i >= 0; i--) {
             my.entities[i].executeFrame(my);
         }
+
+        // After frame stuff
+        while (my.removeAfterFrame.length) {
+            var entity = my.removeAfterFrame.pop();
+            var a = [];
+            for (var i = 0; i < my.entities.length; i++) {
+                if (my.entities[i] != entity) {
+                    a.push(my.entities[i]);
+                }
+            }
+
+            my.entities = a;
+        }
+
 
     };
 

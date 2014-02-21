@@ -14,6 +14,10 @@ var Entity = function() {
 
     };
 
+    my.afterFrame = function(room) {
+
+    };
+
     my.getSprite = function() {
         return my.sprites[my.spriteIndex];
     };

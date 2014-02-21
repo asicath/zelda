@@ -13,7 +13,7 @@ var PlayerWalker = function() {
     my.spriteIndex = 0;
     my.palette = Palettes.LinkGreen;
 
-    var linkStep = 0;
+    my.step = 0;
     var flashIndex = 0;
 
     var executeFrame_parent = my.executeFrame;
@@ -51,7 +51,7 @@ var PlayerWalker = function() {
     };
 
     my.getSprite = function() {
-        return my.sprites[my.spriteIndex + linkStep];
+        return my.sprites[my.spriteIndex + my.step];
     };
 
     
@@ -61,7 +61,7 @@ var PlayerWalker = function() {
 
     var swapStep = function() {
         if (swapStepCount++ % 6 == 0) {
-            linkStep = linkStep > 0 ? 0 : 1;
+            my.step  = my.step  > 0 ? 0 : 1;
         }
     };
 
@@ -111,22 +111,7 @@ var PlayerWalker = function() {
         my.setMoving(getMovingPriority());
     };
 
-    /*
-
-     private int movingCount {
-     get {
-     int count = 0;
-     if (this.moving[Directions.Top]) { count++; }
-     if (this.moving[Directions.Bottom]) { count++; }
-     if (this.moving[Directions.Left]) { count++; }
-     if (this.moving[Directions.Right]) { count++; }
-     return count;
-     }
-     }
-
-     */
-
-
+    // controls which inputs are used
     my.playerId = 0;
 
     var checkInput = function() {

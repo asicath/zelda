@@ -176,7 +176,9 @@ var gamepadSupport = {
         playerInput.right = gamepad.axes[0] > threshold;
         */
 
-        playerInput[playerId].flash = gamepad.buttons[0] > 0;
+
+        //playerInput[playerId].flash = gamepad.buttons[0] > 0;
+        playerInput[playerId].attack = gamepad.buttons[0] > 0;
 
         /*
 
