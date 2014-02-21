@@ -23,7 +23,7 @@ var PlayerWalker = function() {
         // Walker uses input
         executeFrame_parent(room);
 
-        if (my.hasVelocity()) {
+        if (my.canMove && my.hasVelocity()) {
             swapStep();
         }
 
@@ -58,6 +58,11 @@ var PlayerWalker = function() {
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
     var swapStepCount = 0;
+
+    my.resetStep = function() {
+        swapStepCount = 0;
+        my.step = 0;
+    };
 
     var swapStep = function() {
         if (swapStepCount++ % 6 == 0) {
