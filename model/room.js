@@ -10,11 +10,11 @@ var loadRoom = function(filename, success) {
         room.entities.push(Player());
 
         // Create a random walk monster and add
-        room.entities.push(RandomWalker());
-        room.entities.push(RandomWalker());
-        room.entities.push(RandomWalker());
+        //room.entities.push(Monster());
+        //room.entities.push(Monster());
+        //room.entities.push(Monster());
 
-        room.entities[3].palette = Palettes.MonsterBlue;
+        //room.entities[3].palette = Palettes.MonsterBlue;
 
         //room.entities.push(Sword());
 
@@ -95,13 +95,13 @@ var Room = function(data) {
     };
 
 
-    my.countToAddMonster = -1;
-    my.addCount = 0;
+    my.countToAddMonster = 0;
+    my.addCount = 20;
 
     var checkAddMonster = function() {
         if (my.countToAddMonster >= 0) {
             if (my.countToAddMonster-- == 0) {
-                var e = RandomWalker();
+                var e = Monster();
                 my.entities.push(e);
 
                 if (Math.random() > 0.5) {
@@ -111,10 +111,6 @@ var Room = function(data) {
                 if (--my.addCount > 0) {
                     my.countToAddMonster = 60;
                 }
-
-
-
-                // =
             }
         }
     };

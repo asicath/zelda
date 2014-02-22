@@ -10,6 +10,10 @@ var music = new Audio("assets/music/8 Bit Legend.mp3");
 
 
 
+
+var sound_kill = new Audio("assets/sounds/kill.wav");
+
+
 var spriteLoadFinish = function() {
 
     if (++Sprites.count < 4) {return;}
