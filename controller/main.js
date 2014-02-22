@@ -14,6 +14,10 @@ var spriteLoadFinish = function() {
     loadRoom('assets/ow07-06.js', function(room) {
         startDraw(room);
         gamepadSupport.init();
+
+        var music = new Audio("assets/music/8 Bit Legend.mp3");
+        music.loop=true;
+        music.play();
     });
 
 };
