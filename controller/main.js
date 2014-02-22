@@ -6,6 +6,9 @@ var Sprites = {
     count: 0
 };
 
+var music = new Audio("assets/music/8 Bit Legend.mp3");
+
+
 
 var spriteLoadFinish = function() {
 
@@ -15,9 +18,9 @@ var spriteLoadFinish = function() {
         startDraw(room);
         gamepadSupport.init();
 
-        var music = new Audio("assets/music/8 Bit Legend.mp3");
+
         music.loop=true;
-        music.play();
+        //music.play();
     });
 
 };

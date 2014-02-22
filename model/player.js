@@ -1,6 +1,8 @@
 var Player = function() {
     var my = PlayerWalker();
 
+    my.entityType = 'player';
+
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
         // Walker uses input
@@ -85,6 +87,18 @@ var Player = function() {
                 swordState = 3;
                 coolDown = 6;
             }
+            else {
+                // check for intersection
+                var a = room.getIntersectingEntities(sword.rect);
+                for (var i = a.length-1; i >= 0; i--) {
+                    if (a[i].entityType == 'monster') {
+                        room.removeAfterFrame.push(a[i]);
+                        room.countToAddMonster = 60;
+                        room.addCount++;
+                        sound_kill.play();
+                    }
+                }
+            }
 
         }
 
@@ -98,6 +112,8 @@ var Player = function() {
 
 
     };
+
+    var sound_kill = new Audio("assets/sounds/kill.wav");
 
 
     var swordTick;

@@ -66,6 +66,7 @@ var Room = function(data) {
             my.entities = a;
         }
 
+        checkAddMonster();
 
     };
 
@@ -80,6 +81,44 @@ var Room = function(data) {
 
         return false;
     };
+
+    my.getIntersectingEntities = function(rect) {
+        var a = [];
+
+        for (var i = my.entities.length-1; i >= 0; i--) {
+            if (my.entities[i].rect.intersects(rect)) {
+                a.push(my.entities[i]);
+            }
+        }
+
+        return a;
+    };
+
+
+    my.countToAddMonster = -1;
+    my.addCount = 0;
+
+    var checkAddMonster = function() {
+        if (my.countToAddMonster >= 0) {
+            if (my.countToAddMonster-- == 0) {
+                var e = RandomWalker();
+                my.entities.push(e);
+
+                if (Math.random() > 0.5) {
+                    e.palette = Palettes.MonsterBlue;
+                }
+
+                if (--my.addCount > 0) {
+                    my.countToAddMonster = 60;
+                }
+
+
+
+                // =
+            }
+        }
+    };
+
 
     return my;
 };

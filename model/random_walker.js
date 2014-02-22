@@ -2,7 +2,9 @@ var RandomWalker = function() {
 
     var my = Walker();
 
-    my.rect = new Rect(32, 88, 16, 16);
+    my.entityType = 'monster';
+
+    my.rect = new Rect(128, 88, 16, 16);
 
     my.sprites = Sprites.octopus;
     my.spriteIndex = 0;
