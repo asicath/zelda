@@ -2,7 +2,7 @@
 var PlayerWalker = function() {
     var my = Walker();
 
-    my.rect = new Rect(128, 88, 16, 16);
+
 
     // has a smaller foot print than the monsters
     my.footPrint = new Rect(0, 8, 16, 8);

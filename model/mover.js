@@ -34,24 +34,28 @@ var Mover = function() {
             var rectNew = new Rect(rectOld.x + my.velocity.x, rectOld.y + my.velocity.y, rectOld.width, rectOld.height);
 
             //this.checkForEdgeEvent(
-            my.attemptMove(room, rectNew, my.velocity.x, my.velocity.y);
+            my.attemptMove(room, rectNew);
         }
     };
 
     // Gives the children the chance to override this movement.
     // Should call completeMove if this move is good.
-    my.attemptMove = function(room, rectNew, xV, yV) {
+    my.attemptMove = function(room, rectNew) {
 
         // Check to see if we've gone over the edge
         var edge = isOffEdge(room, rectNew);
         if (edge) {
             // We've gone over an edge, don't complete the move.
-            //this.OnEdgeEvent(edge, room);
+            my.onEdgeEvent(room);
             return;
         }
 
         // no problems, complete move
         my.completeMove(rectNew);
+    };
+
+    my.onEdgeEvent = function(room) {
+
     };
 
     /// After the move have been confirmed, call this to finalize

@@ -17,6 +17,7 @@ var Walker = function() {
     var needsCheckAutoMove = false;
 
     var moving = null; // the current direction that the entity is moving
+    var velocityDirection = null;
 
     //var _rectFootPrint; // Rectangle
 
@@ -39,7 +40,7 @@ var Walker = function() {
     };
 
     var attemptMove_parent = my.attemptMove;
-    my.attemptMove = function(room, rectNew, xChange, yChange) {
+    my.attemptMove = function(room, rectNew) {
 
         // Get the new foot print to check for wall intersection
         var footPrint = getFootPrint(rectNew);
@@ -47,8 +48,9 @@ var Walker = function() {
         var wall = room.intersectsWall(footPrint);
         // Check for wall intersection
         if (wall) {
+
             // stop short
-            switch(moving) {
+            switch(velocityDirection) {
                 case Directions.top:
                     // hit wall from the bottom
                     rectNew.y = wall.y + 16 - my.footPrint.y;
@@ -64,10 +66,15 @@ var Walker = function() {
                     break;
             }
 
+            automove = null;
         }
 
         // no problems, complete move
-        attemptMove_parent(room, rectNew, xChange, yChange);
+        attemptMove_parent(room, rectNew);
+    };
+
+    my.onEdgeEvent = function(room) {
+        automove = null;
     };
 
     my.setMoving = function(direction) {
@@ -113,6 +120,8 @@ var Walker = function() {
     var determineVelocityFromAutomove = function() {
         my.setFacing(automove.facing);
 
+        velocityDirection = automove.direction;
+
         my.velocity.x = absMin(automove.x, automove.speed * sign(automove.x));
         my.velocity.y = absMin(automove.y, automove.speed * sign(automove.y));
 
@@ -125,7 +134,7 @@ var Walker = function() {
     };
 
     var determineVelocityFromMoving = function() {
-
+        velocityDirection = moving;
         my.velocity.x = 0;
         my.velocity.y = 0;
         switch (moving) {
@@ -258,14 +267,44 @@ var Walker = function() {
         return b;
     };
 
-    var setAutoMove = function(x, y, speed, direction, final) {
+    var setAutoMove = function(x, y, speed, facing, final) {
+
+        var direction;
+
+        if (x < 0) {direction = Directions.left;}
+        if (x > 0) {direction = Directions.right;}
+        if (y < 0) {direction = Directions.top;}
+        if (y > 0) {direction = Directions.bottom;}
+
         automove = {
             x: x,
             y: y,
             speed: speed,
-            facing: direction,
-            final: final
+            facing: facing,
+            final: final || new Rect(my.rect.x + x, my.rect.y + y, my.rect.width, my.rect.height),
+            direction: direction
         };
+    };
+
+    my.push = function(direction, distance, speed) {
+        var x = 0;
+        var y = 0;
+        switch (direction) {
+            case Directions.top:
+                y = -distance;
+                break;
+            case Directions.bottom:
+                y = distance;
+                break;
+            case Directions.left:
+                x = -distance;
+                break;
+            case Directions.right:
+                x = distance;
+                break;
+        }
+
+        setAutoMove(x, y, speed, my.facing, null);
     };
 
 
@@ -280,25 +319,6 @@ private void OnWallEvent(Wall wall) {
     }
 }
 
-public void push(Direction direction, int distance, int speed) {
-    int x = 0;
-    int y = 0;
-    switch (direction) {
-        case Directions.Top:
-            y = -distance;
-            break;
-        case Directions.Bottom:
-            y = distance;
-            break;
-        case Directions.Left:
-            x = -distance;
-            break;
-        case Directions.Right:
-            x = distance;
-            break;
-    }
 
-    this.setAutoMove(x, y, speed, this.facing);
-}
 
 */

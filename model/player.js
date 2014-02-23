@@ -2,6 +2,7 @@ var Player = function() {
     var my = PlayerWalker();
 
     my.entityType = 'player';
+    my.rect = new Rect(32, 88, 16, 16);
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
@@ -92,7 +93,7 @@ var Player = function() {
                 var a = room.getIntersectingEntities(sword.rect);
                 for (var i = a.length-1; i >= 0; i--) {
                     if (a[i].entityType == 'monster') {
-                        a[i].takeSwordHit(room);
+                        a[i].takeDamage(4, my.facing, room);
                     }
                 }
             }

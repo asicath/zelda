@@ -96,7 +96,7 @@ var Room = function(data) {
 
 
     my.countToAddMonster = 0;
-    my.addCount = 20;
+    my.addCount = 1;
 
     var checkAddMonster = function() {
         if (my.countToAddMonster >= 0) {
@@ -106,10 +106,11 @@ var Room = function(data) {
 
                 if (Math.random() > 0.5) {
                     e.palette = Palettes.MonsterBlue;
+                    e.life = 8;
                 }
 
                 if (--my.addCount > 0) {
-                    my.countToAddMonster = 60;
+                    my.countToAddMonster = 30;
                 }
             }
         }
