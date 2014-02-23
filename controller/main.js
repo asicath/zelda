@@ -29,6 +29,7 @@ var playSoundKill = function() {
 };
 
 var sound_kill = new Audio("assets/sounds/kill.wav");
+var sound_hit = new Audio("assets/sounds/hit.wav");
 
 
 var spriteLoadFinish = function() {

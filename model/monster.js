@@ -31,6 +31,7 @@ var Monster = function() {
 
     var takeHit = function(facing) {
         my.push(facing, 128, 2);
+        sound_hit.play();
     };
 
     var executeFrame_parent = my.executeFrame;
