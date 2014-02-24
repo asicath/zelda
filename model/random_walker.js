@@ -1,7 +1,6 @@
 var RandomWalker = function() {
     var my = Walker();
 
-    var step = 0;
     var moving = null;
 
     //changeDirectionChance = 0.1f; // Once per second
@@ -10,11 +9,9 @@ var RandomWalker = function() {
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
-        checkMove();
 
-        if (my.hasVelocity()) {
-            swapStep();
-        }
+        // check for new random move
+        checkMove();
 
         // Walker uses input
         executeFrame_parent(room);
@@ -49,42 +46,6 @@ var RandomWalker = function() {
             case 3: return Directions.right;
         }
         return Directions.top;
-    };
-
-    var setFacing_parent = my.setFacing;
-    my.setFacing = function(direction) {
-        setFacing_parent(direction);
-
-        // change sprite
-        switch (direction) {
-            case Directions.top:
-                my.spriteIndex = 0;
-                break;
-            case Directions.bottom:
-                my.spriteIndex = 2;
-                break;
-            case Directions.left:
-                my.spriteIndex = 4;
-                break;
-            case Directions.right:
-                my.spriteIndex = 6;
-                break;
-        }
-    };
-
-    my.getSprite = function() {
-        return my.sprites[my.spriteIndex + step];
-    };
-
-
-
-
-    var swapStepCount = 0;
-
-    var swapStep = function() {
-        if (swapStepCount++ % 8 == 0) {
-            step = step > 0 ? 0 : 1;
-        }
     };
 
     return my;

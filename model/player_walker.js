@@ -2,59 +2,15 @@
 var PlayerWalker = function() {
     var my = Walker();
 
-    my.step = 0;
     var flashIndex = 0;
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
+        // check for new input from player
         checkInput();
 
         // Walker uses input
         executeFrame_parent(room);
-
-        if (my.canMove && my.hasVelocity()) {
-            swapStep();
-        }
-
-    };
-
-    var setFacing_parent = my.setFacing;
-    my.setFacing = function(direction) {
-        setFacing_parent(direction);
-
-        // change sprite
-        switch (direction) {
-            case Directions.top:
-                my.spriteIndex = my.spriteIndexes[0];
-                break;
-            case Directions.bottom:
-                my.spriteIndex = my.spriteIndexes[1];
-                break;
-            case Directions.left:
-                my.spriteIndex = my.spriteIndexes[2];
-                break;
-            case Directions.right:
-                my.spriteIndex = my.spriteIndexes[3];
-                break;
-        }
-    };
-
-    my.getSprite = function() {
-        return my.sprites[my.spriteIndex + my.step];
-    };
-
-    
-    var swapStepCount = 0;
-
-    my.resetStep = function() {
-        swapStepCount = 0;
-        my.step = 0;
-    };
-
-    var swapStep = function() {
-        if (swapStepCount++ % 6 == 0) {
-            my.step  = my.step  > 0 ? 0 : 1;
-        }
     };
 
     var flashPalates = [

@@ -7,7 +7,7 @@ var Player = function() {
     // has a smaller foot print than the monsters
     my.footPrint = new Rect(0, 8, 16, 8);
 
-    my.spriteIndexes = [0, 3, 6, 9];
+    my.facingSpriteBaseIndex = [0, 3, 6, 9];
 
     my.sprites = Sprites.link;
     my.spriteIndex = 0;

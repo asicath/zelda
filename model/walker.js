@@ -12,15 +12,6 @@ var Walker = function() {
     // the top speed of the walker
     my.speed = 0;
 
-
-    // the direction the entity is facing, all walkers face one of four directions
-    my.facing = Directions.top;
-
-    my.setFacing = function(direction) {
-        my.facing = direction;
-    };
-
-
     // the current direction that the entity is attempting to move
     var walkingDirection = null;
 
@@ -55,6 +46,11 @@ var Walker = function() {
 
         // Mover uses velocity
         executeFrame_parent(room);
+
+        // swap the step if actually moving
+        if (my.canMove && my.hasVelocity()) {
+            swapStep();
+        }
 
     };
 
@@ -186,6 +182,53 @@ var Walker = function() {
     };
 
 
+    // ******* Facing and sprites *******
+    // **********************************
+
+    // the direction the entity is facing, all walkers face one of four directions
+    my.facing = Directions.top;
+
+    my.facingSpriteBaseIndex = null;
+    my.step = 0;
+
+    my.setFacing = function(direction) {
+
+        my.facing = direction;
+
+        // change sprite
+        switch (direction) {
+            case Directions.top:
+                my.spriteIndex = my.facingSpriteBaseIndex[0];
+                break;
+            case Directions.bottom:
+                my.spriteIndex = my.facingSpriteBaseIndex[1];
+                break;
+            case Directions.left:
+                my.spriteIndex = my.facingSpriteBaseIndex[2];
+                break;
+            case Directions.right:
+                my.spriteIndex = my.facingSpriteBaseIndex[3];
+                break;
+        }
+    };
+
+    my.getSprite = function() {
+        return my.sprites[my.spriteIndex + my.step];
+    };
+
+    var swapStepCount = 0;
+    my.stepChange = 6;
+
+    my.resetStep = function() {
+        swapStepCount = 0;
+        my.step = 0;
+    };
+
+    var swapStep = function() {
+        if (swapStepCount++ % my.stepChange == 0) {
+            my.step  = my.step  > 0 ? 0 : 1;
+        }
+    };
 
 
 
