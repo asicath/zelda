@@ -1,5 +1,6 @@
 
-
+var showDebugInfo = false;
+var monstersKilled = 0;
 
 var View = (function() {
     var my = {};
@@ -93,24 +94,29 @@ var View = (function() {
 
 
 
+        if (showDebugInfo) {
 
-        renderTime[renderIndex] = new Date() - start;
-        renderIndex = (renderIndex + 1) % 60;
+            renderTime[renderIndex] = new Date() - start;
+            renderIndex = (renderIndex + 1) % 60;
 
-        ctx.font = '10pt Calibri';
-        ctx.fillStyle = 'white';
-        ctx.fillText('frame count:' + frameCount++, 0, 20);
-        var max = -1;
-        for (var i = 0; i < renderTime.length; i++) {
-            if (max < renderTime[i]) max = renderTime[i];
+            ctx.font = '10pt Calibri';
+            ctx.fillStyle = 'white';
+            ctx.fillText('frame count:' + frameCount++, 0, 20);
+            var max = -1;
+            for (var i = 0; i < renderTime.length; i++) {
+                if (max < renderTime[i]) max = renderTime[i];
+            }
+
+            ctx.fillText('max render time:' + max, 0, 40);
+
+
+            var link = room.entities[0];
+            ctx.fillText('x:' + link.rect.x, 0, 60);
+            ctx.fillText('y:' + link.rect.y, 0, 80);
+
         }
 
-        ctx.fillText('max render time:' + max, 0, 40);
-
-
-        var link = room.entities[0];
-        ctx.fillText('x:' + link.rect.x, 0, 60);
-        ctx.fillText('y:' + link.rect.y, 0, 80);
+        drawText(ctx, " killed " + monstersKilled.toString() + " ", 160, 8);
 
         ctx.restore();
     };
@@ -120,6 +126,70 @@ var View = (function() {
 
     var frameCount = 0;
 
+    var textMap = {
+        "a": 0,
+        "b": 1,
+        "c": 2,
+        "d": 3,
+        "e": 4,
+        "f": 5,
+        "g": 6,
+        "h": 7,
+        "i": 8,
+        "j": 9,
+        "k": 10,
+        "l": 11,
+        "m": 12,
+        "n": 13,
+        "o": 14,
+        "p": 15,
+        "q": 16,
+        "r": 17,
+        "s": 18,
+        "t": 19,
+        "u": 20,
+        "v": 21,
+        "w": 22,
+        "x": 23,
+        "y": 24,
+        "z": 25,
+
+        "-": 26,
+        ".": 27,
+        ",": 28,
+        "!": 29,
+        "'": 30,
+        "&": 31,
+        "?": 32,
+
+        "0": 33,
+        "1": 34,
+        "2": 35,
+        "3": 36,
+        "4": 37,
+        "5": 38,
+        "6": 39,
+        "7": 40,
+        "8": 41,
+        "9": 42
+    };
+    var drawText = function(ctx, text, x, y) {
+
+        //
+        ctx.fillStyle="#000000";
+        ctx.fillRect(x * factor, y * factor, text.length * factor * 8, 8 * factor);
+
+        for (var i = 0; i < text.length; i++) {
+
+            var char = textMap[text[i]];
+            if (!char) char = 43;
+
+            var sprite = Sprites.letters[char];
+            drawSprite(ctx, factor, sprite, x + i*8, y, Palettes.Text);
+        }
+
+
+    };
 
     var drawEntity = function(ctx, entity) {
         drawSprite(ctx, factor, entity.getSprite(), entity.rect.x, entity.rect.y, entity.palette);

@@ -34,7 +34,7 @@ var sound_hit = new Audio("assets/sounds/hit.wav");
 
 var spriteLoadFinish = function() {
 
-    if (++Sprites.count < 4) {return;}
+    if (++Sprites.count < 6) {return;}
 
     loadRoom('assets/ow07-06.js', function(room) {
         startDraw(room);
@@ -47,7 +47,10 @@ var spriteLoadFinish = function() {
 
 };
 
-
+loadSprites('assets/deathstar.gif', null, function(sprites) {
+    Sprites.deathstar = sprites;
+    spriteLoadFinish();
+});
 
 loadSprites('assets/outside.gif', null, function(outsideSprites) {
     Sprites.outside = outsideSprites;
@@ -77,3 +80,8 @@ loadSprites('assets/sword.gif',
         spriteLoadFinish();
     }
 );
+
+loadSprites('assets/letters.gif', null, function(sprites) {
+    Sprites.letters = sprites;
+    spriteLoadFinish();
+});

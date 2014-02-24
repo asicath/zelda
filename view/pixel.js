@@ -19,15 +19,16 @@ var loadSprites = function(imgUrl, map, success) {
 
         if (!map) {
             var xStart = 0;
+            var incr = img.height;
             map = [];
             while (xStart < img.width) {
                 map.push({
                     x: xStart,
                     y: 0,
-                    width: 16,
-                    height: 16
+                    width: incr,
+                    height: incr
                 });
-                xStart += 16;
+                xStart += incr;
             }
         }
 

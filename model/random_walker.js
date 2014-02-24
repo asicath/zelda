@@ -6,9 +6,7 @@ var RandomWalker = function() {
 
     my.rect = new Rect(128, 88, 16, 16);
 
-    my.sprites = Sprites.octopus;
-    my.spriteIndex = 0;
-    my.palette = Palettes.MonsterRed;
+
 
     var linkStep = 0;
     var moving = null;
