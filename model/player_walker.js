@@ -2,6 +2,9 @@
 var PlayerWalker = function() {
     var my = Walker();
 
+    // controls which inputs are used
+    my.playerId = 0;
+
     var flashIndex = 0;
 
     var executeFrame_parent = my.executeFrame;
@@ -59,8 +62,7 @@ var PlayerWalker = function() {
         my.setWalkingDirection(getMovingPriority());
     };
 
-    // controls which inputs are used
-    my.playerId = 0;
+
 
     var checkInput = function() {
 
@@ -94,6 +96,13 @@ var PlayerWalker = function() {
             endMoving(Directions.right);
         }
 
+
+        if (playerInput[my.playerId].attack) {
+            my.attack = true;
+        }
+        else {
+            my.attack = false;
+        }
 
 
         if (playerInput[my.playerId].flash) {

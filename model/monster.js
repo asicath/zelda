@@ -1,5 +1,6 @@
 var Monster = function() {
     var my = RandomWalker();
+    //var my = PlayerWalker();
 
     my.entityType = 'monster';
     my.life = 4;

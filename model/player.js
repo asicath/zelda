@@ -1,5 +1,6 @@
 var Player = function() {
     var my = PlayerWalker();
+    //var my = RandomWalker();
 
     my.entityType = 'player';
     my.rect = new Rect(32, 88, 16, 16);
@@ -56,7 +57,7 @@ var Player = function() {
         // waiting for attack signal
         if (swordState == 0) {
             // check player input
-            if (playerInput[my.playerId].attack && coolDown == 0) {
+            if (my.attack && coolDown == 0) {
                 // attack indicated, move to next state
                 swordState = 1;
 
@@ -113,7 +114,7 @@ var Player = function() {
         // wait for player to not be pressing the attack button
         if (swordState == 3) {
             my.resetStep();
-            if (!playerInput[my.playerId].attack) {
+            if (!my.attack) {
                 swordState = 0;
             }
         }
