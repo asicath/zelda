@@ -4,9 +4,6 @@ var Mover = function() {
 
     my.canMove = true;
 
-    //my.xVelocity = 0;
-    //my.yVelocity = 0;
-
     my.velocity = { x: 0, y: 0 };
 
     my.hasVelocity = function() {
@@ -82,34 +79,6 @@ var Mover = function() {
         }
         return null;
     };
-
-
-
-    /*
-
-    public delegate void EdgeEventHandler(Direction direction, Room room);
-    public event EdgeEventHandler EdgeEvent;
-
-    /// <summary>
-    /// Determines if the new position will go over the edge.
-    /// If true, it will send an edge event.
-    /// </summary>
-    private bool checkForEdgeEvent(Room room, Rectangle rect) {
-        Direction d = isOffEdge(room, rect);
-        if (d != Direction.None) {
-            this.OnEdgeEvent(d, room);
-            return true;
-        }
-        return false;
-    }
-
-    private void OnEdgeEvent(Direction direction, Room room) {
-        if (EdgeEvent != null) {
-            EdgeEvent(direction, room);
-        }
-    }
-
-    */
 
     return my;
 };

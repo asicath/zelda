@@ -1,14 +1,7 @@
 var RandomWalker = function() {
-
     var my = Walker();
 
-
-
-    my.rect = new Rect(128, 88, 16, 16);
-
-
-
-    var linkStep = 0;
+    var step = 0;
     var moving = null;
 
     //changeDirectionChance = 0.1f; // Once per second
@@ -80,32 +73,19 @@ var RandomWalker = function() {
     };
 
     my.getSprite = function() {
-        return my.sprites[my.spriteIndex + linkStep];
+        return my.sprites[my.spriteIndex + step];
     };
 
 
-    my.speed = 40/60; // can move 80 pixels in 1s or 60 frames
+
 
     var swapStepCount = 0;
 
     var swapStep = function() {
         if (swapStepCount++ % 8 == 0) {
-            linkStep = linkStep > 0 ? 0 : 1;
+            step = step > 0 ? 0 : 1;
         }
     };
 
     return my;
 };
-
-/*
-
-
-
-protected void RandomWalker_EdgeEvent(Direction direction, Room room) {
-    endMoving();
-}
-
-protected void RandomWalker_WallEvent(Wall wall) {
-    endMoving();
-}
-*/

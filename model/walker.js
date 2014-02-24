@@ -6,22 +6,26 @@ var Directions = {
     right: 'right'
 };
 
-//public Walker(rect, string name, double seconds) : base(rect, name) {
 var Walker = function() {
     var my = Mover();
 
-    my.speed = 0; //this.speed = Walker.CalculateSpeed(256 * World.Factor, World.TicksPerSecond, seconds);
+    // the top speed of the walker
+    my.speed = 0;
 
-    my.facing = Directions.top;    // Direction  this._facing = Directions.Top;
+    // the direction the entity is facing, all walkers face one of four directions
+    my.facing = Directions.top;
 
-    var needsCheckAutoMove = false;
+    // the current direction that the entity is attempting to moving
+    var moving = null;
 
-    var moving = null; // the current direction that the entity is moving
-    var velocityDirection = null;
+    // The default footprint is 16x16
+    my.footPrint = new Rect(0, 0, 16, 16);
 
-    //var _rectFootPrint; // Rectangle
+    // footprint must have current position applied to be useful
+    var getFootPrint = function(rect) {
+        return new Rect(rect.x, rect.y + my.footPrint.y, my.footPrint.width, my.footPrint.height);
+    };
 
-    var automove = null;
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
@@ -33,10 +37,14 @@ var Walker = function() {
 
     };
 
-    my.footPrint = new Rect(0, 0, 16, 16);
 
-    var getFootPrint = function(rect) {
-        return new Rect(rect.x, rect.y + my.footPrint.y, my.footPrint.width, my.footPrint.height);
+    // the current direction that the entity is actually moving
+    // walkers can only be moving on one axis at once
+    var getVelocityDirection = function() {
+        if (my.velocity.x < 0) {return Directions.left;}
+        if (my.velocity.x > 0) {return Directions.right;}
+        if (my.velocity.y < 0) {return Directions.top;}
+        if (my.velocity.y > 0) {return Directions.bottom;}
     };
 
     var attemptMove_parent = my.attemptMove;
@@ -50,7 +58,7 @@ var Walker = function() {
         if (wall) {
 
             // stop short
-            switch(velocityDirection) {
+            switch(getVelocityDirection()) {
                 case Directions.top:
                     // hit wall from the bottom
                     rectNew.y = wall.y + 16 - my.footPrint.y;
@@ -120,8 +128,6 @@ var Walker = function() {
     var determineVelocityFromAutomove = function() {
         my.setFacing(automove.facing);
 
-        velocityDirection = automove.direction;
-
         my.velocity.x = absMin(automove.x, automove.speed * sign(automove.x));
         my.velocity.y = absMin(automove.y, automove.speed * sign(automove.y));
 
@@ -134,7 +140,7 @@ var Walker = function() {
     };
 
     var determineVelocityFromMoving = function() {
-        velocityDirection = moving;
+
         my.velocity.x = 0;
         my.velocity.y = 0;
         switch (moving) {
@@ -164,8 +170,16 @@ var Walker = function() {
 
 
 
-    // ******* Auto move
-    var GuideSize = 8; // 8 * World.Factor;
+    // ******* Auto move *******
+    // *************************
+
+    var GuideSize = 8;
+
+    // if the entity is currently engaged in an automove, the details of the automove are stored here
+    var automove = null;
+
+    // determines if the entity needs to check for an automove
+    var needsCheckAutoMove = false;
 
     var checkForAutoMove = function(room) {
 
@@ -268,21 +282,12 @@ var Walker = function() {
     };
 
     var setAutoMove = function(x, y, speed, facing, final) {
-
-        var direction;
-
-        if (x < 0) {direction = Directions.left;}
-        if (x > 0) {direction = Directions.right;}
-        if (y < 0) {direction = Directions.top;}
-        if (y > 0) {direction = Directions.bottom;}
-
         automove = {
             x: x,
             y: y,
             speed: speed,
             facing: facing,
-            final: final || new Rect(my.rect.x + x, my.rect.y + y, my.rect.width, my.rect.height),
-            direction: direction
+            final: final || new Rect(my.rect.x + x, my.rect.y + y, my.rect.width, my.rect.height)
         };
     };
 
@@ -310,15 +315,3 @@ var Walker = function() {
 
     return my;
 };
-
-/*
-
-private void OnWallEvent(Wall wall) {
-    if (WallEvent != null) {
-        WallEvent(wall);
-    }
-}
-
-
-
-*/
