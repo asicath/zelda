@@ -12,11 +12,31 @@ var Walker = function() {
     // the top speed of the walker
     my.speed = 0;
 
+
     // the direction the entity is facing, all walkers face one of four directions
     my.facing = Directions.top;
 
-    // the current direction that the entity is attempting to moving
-    var moving = null;
+    my.setFacing = function(direction) {
+        my.facing = direction;
+    };
+
+
+    // the current direction that the entity is attempting to move
+    var walkingDirection = null;
+
+    my.setWalkingDirection = function(direction) {
+        // no need to double set
+        if (direction == walkingDirection) return;
+
+        // set the new direction
+        walkingDirection = direction;
+
+        // if the new direction isn't null, then check to see to make sure we stay on the lines
+        if (direction) {
+            needsGuideAutoMoveCheck = true;
+        }
+    };
+
 
     // The default footprint is 16x16
     my.footPrint = new Rect(0, 0, 16, 16);
@@ -30,6 +50,7 @@ var Walker = function() {
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
 
+        // find a new velocity based on walking direction and automove
         determineVelocity(room);
 
         // Mover uses velocity
@@ -53,47 +74,48 @@ var Walker = function() {
         // Get the new foot print to check for wall intersection
         var footPrint = getFootPrint(rectNew);
 
-        var wall = room.intersectsWall(footPrint);
         // Check for wall intersection
+        var wall = room.intersectsWall(footPrint);
         if (wall) {
-
-            // stop short
-            switch(getVelocityDirection()) {
-                case Directions.top:
-                    // hit wall from the bottom
-                    rectNew.y = wall.y + 16 - my.footPrint.y;
-                    break;
-                case Directions.bottom:
-                    rectNew.y = wall.y - my.rect.height;
-                    break;
-                case Directions.left:
-                    rectNew.x = wall.x + 16 - my.footPrint.x;
-                    break;
-                case Directions.right:
-                    rectNew.x = wall.x - my.rect.width;
-                    break;
-            }
-
-            automove = null;
+            my.onWallEvent(room, wall, rectNew);
+            return;
         }
 
         // no problems, complete move
         attemptMove_parent(room, rectNew);
     };
 
+    my.onWallEvent = function(room, wall, rectNew) {
+
+        // stop short
+        switch(getVelocityDirection()) {
+            case Directions.top:
+                // hit wall from the bottom
+                rectNew.y = wall.y + 16 - my.footPrint.y;
+                break;
+            case Directions.bottom:
+                rectNew.y = wall.y - my.rect.height;
+                break;
+            case Directions.left:
+                rectNew.x = wall.x + 16 - my.footPrint.x;
+                break;
+            case Directions.right:
+                rectNew.x = wall.x - my.rect.width;
+                break;
+        }
+
+        automove = null;
+
+        // attempt again
+        my.attemptMove(room, rectNew);
+    };
+
+    // override edge event
     my.onEdgeEvent = function(room) {
         automove = null;
     };
 
-    my.setMoving = function(direction) {
-        if (direction == moving) return; // no need to double set
-        moving = direction;
 
-        if (direction) {
-            needsCheckAutoMove = true;
-        }
-
-    };
 
 
     var sign = function(number) {
@@ -102,9 +124,9 @@ var Walker = function() {
 
     var determineVelocity = function(room) {
 
-        if (!automove && needsCheckAutoMove) {
+        if (!automove && needsGuideAutoMoveCheck) {
             checkForAutoMove(room);
-            needsCheckAutoMove = false;
+            needsGuideAutoMoveCheck = false;
         }
 
         if (automove) {
@@ -143,7 +165,7 @@ var Walker = function() {
 
         my.velocity.x = 0;
         my.velocity.y = 0;
-        switch (moving) {
+        switch (walkingDirection) {
             case Directions.left:
                 my.setFacing(Directions.left);
                 my.velocity.x = -my.speed;
@@ -163,9 +185,7 @@ var Walker = function() {
         }
     };
 
-    my.setFacing = function(direction) {
-        my.facing = direction;
-    };
+
 
 
 
@@ -179,7 +199,7 @@ var Walker = function() {
     var automove = null;
 
     // determines if the entity needs to check for an automove
-    var needsCheckAutoMove = false;
+    var needsGuideAutoMoveCheck = false;
 
     var checkForAutoMove = function(room) {
 
@@ -187,7 +207,7 @@ var Walker = function() {
         if (automove) { return; }
 
         // Check for auto correction
-        if (moving == Directions.top || moving == Directions.bottom) {
+        if (walkingDirection == Directions.top || walkingDirection == Directions.bottom) {
 
             // The minimum amount to move for the entity to be on the guide line
             var toLeftGuide = my.rect.x % GuideSize;
@@ -229,7 +249,7 @@ var Walker = function() {
             }
 
         }
-        else if (moving == Directions.left || moving == Directions.right) {
+        else if (walkingDirection == Directions.left || walkingDirection == Directions.right) {
 
             // The minimum amount to move for the entity to be on the guide line
             var toTopGuide = my.rect.y % GuideSize;

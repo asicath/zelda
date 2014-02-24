@@ -103,7 +103,7 @@ var PlayerWalker = function() {
             return;
         }
         moving[direction] = true;
-        my.setMoving(getMovingPriority());
+        my.setWalkingDirection(getMovingPriority());
     };
 
     var endMoving = function(direction) {
@@ -113,7 +113,7 @@ var PlayerWalker = function() {
             return;
         }
         moving[direction] = false;
-        my.setMoving(getMovingPriority());
+        my.setWalkingDirection(getMovingPriority());
     };
 
     // controls which inputs are used

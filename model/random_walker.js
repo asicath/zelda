@@ -31,7 +31,7 @@ var RandomWalker = function() {
 
         if (moving == null) {
             moving = getRandomDirection();
-            my.setMoving(moving);
+            my.setWalkingDirection(moving);
             tickCountUntilRandom = 50;
         }
     };
