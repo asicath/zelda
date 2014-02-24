@@ -4,6 +4,16 @@ var Player = function() {
     my.entityType = 'player';
     my.rect = new Rect(32, 88, 16, 16);
 
+    // has a smaller foot print than the monsters
+    my.footPrint = new Rect(0, 8, 16, 8);
+
+    my.spriteIndexes = [0, 3, 6, 9];
+
+    my.sprites = Sprites.link;
+    my.spriteIndex = 0;
+    my.palette = Palettes.LinkGreen;
+    my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
+
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
         // Walker uses input

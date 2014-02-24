@@ -2,17 +2,6 @@
 var PlayerWalker = function() {
     var my = Walker();
 
-
-
-    // has a smaller foot print than the monsters
-    my.footPrint = new Rect(0, 8, 16, 8);
-
-    my.spriteIndexes = [0, 3, 6, 9];
-
-    my.sprites = Sprites.link;
-    my.spriteIndex = 0;
-    my.palette = Palettes.LinkGreen;
-
     my.step = 0;
     var flashIndex = 0;
 
@@ -55,8 +44,6 @@ var PlayerWalker = function() {
     };
 
     
-    my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
-
     var swapStepCount = 0;
 
     my.resetStep = function() {
