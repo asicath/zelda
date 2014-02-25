@@ -1,11 +1,9 @@
 
-var PlayerWalker = function() {
-    var my = Walker();
+var PlayerWalker = function(my) {
+    my = Walker(my);
 
     // controls which inputs are used
     my.playerId = 0;
-
-    var flashIndex = 0;
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
@@ -15,10 +13,6 @@ var PlayerWalker = function() {
         // Walker uses input
         executeFrame_parent(room);
     };
-
-
-
-
 
     var moving = {
         top: false,
@@ -56,11 +50,7 @@ var PlayerWalker = function() {
         my.setWalkingDirection(getMovingPriority());
     };
 
-
-
     var checkInput = function() {
-
-
 
         if (playerInput[my.playerId].up && !moving[Directions.top]) {
             startMoving(Directions.top);

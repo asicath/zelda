@@ -1,5 +1,5 @@
-var RandomWalker = function() {
-    var my = Walker();
+var RandomWalker = function(my) {
+    my = Walker(my);
 
     var moving = null;
 

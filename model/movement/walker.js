@@ -6,8 +6,8 @@ var Directions = {
     right: 'right'
 };
 
-var Walker = function() {
-    var my = Mover();
+var Walker = function(my) {
+    my = Mover(my);
 
     // the top speed of the walker
     my.speed = 0;

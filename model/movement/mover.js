@@ -1,6 +1,6 @@
 
-var Mover = function() {
-    var my = Entity();
+var Mover = function(my) {
+    my = my || Entity(); // bottom of the chain, ensure my is an entity
 
     my.canMove = true;
 

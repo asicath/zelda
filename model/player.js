@@ -1,5 +1,6 @@
 var Player = function() {
-    var my = PlayerWalker();
+    var my = Entity();
+    PlayerWalker(my);
     //var my = RandomWalker();
 
     my.entityType = 'player';
