@@ -192,7 +192,7 @@ var View = (function() {
     };
 
     var drawEntity = function(ctx, entity) {
-        drawSprite(ctx, factor, entity.getSprite(), entity.rect.x, entity.rect.y, entity.palette);
+        drawSprite(ctx, factor, entity.getSprite(), entity.rect.x, entity.rect.y, entity.getPalette());
     };
 
 

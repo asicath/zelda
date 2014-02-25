@@ -16,13 +16,7 @@ var PlayerWalker = function() {
         executeFrame_parent(room);
     };
 
-    var flashPalates = [
-        Palettes.LinkGreen,
-        Palettes.MonsterBlue,
-        Palettes.MonsterRed
-    ];
 
-    var flashing = false;
 
 
 
@@ -106,13 +100,10 @@ var PlayerWalker = function() {
 
 
         if (playerInput[my.playerId].flash) {
-            my.palette = flashPalates[Math.floor(flashIndex % 12 / 4)];
-            flashIndex++;
-            flashing = true;
+            my.flashing = true;
         }
-        else if (flashing) {
-            flashing = false;
-            my.palette = Palettes.LinkGreen;
+        else if (my.flashing) {
+            my.flashing = false;
         }
 
     };

@@ -23,9 +23,25 @@ var Entity = function() {
     };
 
     my.getPalette = function() {
+
+        if (my.flashing) {
+            return flashPalates[Math.floor((flashIndex++ / 2) % 4)];
+        }
+
         return my.palette;
     };
 
+
+
+    var flashPalates = [
+        Palettes.MonsterBlack, // should be all blue
+        Palettes.MonsterBlue,
+        Palettes.MonsterRed,
+        Palettes.LinkGreen
+    ];
+
+    my.flashing = false;
+    var flashIndex = 0;
 
     return my;
 };

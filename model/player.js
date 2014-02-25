@@ -46,7 +46,7 @@ var Player = function() {
 
         if (my.invincible > 0) return;
 
-        my.life -= amount;
+        //my.life -= amount;
 
         my.invincible = 30;
 
@@ -60,8 +60,9 @@ var Player = function() {
     };
 
     var takeHit = function(facing) {
-        my.push(facing, 128, 2);
-        sound_hit.play();
+        // slide 32 pixels in 46 frames
+        //my.push(facing, 32, 32/8);
+        //sound_hit.play();
     };
 
 

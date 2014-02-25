@@ -17,7 +17,7 @@ var Monster = function() {
 
     my.takeDamage = function(amount, facing, room) {
 
-        if (my.invincible > 0) return;
+        if (my.invincible > 0 || my.isDead) return;
 
         my.life -= amount;
 
@@ -34,6 +34,8 @@ var Monster = function() {
 
     var death = function(room) {
         my.isDead = true;
+        my.invincible = 0;
+        my.flashing = false;
 
         my.spriteIndex = 0;
         my.sprites = Sprites.deathstar;
@@ -42,14 +44,12 @@ var Monster = function() {
             return my.sprites[my.spriteIndex];
         };
 
-        my.invincible = 1000;
-
         playSoundKill();
         monstersKilled++;
     };
 
     var takeHit = function(facing) {
-        my.push(facing, 128, 2);
+        my.push(facing, 32, 32/8);
         sound_hit.play();
     };
 
@@ -64,6 +64,10 @@ var Monster = function() {
         executeFrame_parent(room);
         if (my.invincible > 0) {
             my.invincible--;
+            my.flashing = true;
+        }
+        else {
+            my.flashing = false;
         }
 
         // check for intersection with player
