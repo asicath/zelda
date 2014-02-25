@@ -17,10 +17,17 @@ var Player = function() {
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
+
+        if (my.invincible > 0) {
+            my.invincible--;
+        }
+
         // Walker uses input
         executeFrame_parent(room);
 
         checkSwordThrust(room);
+
+
     };
 
     var getSprite_parent = my.getSprite;
@@ -29,6 +36,32 @@ var Player = function() {
             return my.sprites[my.spriteIndex + swordStance];
         }
         return getSprite_parent();
+    };
+
+
+
+    my.life = 12;
+    my.invincible = 0;
+    my.takeDamage = function(amount, facing, room) {
+
+        if (my.invincible > 0) return;
+
+        my.life -= amount;
+
+        my.invincible = 30;
+
+        if (my.life <= 0) {
+            //death(room);
+        }
+        else {
+            takeHit(facing);
+        }
+
+    };
+
+    var takeHit = function(facing) {
+        my.push(facing, 128, 2);
+        sound_hit.play();
     };
 
 

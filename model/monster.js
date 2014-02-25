@@ -66,6 +66,14 @@ var Monster = function() {
             my.invincible--;
         }
 
+        // check for intersection with player
+        var a = room.getIntersectingEntities(my.rect);
+        for (var i = a.length-1; i >= 0; i--) {
+            if (a[i].entityType == 'player') {
+                a[i].takeDamage(2, my.facing, room);
+            }
+        }
+
     };
 
 
