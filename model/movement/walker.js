@@ -12,6 +12,8 @@ var Walker = function(my) {
     // the top speed of the walker
     my.speed = 0;
 
+    my.canMove = true;
+
     // the current direction that the entity is attempting to move
     var walkingDirection = null;
 
@@ -161,6 +163,9 @@ var Walker = function(my) {
 
         my.velocity.x = 0;
         my.velocity.y = 0;
+
+        if (!my.canMove) {return;}
+
         switch (walkingDirection) {
             case Directions.left:
                 my.setFacing(Directions.left);

@@ -2,8 +2,6 @@
 var Mover = function(my) {
     my = my || Entity(); // bottom of the chain, ensure my is an entity
 
-    my.canMove = true;
-
     my.velocity = { x: 0, y: 0 };
 
     my.hasVelocity = function() {
@@ -14,10 +12,8 @@ var Mover = function(my) {
     my.executeFrame = function(room) {
         executeFrame_parent(room);
 
-        if (my.canMove) {
-            processVelocity(room);
-        }
-
+        // change position based on velocity
+        processVelocity(room);
     };
 
     var processVelocity = function(room) {
