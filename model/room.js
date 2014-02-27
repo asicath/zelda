@@ -82,13 +82,21 @@ var Room = function(data) {
         return false;
     };
 
-    my.getIntersectingEntities = function(rect) {
+    my.getIntersectingEntities = function(entity) {
         var a = [];
+        var e = null;
+        var rect = null;
 
         for (var i = my.entities.length-1; i >= 0; i--) {
-            if (my.entities[i].rect.intersects(rect)) {
-                a.push(my.entities[i]);
+
+            e = my.entities[i];
+
+            rect = e.getHitZone ? e.getHitZone() : e.rect;
+
+            if (rect.intersects(entity.rect)) {
+                a.push(e);
             }
+
         }
 
         return a;

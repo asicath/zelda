@@ -39,6 +39,9 @@ var Player = function() {
         return getSprite_parent();
     };
 
+    my.getHitZone = function() {
+        return new Rect(my.rect.x + 7, my.rect.y + 7, 2, 2);
+    };
 
 
     my.life = 12;
@@ -62,8 +65,8 @@ var Player = function() {
 
     var takeHit = function(facing) {
         // slide 32 pixels in 46 frames
-        //my.push(facing, 32, 32/8);
-        //sound_hit.play();
+        my.push(facing, 32, 32/8);
+        sound_hit.play();
     };
 
 
@@ -136,7 +139,7 @@ var Player = function() {
             }
             else {
                 // check for intersection
-                var a = room.getIntersectingEntities(sword.rect);
+                var a = room.getIntersectingEntities(sword);
                 for (var i = a.length-1; i >= 0; i--) {
                     if (a[i].entityType == 'monster') {
                         a[i].takeDamage(4, my.facing, room);
