@@ -12,6 +12,11 @@ var Walker = function(my) {
     // the top speed of the walker
     my.speed = 0;
 
+    my.velocity = {
+        x: 0,
+        y: 0
+    };
+
     my.canMove = true;
 
     // the current direction that the entity is attempting to move
@@ -42,18 +47,39 @@ var Walker = function(my) {
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
+        // currently does nothing
+        executeFrame_parent(room);
 
         // find a new velocity based on walking direction and automove
         determineVelocity(room);
 
-        // Mover uses velocity
-        executeFrame_parent(room);
+        // Do something
+        processVelocity(room);
 
         // swap the step if actually moving
-        if (my.canMove && my.hasVelocity()) {
+        if (my.canMove && hasVelocity()) {
             swapStep();
         }
 
+    };
+
+    var hasVelocity = function() {
+        return my.velocity.x != 0 || my.velocity.y != 0;
+    };
+
+    var processVelocity = function(room) {
+
+        if (my.velocity.x != 0 || my.velocity.y != 0) {
+
+            // Get the old position
+            var rectOld = my.rect;
+
+            // Calculate the new position based on velocity.
+            var rectNew = new Rect(rectOld.x + my.velocity.x, rectOld.y + my.velocity.y, rectOld.width, rectOld.height);
+
+            //this.checkForEdgeEvent(
+            my.attemptMove(room, rectNew);
+        }
     };
 
 

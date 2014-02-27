@@ -2,35 +2,6 @@
 var Mover = function(my) {
     my = my || Entity(); // bottom of the chain, ensure my is an entity
 
-    my.velocity = { x: 0, y: 0 };
-
-    my.hasVelocity = function() {
-        return my.velocity.x != 0 || my.velocity.y != 0;
-    };
-
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        executeFrame_parent(room);
-
-        // change position based on velocity
-        processVelocity(room);
-    };
-
-    var processVelocity = function(room) {
-
-        if (my.velocity.x != 0 || my.velocity.y != 0) {
-
-            // Get the old position
-            var rectOld = my.rect;
-
-            // Calculate the new position based on velocity.
-            var rectNew = new Rect(rectOld.x + my.velocity.x, rectOld.y + my.velocity.y, rectOld.width, rectOld.height);
-
-            //this.checkForEdgeEvent(
-            my.attemptMove(room, rectNew);
-        }
-    };
-
     // Gives the children the chance to override this movement.
     // Should call completeMove if this move is good.
     my.attemptMove = function(room, rectNew) {
@@ -51,11 +22,10 @@ var Mover = function(my) {
 
     };
 
-    /// After the move have been confirmed, call this to finalize
+    // After the move have been confirmed, call this to finalize
     my.completeMove = function(rectNew) {
         my.rect = rectNew;
     };
-
 
     /// <summary>
     /// If the rect is outside of the room, it will return the direction of the edge it is off
