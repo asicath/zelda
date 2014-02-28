@@ -33,8 +33,6 @@ var Push = function(mover) {
             return false;
         }
 
-        mover.setFacing(info.direction);
-
         // determine movement amount
         var amount = info.velocity;
         if (amount > info.distance) {
@@ -44,24 +42,7 @@ var Push = function(mover) {
             info.distance -= amount;
         }
 
-        var rect = new Rect(mover.rect.x, mover.rect.y, mover.rect.width, mover.rect.height);
-
-        switch (info.direction) {
-            case Directions.left:
-                rect.x -= amount;
-                break;
-            case Directions.right:
-                rect.x += amount;
-                break;
-            case Directions.top:
-                rect.y -= amount;
-                break;
-            case Directions.bottom:
-                rect.y += amount;
-                break;
-        }
-
-        mover.attemptMove(room, rect, my);
+        my.attemptSimpleMove(room, info.direction, amount);
 
         return true;
     };

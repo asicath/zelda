@@ -14,6 +14,29 @@ var MovementSource = function(mover) {
         return false;
     };
 
+    my.attemptSimpleMove = function(room, direction, amount) {
+        mover.setFacing(direction);
+
+        var rect = new Rect(mover.rect.x, mover.rect.y, mover.rect.width, mover.rect.height);
+
+        switch (direction) {
+            case Directions.left:
+                rect.x -= amount;
+                break;
+            case Directions.right:
+                rect.x += amount;
+                break;
+            case Directions.top:
+                rect.y -= amount;
+                break;
+            case Directions.bottom:
+                rect.y += amount;
+                break;
+        }
+
+        mover.attemptMove(room, rect, my);
+    };
+
     my.onEdgeEvent = function(room, edge) {
 
     };
@@ -23,8 +46,6 @@ var MovementSource = function(mover) {
     };
 
     my.stopShort = function(room, wallRect, moving) {
-
-        var footPrint = mover.getFootPrint(mover.rect);
 
         var rect = new Rect(mover.rect.x, mover.rect.y, mover.rect.width, mover.rect.height);
 
@@ -36,14 +57,14 @@ var MovementSource = function(mover) {
                 rect.y = wallRect.y + 16 - yOffset;
                 break;
             case Directions.bottom:
-                rect.y = wallRect.y - my.rect.height;
+                rect.y = wallRect.y - mover.rect.height;
                 break;
             case Directions.left:
                 var xOffset = mover.footPrint ? mover.footPrint.x : 0;
                 rect.x = wallRect.x + 16 - xOffset;
                 break;
             case Directions.right:
-                rect.x = wallRect.x - my.rect.width;
+                rect.x = wallRect.x - mover.rect.width;
                 break;
         }
 

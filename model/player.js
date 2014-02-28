@@ -6,7 +6,7 @@ var Player = function() {
 
     my.wallSensitive = true;
 
-    my.push(Directions.bottom, 144, 1.3);
+    //my.push(Directions.bottom, 144, 1.3);
 
     //PlayerWalker(my);
     //var my = RandomWalker();
