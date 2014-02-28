@@ -1,5 +1,6 @@
 var Monster = function() {
-    var my = Mover();
+    var my = Entity();
+    my = Mover(my);
 
     my.movementSources.push(new WalkRandom(my));
     my.movementSources.push(new Push(my));

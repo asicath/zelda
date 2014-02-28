@@ -1,6 +1,6 @@
 
-var Mover = function() {
-    var my = Entity();
+var Mover = function(my) {
+    var my = my || Entity();
 
     my.wallSensitive = false;
 
