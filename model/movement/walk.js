@@ -6,12 +6,16 @@ var Walk = function(mover) {
 
     my.moveIntent = null;
 
+    mover.canWalk = true;
+
     var guideSize = 8;
 
     // Returns true if this source moved this frame
     my.executeMove = function(room) {
 
         if (!my.moveIntent) return false;
+
+        if (!mover.canWalk) return false;
 
         var amount = mover.speed;
 

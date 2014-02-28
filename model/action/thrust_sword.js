@@ -41,7 +41,7 @@ var ThrustSword = function(actor) {
                 attackActivateFrames = 4;
 
                 // can't move while attacking
-                actor.canMove = false;
+                actor.canWalk = false;
 
                 snd.play();
             }
@@ -70,7 +70,7 @@ var ThrustSword = function(actor) {
 
             if (sword.done) {
                 sword = null;
-                actor.canMove = true;
+                actor.canWalk = true;
 
                 swordState = 3;
                 coolDown = 6;

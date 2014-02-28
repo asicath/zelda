@@ -13,7 +13,7 @@ var Monster = function() {
     my.stepChange = 8;
 
     my.rect = new Rect(128, 88, 16, 16);
-    my.speed = 40/60; // can move 80 pixels in 1s or 60 frames
+    my.speed = 40/60; // can move 40 pixels in 1s or 60 frames
     my.sprites = Sprites.octopus;
     my.facingSpriteBaseIndex = [0, 2, 4, 6];
     my.spriteIndex = 0;
