@@ -4,23 +4,23 @@
 var Walk = function(mover) {
     var my = MovementSource(mover);
 
-    var moveIntent = null;
+    my.moveIntent = null;
 
     // Returns true if this source moved this frame
     my.executeMove = function(room) {
 
-        if (!moveIntent) return false;
+        if (!my.moveIntent) return false;
 
         var amount = mover.speed;
-        
 
-        my.attemptSimpleMove(room, moveIntent, amount);
+
+        my.attemptSimpleMove(room, my.moveIntent, amount);
 
         return true;
     };
 
     my.onWallEvent = function(room, wall, rect) {
-        my.stopShort(room, wall, moveIntent);
+        my.stopShort(room, wall, my.moveIntent);
     };
 
     my.onEdgeEvent = function(room, wall, rect) {

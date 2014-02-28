@@ -1,17 +1,10 @@
+var WalkControlled = function(mover) {
+    var my = Walk(mover);
 
-var PlayerWalker = function(my) {
-    my = Walker(my);
-
-    // controls which inputs are used
-    my.playerId = 0;
-
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        // check for new input from player
-        checkInput();
-
-        // Walker uses input
-        executeFrame_parent(room);
+    var executeMove_parent = my.executeMove;
+    my.executeMove = function(room) {
+        checkInput(mover.playerId);
+        executeMove_parent(room);
     };
 
     var moving = {
@@ -37,7 +30,7 @@ var PlayerWalker = function(my) {
             return;
         }
         moving[direction] = true;
-        my.setWalkingDirection(getMovingPriority());
+        my.moveIntent = getMovingPriority();
     };
 
     var endMoving = function(direction) {
@@ -47,41 +40,41 @@ var PlayerWalker = function(my) {
             return;
         }
         moving[direction] = false;
-        my.setWalkingDirection(getMovingPriority());
+        my.moveIntent = getMovingPriority();
     };
 
-    var checkInput = function() {
+    var checkInput = function(id) {
 
-        if (playerInput[my.playerId].up && !moving[Directions.top]) {
+        if (playerInput[id].up && !moving[Directions.top]) {
             startMoving(Directions.top);
         }
-        else if (!playerInput[my.playerId].up && moving[Directions.top]) {
+        else if (!playerInput[id].up && moving[Directions.top]) {
             endMoving(Directions.top);
         }
 
-        if (playerInput[my.playerId].down && !moving[Directions.bottom]) {
+        if (playerInput[id].down && !moving[Directions.bottom]) {
             startMoving(Directions.bottom);
         }
-        else if (!playerInput[my.playerId].down && moving[Directions.bottom]) {
+        else if (!playerInput[id].down && moving[Directions.bottom]) {
             endMoving(Directions.bottom);
         }
 
-        if (playerInput[my.playerId].left && !moving[Directions.left]) {
+        if (playerInput[id].left && !moving[Directions.left]) {
             startMoving(Directions.left);
         }
-        else if (!playerInput[my.playerId].left && moving[Directions.left]) {
+        else if (!playerInput[id].left && moving[Directions.left]) {
             endMoving(Directions.left);
         }
 
-        if (playerInput[my.playerId].right && !moving[Directions.right]) {
+        if (playerInput[id].right && !moving[Directions.right]) {
             startMoving(Directions.right);
         }
-        else if (!playerInput[my.playerId].right && moving[Directions.right]) {
+        else if (!playerInput[id].right && moving[Directions.right]) {
             endMoving(Directions.right);
         }
 
 
-        if (playerInput[my.playerId].attack) {
+        if (playerInput[id].attack) {
             my.attack = true;
         }
         else {
@@ -89,7 +82,7 @@ var PlayerWalker = function(my) {
         }
 
 
-        if (playerInput[my.playerId].flash) {
+        if (playerInput[id].flash) {
             my.flashing = true;
         }
         else if (my.flashing) {
@@ -98,9 +91,5 @@ var PlayerWalker = function(my) {
 
     };
 
-
     return my;
 };
-
-
-

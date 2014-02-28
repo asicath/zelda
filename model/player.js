@@ -1,7 +1,7 @@
 var Player = function() {
     var my = Mover();
 
-    my.movementSources.push(new Walk(my));
+    my.movementSources.push(new WalkControlled(my));
     my.movementSources.push(new Push(my));
 
     my.wallSensitive = true;
@@ -10,6 +10,8 @@ var Player = function() {
 
     //PlayerWalker(my);
     //var my = RandomWalker();
+
+    my.playerId = 0;
 
     my.entityType = 'player';
     my.rect = new Rect(144, 80, 16, 16);
