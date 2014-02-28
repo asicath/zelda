@@ -73,7 +73,7 @@ var WalkControlled = function(mover) {
             endMoving(Directions.right);
         }
 
-
+        /*
         if (playerInput[id].attack) {
             my.attack = true;
         }
@@ -81,13 +81,13 @@ var WalkControlled = function(mover) {
             my.attack = false;
         }
 
-
         if (playerInput[id].flash) {
             my.flashing = true;
         }
         else if (my.flashing) {
             my.flashing = false;
         }
+        */
 
     };
 
