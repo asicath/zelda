@@ -1,27 +1,16 @@
 var Player = function() {
     var my = Mover();
 
+    my.playerId = 0;
+
     my.movementSources.push(new WalkControlled(my));
-    //my.movementSources.push(new WalkRandom(my));
     my.movementSources.push(new Push(my));
 
     my.wallSensitive = true;
-
-    //my.push(Directions.bottom, 144, 1.3);
-
-    //PlayerWalker(my);
-    //var my = RandomWalker();
-
-    my.playerId = 0;
-
     my.entityType = 'player';
     my.rect = new Rect(144, 80, 16, 16);
-
-    // has a smaller foot print than the monsters
-    my.footPrint = new Rect(0, 8, 16, 8);
-
+    my.footPrint = new Rect(0, 8, 16, 8); // has a smaller foot print than the monsters
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
-
     my.sprites = Sprites.link;
     my.spriteIndex = 0;
     my.palette = Palettes.LinkGreen;
@@ -34,11 +23,28 @@ var Player = function() {
             my.invincible--;
         }
 
-        // Walker uses input
         executeFrame_parent(room);
 
-        checkSwordThrust(room);
+        checkInput(my.playerId);
 
+        checkSwordThrust(room);
+    };
+
+    var checkInput = function(id) {
+
+        if (playerInput[id].attack) {
+            my.attack = true;
+        }
+        else {
+            my.attack = false;
+        }
+
+        if (playerInput[id].flash) {
+            my.flashing = true;
+        }
+        else if (my.flashing) {
+            my.flashing = false;
+        }
 
     };
 
@@ -76,7 +82,7 @@ var Player = function() {
 
     var takeHit = function(facing) {
         // slide 32 pixels in 46 frames
-        my.push(facing, 32, 32/8);
+        my.push(Directions.top, 32, 32/8);
         sound_hit.play();
     };
 

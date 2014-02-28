@@ -88,9 +88,10 @@ var Walk = function(mover) {
     };
 
     // The walker will have four faces of movement
+    var setFacing_parent = mover.setFacing;
     mover.setFacing = function(direction) {
 
-        //my.facing = direction;
+        setFacing_parent(direction);
 
         // change sprite
         switch (direction) {

@@ -23,8 +23,10 @@ var Mover = function() {
 
     };
 
-    my.setFacing = function(direction) {
+    my.facing = Directions.bottom;
 
+    my.setFacing = function(direction) {
+        my.facing = direction;
     };
 
     my.attemptMove = function(room, rect, source) {
