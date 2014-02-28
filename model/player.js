@@ -1,10 +1,18 @@
 var Player = function() {
-    var my = Entity();
-    PlayerWalker(my);
+    var my = Mover();
+
+    my.movementSources.push(new Walk(my));
+    my.movementSources.push(new Push(my));
+
+    my.wallSensitive = true;
+
+    my.push(Directions.left, 72, 1);
+
+    //PlayerWalker(my);
     //var my = RandomWalker();
 
     my.entityType = 'player';
-    my.rect = new Rect(32, 88, 16, 16);
+    my.rect = new Rect(32, 64, 16, 16);
 
     // has a smaller foot print than the monsters
     my.footPrint = new Rect(0, 8, 16, 8);

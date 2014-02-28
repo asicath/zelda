@@ -1,65 +1,93 @@
 
-var Mover = function(my) {
-    my = my || Entity(); // bottom of the chain, ensure my is an entity
+var Mover = function() {
+    var my = Entity();
 
-    my.velocity = { x: 0, y: 0 };
+    my.wallSensitive = false;
 
-    my.hasVelocity = function() {
-        return my.velocity.x != 0 || my.velocity.y != 0;
+    my.movementSources = [];
+
+    var executeMove = function(room) {
+        for (var i = my.movementSources.length - 1; i >= 0; i--) {
+            if (my.movementSources[i].executeMove(room)) return;
+        }
     };
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
+
+        // allow for inputto be read
         executeFrame_parent(room);
 
-        // change position based on velocity
-        processVelocity(room);
+        // check for new input from player
+        executeMove(room);
+
     };
 
-    var processVelocity = function(room) {
+    my.setFacing = function(direction) {
 
-        if (my.velocity.x != 0 || my.velocity.y != 0) {
-
-            // Get the old position
-            var rectOld = my.rect;
-
-            // Calculate the new position based on velocity.
-            var rectNew = new Rect(rectOld.x + my.velocity.x, rectOld.y + my.velocity.y, rectOld.width, rectOld.height);
-
-            //this.checkForEdgeEvent(
-            my.attemptMove(room, rectNew);
-        }
     };
 
-    // Gives the children the chance to override this movement.
-    // Should call completeMove if this move is good.
-    my.attemptMove = function(room, rectNew) {
+    my.attemptMove = function(room, rect, source) {
 
         // Check to see if we've gone over the edge
-        var edge = isOffEdge(room, rectNew);
+        var edge = isOffEdge(room, rect);
         if (edge) {
             // We've gone over an edge, don't complete the move.
-            my.onEdgeEvent(room);
+            source.onEdgeEvent(room);
             return;
         }
 
+        if (my.wallSensitive) {
+
+            // Get the new foot print to check for wall intersection
+            var footPrint = getFootPrint(rect);
+
+            // Check for wall intersection
+            var wall = room.intersectsWall(footPrint);
+            if (wall) {
+                source.onWallEvent(room, wall, rect);
+                return;
+            }
+
+        }
+
         // no problems, complete move
-        my.completeMove(rectNew);
+        my.rect = rect;
     };
 
-    my.onEdgeEvent = function(room) {
+    my.footPrint = null;
 
+    var getFootPrint = function(rect) {
+        // The default footprint is what ever the entity's rect is
+        if (!my.footPrint) {return rect;}
+        // Otherwise derive one from the footprint
+        return new Rect(rect.x + my.footPrint.x, rect.y + my.footPrint.y, my.footPrint.width, my.footPrint.height);
     };
 
-    /// After the move have been confirmed, call this to finalize
-    my.completeMove = function(rectNew) {
-        my.rect = rectNew;
+    var stopShort = function(room, wall, rect) {
+
+        // stop short
+        switch("") {
+            case Directions.top:
+                // hit wall from the bottom
+                rect.y = wall.y + 16 - my.footPrint.y;
+                break;
+            case Directions.bottom:
+                rect.y = wall.y - my.rect.height;
+                break;
+            case Directions.left:
+                rect.x = wall.x + 16 - my.footPrint.x;
+                break;
+            case Directions.right:
+                rect.x = wall.x - my.rect.width;
+                break;
+        }
+
+        // attempt again
+        my.attemptMove(room, rect);
     };
 
-
-    /// <summary>
     /// If the rect is outside of the room, it will return the direction of the edge it is off
-    /// </summary>
     var isOffEdge = function(room, rect) {
         if (rect.x < 0) {
             return Directions.left;

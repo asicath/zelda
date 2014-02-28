@@ -107,6 +107,7 @@ var Room = function(data) {
     my.addCount = 1;
 
     var checkAddMonster = function() {
+        return;
         if (my.countToAddMonster >= 0) {
             if (my.countToAddMonster-- == 0) {
                 var e = Monster();
