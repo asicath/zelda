@@ -6,6 +6,8 @@ var Walk = function(mover) {
 
     my.moveIntent = null;
 
+    var guideSize = 8;
+
     // Returns true if this source moved this frame
     my.executeMove = function(room) {
 
@@ -13,12 +15,68 @@ var Walk = function(mover) {
 
         var amount = mover.speed;
 
+        // Make sure that we are on a guide
+        amount = moveToGuide(room, amount);
 
-        my.attemptSimpleMove(room, my.moveIntent, amount);
+        // Use any left over movement to move in the intended direction
+        if (amount > 0) {
+            my.attemptSimpleMove(room, my.moveIntent, amount);
+        }
 
         swapStep();
 
         return true;
+    };
+
+    // Will return amount left over
+    var moveToGuide = function(room, amount) {
+
+        var toGuideAmount = 0;
+        var direction = null;
+
+        // make sure we're on a guide
+        if (my.moveIntent == Directions.top || my.moveIntent == Directions.bottom) {
+            var toLeftGuide = mover.rect.x % guideSize;
+            if (toLeftGuide > 0) {
+                var toRightGuide = guideSize - toLeftGuide;
+                if (toLeftGuide <= toRightGuide) {
+                    direction = Directions.left;
+                    toGuideAmount = toLeftGuide;
+                }
+                else {
+                    direction = Directions.right;
+                    toGuideAmount = toRightGuide;
+                }
+            }
+        }
+        else if (my.moveIntent == Directions.left || my.moveIntent == Directions.right) {
+            var toTopGuide = mover.rect.y % guideSize;
+            if (toTopGuide > 0) {
+                var toBottomGuide = guideSize - toTopGuide;
+                if (toTopGuide <= toBottomGuide) {
+                    direction = Directions.top;
+                    toGuideAmount = toTopGuide;
+                }
+                else {
+                    direction = Directions.bottom;
+                    toGuideAmount = toBottomGuide;
+                }
+            }
+        }
+
+        // no guide move needed, give back the full amount
+        if (!direction) {return amount;}
+
+        // Limit the amount moved
+        if (toGuideAmount > amount) {
+            toGuideAmount = amount;
+        }
+
+        // Take the move
+        my.attemptSimpleMove(room, direction, toGuideAmount);
+
+        // give back whatever is left
+        return amount - toGuideAmount;
     };
 
     my.onWallEvent = function(room, wall, rect) {
@@ -60,7 +118,8 @@ var Walk = function(mover) {
         return mover.sprites[mover.spriteIndex + step];
     };
 
-    my.resetStep = function() {
+    // Allow others to reset the step count
+    mover.resetStep = function() {
         swapStepCount = 0;
         step = 0;
     };
@@ -73,3 +132,58 @@ var Walk = function(mover) {
 
     return my;
 };
+
+// Left over code to prevent all intersection on automove, with correct wall placement we shouldnt need this
+/*
+ var checkForAutoMove = function(moveIntent, guideSize) {
+
+ // Check for auto correction
+ if (moveIntent == Directions.top || moveIntent == Directions.bottom) {
+
+ // check to make sure it is valid
+ var rectLeft = new Rect(Math.round(my.rect.x - toLeftGuide), my.rect.y, my.rect.width, my.rect.height);
+ var rectRight = new Rect(Math.round(my.rect.x + toRightGuide), my.rect.y, my.rect.width, my.rect.height);
+
+ var intersectsLeft = room.intersectsWall(getFootPrint(rectLeft));
+ var intersectsRight = room.intersectsWall(getFootPrint(rectRight));
+
+ var goLeft = false;
+
+ // determine if either direction is invalid
+ if (intersectsLeft) {
+ goLeft = false;
+ }
+ else if (intersectsRight) {
+ goLeft = true;
+ }
+ else {
+ // both are valid, favor lesser movement amount
+ goLeft = toLeftGuide <= 4;
+ }
+
+ }
+ else if (moveIntent == Directions.left || moveIntent == Directions.right) {
+
+ var rectTop = new Rect(my.rect.x, Math.round(my.rect.y - toTopGuide), my.rect.width, my.rect.height);
+ var rectBottom = new Rect(my.rect.x, Math.round(my.rect.y + toBottomGuide), my.rect.width, my.rect.height);
+
+ var intersectsTop = room.intersectsWall(getFootPrint(rectTop));
+ var intersectsBottom = room.intersectsWall(getFootPrint(rectBottom));
+
+ var goTop = false;
+
+ // determine if either direction is invalid
+ if (intersectsTop) {
+ goTop = false;
+ }
+ else if (intersectsBottom) {
+ goTop = true;
+ }
+ else {
+ // both are valid, favor lesser movement amount
+ goTop = toTopGuide <= 4;
+ }
+
+ }
+ };
+ */

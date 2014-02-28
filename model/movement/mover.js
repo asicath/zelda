@@ -51,8 +51,6 @@ var Mover = function() {
 
         }
 
-        console.log(rect);
-
         // no problems, complete move
         my.rect = rect;
     };
