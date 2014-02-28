@@ -6,13 +6,13 @@ var Player = function() {
 
     my.wallSensitive = true;
 
-    my.push(Directions.left, 72, 1);
+    my.push(Directions.bottom, 144, 1.3);
 
     //PlayerWalker(my);
     //var my = RandomWalker();
 
     my.entityType = 'player';
-    my.rect = new Rect(32, 64, 16, 16);
+    my.rect = new Rect(144, 80, 16, 16);
 
     // has a smaller foot print than the monsters
     my.footPrint = new Rect(0, 8, 16, 8);

@@ -40,7 +40,7 @@ var Mover = function() {
         if (my.wallSensitive) {
 
             // Get the new foot print to check for wall intersection
-            var footPrint = getFootPrint(rect);
+            var footPrint = my.getFootPrint(rect);
 
             // Check for wall intersection
             var wall = room.intersectsWall(footPrint);
@@ -51,40 +51,19 @@ var Mover = function() {
 
         }
 
+        console.log(rect);
+
         // no problems, complete move
         my.rect = rect;
     };
 
     my.footPrint = null;
 
-    var getFootPrint = function(rect) {
+    my.getFootPrint = function(rect) {
         // The default footprint is what ever the entity's rect is
         if (!my.footPrint) {return rect;}
         // Otherwise derive one from the footprint
         return new Rect(rect.x + my.footPrint.x, rect.y + my.footPrint.y, my.footPrint.width, my.footPrint.height);
-    };
-
-    var stopShort = function(room, wall, rect) {
-
-        // stop short
-        switch("") {
-            case Directions.top:
-                // hit wall from the bottom
-                rect.y = wall.y + 16 - my.footPrint.y;
-                break;
-            case Directions.bottom:
-                rect.y = wall.y - my.rect.height;
-                break;
-            case Directions.left:
-                rect.x = wall.x + 16 - my.footPrint.x;
-                break;
-            case Directions.right:
-                rect.x = wall.x - my.rect.width;
-                break;
-        }
-
-        // attempt again
-        my.attemptMove(room, rect);
     };
 
     /// If the rect is outside of the room, it will return the direction of the edge it is off
