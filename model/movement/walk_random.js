@@ -1,5 +1,5 @@
-var RandomWalker = function(my) {
-    my = Walker(my);
+var WalkRandom = function(mover) {
+    var my = Walk(mover);
 
     var moving = null;
 
@@ -7,14 +7,11 @@ var RandomWalker = function(my) {
     var changeDirectionChance = 0.1 / 2;
     var tickCountUntilRandom = 50;
 
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-
+    var executeMove_parent = my.executeMove;
+    my.executeMove = function(room) {
         // check for new random move
         checkMove();
-
-        // Walker uses input
-        executeFrame_parent(room);
+        executeMove_parent(room);
     };
 
     var checkMove = function() {
@@ -28,7 +25,7 @@ var RandomWalker = function(my) {
 
         if (moving == null) {
             moving = getRandomDirection();
-            my.setWalkingDirection(moving);
+            my.moveIntent = moving;
             tickCountUntilRandom = 50;
         }
     };
@@ -46,6 +43,18 @@ var RandomWalker = function(my) {
             case 3: return Directions.right;
         }
         return Directions.top;
+    };
+
+    var onWallEvent_parent = my.onWallEvent;
+    my.onWallEvent = function(room, wall, rect) {
+        onWallEvent_parent(room, wall, rect);
+        moving = null;
+    };
+
+    var onEdgeEvent_parent = my.onEdgeEvent;
+    my.onEdgeEvent = function(room, wall, rect) {
+        onEdgeEvent_parent(room, wall, rect);
+        moving = null;
     };
 
     return my;
