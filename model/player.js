@@ -3,13 +3,12 @@ var Player = function() {
     my = Mover(my);
     my = Actor(my);
 
-    my.playerId = 0;
-
     my.movementSources.push(new WalkControlled(my));
     my.movementSources.push(new Push(my));
 
     my.action = ThrustSword(my);
 
+    my.playerId = 0;
     my.wallSensitive = true;
     my.entityType = 'player';
     my.rect = new Rect(144, 80, 16, 16);
@@ -38,7 +37,7 @@ var Player = function() {
 
     my.life = 12;
     my.invincible = 0;
-    my.takeDamage = function(amount, facing, room) {
+    my.takeDamage = function(amount, rect, room) {
 
         if (my.invincible > 0) return;
 
@@ -50,7 +49,8 @@ var Player = function() {
             //death(room);
         }
         else {
-            takeHit(facing);
+            var direction = Directions.top;
+            takeHit(direction);
         }
 
     };

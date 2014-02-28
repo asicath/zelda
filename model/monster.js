@@ -20,7 +20,7 @@ var Monster = function() {
     my.palette = Palettes.MonsterRed;
 
 
-    my.takeDamage = function(amount, facing, room) {
+    my.takeDamage = function(amount, rect, room) {
 
         if (my.invincible > 0 || my.isDead) return;
 
@@ -32,7 +32,9 @@ var Monster = function() {
             death(room);
         }
         else {
-            takeHit(facing);
+            // Direction should be on the grid
+            var direction = Directions.top;
+            takeHit(direction);
         }
 
     };
@@ -79,7 +81,7 @@ var Monster = function() {
         var a = room.getIntersectingEntities(my);
         for (var i = a.length-1; i >= 0; i--) {
             if (a[i].entityType == 'player') {
-                a[i].takeDamage(2, my.facing, room);
+                a[i].takeDamage(2, my.rect, room);
             }
         }
 

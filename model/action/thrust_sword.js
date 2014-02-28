@@ -75,15 +75,6 @@ var ThrustSword = function(actor) {
                 swordState = 3;
                 coolDown = 6;
             }
-            else {
-                // check for intersection
-                var a = room.getIntersectingEntities(sword);
-                for (var i = a.length-1; i >= 0; i--) {
-                    if (a[i].entityType == 'monster') {
-                        a[i].takeDamage(4, actor.facing, room);
-                    }
-                }
-            }
 
         }
 
