@@ -15,7 +15,11 @@ var Walk = function(mover) {
 
         if (!my.moveIntent) return false;
 
-        if (!mover.canWalk) return false;
+        if (!mover.canWalk) {
+            // can't walk, but make sure to update facing
+            mover.setFacing(my.moveIntent);
+            return false;
+        }
 
         var amount = mover.speed;
 
