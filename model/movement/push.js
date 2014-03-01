@@ -14,11 +14,15 @@ var Push = function(mover) {
         }
     };
 
+    // Will always be pushed, but only aligned to the last walk direction
     mover.pushFromContact = function(rect) {
 
         var pushDirection;
 
-        if (mover.lastMoveDirection == Directions.top || mover.lastMoveDirection == Directions.bottom) {
+        if (!mover.isWalker) {
+            // Don't move?
+        }
+        else if (mover.lastWalkDirection == Directions.top || mover.lastWalkDirection == Directions.bottom) {
             if (rect.y > mover.rect.y) {
                 pushDirection = Directions.top;
             }
@@ -26,7 +30,7 @@ var Push = function(mover) {
                 pushDirection = Directions.bottom;
             }
         }
-        else if (mover.lastMoveDirection == Directions.left || mover.lastMoveDirection == Directions.right) {
+        else if (mover.lastWalkDirection == Directions.left || mover.lastWalkDirection == Directions.right) {
             if (rect.x > mover.rect.x) {
                 pushDirection = Directions.left;
             }
@@ -34,6 +38,30 @@ var Push = function(mover) {
                 pushDirection = Directions.right;
             }
         }
+
+        if (pushDirection) {
+            // slide 32 pixels in 46 frames
+            mover.push(pushDirection, 32, 32/8);
+        }
+
+    };
+
+    // will not be pushed unless thrustDirection aligns with the guide the walker is on
+    mover.pushFromThrust = function(thrustDirection) {
+
+        var pushDirection;
+
+        if (!mover.isWalker) {
+            // No need for guides
+            pushDirection = thrustDirection;
+        }
+        else if (thrustDirection == Directions.top || thrustDirection == Directions.bottom) {
+            if (mover.isOnVerticalGuide()) pushDirection = thrustDirection;
+        }
+        else {
+            if (mover.isOnHorizontalGuide()) pushDirection = thrustDirection;
+        }
+
 
         if (pushDirection) {
             // slide 32 pixels in 46 frames

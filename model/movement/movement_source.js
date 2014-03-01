@@ -9,8 +9,6 @@ var Directions = {
 var MovementSource = function(mover) {
     var my = {};
 
-    mover.lastMoveDirection = Directions.bottom;
-
     // Returns true if this source moved this frame
     my.executeMove = function(room) {
         return false;
@@ -41,8 +39,6 @@ var MovementSource = function(mover) {
         }
 
         mover.attemptMove(room, rect, my);
-
-        mover.lastMoveDirection = moveDirection;
     };
 
     my.onEdgeEvent = function(room, edge) {

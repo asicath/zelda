@@ -15,7 +15,7 @@ var Sword = function() {
         var a = room.getIntersectingEntities(my);
         for (var i = a.length-1; i >= 0; i--) {
             if (a[i].entityType == 'monster') {
-                a[i].takeDamage(4, my.rect, room);
+                a[i].takeDamage(4, my, room);
             }
         }
 

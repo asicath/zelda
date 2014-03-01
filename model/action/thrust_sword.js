@@ -121,6 +121,7 @@ var ThrustSword = function(actor) {
             sword.rect.width = pos.width;
             sword.rect.height = pos.height;
             sword.spriteIndex = pos.spriteIndex;
+            sword.facing = actor.facing;
         };
 
         if (swordTick < 9 * slow) {

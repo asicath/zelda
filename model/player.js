@@ -37,7 +37,7 @@ var Player = function() {
 
     my.life = 12;
     my.invincible = 0;
-    my.takeDamage = function(amount, rect, room) {
+    my.takeDamage = function(amount, entity, room) {
 
         if (my.invincible > 0) return;
 
@@ -50,7 +50,7 @@ var Player = function() {
         }
         else {
             sound_hit.play();
-            my.pushFromContact(rect);
+            my.pushFromContact(entity.rect);
         }
 
     };

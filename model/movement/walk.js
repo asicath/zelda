@@ -8,6 +8,9 @@ var Walk = function(mover) {
 
     mover.canWalk = true;
 
+    mover.isWalker = true;
+    mover.lastWalkDirection = Directions.bottom;
+
     var guideSize = 8;
 
     // Returns true if this source moved this frame
@@ -28,6 +31,7 @@ var Walk = function(mover) {
 
         // Use any left over movement to move in the intended direction
         if (amount > 0) {
+            mover.lastWalkDirection = my.moveIntent;
             my.attemptSimpleMove(room, my.moveIntent, amount, my.moveIntent);
         }
 
@@ -81,10 +85,21 @@ var Walk = function(mover) {
         }
 
         // Take the move
+        mover.lastWalkDirection = direction;
         my.attemptSimpleMove(room, direction, toGuideAmount, direction);
 
         // give back whatever is left
         return amount - toGuideAmount;
+    };
+
+    mover.isOnVerticalGuide = function() {
+        var toLeftGuide = mover.rect.x % guideSize;
+        return toLeftGuide == 0;
+    };
+
+    mover.isOnHorizontalGuide = function() {
+        var toTopGuide = mover.rect.y % guideSize;
+        return toTopGuide == 0;
     };
 
     my.onWallEvent = function(room, wall, rect) {

@@ -20,7 +20,7 @@ var Monster = function() {
     my.palette = Palettes.MonsterRed;
 
 
-    my.takeDamage = function(amount, rect, room) {
+    my.takeDamage = function(amount, entity, room) {
 
         if (my.invincible > 0 || my.isDead) return;
 
@@ -33,7 +33,7 @@ var Monster = function() {
         }
         else {
             sound_hit.play();
-            my.pushFromContact(rect);
+            my.pushFromThrust(entity.facing);
         }
 
     };
@@ -75,7 +75,7 @@ var Monster = function() {
         var a = room.getIntersectingEntities(my);
         for (var i = a.length-1; i >= 0; i--) {
             if (a[i].entityType == 'player') {
-                a[i].takeDamage(2, my.rect, room);
+                a[i].takeDamage(2, my, room);
             }
         }
 
