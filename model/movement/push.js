@@ -42,7 +42,8 @@ var Push = function(mover) {
             info.distance -= amount;
         }
 
-        my.attemptSimpleMove(room, info.direction, amount);
+        // push does not change facing
+        my.attemptSimpleMove(room, info.direction, amount, null);
 
         return true;
     };

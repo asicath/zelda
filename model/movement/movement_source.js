@@ -14,12 +14,16 @@ var MovementSource = function(mover) {
         return false;
     };
 
-    my.attemptSimpleMove = function(room, direction, amount) {
-        mover.setFacing(direction);
+    my.attemptSimpleMove = function(room, moveDirection, amount, facingDirection) {
+
+        // Change facing if supplied
+        if (facingDirection) {
+            mover.setFacing(facingDirection);
+        }
 
         var rect = new Rect(mover.rect.x, mover.rect.y, mover.rect.width, mover.rect.height);
 
-        switch (direction) {
+        switch (moveDirection) {
             case Directions.left:
                 rect.x -= amount;
                 break;

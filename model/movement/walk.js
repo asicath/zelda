@@ -24,7 +24,7 @@ var Walk = function(mover) {
 
         // Use any left over movement to move in the intended direction
         if (amount > 0) {
-            my.attemptSimpleMove(room, my.moveIntent, amount);
+            my.attemptSimpleMove(room, my.moveIntent, amount, my.moveIntent);
         }
 
         swapStep();
@@ -77,7 +77,7 @@ var Walk = function(mover) {
         }
 
         // Take the move
-        my.attemptSimpleMove(room, direction, toGuideAmount);
+        my.attemptSimpleMove(room, direction, toGuideAmount, direction);
 
         // give back whatever is left
         return amount - toGuideAmount;
