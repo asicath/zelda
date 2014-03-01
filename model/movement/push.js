@@ -14,6 +14,34 @@ var Push = function(mover) {
         }
     };
 
+    mover.pushFromContact = function(rect) {
+
+        var pushDirection;
+
+        if (mover.lastMoveDirection == Directions.top || mover.lastMoveDirection == Directions.bottom) {
+            if (rect.y > mover.rect.y) {
+                pushDirection = Directions.top;
+            }
+            else {
+                pushDirection = Directions.bottom;
+            }
+        }
+        else if (mover.lastMoveDirection == Directions.left || mover.lastMoveDirection == Directions.right) {
+            if (rect.x > mover.rect.x) {
+                pushDirection = Directions.left;
+            }
+            else {
+                pushDirection = Directions.right;
+            }
+        }
+
+        if (pushDirection) {
+            // slide 32 pixels in 46 frames
+            mover.push(pushDirection, 32, 32/8);
+        }
+
+    };
+
     var endPush = function() {
         info.complete = true;
     };

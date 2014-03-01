@@ -49,22 +49,11 @@ var Player = function() {
             //death(room);
         }
         else {
-            var direction = Directions.top;
-            takeHit(direction);
+            sound_hit.play();
+            my.pushFromContact(rect);
         }
 
     };
-
-    var takeHit = function(facing) {
-        // slide 32 pixels in 46 frames
-        my.push(Directions.top, 32, 32/8);
-        sound_hit.play();
-    };
-
-
-
-
-
 
     return my;
 };

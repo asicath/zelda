@@ -32,9 +32,8 @@ var Monster = function() {
             death(room);
         }
         else {
-            // Direction should be on the grid
-            var direction = Directions.top;
-            takeHit(direction);
+            sound_hit.play();
+            my.pushFromContact(rect);
         }
 
     };
@@ -53,11 +52,6 @@ var Monster = function() {
 
         playSoundKill();
         monstersKilled++;
-    };
-
-    var takeHit = function(facing) {
-        my.push(facing, 32, 32/8);
-        sound_hit.play();
     };
 
     var executeFrame_parent = my.executeFrame;
