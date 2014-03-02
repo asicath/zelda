@@ -7,6 +7,7 @@ var Walk = function(mover) {
     my.moveIntent = null;
 
     mover.canWalk = true;
+    mover.canChangeFace = true;
 
     mover.isWalker = true;
     mover.lastWalkDirection = Directions.bottom;
@@ -19,8 +20,12 @@ var Walk = function(mover) {
         if (!my.moveIntent) return false;
 
         if (!mover.canWalk) {
-            // can't walk, but make sure to update facing
-            mover.setFacing(my.moveIntent);
+
+            if (mover.canChangeFace) {
+                // can't walk, but make sure to update facing
+                mover.setFacing(my.moveIntent);
+            }
+
             return false;
         }
 
