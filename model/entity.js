@@ -25,7 +25,7 @@ var Entity = function() {
     my.getPalette = function() {
 
         if (my.flashing) {
-            return flashPalates[Math.floor((flashIndex++ / 2) % 4)];
+            return my.flashPalates[Math.floor((flashIndex++ / 2) % 4)];
         }
 
         return my.palette;
@@ -33,7 +33,7 @@ var Entity = function() {
 
 
 
-    var flashPalates = [
+    my.flashPalates = [
         Palettes.MonsterBlack, // should be all blue
         Palettes.MonsterBlue,
         Palettes.MonsterRed,

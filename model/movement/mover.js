@@ -35,8 +35,7 @@ var Mover = function(my) {
         var edge = isOffEdge(room, rect);
         if (edge) {
             // We've gone over an edge, don't complete the move.
-            source.onEdgeEvent(room);
-            return;
+            if (!source.onEdgeEvent(room)) {return;}
         }
 
         if (my.wallSensitive) {

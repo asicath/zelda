@@ -28,7 +28,7 @@ var Missile = function(mover) {
     };
 
     my.onEdgeEvent = function(room, wall, rect) {
-        mover.onEdgeEvent(room, wall, rect);
+        return mover.onEdgeEvent(room, wall, rect);
     };
 
     return my;

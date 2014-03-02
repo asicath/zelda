@@ -40,7 +40,7 @@ var sound_candle = new Audio("assets/sounds/candle.wav");
 
 var spriteLoadFinish = function() {
 
-    if (++Sprites.count < 6) {return;}
+    if (++Sprites.count < 7) {return;}
 
     loadRoom('assets/ow07-06.js', function(room) {
         startDraw(room);
@@ -70,6 +70,16 @@ loadSprites('assets/link.gif', null, function(linkSprites) {
 
 loadSprites('assets/octopus.gif', null, function(octopus) {
     Sprites.octopus = octopus;
+    spriteLoadFinish();
+});
+
+loadSprites('assets/explosion.gif',     [
+    {x:0,  y: 0, width: 8, height:10},
+    {x:8,  y: 0, width: 8, height:10},
+    {x:16, y: 0, width: 8, height:10},
+    {x:24, y: 0, width: 8, height:10}
+], function(explosion) {
+    Sprites.explosion = explosion;
     spriteLoadFinish();
 });
 

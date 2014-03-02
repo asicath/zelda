@@ -34,14 +34,40 @@ var SwordMissile = function(playerId, sword) {
     };
 
     my.onHit = function(room) {
-        // should be combined with edge hit
-        room.removeAfterFrame.push(my);
-        my.complete = true;
+        finish(room);
     };
 
     my.onEdgeEvent = function(room, wall, rect) {
+        finish(room);
+    };
+
+    var finish = function(room) {
         room.removeAfterFrame.push(my);
         my.complete = true;
+
+        var ex1 = Explosion(Math.PI * 0.25);
+        ex1.rect.x = my.rect.x;
+        ex1.rect.y = my.rect.y;
+        ex1.spriteIndex = 3;
+        room.entities.push(ex1);
+
+        var ex2 = Explosion(Math.PI * 0.75);
+        ex2.rect.x = my.rect.x;
+        ex2.rect.y = my.rect.y;
+        ex2.spriteIndex = 2;
+        room.entities.push(ex2);
+
+        var ex3 = Explosion(Math.PI * 1.25);
+        ex3.rect.x = my.rect.x;
+        ex3.rect.y = my.rect.y;
+        ex3.spriteIndex = 0;
+        room.entities.push(ex3);
+
+        var ex4 = Explosion(Math.PI * 1.75);
+        ex4.rect.x = my.rect.x;
+        ex4.rect.y = my.rect.y;
+        ex4.spriteIndex = 1;
+        room.entities.push(ex4);
     };
 
     return my;
