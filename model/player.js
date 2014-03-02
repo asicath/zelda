@@ -1,9 +1,8 @@
-var Player = function(playerId, isDumb) {
+var Player = function(playerId) {
     var my = Entity();
     my = Mover(my);
     my = Actor(my);
 
-    //if (isDumb) my.movementSources.push(new WalkRandom(my));
     my.movementSources.push(new WalkControlled(my));
     my.movementSources.push(new Push(my));
 
@@ -57,7 +56,7 @@ var Player = function(playerId, isDumb) {
             //death(room);
         }
         else {
-            sound_hit.play();
+            sound_hurt.play();
             my.pushFromContact(entity.rect);
         }
 

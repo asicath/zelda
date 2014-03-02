@@ -8,7 +8,7 @@ var loadRoom = function(filename, success) {
 
         // create the player and add
         room.entities.push(Player(0));
-        room.entities.push(Player(1, true));
+        //room.entities.push(Player(1));
 
         // Create a random walk monster and add
         //room.entities.push(Monster());
@@ -108,7 +108,7 @@ var Room = function(data) {
     my.addCount = 1;
 
     var checkAddMonster = function() {
-        return;
+        //return;
         if (my.countToAddMonster >= 0) {
             if (my.countToAddMonster-- == 0) {
                 var e = Monster();

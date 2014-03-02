@@ -2,6 +2,7 @@ var ThrustSword = function(actor) {
     var my = Action(actor);
 
     var sword = null;          // Sword
+    var missile = null;
     var swordState = 0; // 0 = ready, 1 = activate, 2 = in progress, 3 = waiting to let go
     var attackActivateFrames = 0;
     var snd = new Audio("assets/sounds/sword.wav");
@@ -58,6 +59,10 @@ var ThrustSword = function(actor) {
                 room.entities.push(sword);
                 swordTick = 0;
 
+                // indicate that a missile should get created
+                createMissile = true;
+
+
                 // next state
                 swordState = 2;
             }
@@ -89,7 +94,7 @@ var ThrustSword = function(actor) {
 
     };
 
-
+    var createMissile = false;
 
 
     var swordTick;
@@ -131,6 +136,11 @@ var ThrustSword = function(actor) {
         else if (swordTick < 10 * slow) {
             swordStance = 1;
             updateSword(actor.rect, pos, "mid");
+
+            if (createMissile) {
+                attemptCreateMissile(room);
+                createMissile = false;
+            }
         }
         else if (swordTick < 11 * slow) {
             swordStance = 0;
@@ -142,6 +152,16 @@ var ThrustSword = function(actor) {
             sword.done = true;
         }
 
+    };
+
+    var attemptCreateMissile = function(room) {
+
+        if (missile && !missile.complete) {return;}
+
+        // Lets also createa sword missile
+        missile = SwordMissile(actor.playerId, sword);
+        room.entities.push(missile);
+        sound_SwordShoot.play();
     };
 
     var swordPosition = {};

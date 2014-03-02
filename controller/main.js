@@ -31,6 +31,10 @@ var playSoundKill = function() {
 var sound_kill = new Audio("assets/sounds/kill.wav");
 var sound_hit = new Audio("assets/sounds/hit.wav");
 
+var sound_hurt = new Audio("assets/sounds/hurt.wav");
+var sound_SwordShoot = new Audio("assets/sounds/sword_shoot.wav");
+
+
 
 var spriteLoadFinish = function() {
 

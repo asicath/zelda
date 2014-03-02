@@ -20,12 +20,20 @@ var Sword = function(playerId) {
 
             if (e.entityType == 'monster') {
                 e.takeDamage(4, my, room);
+                my.onHit(room);
             }
 
             if (e.entityType == 'player' && e.playerId != playerId) {
                 e.takeDamage(4, my, room);
+                my.onHit(room);
             }
+
+
         }
+
+    };
+
+    my.onHit = function(room) {
 
     };
 
