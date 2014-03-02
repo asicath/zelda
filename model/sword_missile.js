@@ -4,7 +4,7 @@ var SwordMissile = function(playerId, sword) {
 
     my.movementSources.push(new Missile(my));
 
-    my.rect = sword.rect;
+    my.rect = new Rect(sword.rect.x, sword.rect.y, sword.rect.width, sword.rect.height);
     my.spriteIndex = sword.spriteIndex;
     my.facing = sword.facing;
     my.flashing = true;
