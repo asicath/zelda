@@ -34,6 +34,8 @@ var sound_hit = new Audio("assets/sounds/hit.wav");
 var sound_hurt = new Audio("assets/sounds/hurt.wav");
 var sound_SwordShoot = new Audio("assets/sounds/sword_shoot.wav");
 
+var sound_candle = new Audio("assets/sounds/candle.wav");
+
 
 
 var spriteLoadFinish = function() {

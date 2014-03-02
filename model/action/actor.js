@@ -2,6 +2,7 @@ var Actor = function(my) {
     var my = my || Entity();
 
     my.action = null;
+    my.specialAction = null;
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
@@ -16,6 +17,7 @@ var Actor = function(my) {
 
     var executeActions = function(room) {
         my.action.executeAction(room);
+        my.specialAction.executeAction(room);
     };
 
     var updateInput = function(id) {
@@ -25,6 +27,13 @@ var Actor = function(my) {
         }
         else {
             my.action.activateIntent = false;
+        }
+
+        if (playerInput[id].special) {
+            my.specialAction.activateIntent = true;
+        }
+        else {
+            my.specialAction.activateIntent = false;
         }
 
         /*

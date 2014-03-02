@@ -161,6 +161,7 @@ var ThrustSword = function(actor) {
         // Lets also createa sword missile
         missile = SwordMissile(actor.playerId, sword);
         room.entities.push(missile);
+        missile.launch();
         sound_SwordShoot.play();
     };
 
