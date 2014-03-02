@@ -73,13 +73,29 @@ var View = (function() {
 
         ctx = canvas.getContext('2d');
 
+
+
         // Center...
         //var container = $(canvas).parent();
         var self = $(canvas);
-        var xOffset = (screen.width - self.width()) / 2;
-        var yOffset = (screen.height - self.height()) / 2;
+        var xOffset = Math.abs(screen.width - self.width()) / 2;
+        var yOffset = Math.abs(screen.height - self.height()) / 2;
+
+        // Clear top and bottom
+        if (yOffset > 0) {
+            ctx.clearRect(0,0,canvas.width,Math.ceil(yOffset));
+            ctx.clearRect(0, yOffset + screen.height,canvas.width,Math.ceil(yOffset));
+        }
+        if (xOffset > 0) {
+            ctx.clearRect(0,0,Math.ceil(xOffset), canvas.height);
+            ctx.clearRect(xOffset + screen.width,0,Math.ceil(xOffset), canvas.height);
+        }
+
+
         ctx.save();
-        ctx.translate(-xOffset,-yOffset);
+        ctx.translate(xOffset,yOffset);
+
+
 
         // draw to the real screen
         ctx.drawImage(room.sizedImage, 0, 0);
