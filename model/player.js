@@ -25,6 +25,10 @@ var Player = function() {
 
         if (my.invincible > 0) {
             my.invincible--;
+            my.flashing = true;
+        }
+        else {
+            my.flashing = false;
         }
 
         executeFrame_parent(room);
@@ -43,7 +47,7 @@ var Player = function() {
 
         //my.life -= amount;
 
-        my.invincible = 30;
+        my.invincible = 48;
 
         if (my.life <= 0) {
             //death(room);

@@ -40,7 +40,7 @@ var Push = function(mover) {
         }
 
         if (pushDirection) {
-            // slide 32 pixels in 46 frames
+            // slide 32 pixels in 8 frames
             mover.push(pushDirection, 32, 32/8);
         }
 
@@ -64,8 +64,8 @@ var Push = function(mover) {
 
 
         if (pushDirection) {
-            // slide 32 pixels in 46 frames
-            mover.push(pushDirection, 32, 32/8);
+            // slide 64 pixels in 16 frames
+            mover.push(pushDirection, 64, 64/16);
         }
 
     };
