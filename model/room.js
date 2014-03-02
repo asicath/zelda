@@ -7,7 +7,8 @@ var loadRoom = function(filename, success) {
         // setup demo room
 
         // create the player and add
-        room.entities.push(Player());
+        room.entities.push(Player(0));
+        room.entities.push(Player(1, true));
 
         // Create a random walk monster and add
         //room.entities.push(Monster());
@@ -91,7 +92,7 @@ var Room = function(data) {
 
             e = my.entities[i];
 
-            rect = e.getHitZone ? e.getHitZone() : e.rect;
+            rect = e.getHitZone ? e.getHitZone(entity) : e.rect;
 
             if (rect.intersects(entity.rect)) {
                 a.push(e);
@@ -107,7 +108,7 @@ var Room = function(data) {
     my.addCount = 1;
 
     var checkAddMonster = function() {
-        //return;
+        return;
         if (my.countToAddMonster >= 0) {
             if (my.countToAddMonster-- == 0) {
                 var e = Monster();

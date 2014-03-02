@@ -1,8 +1,9 @@
-var Sword = function() {
+var Sword = function(playerId) {
     var my = Entity();
 
     my.sprites = Sprites.sword;
     my.palette = Palettes.MonsterBlue;
+    my.entityType = "sword";
 
     // will get updated by player
     my.rect = new Rect(0, 0, 0, 0);
@@ -13,9 +14,16 @@ var Sword = function() {
 
         // check for intersection
         var a = room.getIntersectingEntities(my);
+        var e;
         for (var i = a.length-1; i >= 0; i--) {
-            if (a[i].entityType == 'monster') {
-                a[i].takeDamage(4, my, room);
+            e = a[i];
+
+            if (e.entityType == 'monster') {
+                e.takeDamage(4, my, room);
+            }
+
+            if (e.entityType == 'player' && e.playerId != playerId) {
+                e.takeDamage(4, my, room);
             }
         }
 

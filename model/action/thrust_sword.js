@@ -54,7 +54,7 @@ var ThrustSword = function(actor) {
             if (attackActivateFrames-- == 0) {
 
                 // create the sword
-                sword = Sword();
+                sword = Sword(actor.playerId);
                 room.entities.push(sword);
                 swordTick = 0;
 

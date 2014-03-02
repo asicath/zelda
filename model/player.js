@@ -1,14 +1,15 @@
-var Player = function() {
+var Player = function(playerId, isDumb) {
     var my = Entity();
     my = Mover(my);
     my = Actor(my);
 
+    //if (isDumb) my.movementSources.push(new WalkRandom(my));
     my.movementSources.push(new WalkControlled(my));
     my.movementSources.push(new Push(my));
 
     my.action = ThrustSword(my);
 
-    my.playerId = 0;
+    my.playerId = playerId;
     my.wallSensitive = true;
     my.entityType = 'player';
     my.rect = new Rect(144, 80, 16, 16);
@@ -34,7 +35,10 @@ var Player = function() {
         executeFrame_parent(room);
     };
 
-    my.getHitZone = function() {
+    my.getHitZone = function(entity) {
+
+        if (entity.entityType == "sword") {return my.rect;}
+
         return new Rect(my.rect.x + 7, my.rect.y + 7, 2, 2);
     };
 
