@@ -122,9 +122,17 @@ var Room = function(data) {
                     my.countToAddMonster = 30;
                 }
 
+                // find a spot for it
+                var tile = null;
+                while (!tile) {
+                    var i = Math.floor(Math.random() * my.tiles.length);
+                    if (my.tiles[i].type == 'floor') tile = my.tiles[i];
+                }
+                e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
+
+
                 // place it in a spawn cloud
                 var spawn = SpawnCloud(e);
-
                 my.entities.push(spawn);
 
 
