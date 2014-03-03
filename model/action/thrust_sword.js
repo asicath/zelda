@@ -5,7 +5,7 @@ var ThrustSword = function(actor) {
     var missile = null;
     var swordState = 0; // 0 = ready, 1 = activate, 2 = in progress, 3 = waiting to let go
     var attackActivateFrames = 0;
-    var snd = new Audio("assets/sounds/sword.wav");
+    //var snd = new Audio("assets/sounds/sword.wav");
     var coolDown = 0;
 
 
@@ -44,7 +44,7 @@ var ThrustSword = function(actor) {
                 // can't move while attacking
                 actor.canWalk = false;
 
-                snd.play();
+                sound_sword.play();
             }
 
         }

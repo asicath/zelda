@@ -50,7 +50,8 @@ var Monster = function() {
             return my.sprites[my.spriteIndex];
         };
 
-        playSoundKill();
+        //playSoundKill();
+        sound_kill.play();
         monstersKilled++;
     };
 

@@ -1,29 +1,81 @@
 var music = new Audio("assets/music/8 Bit Legend.mp3");
 
+//http://www.w3schools.com/tags/ref_av_dom.asp
+var Sound = function(url) {
+    var my = {};
 
-var soundKillArray = [];
-for (var j = 0; j < 20; j++) {
-    soundKillArray[j] = new Audio("assets/sounds/kill.wav");
-}
+    var array = [];
+    var lastPlay = 0;
 
-var soundKillLastPlay = 0;
-var soundKillIndex = 0;
-var playSoundKill = function() {
-    var now = new Date();
+    var createNewAudio = function() {
+        var value = {
+            audio: new Audio(url),
+            playing: false
+        };
 
-    if (now - soundKillLastPlay > 15) {
-        soundKillLastPlay = now;
-        soundKillArray[soundKillIndex++].play();
-        if (soundKillIndex == soundKillArray.length) soundKillIndex = 0;
-    }
+        value.audio.addEventListener('ended', function(){
+            value.playing = false;
+        });
 
+        array.push(value);
+
+        return value;
+    };
+
+    // prime with one
+    createNewAudio();
+
+    my.play = function() {
+        var now = new Date();
+
+        if (now - lastPlay > 0) {
+            lastPlay = now;
+
+            // Find the next available audio
+            var i = 0;
+            var target = null;
+            while (!target && i < array.length) {
+                if (!array[i].playing) target = array[i];
+                i++;
+            }
+
+            // all other audio busy, create a new one
+            if (!target) {
+                target = createNewAudio();
+            }
+
+            target.playing = true;
+            target.audio.play();
+        }
+
+    };
+
+    return my;
+};
+
+var sound_kill = Sound("assets/sounds/kill.wav");
+var sound_candle = Sound("assets/sounds/candle.wav");
+var sound_text = Sound("assets/sounds/text.wav");
+var sound_hit = Sound("assets/sounds/hit.wav");
+var sound_hurt = Sound("assets/sounds/hurt.wav");
+var sound_SwordShoot = Sound("assets/sounds/sword_shoot.wav");
+var sound_sword = Sound("assets/sounds/sword.wav");
+
+
+var soundConfig = {
+
+    sounds: [
+        {file: 'assets/sounds/kill.wav', name:'kill'},
+        {file: 'assets/sounds/hit.wav', name:'hit'},
+        {file: 'assets/sounds/hurt.wav', name:'hurt'},
+        {file: 'assets/sounds/sword_shoot.wav', name:'sword_shoot'},
+        {file: 'assets/sounds/candle.wav', name:'candle'}
+    ]
 
 };
 
-var sound_kill = new Audio("assets/sounds/kill.wav");
-var sound_hit = new Audio("assets/sounds/hit.wav");
+var Sounds = (function() {
 
-var sound_hurt = new Audio("assets/sounds/hurt.wav");
-var sound_SwordShoot = new Audio("assets/sounds/sword_shoot.wav");
+    var audios = {};
 
-var sound_candle = new Audio("assets/sounds/candle.wav");
+})();
