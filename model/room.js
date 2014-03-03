@@ -111,17 +111,24 @@ var Room = function(data) {
         //return;
         if (my.countToAddMonster >= 0) {
             if (my.countToAddMonster-- == 0) {
-                var e = Monster();
-                my.entities.push(e);
 
+                // create the entity
+                var e = Monster();
                 if (Math.random() > 0.5) {
                     e.palette = Palettes.MonsterBlue;
                     e.life = 8;
                 }
-
                 if (--my.addCount > 0) {
                     my.countToAddMonster = 30;
                 }
+
+                // place it in a spawn cloud
+                var spawn = SpawnCloud(e);
+
+                my.entities.push(spawn);
+
+
+
             }
         }
     };
