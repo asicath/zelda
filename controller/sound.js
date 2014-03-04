@@ -60,6 +60,7 @@ var sound_hit = Sound("assets/sounds/hit.wav");
 var sound_hurt = Sound("assets/sounds/hurt.wav");
 var sound_SwordShoot = Sound("assets/sounds/sword_shoot.wav");
 var sound_sword = Sound("assets/sounds/sword.wav");
+var sound_die = Sound("assets/sounds/die.wav");
 
 
 var soundConfig = {

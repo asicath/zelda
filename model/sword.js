@@ -4,6 +4,7 @@ var Sword = function(playerId) {
     my.sprites = Sprites.sword;
     my.palette = Palettes.MonsterBlue;
     my.entityType = "sword";
+    my.playerId = playerId;
 
     // will get updated by player
     my.rect = new Rect(0, 0, 0, 0);

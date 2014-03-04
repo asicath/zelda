@@ -137,7 +137,7 @@ var ThrustSword = function(actor) {
             swordStance = 1;
             updateSword(actor.rect, pos, "mid");
 
-            if (createMissile) {
+            if (actor.life == actor.maxLife && createMissile) {
                 attemptCreateMissile(room);
                 createMissile = false;
             }

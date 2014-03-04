@@ -30,6 +30,7 @@ var Monster = function() {
 
         if (my.life <= 0) {
             death(room);
+            currentRoom.players[entity.playerId].monstersKilled++;
         }
         else {
             sound_hit.play();
@@ -56,7 +57,7 @@ var Monster = function() {
 
 
         sound_kill.play();
-        monstersKilled++;
+
     };
 
     var executeFrame_parent = my.executeFrame;

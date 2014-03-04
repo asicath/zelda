@@ -42,25 +42,47 @@ var Player = function(playerId) {
         return new Rect(my.rect.x + 7, my.rect.y + 7, 2, 2);
     };
 
-
+    my.monstersKilled = 0;
     my.life = 12;
+    my.maxLife = 12;
     my.invincible = 0;
     my.takeDamage = function(amount, entity, room) {
 
         if (my.invincible > 0) return;
 
-        //my.life -= amount;
+        my.life -= amount;
 
         my.invincible = 48;
 
         if (my.life <= 0) {
-            //death(room);
+            death(room);
         }
         else {
             sound_hurt.play();
             my.pushFromContact(entity.rect);
         }
 
+    };
+
+    var death = function(room) {
+
+        // remove from the room
+        room.removeAfterFrame.push(my);
+
+        // Cause two more monsters to spawn
+        //room.countToAddMonster = 30;
+        //room.addCount += 2;
+
+        // prevent further actions
+        my.isDead = true;
+
+        // replace with a death animation
+        var ani = Death(my);
+        room.entities.push(ani);
+
+
+        //sound_kill.play();
+        sound_die.play();
     };
 
     return my;
