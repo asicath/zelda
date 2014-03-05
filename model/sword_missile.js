@@ -8,7 +8,7 @@ var SwordMissile = function(playerId, sword) {
     my.flashing = true;
     my.complete = false;
 
-
+    my.maxFrame = 10000;
 
     var angle;
     my.setFacing = function(direction) {

@@ -9,9 +9,20 @@ var Sword = function(playerId) {
     // will get updated by player
     my.rect = new Rect(0, 0, 0, 0);
 
+    var frame = 0;
+    my.maxFrame = 12;
+
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
         executeFrame_parent(room);
+
+        frame++;
+
+        if (frame > my.maxFrame) {
+            // Make sure the sword doesn't stick around after death
+            // should do this differently
+            room.removeAfterFrame.push(my);
+        }
 
         // check for intersection
         var a = room.getIntersectingEntities(my);
