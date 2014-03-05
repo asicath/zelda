@@ -1,6 +1,6 @@
 
 var showDebugInfo = false;
-var monstersKilled = 0;
+
 
 var View = (function() {
     var my = {};
@@ -73,13 +73,29 @@ var View = (function() {
 
         ctx = canvas.getContext('2d');
 
+
+
         // Center...
         //var container = $(canvas).parent();
         var self = $(canvas);
-        var xOffset = (screen.width - self.width()) / 2;
-        var yOffset = (screen.height - self.height()) / 2;
+        var xOffset = Math.abs(screen.width - self.width()) / 2;
+        var yOffset = Math.abs(screen.height - self.height()) / 2;
+
+        // Clear top and bottom
+        if (yOffset > 0) {
+            ctx.clearRect(0,0,canvas.width,Math.ceil(yOffset));
+            ctx.clearRect(0, yOffset + screen.height,canvas.width,Math.ceil(yOffset));
+        }
+        if (xOffset > 0) {
+            ctx.clearRect(0,0,Math.ceil(xOffset), canvas.height);
+            ctx.clearRect(xOffset + screen.width,0,Math.ceil(xOffset), canvas.height);
+        }
+
+
         ctx.save();
-        ctx.translate(-xOffset,-yOffset);
+        ctx.translate(xOffset,yOffset);
+
+
 
         // draw to the real screen
         ctx.drawImage(room.sizedImage, 0, 0);
@@ -116,9 +132,34 @@ var View = (function() {
 
         }
 
-        drawText(ctx, " killed " + monstersKilled.toString() + " ", 160, 8);
+
+        displayPlayerInfo(ctx, 0, 20);
+        displayPlayerInfo(ctx, 1, 160);
 
         ctx.restore();
+    };
+
+    var displayPlayerInfo = function(ctx, playerId, x) {
+
+        drawText(ctx, " player " + (playerId + 1).toString() + " ", x, 4);
+
+        var player = currentRoom.players[playerId];
+
+        if (!player) {
+
+            return;
+        }
+
+
+        drawText(ctx, " killed " + player.monstersKilled.toString() + " ", x, 12);
+
+        if (player.isDead) {
+            drawText(ctx, " - dead - ", x, 20);
+        }
+        else {
+            drawText(ctx, " life " + player.life.toString() + "!" + player.maxLife.toString(), x, 20);
+        }
+
     };
 
     var renderTime = [];
@@ -182,7 +223,7 @@ var View = (function() {
         for (var i = 0; i < text.length; i++) {
 
             var char = textMap[text[i]];
-            if (!char) char = 43;
+            if (typeof char === "undefined") char = 43;
 
             var sprite = Sprites.letters[char];
             drawSprite(ctx, factor, sprite, x + i*8, y, Palettes.Text);

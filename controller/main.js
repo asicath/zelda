@@ -6,42 +6,16 @@ var Sprites = {
     count: 0
 };
 
-var music = new Audio("assets/music/8 Bit Legend.mp3");
-
-
-var soundKillArray = [];
-for (var j = 0; j < 20; j++) {
-    soundKillArray[j] = new Audio("assets/sounds/kill.wav");
-}
-
-var soundKillLastPlay = 0;
-var soundKillIndex = 0;
-var playSoundKill = function() {
-    var now = new Date();
-
-    if (now - soundKillLastPlay > 15) {
-        soundKillLastPlay = now;
-        soundKillArray[soundKillIndex++].play();
-        if (soundKillIndex == soundKillArray.length) soundKillIndex = 0;
-    }
-
-
-};
-
-var sound_kill = new Audio("assets/sounds/kill.wav");
-var sound_hit = new Audio("assets/sounds/hit.wav");
-
-
 var spriteLoadFinish = function() {
 
-    if (++Sprites.count < 6) {return;}
+    if (++Sprites.count < 8) {return;}
 
     loadRoom('assets/ow07-06.js', function(room) {
         startDraw(room);
         gamepadSupport.init();
 
 
-        music.loop=true;
+        music.loop = true;
         //music.play();
     });
 
@@ -64,6 +38,21 @@ loadSprites('assets/link.gif', null, function(linkSprites) {
 
 loadSprites('assets/octopus.gif', null, function(octopus) {
     Sprites.octopus = octopus;
+    spriteLoadFinish();
+});
+
+loadSprites('assets/cloud.gif', null, function(cloud) {
+    Sprites.cloud = cloud;
+    spriteLoadFinish();
+});
+
+loadSprites('assets/explosion.gif',     [
+    {x:0,  y: 0, width: 8, height:10},
+    {x:8,  y: 0, width: 8, height:10},
+    {x:16, y: 0, width: 8, height:10},
+    {x:24, y: 0, width: 8, height:10}
+], function(explosion) {
+    Sprites.explosion = explosion;
     spriteLoadFinish();
 });
 

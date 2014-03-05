@@ -1,13 +1,17 @@
+var currentRoom;
 
 var loadRoom = function(filename, success) {
     $.getJSON(filename).done(function(data) {
 
-        var room = Room(data);
+        currentRoom = Room(data);
 
         // setup demo room
 
         // create the player and add
-        room.entities.push(Player());
+        //room.entities.push(Player(0));
+        //room.entities.push(Player(1));
+
+        //currentRoom.createPlayer(0);
 
         // Create a random walk monster and add
         //room.entities.push(Monster());
@@ -18,7 +22,7 @@ var loadRoom = function(filename, success) {
 
         //room.entities.push(Sword());
 
-        success(room);
+        success(currentRoom);
 
     }).fail(function(e1, e2, e3) {
         console.log( "error" );
@@ -42,11 +46,27 @@ var Room = function(data) {
     my.rect = new Rect(0, 0, 256, 176);
 
     my.entities = [];
+    my.players = [];
+
+    my.createPlayer = function(playerId) {
+        my.players[playerId] = Player(playerId);
+        my.entities.push(my.players[playerId]);
+    };
 
     my.executeFrame = function(world) {
 
-        // do room stuff
+        // player start
+        if (!my.players[0] || my.players[0].isDead) {
+            if (playerInput[0].start) {
+                my.createPlayer(0);
+            }
+        }
 
+        if (!my.players[1] || my.players[1].isDead) {
+            if (playerInput[1].start) {
+                my.createPlayer(1);
+            }
+        }
 
         // do entities
         for (var i = my.entities.length-1; i >= 0; i--) {
@@ -91,7 +111,7 @@ var Room = function(data) {
 
             e = my.entities[i];
 
-            rect = e.getHitZone ? e.getHitZone() : e.rect;
+            rect = e.getHitZone ? e.getHitZone(entity) : e.rect;
 
             if (rect.intersects(entity.rect)) {
                 a.push(e);
@@ -107,19 +127,35 @@ var Room = function(data) {
     my.addCount = 1;
 
     var checkAddMonster = function() {
+        //return;
         if (my.countToAddMonster >= 0) {
             if (my.countToAddMonster-- == 0) {
-                var e = Monster();
-                my.entities.push(e);
 
+                // create the entity
+                var e = Monster();
                 if (Math.random() > 0.5) {
                     e.palette = Palettes.MonsterBlue;
                     e.life = 8;
                 }
-
                 if (--my.addCount > 0) {
                     my.countToAddMonster = 30;
                 }
+
+                // find a spot for it
+                var tile = null;
+                while (!tile) {
+                    var i = Math.floor(Math.random() * my.tiles.length);
+                    if (my.tiles[i].type == 'floor') tile = my.tiles[i];
+                }
+                e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
+
+
+                // place it in a spawn cloud
+                var spawn = SpawnCloud(e);
+                my.entities.push(spawn);
+
+
+
             }
         }
     };

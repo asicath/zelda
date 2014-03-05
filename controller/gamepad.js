@@ -177,9 +177,10 @@ var gamepadSupport = {
         */
 
 
-        playerInput[playerId].flash = gamepad.buttons[1] > 0;
+        playerInput[playerId].special = gamepad.buttons[1] > 0;
         playerInput[playerId].attack = gamepad.buttons[0] > 0;
 
+        playerInput[playerId].start = gamepad.buttons[9] > 0;
 
         /*
 
