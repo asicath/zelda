@@ -5,23 +5,6 @@ var loadRoom = function(filename, success) {
 
         currentRoom = Room(data);
 
-        // setup demo room
-
-        // create the player and add
-        //room.entities.push(Player(0));
-        //room.entities.push(Player(1));
-
-        //currentRoom.createPlayer(0);
-
-        // Create a random walk monster and add
-        //room.entities.push(Monster());
-        //room.entities.push(Monster());
-        //room.entities.push(Monster());
-
-        //room.entities[3].palette = Palettes.MonsterBlue;
-
-        //room.entities.push(Sword());
-
         success(currentRoom);
 
     }).fail(function(e1, e2, e3) {
@@ -125,6 +108,7 @@ var Room = function(data) {
 
     my.countToAddMonster = 0;
     my.addCount = 1;
+
 
     var checkAddMonster = function() {
         //return;

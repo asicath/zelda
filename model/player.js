@@ -12,7 +12,15 @@ var Player = function(playerId) {
     my.playerId = playerId;
     my.wallSensitive = true;
     my.entityType = 'player';
-    my.rect = new Rect(144, 80, 16, 16);
+
+    if (playerId == 0) {
+        my.rect = new Rect(32, 48, 16, 16);
+    }
+    else {
+        my.rect = new Rect(208, 112, 16, 16);
+    }
+
+
     my.footPrint = new Rect(0, 8, 16, 8); // has a smaller foot print than the monsters
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
     my.sprites = Sprites.link;
@@ -43,8 +51,8 @@ var Player = function(playerId) {
     };
 
     my.monstersKilled = 0;
-    my.life = 12;
-    my.maxLife = 12;
+    my.life = 20;
+    my.maxLife = 20;
     my.invincible = 0;
     my.takeDamage = function(amount, entity, room) {
 
