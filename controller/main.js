@@ -17,7 +17,7 @@ var spriteLoadFinish = function() {
         startDraw(room);
         gamepadSupport.init();
 
-        //room.createPlayer(0);
+        room.createPlayer(0);
 
 
         music.loop = true;
