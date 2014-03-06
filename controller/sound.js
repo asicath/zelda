@@ -1,4 +1,4 @@
-var music = new Audio("assets/music/8 Bit Legend.mp3");
+var music = new Audio("assets/music/LOLZ2.mp3");
 
 //http://www.w3schools.com/tags/ref_av_dom.asp
 var Sound = function(url) {
