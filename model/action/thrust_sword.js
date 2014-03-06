@@ -76,6 +76,7 @@ var ThrustSword = function(actor) {
             if (sword.done) {
                 sword = null;
                 actor.canWalk = true;
+                actor.resetStep();
 
                 swordState = 3;
                 coolDown = 6;
@@ -85,7 +86,6 @@ var ThrustSword = function(actor) {
 
         // wait for player to not be pressing the attack button
         if (swordState == 3) {
-            actor.resetStep();
             if (!my.activateIntent) {
                 swordState = 0;
             }
