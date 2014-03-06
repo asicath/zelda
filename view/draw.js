@@ -153,12 +153,26 @@ var View = (function() {
 
         drawText(ctx, " killed " + player.monstersKilled.toString() + " ", x, 12);
 
-        if (player.isDead) {
-            drawText(ctx, " - dead - ", x, 20);
+
+        var i = player.maxLife;
+
+        ctx.fillStyle="#000000";
+        ctx.fillRect(x * factor, 20 * factor, ((i / 4)+2) * factor * 8, 8 * factor);
+
+        while (i > 0) {
+            var index = 0;
+            if (i > player.life) {
+                if (i - player.life == 2) {
+                    index = 1;
+                }
+                else {
+                    index = 2;
+                }
+            }
+            drawSprite(ctx, factor, Sprites.heart[index], x + (i/4)*8, 20, Palettes.DeathStarRedBlue);
+            i-=4;
         }
-        else {
-            drawText(ctx, " life " + player.life.toString() + "!" + player.maxLife.toString(), x, 20);
-        }
+
 
     };
 
