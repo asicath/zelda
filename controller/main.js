@@ -26,37 +26,37 @@ var spriteLoadFinish = function() {
 
 };
 
-loadSprites('assets/deathstar.gif', null, function(sprites) {
+loadSprites('assets/sprites/deathstar.gif', null, function(sprites) {
     Sprites.deathstar = sprites;
     spriteLoadFinish();
 });
 
-loadSprites('assets/outside.gif', null, function(outsideSprites) {
+loadSprites('assets/sprites/outside.gif', null, function(outsideSprites) {
     Sprites.outside = outsideSprites;
     spriteLoadFinish();
 });
 
-loadSprites('assets/link.gif', null, function(linkSprites) {
+loadSprites('assets/sprites/link.gif', null, function(linkSprites) {
     Sprites.link = linkSprites;
     spriteLoadFinish();
 });
 
-loadSprites('assets/octopus.gif', null, function(octopus) {
+loadSprites('assets/sprites/octopus.gif', null, function(octopus) {
     Sprites.octopus = octopus;
     spriteLoadFinish();
 });
 
-loadSprites('assets/cloud.gif', null, function(cloud) {
+loadSprites('assets/sprites/cloud.gif', null, function(cloud) {
     Sprites.cloud = cloud;
     spriteLoadFinish();
 });
 
-loadSprites('assets/heart.gif', null, function(heart) {
+loadSprites('assets/sprites/heart.gif', null, function(heart) {
     Sprites.heart = heart;
     spriteLoadFinish();
 });
 
-loadSprites('assets/explosion.gif',     [
+loadSprites('assets/sprites/explosion.gif',     [
     {x:0,  y: 0, width: 8, height:10},
     {x:8,  y: 0, width: 8, height:10},
     {x:16, y: 0, width: 8, height:10},
@@ -66,7 +66,7 @@ loadSprites('assets/explosion.gif',     [
     spriteLoadFinish();
 });
 
-loadSprites('assets/sword.gif',
+loadSprites('assets/sprites/sword.gif',
     [
         {x:0, y: 0, width: 8, height:16},
         {x:8, y: 0, width: 8, height:16},
@@ -80,7 +80,7 @@ loadSprites('assets/sword.gif',
     }
 );
 
-loadSprites('assets/letters.gif', null, function(sprites) {
+loadSprites('assets/sprites/letters.gif', null, function(sprites) {
     Sprites.letters = sprites;
     spriteLoadFinish();
 });
