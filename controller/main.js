@@ -10,9 +10,9 @@ var spriteLoadFinish = function() {
 
     if (++Sprites.count < 9) {return;}
 
-    loadRoom('assets/ow07-06.js', function(room) {
+    loadRoom('assets/rooms/ow07-06.js', function(room) {
 
-        room.countToAddMonster = -1;
+        //room.countToAddMonster = -1;
 
         startDraw(room);
         gamepadSupport.init();
