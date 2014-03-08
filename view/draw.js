@@ -306,17 +306,22 @@ var View = (function() {
     // Draw the raw pixels of a sprite to the specified canvas context
     var drawSpriteFromPixels = function(ctx, pixelScale, sprite, palette) {
         var i = 0;
+        var c = null;
         while (i < sprite.pixels.length) {
 
             var p = sprite.pixels[i];
 
-            ctx.fillStyle = p.getColor(palette);
-            ctx.fillRect(
-                p.x * pixelScale,
-                p.y * pixelScale,
-                pixelScale,
-                pixelScale
-            );
+            c = p.getColor(palette);
+
+            if (c != null) {
+                ctx.fillStyle = c;
+                ctx.fillRect(
+                    p.x * pixelScale,
+                    p.y * pixelScale,
+                    pixelScale,
+                    pixelScale
+                );
+            }
 
             i++;
         }

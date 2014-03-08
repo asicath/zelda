@@ -111,7 +111,12 @@ var Pixel = function(i, x, y) {
             palette = Palettes.Default;
         }
         var color = palette.colors[exports.i];
-        return 'rgba(' + color[0] + ', ' + color[1] + ', ' + color[2] + ', ' + (color[3] / 255) + ')'
+
+        if (color[3] == 0) {
+            return null;
+        }
+
+        return 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
     };
 
     return exports;
