@@ -72,6 +72,11 @@ var Monster = function() {
 
         sound_kill.play();
 
+        var item = Heart();
+        item.rect.x = my.rect.x;
+        item.rect.y = my.rect.y;
+        room.entities.push(item);
+
     };
 
     var executeFrame_parent = my.executeFrame;
