@@ -17,10 +17,21 @@ var Monster = function() {
     my.spriteIndex = 0;
     my.palette = Palettes.MonsterRed;
 
+    if (Math.random() < 0.25) {
+        // Fast
+        my.speed = 1.0; // can move 40 pixels in 1s or 60 frames
+        my.changeDirectionPercent = 6/16;
+        my.homingPercent = 128/255;
+    }
+    else {
+        // Slow
+        my.speed = 0.5; // can move 40 pixels in 1s or 60 frames
+        my.changeDirectionPercent = 4/16;
+        my.homingPercent = 64/255;
+    }
 
-    my.speed = 30/60; // can move 40 pixels in 1s or 60 frames
-    my.changeDirectionPercent = 4/16;
-    my.homingPercent = 64/255;
+    my.haltPercent = 3/16;
+
 
 
     my.takeDamage = function(amount, entity, room) {

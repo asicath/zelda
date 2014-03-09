@@ -3,9 +3,6 @@ var WalkRandom = function(mover) {
 
     var moving = null;
 
-    //var changeDirectionChance = 0.1 / 2;
-    //var tickCountUntilRandom = 50;
-
     mover.changeDirectionPercent = 4/16;
     mover.homingPercent = 64/255;
 
