@@ -3,35 +3,37 @@ var WalkRandom = function(mover) {
 
     var moving = null;
 
-    //changeDirectionChance = 0.1f; // Once per second
-    var changeDirectionChance = 0.1 / 2;
-    var tickCountUntilRandom = 50;
+    //var changeDirectionChance = 0.1 / 2;
+    //var tickCountUntilRandom = 50;
+
+    mover.changeDirectionPercent = 4/16;
+    mover.homingPercent = 64/255;
+
+    var framesUntilNextMove = 0;
 
     var executeMove_parent = my.executeMove;
     my.executeMove = function(room) {
         // check for new random move
-        checkMove();
+        checkMove(room);
         executeMove_parent(room);
     };
 
-    var checkMove = function() {
+    var checkMove = function(room) {
 
-        tickCountUntilRandom--;
+        framesUntilNextMove--;
 
-        if (tickCountUntilRandom < 0 && Math.random() < changeDirectionChance) {
-            //endMoving();
+        if (framesUntilNextMove > 0) return;
+
+        if (Math.random() < mover.changeDirectionPercent) {
             moving = null;
         }
 
         if (moving == null) {
             moving = getRandomDirection();
             my.moveIntent = moving;
-            tickCountUntilRandom = 50;
         }
-    };
 
-    var getRandomSpeed = function(min, max) {
-        return Math.random() * (max - min) + min;
+        framesUntilNextMove = 16 / mover.speed;
     };
 
     var getRandomDirection = function() {
@@ -48,12 +50,14 @@ var WalkRandom = function(mover) {
     var onWallEvent_parent = my.onWallEvent;
     my.onWallEvent = function(room, wall, rect) {
         onWallEvent_parent(room, wall, rect);
+        framesUntilNextMove = 0;
         moving = null;
     };
 
     var onEdgeEvent_parent = my.onEdgeEvent;
     my.onEdgeEvent = function(room, wall, rect) {
         onEdgeEvent_parent(room, wall, rect);
+        framesUntilNextMove = 0;
         moving = null;
     };
 
