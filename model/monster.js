@@ -19,6 +19,8 @@ var Monster = function() {
     my.spriteIndex = 0;
     my.palette = Palettes.MonsterRed;
 
+    my.drawOffset.y = -2;
+
     if (Math.random() < 0.25) {
         // Fast
         my.speed = 1.0; // can move 40 pixels in 1s or 60 frames

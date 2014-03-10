@@ -7,7 +7,8 @@ var Entity = function() {
         palette: null,
         sprites: null,
         spriteIndex: 0,
-        rect: null
+        rect: null,
+        drawOffset: {x: 0, y: 0}
     };
 
     my.executeFrame = function(room) {
