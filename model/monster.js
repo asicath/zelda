@@ -2,6 +2,8 @@ var Monster = function() {
     var my = Entity();
     my = Mover(my);
 
+    ItemDropper(my);
+
     my.movementSources.push(new WalkRandom(my));
     my.movementSources.push(new Push(my));
 
@@ -72,11 +74,8 @@ var Monster = function() {
 
         sound_kill.play();
 
-        var item = Heart();
-        item.rect.x = my.rect.x;
-        item.rect.y = my.rect.y;
-        room.entities.push(item);
 
+        my.dropItem(room, 0);
     };
 
     var executeFrame_parent = my.executeFrame;
