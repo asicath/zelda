@@ -39,7 +39,7 @@ var SwordRain = function(actor) {
                     swords[i].launch();
                 }
                 if (swords.length > 0) {
-                    sound_SwordShoot.play();
+                    sound_swordForce.play();
                 }
 
 

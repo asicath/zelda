@@ -1,4 +1,4 @@
-var music = new Audio("assets/music/LOLZ2.mp3");
+var music = new Audio("assets/music/8 Bit Legend.mp3");
 
 //http://www.w3schools.com/tags/ref_av_dom.asp
 var Sound = function(url) {
@@ -65,6 +65,9 @@ var sound_die = Sound("assets/sounds/die.wav");
 var sound_getItem = Sound("assets/sounds/get_item.wav");
 var sound_getHeart = Sound("assets/sounds/get_heart.wav");
 var sound_getRupee = Sound("assets/sounds/get_rupee.wav");
+
+var sound_swordForce = Sound("assets/sounds/Sword FCB.mp3");
+
 
 
 var soundConfig = {

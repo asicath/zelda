@@ -3,6 +3,7 @@
 var playerInput = [{}, {}];
 
 
+
 $(document).on('keydown', function(e1, e2, e3) {
 
     switch (e1.which) {
@@ -12,7 +13,14 @@ $(document).on('keydown', function(e1, e2, e3) {
         case 68: playerInput[0].right = true; break;
         case 13: playerInput[0].special = true; break;
         case 32: playerInput[0].attack = true; break;
-        case 80: music.play(); break;
+        case 80:
+            if (music.paused) {
+                music.play();
+            }
+            else {
+                music.pause();
+            }
+            break;
     }
 
 });
