@@ -62,6 +62,10 @@ var sound_SwordShoot = Sound("assets/sounds/sword_shoot.wav");
 var sound_sword = Sound("assets/sounds/sword.wav");
 var sound_die = Sound("assets/sounds/die.wav");
 
+var sound_getItem = Sound("assets/sounds/get_item.wav");
+var sound_getHeart = Sound("assets/sounds/get_heart.wav");
+var sound_getRupee = Sound("assets/sounds/get_rupee.wav");
+
 
 var soundConfig = {
 

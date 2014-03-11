@@ -6,6 +6,7 @@ var StopTimer = function() {
 
     my.onPickUp = function(player) {
 
+        sound_getItem.play();
     };
 
     return my;

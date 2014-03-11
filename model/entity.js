@@ -8,7 +8,8 @@ var Entity = function() {
         sprites: null,
         spriteIndex: 0,
         rect: null,
-        drawOffset: {x: 0, y: 0}
+        drawOffset: {x: 0, y: 0},
+        visible: true
     };
 
     my.executeFrame = function(room) {
@@ -26,7 +27,7 @@ var Entity = function() {
     my.getPalette = function() {
 
         if (my.flashing) {
-            return my.flashPalates[Math.floor((flashIndex++ / 2) % 4)];
+            return my.flashPalates[Math.floor((flashIndex++ / my.flashInterval) % my.flashPalates.length)];
         }
 
         return my.palette;
@@ -42,6 +43,7 @@ var Entity = function() {
     ];
 
     my.flashing = false;
+    my.flashInterval = 2;
     var flashIndex = 0;
 
     return my;

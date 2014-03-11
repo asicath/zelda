@@ -247,7 +247,8 @@ var View = (function() {
     };
 
     var drawEntity = function(ctx, entity) {
-        drawSprite(ctx, factor, entity.getSprite(), entity.rect.x + entity.drawOffset.x, entity.rect.y + entity.drawOffset.y, entity.getPalette());
+        if (entity.visible)
+            drawSprite(ctx, factor, entity.getSprite(), entity.rect.x + entity.drawOffset.x, entity.rect.y + entity.drawOffset.y, entity.getPalette());
     };
 
 
