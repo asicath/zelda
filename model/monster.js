@@ -80,7 +80,7 @@ var Monster = function() {
         // replace with a death animation
         var ani = Death(my, function() {my.dropItem(room, itemDropLevel);});
 
-        room.entities.push(ani);
+        room.addEntity(ani);
 
 
         sound_kill.play();

@@ -86,7 +86,7 @@ var Player = function(playerId) {
 
         // replace with a death animation
         var ani = Death(my);
-        room.entities.push(ani);
+        room.addEntity(ani);
 
 
         //sound_kill.play();

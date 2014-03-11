@@ -48,23 +48,23 @@ Explosion.create = function(room, x, y) {
     ex1.rect.x = x + 4;
     ex1.rect.y = y + 4;
     ex1.spriteIndex = 3;
-    room.entities.push(ex1);
+    room.addEntity(ex1);
 
     var ex2 = Explosion(Math.PI * 0.75);
     ex2.rect.x = x;
     ex2.rect.y = y + 4;
     ex2.spriteIndex = 2;
-    room.entities.push(ex2);
+    room.addEntity(ex2);
 
     var ex3 = Explosion(Math.PI * 1.25);
     ex3.rect.x = x;
     ex3.rect.y = y;
     ex3.spriteIndex = 0;
-    room.entities.push(ex3);
+    room.addEntity(ex3);
 
     var ex4 = Explosion(Math.PI * 1.75);
     ex4.rect.x = x + 4;
     ex4.rect.y = y;
     ex4.spriteIndex = 1;
-    room.entities.push(ex4);
+    room.addEntity(ex4);
 };

@@ -78,7 +78,7 @@ var SwordRain = function(actor) {
 
         swords.push(sword);
 
-        room.entities.push(sword);
+        room.addEntity(sword);
         sound_candle.play();
     };
 

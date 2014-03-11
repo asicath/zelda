@@ -56,7 +56,7 @@ var ThrustSword = function(actor) {
 
                 // create the sword
                 sword = Sword(actor);
-                room.entities.push(sword);
+                room.addEntity(sword);
                 swordTick = 0;
 
                 // indicate that a missile should get created
@@ -160,7 +160,7 @@ var ThrustSword = function(actor) {
 
         // Lets also createa sword missile
         missile = SwordMissile(actor, sword);
-        room.entities.push(missile);
+        room.addEntity(missile);
         missile.launch();
         sound_SwordShoot.play();
     };

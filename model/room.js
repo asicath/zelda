@@ -17,6 +17,7 @@ var Room = function(data) {
     var my = {};
 
     my.removeAfterFrame = [];
+    my.addAfterFrame = [];
 
     my.tiles = data.tiles;
 
@@ -33,7 +34,7 @@ var Room = function(data) {
 
     my.createPlayer = function(playerId) {
         my.players[playerId] = Player(playerId);
-        my.entities.push(my.players[playerId]);
+        my.addEntity(my.players[playerId]);
     };
 
     my.executeFrame = function(world) {
@@ -69,8 +70,17 @@ var Room = function(data) {
             my.entities = a;
         }
 
+        while (my.addAfterFrame.length) {
+            var entity = my.addAfterFrame.pop();
+            my.entities.push(entity);
+        }
+
         checkAddMonster();
 
+    };
+
+    my.addEntity = function(entity) {
+        my.addAfterFrame.push(entity);
     };
 
     my.intersectsWall = function(rect) {
@@ -136,7 +146,7 @@ var Room = function(data) {
 
                 // place it in a spawn cloud
                 var spawn = SpawnCloud(e);
-                my.entities.push(spawn);
+                my.addEntity(spawn);
 
 
 

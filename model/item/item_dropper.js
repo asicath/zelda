@@ -11,7 +11,7 @@ var ItemDropper = function(entity) {
         var item = type();
         item.rect.x = entity.rect.x;
         item.rect.y = entity.rect.y;
-        room.entities.push(item);
+        room.addEntity(item);
 
     };
 
