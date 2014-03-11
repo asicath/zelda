@@ -1,10 +1,11 @@
-var Sword = function(playerId) {
+var Sword = function(player) {
     var my = Entity();
 
     my.sprites = Sprites.sword;
     my.palette = Palettes.MonsterBlue;
     my.entityType = "sword";
-    my.playerId = playerId;
+    my.playerId = player.playerId; // expose for kill counting in monster
+    my.player = player;             // expose so items can be picked up by swords
 
     // will get updated by player
     my.rect = new Rect(0, 0, 0, 0);
@@ -35,7 +36,7 @@ var Sword = function(playerId) {
                 my.onHit(room);
             }
 
-            if (e.entityType == 'player' && e.playerId != playerId) {
+            if (e.entityType == 'player' && e.playerId != my.player.playerId) {
                 e.takeDamage(4, my, room);
                 my.onHit(room);
             }

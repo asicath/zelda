@@ -20,6 +20,10 @@ var Item = function() {
                 my.onPickUp(e);
                 room.removeAfterFrame.push(my);
             }
+            else if (e.entityType == 'sword') {
+                my.onPickUp(e.player);
+                room.removeAfterFrame.push(my);
+            }
         }
 
         frameCount++;

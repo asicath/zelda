@@ -1,10 +1,10 @@
-var SwordMissile = function(playerId, sword) {
-    var my = Sword(playerId);
+var SwordMissile = function(player, sword) {
+    var my = Sword(player);
     my = Mover(my);
 
     my.movementSources.push(new Missile(my));
 
-
+    my.entityType = "sword_missile";
     my.flashing = true;
     my.complete = false;
 

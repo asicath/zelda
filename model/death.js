@@ -1,4 +1,4 @@
-var Death = function(entity) {
+var Death = function(entity, after) {
     var my = Entity();
 
     my.rect = entity.rect;
@@ -68,6 +68,8 @@ var Death = function(entity) {
         else {
             // animation is complete, remove from room
             room.removeAfterFrame.push(my);
+
+            if (after) after();
         }
 
         deathFrame++;

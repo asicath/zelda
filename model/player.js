@@ -45,7 +45,7 @@ var Player = function(playerId) {
 
     my.getHitZone = function(entity) {
 
-        if (entity.entityType == "sword") {return my.rect;}
+        if (entity.entityType == "sword" || entity.entityType == "sword_missile") {return my.rect;}
 
         return new Rect(my.rect.x + 7, my.rect.y + 7, 2, 2);
     };

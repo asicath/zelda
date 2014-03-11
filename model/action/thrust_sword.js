@@ -55,7 +55,7 @@ var ThrustSword = function(actor) {
             if (attackActivateFrames-- == 0) {
 
                 // create the sword
-                sword = Sword(actor.playerId);
+                sword = Sword(actor);
                 room.entities.push(sword);
                 swordTick = 0;
 
@@ -159,7 +159,7 @@ var ThrustSword = function(actor) {
         if (missile && !missile.complete) {return;}
 
         // Lets also createa sword missile
-        missile = SwordMissile(actor.playerId, sword);
+        missile = SwordMissile(actor, sword);
         room.entities.push(missile);
         missile.launch();
         sound_SwordShoot.play();

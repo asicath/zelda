@@ -51,7 +51,12 @@ var Monster = function() {
 
         if (my.life <= 0) {
             death(room);
-            currentRoom.players[entity.playerId].monstersKilled++;
+
+            // keep track of kills
+            if (entity.playerId) {
+                currentRoom.players[entity.playerId].monstersKilled++;
+            }
+
         }
         else {
             sound_hit.play();
@@ -73,14 +78,12 @@ var Monster = function() {
         my.isDead = true;
 
         // replace with a death animation
-        var ani = Death(my);
+        var ani = Death(my, function() {my.dropItem(room, itemDropLevel);});
+
         room.entities.push(ani);
 
 
         sound_kill.play();
-
-
-        my.dropItem(room, itemDropLevel);
     };
 
     var executeFrame_parent = my.executeFrame;

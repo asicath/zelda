@@ -67,7 +67,7 @@ var SwordRain = function(actor) {
 
         var p = pos.positions[i];
 
-        var sword = SwordMissile(actor.playerId, null);
+        var sword = SwordMissile(actor, null);
 
         sword.rect.x = actor.rect.x + p.x;
         sword.rect.y = actor.rect.y + p.y;
