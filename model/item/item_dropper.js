@@ -29,7 +29,44 @@ ItemDropper.DropTables = [
         Rupee,
         Rupee,
         Heart
+    ],
+    [
+        Bomb,
+        Rupee,
+        StopTimer,
+        Rupee,
+        Heart,
+        Bomb,
+        Rupee,
+        Bomb,
+        Heart,
+        Heart
+    ],
+    [
+        Rupee,
+        Heart,
+        Rupee,
+        RupeeBlue,
+        Heart,
+        StopTimer,
+        Rupee,
+        Rupee,
+        Rupee,
+        RupeeBlue
+    ],
+    [
+        Heart,
+        Fairy,
+        Rupee,
+        Heart,
+        Fairy,
+        Heart,
+        Heart,
+        Heart,
+        Rupee,
+        Heart
     ]
+
 
 
 ];

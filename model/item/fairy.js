@@ -6,7 +6,11 @@ var Fairy = function() {
     my.palette = Palettes.MonsterRed;
 
     my.onPickUp = function(player) {
-        // add a bomb
+        var amount = 12;
+        if (player.maxLife - player.life < amount) {
+            amount = player.maxLife - player.life;
+        }
+        player.life += amount;
 
         sound_getItem.play();
     };

@@ -21,11 +21,14 @@ var Monster = function() {
 
     my.drawOffset.y = -2;
 
+    var itemDropLevel = 0;
+
     if (Math.random() < 0.25) {
         // Fast
         my.speed = 1.0; // can move 40 pixels in 1s or 60 frames
         my.changeDirectionPercent = 6/16;
         my.homingPercent = 128/255;
+        itemDropLevel = 1;
     }
     else {
         // Slow
@@ -77,7 +80,7 @@ var Monster = function() {
         sound_kill.play();
 
 
-        my.dropItem(room, 0);
+        my.dropItem(room, itemDropLevel);
     };
 
     var executeFrame_parent = my.executeFrame;
