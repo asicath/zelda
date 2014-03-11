@@ -42,7 +42,7 @@ var SwordMissile = function(player, sword) {
     };
 
     var finish = function(room) {
-        room.removeAfterFrame.push(my);
+        room.removeEntity(my);
         my.complete = true;
 
         Explosion.create(room, my.rect.x, my.rect.y);

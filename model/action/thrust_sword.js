@@ -148,7 +148,7 @@ var ThrustSword = function(actor) {
         }
         else {
             // Remove sword from room
-            room.removeAfterFrame.push(sword);
+            room.removeEntity(sword);
             sword.done = true;
         }
 

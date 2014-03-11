@@ -68,7 +68,7 @@ var Monster = function() {
     var death = function(room) {
 
         // remove from the room
-        room.removeAfterFrame.push(my);
+        room.removeEntity(my);
 
         // Cause two more monsters to spawn
         room.countToAddMonster = 30;

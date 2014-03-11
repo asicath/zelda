@@ -18,11 +18,11 @@ var Item = function() {
             e = a[i];
             if (e.entityType == 'player') {
                 my.onPickUp(e);
-                room.removeAfterFrame.push(my);
+                room.removeEntity(my);
             }
             else if (e.entityType == 'sword') {
                 my.onPickUp(e.player);
-                room.removeAfterFrame.push(my);
+                room.removeEntity(my);
             }
         }
 
@@ -33,7 +33,7 @@ var Item = function() {
 
         // Lasts for 508 frames
         if (frameCount >= 508) {
-            room.removeAfterFrame.push(my);
+            room.removeEntity(my);
         }
 
     };

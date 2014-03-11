@@ -23,7 +23,7 @@ var SpawnCloud = function(entity) {
         }
 
         if (frame == 44) {
-            room.removeAfterFrame.push(my);
+            room.removeEntity(my);
             room.addEntity(entity);
         }
 

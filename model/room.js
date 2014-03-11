@@ -16,8 +16,8 @@ var loadRoom = function(filename, success) {
 var Room = function(data) {
     var my = {};
 
-    my.removeAfterFrame = [];
-    my.addAfterFrame = [];
+    var removeAfterFrame = [];
+    var addAfterFrame = [];
 
     my.tiles = data.tiles;
 
@@ -58,8 +58,8 @@ var Room = function(data) {
         }
 
         // After frame stuff
-        while (my.removeAfterFrame.length) {
-            var entity = my.removeAfterFrame.pop();
+        while (removeAfterFrame.length) {
+            var entity = removeAfterFrame.pop();
             var a = [];
             for (var i = 0; i < my.entities.length; i++) {
                 if (my.entities[i] != entity) {
@@ -70,8 +70,8 @@ var Room = function(data) {
             my.entities = a;
         }
 
-        while (my.addAfterFrame.length) {
-            var entity = my.addAfterFrame.pop();
+        while (addAfterFrame.length) {
+            var entity = addAfterFrame.pop();
             my.entities.push(entity);
         }
 
@@ -80,7 +80,11 @@ var Room = function(data) {
     };
 
     my.addEntity = function(entity) {
-        my.addAfterFrame.push(entity);
+        addAfterFrame.push(entity);
+    };
+
+    my.removeEntity = function(entity) {
+        removeAfterFrame.push(entity);
     };
 
     my.intersectsWall = function(rect) {

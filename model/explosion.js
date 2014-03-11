@@ -23,7 +23,7 @@ var Explosion = function(angle) {
         executeFrame_parent(room);
 
         if (frame++ == 22) {
-            room.removeAfterFrame.push(my);
+            room.removeEntity(my);
         }
 
     };

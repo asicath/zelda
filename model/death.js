@@ -67,7 +67,7 @@ var Death = function(entity, after) {
         }
         else {
             // animation is complete, remove from room
-            room.removeAfterFrame.push(my);
+            room.removeEntity(my);
 
             if (after) after();
         }

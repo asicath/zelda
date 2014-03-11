@@ -22,7 +22,7 @@ var Sword = function(player) {
         if (frame > my.maxFrame) {
             // Make sure the sword doesn't stick around after death
             // should do this differently
-            room.removeAfterFrame.push(my);
+            room.removeEntity(my);
         }
 
         // check for intersection
