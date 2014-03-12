@@ -8,7 +8,7 @@ var Sprites = {
 
 var spriteLoadFinish = function() {
 
-    if (++Sprites.count < 11) {return;}
+    if (++Sprites.count < 12) {return;}
 
     loadRoom('assets/rooms/ow08-06.js', function(room) {
 
@@ -58,6 +58,11 @@ loadSprites('assets/sprites/cloud.gif', null, function(cloud) {
 
 loadSprites('assets/sprites/heart.gif', null, function(heart) {
     Sprites.heart = heart;
+    spriteLoadFinish();
+});
+
+loadSprites('assets/sprites/rock.gif', null, function(rock) {
+    Sprites.rock = rock;
     spriteLoadFinish();
 });
 

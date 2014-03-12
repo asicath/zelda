@@ -31,5 +31,17 @@ var Missile = function(mover) {
         return mover.onEdgeEvent(room, wall, rect);
     };
 
+    mover.angle = 0;
+    mover.setFacing = function(direction) {
+        mover.facing = direction;
+
+        switch(mover.facing) {
+            case Directions.right: mover.angle = 0; break;
+            case Directions.top: mover.angle = Math.PI * 1.5; break;
+            case Directions.left: mover.angle = Math.PI; break;
+            case Directions.bottom: mover.angle = Math.PI * 0.5; break;
+        }
+    };
+
     return my;
 };

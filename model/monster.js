@@ -1,6 +1,7 @@
 var Monster = function() {
     var my = Entity();
     my = Mover(my);
+    Shooter(my);
 
     ItemDropper(my);
 
@@ -37,7 +38,7 @@ var Monster = function() {
         my.homingPercent = 64/255;
     }
 
-    my.haltPercent = 3/16;
+
 
 
 

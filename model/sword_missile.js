@@ -10,18 +10,7 @@ var SwordMissile = function(player, sword) {
 
     my.maxFrame = 10000;
 
-    var angle;
-    my.setFacing = function(direction) {
-        my.facing = direction;
 
-
-        switch(my.facing) {
-            case Directions.right: angle = 0; break;
-            case Directions.top: angle = Math.PI * 1.5; break;
-            case Directions.left: angle = Math.PI; break;
-            case Directions.bottom: angle = Math.PI * 0.5; break;
-        }
-    };
 
     if (sword) {
         my.rect = new Rect(sword.rect.x, sword.rect.y, sword.rect.width, sword.rect.height);
@@ -30,7 +19,7 @@ var SwordMissile = function(player, sword) {
     }
 
     my.launch = function() {
-        my.shoot(angle, 204/68);
+        my.shoot(my.angle, 204/68);
     };
 
     my.onHit = function(room) {
