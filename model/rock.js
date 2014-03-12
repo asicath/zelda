@@ -35,7 +35,7 @@ var Rock = function() {
 
                 if (blocked) {
                     room.removeEntity(my);
-
+                    sound_shield.play();
                 }
                 else {
                     e.takeDamage(2, my, room);
