@@ -22,7 +22,7 @@ var Room = function(data) {
     my.tiles = data.tiles;
 
     // init tiles
-    for (var i = my.tiles.length - 1; i > 0; i--) {
+    for (var i = my.tiles.length - 1; i >= 0; i--) {
         my.tiles[i].rect = new Rect(my.tiles[i].x, my.tiles[i].y, 16, 16);
     }
 
@@ -75,8 +75,8 @@ var Room = function(data) {
             my.entities.push(entity);
         }
 
-        checkAddMonster();
-
+        //checkAddMonster(30);
+        checkWave();
     };
 
     my.addEntity = function(entity) {
@@ -120,42 +120,93 @@ var Room = function(data) {
     };
 
 
-    my.countToAddMonster = 0;
-    my.addCount = 1;
+    var countToAddMonster = 0;
+    var addCount = 0;
 
+    var killCount = 0;
+    var monsterCount = 0;
 
-    var checkAddMonster = function() {
-        //return;
-        if (my.countToAddMonster >= 0) {
-            if (my.countToAddMonster-- == 0) {
+    my.wave = 0;
+    var waveState = 0;
+    my.framesToNextWave = 300;
 
-                // create the entity
-                var e = Monster();
-                if (Math.random() > 0.5) {
-                    e.palette = Palettes.MonsterBlue;
-                    e.life = 8;
-                }
-                if (--my.addCount > 0) {
-                    my.countToAddMonster = 30;
-                }
+    my.onMonsterKill = function(monster) {
+        // Cause two more monsters to spawn
+        //countToAddMonster = 30;
+        //addCount += 2;
 
-                // find a spot for it
-                var tile = null;
-                while (!tile) {
-                    var i = Math.floor(Math.random() * my.tiles.length);
-                    if (my.tiles[i].type == 'floor') tile = my.tiles[i];
-                }
-                e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
+        killCount++;
+    };
 
+    var checkWave = function() {
 
-                // place it in a spawn cloud
-                var spawn = SpawnCloud(e);
-                my.addEntity(spawn);
+        // Waiting to start next wave
+        if (waveState == 0) {
+            if (--my.framesToNextWave == 0) {
 
+                // move to the next state
+                waveState = 1;
+                my.wave++;
 
-
+                // setup for the next state
+                killCount = 0;
+                monsterCount = Math.pow(2, my.wave);
+                addCount = monsterCount;
+                countToAddMonster = 30;
             }
         }
+
+        // Adding monsters
+        if (waveState == 1) {
+            if (addCount > 0) {
+                checkAddMonster(30);
+            }
+            else {
+                waveState = 2;
+            }
+        }
+
+        // waiting for them all to be killed
+        if (waveState == 2) {
+            if (killCount == monsterCount) {
+                waveState = 0;
+                my.framesToNextWave = 300;
+            }
+        }
+
+    };
+
+    var checkAddMonster = function(wait) {
+        if (countToAddMonster >= 0) {
+            if (countToAddMonster-- == 0) {
+                addMonster();
+                if (--addCount > 0) {
+                    countToAddMonster = wait;
+                }
+            }
+        }
+    };
+
+    var addMonster = function() {
+        // create the entity
+        var e = Monster();
+        if (Math.random() > 0.5) {
+            e.palette = Palettes.MonsterBlue;
+            e.life = 8;
+        }
+
+        // find a spot for it
+        var tile = null;
+        while (!tile) {
+            var i = Math.floor(Math.random() * my.tiles.length);
+            if (my.tiles[i].type == 'floor') tile = my.tiles[i];
+        }
+        e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
+
+
+        // place it in a spawn cloud
+        var spawn = SpawnCloud(e);
+        my.addEntity(spawn);
     };
 
 

@@ -132,6 +132,7 @@ var View = (function() {
 
         }
 
+        drawText(ctx, "wave " + room.wave.toString(), 106, 0);
 
         displayPlayerInfo(ctx, 0, 20);
         displayPlayerInfo(ctx, 1, 160);

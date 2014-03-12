@@ -71,9 +71,8 @@ var Monster = function() {
         // remove from the room
         room.removeEntity(my);
 
-        // Cause two more monsters to spawn
-        room.countToAddMonster = 30;
-        room.addCount += 2;
+        // tell the room the monster was killed
+        room.onMonsterKill(my);
 
         // prevent further actions
         my.isDead = true;
