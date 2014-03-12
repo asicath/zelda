@@ -1,6 +1,6 @@
 var Shooter = function(my) {
 
-    my.shootPercent = 1/16;
+    my.shootPercent = 8/16;
     var framesUntilCheck = 16;
     var shooting = false;
     var shootFrame = 0;
@@ -32,7 +32,7 @@ var Shooter = function(my) {
         }
         else if (shootFrame == 34) {
             // create rock
-            my.shoot(room);
+            createMissile(room);
         }
         else if (shootFrame == 49) {
             my.canWalk = true;
@@ -42,19 +42,16 @@ var Shooter = function(my) {
         shootFrame++;
     };
 
-    my.shoot = function(room) {
-        createMissile(room);
-    };
 
     var createMissile = function(room) {
         var missile = Rock();
 
-        missile.setFacing(my.facing);
         missile.rect.x = my.rect.x;
         missile.rect.y = my.rect.y;
 
         room.addEntity(missile);
-        missile.launch();
+
+        missile.shootDirection(my.facing, 204/68);
     };
 
     var missilePosition = {};

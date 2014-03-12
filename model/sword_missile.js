@@ -19,7 +19,7 @@ var SwordMissile = function(player, sword) {
     }
 
     my.launch = function() {
-        my.shoot(my.angle, 204/68);
+        my.shootDirection(my.facing, 204/68);
     };
 
     my.onHit = function(room) {

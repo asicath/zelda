@@ -1,6 +1,8 @@
 var Missile = function(mover) {
     var my = MovementSource(mover);
 
+    mover.angle = 0;
+
     var info = {
         angle: 0,
         velocity: 0
@@ -9,6 +11,20 @@ var Missile = function(mover) {
     mover.shoot = function(angle, velocity) {
         info.angle = angle;
         info.velocity = velocity;
+    };
+
+    mover.shootDirection = function(direction, velocity) {
+        var angle;
+
+        switch(direction) {
+            case Directions.right: angle = 0; break;
+            case Directions.top: angle = Math.PI * 1.5; break;
+            case Directions.left: angle = Math.PI; break;
+            case Directions.bottom: angle = Math.PI * 0.5; break;
+        }
+
+        mover.setFacing(direction);
+        mover.shoot(angle, velocity);
     };
 
     // Returns true if this source moved this frame
@@ -31,16 +47,8 @@ var Missile = function(mover) {
         return mover.onEdgeEvent(room, wall, rect);
     };
 
-    mover.angle = 0;
-    mover.setFacing = function(direction) {
-        mover.facing = direction;
-
-        switch(mover.facing) {
-            case Directions.right: mover.angle = 0; break;
-            case Directions.top: mover.angle = Math.PI * 1.5; break;
-            case Directions.left: mover.angle = Math.PI; break;
-            case Directions.bottom: mover.angle = Math.PI * 0.5; break;
-        }
+    my.onWallEvent = function(room, wall, rect) {
+        mover.onEdgeEvent(room, wall, rect);
     };
 
     return my;

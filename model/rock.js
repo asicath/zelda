@@ -4,6 +4,9 @@ var Rock = function() {
 
     my.movementSources.push(new Missile(my));
 
+    my.wallSensitive = true;
+
+
     my.sprites = Sprites.rock;
     my.palette = Palettes.LinkGreen;
     my.entityType = "rock";
@@ -32,6 +35,7 @@ var Rock = function() {
 
                 if (blocked) {
                     room.removeEntity(my);
+
                 }
                 else {
                     e.takeDamage(2, my, room);
@@ -44,11 +48,11 @@ var Rock = function() {
 
     };
 
-    my.launch = function() {
-        my.shoot(my.angle, 204/68);
+    my.onEdgeEvent = function(room, wall, rect) {
+        room.removeEntity(my);
     };
 
-    my.onEdgeEvent = function(room, wall, rect) {
+    my.onWallEvent = function(room, wall, rect) {
         room.removeEntity(my);
     };
 
