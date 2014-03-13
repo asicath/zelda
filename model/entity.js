@@ -34,7 +34,21 @@ var Entity = function() {
     };
 
 
+    // *** FLICKERING ***
+    my.flickering = false;
+    var flickerFrame = 0;
 
+    my.isVisible = function() {
+
+        if (my.flickering) {
+            // flickers invisible in 2 frame intervals
+            return flickerFrame++ % 2 == 0;
+        }
+
+        return my.visible;
+    };
+
+    // *** FLASHING ***
     my.flashPalates = [
         Palettes.MonsterBlack, // should be all blue
         Palettes.MonsterBlue,

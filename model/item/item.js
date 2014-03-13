@@ -7,10 +7,28 @@ var Item = function() {
 
     var frameCount = 0;
 
+
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
         executeFrame_parent(room);
 
+        frameCount++;
+
+        // flickers for 30 frames
+        my.flickering = frameCount <= 30;
+
+        if (!my.flickering) {
+            checkForPickup(room);
+        }
+
+        // Lasts for 508 frames
+        if (frameCount >= 508) {
+            room.removeEntity(my);
+        }
+
+    };
+
+    var checkForPickup = function(room) {
         // check for player intersection
         var a = room.getIntersectingEntities(my);
         var e;
@@ -25,17 +43,6 @@ var Item = function() {
                 room.removeEntity(my);
             }
         }
-
-        frameCount++;
-
-        // flickers invisible for 30 frames in 2 frame intervals
-        my.visible = frameCount > 30 || frameCount % 2 == 0;
-
-        // Lasts for 508 frames
-        if (frameCount >= 508) {
-            room.removeEntity(my);
-        }
-
     };
 
     my.onPickUp = function(player) {};
