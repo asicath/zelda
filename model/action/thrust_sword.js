@@ -9,6 +9,8 @@ var ThrustSword = function(actor) {
     var coolDown = 0;
 
 
+
+
     // Override sprite if thrusting sword
     var getSprite_parent = actor.getSprite;
     actor.getSprite = function() {
@@ -43,6 +45,7 @@ var ThrustSword = function(actor) {
 
                 // can't move while attacking
                 actor.canWalk = false;
+                actor.shieldUp = false;
 
                 sound_sword.play();
             }
@@ -76,6 +79,7 @@ var ThrustSword = function(actor) {
             if (sword.done) {
                 sword = null;
                 actor.canWalk = true;
+                actor.shieldUp = true;
                 actor.resetStep();
 
                 swordState = 3;

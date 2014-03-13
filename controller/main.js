@@ -21,7 +21,7 @@ var spriteLoadFinish = function() {
 
 
         music.loop = true;
-        //music.play();
+        music.play();
     });
 
 };

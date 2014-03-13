@@ -20,6 +20,8 @@ var Player = function(playerId) {
         my.rect = new Rect(208, 112, 16, 16);
     }
 
+    my.shieldUp = true;
+
 
     my.footPrint = new Rect(0, 8, 16, 8); // has a smaller foot print than the monsters
     my.facingSpriteBaseIndex = [0, 3, 6, 9];

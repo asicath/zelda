@@ -33,7 +33,7 @@ var Rock = function() {
                     case Directions.bottom: blocked = e.facing == Directions.top; break;
                 }
 
-                if (blocked) {
+                if (blocked && e.shieldUp) {
                     room.removeEntity(my);
                     sound_shield.play();
                 }

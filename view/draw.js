@@ -132,10 +132,10 @@ var View = (function() {
 
         }
 
-        drawText(ctx, "wave " + room.wave.toString(), 106, 0);
+        drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4);
 
-        displayPlayerInfo(ctx, 0, 20);
-        displayPlayerInfo(ctx, 1, 160);
+        displayPlayerInfo(ctx, 0, 4);
+        displayPlayerInfo(ctx, 1, 172);
 
         ctx.restore();
     };

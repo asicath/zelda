@@ -1,6 +1,6 @@
 var Shooter = function(my) {
 
-    my.shootPercent = 8/16;
+    my.shootPercent = 3/16;
     var framesUntilCheck = 16;
     var shooting = false;
     var shootFrame = 0;

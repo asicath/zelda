@@ -128,7 +128,7 @@ var Room = function(data) {
 
     my.wave = 0;
     var waveState = 0;
-    my.framesToNextWave = 300;
+    my.framesToNextWave = 150;
 
     my.onMonsterKill = function(monster) {
         // Cause two more monsters to spawn
@@ -146,20 +146,21 @@ var Room = function(data) {
 
                 // move to the next state
                 waveState = 1;
+                sound_fanfare.play();
                 my.wave++;
 
                 // setup for the next state
                 killCount = 0;
                 monsterCount = Math.pow(2, my.wave);
                 addCount = monsterCount;
-                countToAddMonster = 30;
+                countToAddMonster = 10;
             }
         }
 
         // Adding monsters
         if (waveState == 1) {
             if (addCount > 0) {
-                checkAddMonster(30);
+                checkAddMonster(10);
             }
             else {
                 waveState = 2;
@@ -170,21 +171,29 @@ var Room = function(data) {
         if (waveState == 2) {
             if (killCount == monsterCount) {
                 waveState = 0;
-                my.framesToNextWave = 300;
+                my.framesToNextWave = 150;
             }
         }
 
     };
 
     var checkAddMonster = function(wait) {
+
         if (countToAddMonster >= 0) {
+
+            var added = monsterCount - addCount;
+            var inRoom = added - killCount;
+            if (inRoom >= 50) return;
+
             if (countToAddMonster-- == 0) {
                 addMonster();
                 if (--addCount > 0) {
                     countToAddMonster = wait;
                 }
             }
+
         }
+
     };
 
     var addMonster = function() {

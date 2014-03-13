@@ -54,9 +54,9 @@ var Monster = function() {
             death(room);
 
             // keep track of kills
-            if (entity.playerId) {
+
                 currentRoom.players[entity.playerId].monstersKilled++;
-            }
+
 
         }
         else {
