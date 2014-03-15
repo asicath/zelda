@@ -139,7 +139,7 @@ var Room = function(data) {
     };
 
     var checkWave = function() {
-
+        //addFly();
         // Waiting to start next wave
         if (waveState == 0) {
             if (--my.framesToNextWave == 0) {
@@ -187,6 +187,7 @@ var Room = function(data) {
 
             if (countToAddMonster-- == 0) {
                 addMonster();
+
                 if (--addCount > 0) {
                     countToAddMonster = wait;
                 }
@@ -194,6 +195,19 @@ var Room = function(data) {
 
         }
 
+    };
+
+    var addFly = function() {
+        var e = Fly();
+        // find a spot for it
+        var tile = null;
+        while (!tile) {
+            var i = Math.floor(Math.random() * my.tiles.length);
+            if (my.tiles[i].type == 'floor') tile = my.tiles[i];
+        }
+        e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
+
+        my.addEntity(e);
     };
 
     var addMonster = function() {

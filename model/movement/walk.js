@@ -12,7 +12,7 @@ var Walk = function(mover) {
     mover.isWalker = true;
     mover.lastWalkDirection = Directions.bottom;
 
-    var guideSize = 8;
+    my.guideSize = 8;
 
     // Returns true if this source moved this frame
     my.executeMove = function(room) {
@@ -53,9 +53,9 @@ var Walk = function(mover) {
 
         // make sure we're on a guide
         if (my.moveIntent == Directions.top || my.moveIntent == Directions.bottom) {
-            var toLeftGuide = mover.rect.x % guideSize;
+            var toLeftGuide = mover.rect.x % my.guideSize;
             if (toLeftGuide > 0) {
-                var toRightGuide = guideSize - toLeftGuide;
+                var toRightGuide = my.guideSize - toLeftGuide;
                 if (toLeftGuide <= toRightGuide) {
                     direction = Directions.left;
                     toGuideAmount = toLeftGuide;
@@ -67,9 +67,9 @@ var Walk = function(mover) {
             }
         }
         else if (my.moveIntent == Directions.left || my.moveIntent == Directions.right) {
-            var toTopGuide = mover.rect.y % guideSize;
+            var toTopGuide = mover.rect.y % my.guideSize;
             if (toTopGuide > 0) {
-                var toBottomGuide = guideSize - toTopGuide;
+                var toBottomGuide = my.guideSize - toTopGuide;
                 if (toTopGuide <= toBottomGuide) {
                     direction = Directions.top;
                     toGuideAmount = toTopGuide;
@@ -98,12 +98,12 @@ var Walk = function(mover) {
     };
 
     mover.isOnVerticalGuide = function() {
-        var toLeftGuide = mover.rect.x % guideSize;
+        var toLeftGuide = mover.rect.x % my.guideSize;
         return toLeftGuide == 0;
     };
 
     mover.isOnHorizontalGuide = function() {
-        var toTopGuide = mover.rect.y % guideSize;
+        var toTopGuide = mover.rect.y % my.guideSize;
         return toTopGuide == 0;
     };
 

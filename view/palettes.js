@@ -41,6 +41,16 @@ var Palettes = {
         ]
     },
 
+    Nihil: {
+        name:'Nihil',
+        colors: [
+            [0x00, 0x00, 0x00, 0x00], // Brown, for trees, bushes
+            [0xa0, 0xa0, 0xa0, 0xff], // Blue, usually water or highlights
+            [0x80, 0x80, 0x80, 0xff], // Ground Color
+            [0xff, 0xff, 0xff, 0xff]  // Black, shadows
+        ]
+    },
+
     AllBlack: {
         name:'AllBlack',
         colors: [

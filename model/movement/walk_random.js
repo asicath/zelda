@@ -30,7 +30,7 @@ var WalkRandom = function(mover) {
             my.moveIntent = moving;
         }
 
-        framesUntilNextMove = 16 / mover.speed;
+        framesUntilNextMove = Math.floor(mover.rect.width / mover.speed);
     };
 
     var getRandomDirection = function() {
