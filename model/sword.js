@@ -37,8 +37,8 @@ var Sword = function(player) {
             }
 
             if (e.entityType == 'player' && e.playerId != my.player.playerId) {
-                e.takeDamage(4, my, room);
-                my.onHit(room);
+                //e.takeDamage(4, my, room);
+                //my.onHit(room);
             }
 
 
