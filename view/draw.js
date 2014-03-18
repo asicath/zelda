@@ -248,8 +248,13 @@ var View = (function() {
     };
 
     var drawEntity = function(ctx, entity) {
-        if (entity.icon.isVisible())
-            drawSprite(ctx, factor, entity.icon.getSprite(), entity.rect.x + entity.icon.drawOffset.x, entity.rect.y + entity.icon.drawOffset.y, entity.icon.getPalette());
+        // todo allow for multiple icons per entity
+        drawIcon(ctx, entity.icon);
+    };
+
+    var drawIcon = function(ctx, icon) {
+        if (icon.isVisible())
+            drawSprite(ctx, factor, icon.getSprite(), icon.getXPosition(), icon.getYPosition(), icon.getPalette());
     };
 
 

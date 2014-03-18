@@ -30,6 +30,14 @@ var Icon = function(entity) {
         visible: true
     };
 
+    my.getXPosition = function() {
+        return entity.rect.x + my.drawOffset.x;
+    };
+
+    my.getYPosition = function() {
+        return entity.rect.y + my.drawOffset.y;
+    };
+
     my.getSprite = function() {
         return my.sprites[my.spriteIndex];
     };
