@@ -1,9 +1,8 @@
 var Fairy = function() {
     var my = Item();
 
-    my.sprites = Sprites.fairy;
-    my.spriteIndex = 0;
-    my.palette = Palettes.MonsterRed;
+    my.icon.sprites = Sprites.fairy;
+    my.icon.palette = Palettes.MonsterRed;
 
     my.onPickUp = function(player) {
         var amount = 12;

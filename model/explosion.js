@@ -4,14 +4,14 @@ var Explosion = function(angle) {
 
     my.movementSources.push(new Missile(my));
 
-    my.flashing = true;
+    my.icon.flashing = true;
 
     my.shoot(angle, 30/22);
 
-    my.sprites = Sprites.explosion;
-    my.spriteIndex = 0;
+    my.icon.sprites = Sprites.explosion;
+    my.icon.spriteIndex = 0;
 
-    my.palette = Palettes.MonsterBlue;
+    my.icon.palette = Palettes.MonsterBlue;
     my.entityType = "explosion";
 
     my.rect = new Rect(0, 0, 0, 0);
@@ -28,7 +28,7 @@ var Explosion = function(angle) {
 
     };
 
-    my.flashPalates = [
+    my.icon.flashPalates = [
         Palettes.DeathStarRedBlue, // should be all blue
         Palettes.DeathStarWhiteGold,
         Palettes.DeathStarWhiteBlue,
@@ -47,24 +47,24 @@ Explosion.create = function(room, x, y) {
     var ex1 = Explosion(Math.PI * 0.25);
     ex1.rect.x = x + 4;
     ex1.rect.y = y + 4;
-    ex1.spriteIndex = 3;
+    ex1.icon.spriteIndex = 3;
     room.addEntity(ex1);
 
     var ex2 = Explosion(Math.PI * 0.75);
     ex2.rect.x = x;
     ex2.rect.y = y + 4;
-    ex2.spriteIndex = 2;
+    ex2.icon.spriteIndex = 2;
     room.addEntity(ex2);
 
     var ex3 = Explosion(Math.PI * 1.25);
     ex3.rect.x = x;
     ex3.rect.y = y;
-    ex3.spriteIndex = 0;
+    ex3.icon.spriteIndex = 0;
     room.addEntity(ex3);
 
     var ex4 = Explosion(Math.PI * 1.75);
     ex4.rect.x = x + 4;
     ex4.rect.y = y;
-    ex4.spriteIndex = 1;
+    ex4.icon.spriteIndex = 1;
     room.addEntity(ex4);
 };

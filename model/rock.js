@@ -7,8 +7,8 @@ var Rock = function() {
     my.wallSensitive = true;
 
 
-    my.sprites = Sprites.rock;
-    my.palette = Palettes.LinkGreen;
+    my.icon.sprites = Sprites.rock;
+    my.icon.palette = Palettes.LinkGreen;
     my.entityType = "rock";
 
     // will get updated by monster

@@ -248,8 +248,8 @@ var View = (function() {
     };
 
     var drawEntity = function(ctx, entity) {
-        if (entity.isVisible())
-            drawSprite(ctx, factor, entity.getSprite(), entity.rect.x + entity.drawOffset.x, entity.rect.y + entity.drawOffset.y, entity.getPalette());
+        if (entity.icon.isVisible())
+            drawSprite(ctx, factor, entity.icon.getSprite(), entity.rect.x + entity.icon.drawOffset.x, entity.rect.y + entity.icon.drawOffset.y, entity.icon.getPalette());
     };
 
 

@@ -214,7 +214,7 @@ var Room = function(data) {
         // create the entity
         var e = Monster();
         if (Math.random() > 0.5) {
-            e.palette = Palettes.MonsterBlue;
+            e.icon.palette = Palettes.MonsterBlue;
             e.life = 8;
         }
 

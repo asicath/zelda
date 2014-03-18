@@ -1,8 +1,8 @@
 var Sword = function(player) {
     var my = Entity();
 
-    my.sprites = Sprites.sword;
-    my.palette = Palettes.MonsterBlue;
+    my.icon.sprites = Sprites.sword;
+    my.icon.palette = Palettes.MonsterBlue;
     my.entityType = "sword";
     my.playerId = player.playerId; // expose for kill counting in monster
     my.player = player;             // expose so items can be picked up by swords

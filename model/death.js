@@ -3,9 +3,9 @@ var Death = function(entity, after) {
 
     my.rect = entity.rect;
 
-    my.sprites = Sprites.deathstar;
-    my.spriteIndex = 0;
-    my.palette = Palettes.MonsterRed;
+    my.icon.sprites = Sprites.deathstar;
+    my.icon.spriteIndex = 0;
+    my.icon.palette = Palettes.MonsterRed;
 
     my.entityType = "death";
 
@@ -40,30 +40,30 @@ var Death = function(entity, after) {
     my.executeFrame = function(room) {
 
         switch (deathFrame) {
-            case 0: my.palette = Palettes.DeathStarRedBlue; break;
-            case 2: my.palette = Palettes.DeathStarWhiteGold; break;
-            case 4: my.palette = Palettes.DeathStarWhiteBlue; break;
-            case 6: my.palette = Palettes.DeathStarRedGold; break;
-            case 8: my.palette = Palettes.DeathStarRedBlue; break;
-            case 10: my.palette = Palettes.DeathStarWhiteGold; break;
-            case 12: my.palette = Palettes.DeathStarWhiteBlue; break;
-            case 14: my.palette = Palettes.DeathStarRedGold; break;
-            case 16: my.palette = Palettes.DeathStarRedBlue; break;
-            case 18: my.palette = Palettes.DeathStarWhiteGold; break;
+            case 0: my.icon.palette = Palettes.DeathStarRedBlue; break;
+            case 2: my.icon.palette = Palettes.DeathStarWhiteGold; break;
+            case 4: my.icon.palette = Palettes.DeathStarWhiteBlue; break;
+            case 6: my.icon.palette = Palettes.DeathStarRedGold; break;
+            case 8: my.icon.palette = Palettes.DeathStarRedBlue; break;
+            case 10: my.icon.palette = Palettes.DeathStarWhiteGold; break;
+            case 12: my.icon.palette = Palettes.DeathStarWhiteBlue; break;
+            case 14: my.icon.palette = Palettes.DeathStarRedGold; break;
+            case 16: my.icon.palette = Palettes.DeathStarRedBlue; break;
+            case 18: my.icon.palette = Palettes.DeathStarWhiteGold; break;
         }
 
 
         if (deathFrame <= 0) {
-            my.spriteIndex = 0;
+            my.icon.spriteIndex = 0;
         }
         else if (deathFrame <= 6) {
-            my.spriteIndex = 2;
+            my.icon.spriteIndex = 2;
         }
         else if (deathFrame <= 12) {
-            my.spriteIndex = 1;
+            my.icon.spriteIndex = 1;
         }
         else if (deathFrame <= 18) {
-            my.spriteIndex = 2;
+            my.icon.spriteIndex = 2;
         }
         else {
             // animation is complete, remove from room

@@ -3,9 +3,9 @@ var SpawnCloud = function(entity) {
 
     my.rect = entity.rect;
 
-    my.sprites = Sprites.cloud;
-    my.spriteIndex = 0;
-    my.palette = Palettes.DeathStarWhiteBlue;
+    my.icon.sprites = Sprites.cloud;
+    my.icon.spriteIndex = 0;
+    my.icon.palette = Palettes.DeathStarWhiteBlue;
 
     my.entityType = "spawn";
 
@@ -15,11 +15,11 @@ var SpawnCloud = function(entity) {
     my.executeFrame = function(room) {
 
         if (frame == 32) {
-            my.spriteIndex = 1;
+            my.icon.spriteIndex = 1;
         }
 
         if (frame == 38) {
-            my.spriteIndex = 2;
+            my.icon.spriteIndex = 2;
         }
 
         if (frame == 44) {

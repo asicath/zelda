@@ -3,7 +3,7 @@ var Item = function() {
 
     my.entityType = 'item';
     my.rect = new Rect(0, 0, 16, 16);
-    my.sprites = Sprites.items;
+    my.icon.sprites = Sprites.items;
 
     var frameCount = 0;
 

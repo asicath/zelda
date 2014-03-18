@@ -25,8 +25,8 @@ var Player = function(playerId) {
 
     my.footPrint = new Rect(0, 8, 16, 8); // has a smaller foot print than the monsters
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
-    my.sprites = Sprites.link;
-    my.palette = Palettes.LinkGreen;
+    my.icon.sprites = Sprites.link;
+    my.icon.palette = Palettes.LinkGreen;
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
     my.setFacing(Directions.top);
@@ -36,10 +36,10 @@ var Player = function(playerId) {
 
         if (my.invincible > 0) {
             my.invincible--;
-            my.flashing = true;
+            my.icon.flashing = true;
         }
         else {
-            my.flashing = false;
+            my.icon.flashing = false;
         }
 
         executeFrame_parent(room);

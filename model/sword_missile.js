@@ -5,7 +5,7 @@ var SwordMissile = function(player, sword) {
     my.movementSources.push(new Missile(my));
 
     my.entityType = "sword_missile";
-    my.flashing = true;
+    my.icon.flashing = true;
     my.complete = false;
 
     my.maxFrame = 10000;
@@ -14,7 +14,7 @@ var SwordMissile = function(player, sword) {
 
     if (sword) {
         my.rect = new Rect(sword.rect.x, sword.rect.y, sword.rect.width, sword.rect.height);
-        my.spriteIndex = sword.spriteIndex;
+        my.icon.spriteIndex = sword.icon.spriteIndex;
         my.setFacing(sword.facing);
     }
 

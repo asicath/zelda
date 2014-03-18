@@ -4,13 +4,10 @@
 var Entity = function() {
 
     var my = {
-        palette: null,
-        sprites: null,
-        spriteIndex: 0,
-        rect: null,
-        drawOffset: {x: 0, y: 0},
-        visible: true
+        rect: null
     };
+
+    my.icon = Icon(my);
 
     my.executeFrame = function(room) {
 
@@ -18,6 +15,19 @@ var Entity = function() {
 
     my.afterFrame = function(room) {
 
+    };
+
+    return my;
+};
+
+
+var Icon = function(entity) {
+    var my = {
+        palette: null,
+        sprites: null,
+        spriteIndex: 0,
+        drawOffset: {x: 0, y: 0},
+        visible: true
     };
 
     my.getSprite = function() {
@@ -32,7 +42,6 @@ var Entity = function() {
 
         return my.palette;
     };
-
 
     // *** FLICKERING ***
     my.flickering = false;

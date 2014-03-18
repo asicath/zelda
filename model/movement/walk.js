@@ -124,16 +124,16 @@ var Walk = function(mover) {
         // change sprite
         switch (direction) {
             case Directions.top:
-                mover.spriteIndex = mover.facingSpriteBaseIndex[0];
+                mover.icon.spriteIndex = mover.facingSpriteBaseIndex[0];
                 break;
             case Directions.bottom:
-                mover.spriteIndex = mover.facingSpriteBaseIndex[1];
+                mover.icon.spriteIndex = mover.facingSpriteBaseIndex[1];
                 break;
             case Directions.left:
-                mover.spriteIndex = mover.facingSpriteBaseIndex[2];
+                mover.icon.spriteIndex = mover.facingSpriteBaseIndex[2];
                 break;
             case Directions.right:
-                mover.spriteIndex = mover.facingSpriteBaseIndex[3];
+                mover.icon.spriteIndex = mover.facingSpriteBaseIndex[3];
                 break;
         }
     };
@@ -143,8 +143,8 @@ var Walk = function(mover) {
     var swapStepCount = 0;
     my.stepChange = 6;
 
-    mover.getSprite = function() {
-        return mover.sprites[mover.spriteIndex + step];
+    mover.icon.getSprite = function() {
+        return mover.icon.sprites[mover.icon.spriteIndex + step];
     };
 
     // Allow others to reset the step count

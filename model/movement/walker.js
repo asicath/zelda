@@ -229,22 +229,22 @@ var Walker = function(my) {
         // change sprite
         switch (direction) {
             case Directions.top:
-                my.spriteIndex = my.facingSpriteBaseIndex[0];
+                my.icon.spriteIndex = my.facingSpriteBaseIndex[0];
                 break;
             case Directions.bottom:
-                my.spriteIndex = my.facingSpriteBaseIndex[1];
+                my.icon.spriteIndex = my.facingSpriteBaseIndex[1];
                 break;
             case Directions.left:
-                my.spriteIndex = my.facingSpriteBaseIndex[2];
+                my.icon.spriteIndex = my.facingSpriteBaseIndex[2];
                 break;
             case Directions.right:
-                my.spriteIndex = my.facingSpriteBaseIndex[3];
+                my.icon.spriteIndex = my.facingSpriteBaseIndex[3];
                 break;
         }
     };
 
-    my.getSprite = function() {
-        return my.sprites[my.spriteIndex + my.step];
+    my.icon.getSprite = function() {
+        return my.icon.sprites[my.icon.spriteIndex + my.step];
     };
 
     var swapStepCount = 0;

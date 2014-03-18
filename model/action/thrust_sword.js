@@ -12,10 +12,10 @@ var ThrustSword = function(actor) {
 
 
     // Override sprite if thrusting sword
-    var getSprite_parent = actor.getSprite;
-    actor.getSprite = function() {
+    var getSprite_parent = actor.icon.getSprite;
+    actor.icon.getSprite = function() {
         if (swordState == 1 || swordState == 2) {
-            return actor.sprites[actor.spriteIndex + swordStance];
+            return actor.icon.sprites[actor.icon.spriteIndex + swordStance];
         }
         return getSprite_parent();
     };
@@ -129,7 +129,7 @@ var ThrustSword = function(actor) {
             sword.rect.y = actor.rect.y + pos[name].y;
             sword.rect.width = pos.width;
             sword.rect.height = pos.height;
-            sword.spriteIndex = pos.spriteIndex;
+            sword.icon.spriteIndex = pos.spriteIndex;
             sword.facing = actor.facing;
         };
 

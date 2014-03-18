@@ -14,12 +14,12 @@ var Fly = function() {
 
     my.rect = new Rect(128, 88, 3, 3);
 
-    my.sprites = Sprites.fly;
+    my.icon.sprites = Sprites.fly;
     my.facingSpriteBaseIndex = [0, 0, 0, 0];
-    my.spriteIndex = 0;
-    my.palette = Palettes.Nihil;
+    my.icon.spriteIndex = 0;
+    my.icon.palette = Palettes.Nihil;
 
-    my.drawOffset.y = 0;
+    my.icon.drawOffset.y = 0;
 
     var itemDropLevel = 0;
 

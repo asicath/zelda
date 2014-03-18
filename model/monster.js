@@ -15,12 +15,12 @@ var Monster = function() {
     my.invincible = 0;
     my.stepChange = 8;
     my.rect = new Rect(128, 88, 16, 16);
-    my.sprites = Sprites.octopus;
+    my.icon.sprites = Sprites.octopus;
     my.facingSpriteBaseIndex = [0, 2, 4, 6];
-    my.spriteIndex = 0;
-    my.palette = Palettes.MonsterRed;
+    my.icon.spriteIndex = 0;
+    my.icon.palette = Palettes.MonsterRed;
 
-    my.drawOffset.y = -2;
+    my.icon.drawOffset.y = -2;
 
     var itemDropLevel = 0;
 
@@ -95,10 +95,10 @@ var Monster = function() {
 
         if (my.invincible > 0) {
             my.invincible--;
-            my.flashing = true;
+            my.icon.flashing = true;
         }
         else {
-            my.flashing = false;
+            my.icon.flashing = false;
         }
 
         // check for intersection with player
