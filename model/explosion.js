@@ -4,17 +4,16 @@ var Explosion = function(angle) {
 
     my.movementSources.push(new Missile(my));
 
-    my.icon.flashing = true;
-
-    my.shoot(angle, 30/22);
+    my.entityType = "explosion";
+    my.rect = new Rect(0, 0, 0, 0);
 
     my.icon.sprites = Sprites.explosion;
     my.icon.spriteIndex = 0;
-
     my.icon.palette = Palettes.MonsterBlue;
-    my.entityType = "explosion";
+    my.icon.flashing = true;
 
-    my.rect = new Rect(0, 0, 0, 0);
+    // Launch by default
+    my.shoot(angle, 30/22);
 
     var frame = 0;
 

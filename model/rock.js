@@ -5,14 +5,11 @@ var Rock = function() {
     my.movementSources.push(new Missile(my));
 
     my.wallSensitive = true;
-
+    my.entityType = "rock";
+    my.rect = new Rect(0, 0, 16, 16);   // will get updated by monster
 
     my.icon.sprites = Sprites.rock;
     my.icon.palette = Palettes.LinkGreen;
-    my.entityType = "rock";
-
-    // will get updated by monster
-    my.rect = new Rect(0, 0, 16, 16);
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {

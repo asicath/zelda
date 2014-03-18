@@ -9,18 +9,18 @@ var Monster = function() {
     my.movementSources.push(new Push(my));
 
     my.wallSensitive = true;
-
     my.entityType = 'monster';
     my.life = 4;
     my.invincible = 0;
     my.stepChange = 8;
     my.rect = new Rect(128, 88, 16, 16);
+
     my.icon.sprites = Sprites.octopus;
-    my.facingSpriteBaseIndex = [0, 2, 4, 6];
     my.icon.spriteIndex = 0;
     my.icon.palette = Palettes.MonsterRed;
-
     my.icon.drawOffset.y = -2;
+
+    my.facingSpriteBaseIndex = [0, 2, 4, 6];
 
     var itemDropLevel = 0;
 

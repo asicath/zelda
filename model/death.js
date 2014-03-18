@@ -1,13 +1,14 @@
 var Death = function(entity, after) {
     var my = Entity();
 
+    my.entityType = "death";
     my.rect = entity.rect;
 
     my.icon.sprites = Sprites.deathstar;
     my.icon.spriteIndex = 0;
     my.icon.palette = Palettes.MonsterRed;
 
-    my.entityType = "death";
+
 
     /* Death animation
      19 frames
