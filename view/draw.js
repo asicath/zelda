@@ -1,7 +1,4 @@
 
-var showDebugInfo = false;
-
-
 var View = (function() {
     var my = {};
 
@@ -10,8 +7,6 @@ var View = (function() {
 
     var screen;
     var canvas;
-
-
 
     my.drawRoom = function(room) {
 
@@ -61,19 +56,13 @@ var View = (function() {
             ctx = resize.getContext('2d');
             ctx.drawImage(buffer, 0, 0, screen.width, screen.height);
 
-
-
             room.sizedImage = resize;
 
             console.log(new Date() - start);
             var start = new Date();
         }
 
-
-
         ctx = canvas.getContext('2d');
-
-
 
         // Center...
         //var container = $(canvas).parent();
@@ -96,40 +85,13 @@ var View = (function() {
         ctx.translate(xOffset,yOffset);
 
 
-
         // draw to the real screen
         ctx.drawImage(room.sizedImage, 0, 0);
-
 
 
         // now the entities
         for (var i = room.entities.length-1; i >= 0; i--) {
             drawEntity(ctx, room.entities[i]);
-        }
-
-
-
-
-        if (showDebugInfo) {
-
-            renderTime[renderIndex] = new Date() - start;
-            renderIndex = (renderIndex + 1) % 60;
-
-            ctx.font = '10pt Calibri';
-            ctx.fillStyle = 'white';
-            ctx.fillText('frame count:' + frameCount++, 0, 20);
-            var max = -1;
-            for (var i = 0; i < renderTime.length; i++) {
-                if (max < renderTime[i]) max = renderTime[i];
-            }
-
-            ctx.fillText('max render time:' + max, 0, 40);
-
-
-            var link = room.entities[0];
-            ctx.fillText('x:' + link.rect.x, 0, 60);
-            ctx.fillText('y:' + link.rect.y, 0, 80);
-
         }
 
         drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4);
