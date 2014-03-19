@@ -9,8 +9,8 @@ var ItemDropper = function(entity) {
         var table = ItemDropper.DropTables[itemClass];
         var type = table[Math.floor(Math.random() * table.length)];
         var item = type();
-        item.rect.x = entity.rect.x;
-        item.rect.y = entity.rect.y;
+        item.position.x = entity.position.x;
+        item.position.y = entity.position.y;
         room.addEntity(item);
 
     };

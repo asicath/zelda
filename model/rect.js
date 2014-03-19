@@ -30,3 +30,12 @@ Rect.prototype.intersects = function(rect) {
         || this.bottom() <= rect.top()
         );
 };
+
+var intersects = function(positionA, sizeA, positionB, sizeB) {
+    return !(
+           positionA.x >= (positionB.x + sizeB.width)
+        || (positionA.x + sizeA.width) <= positionB.x
+        || positionA.y >= (positionB.y + sizeB.height)
+        || (positionA.y + sizeA.height) <= positionB.y
+        );
+};

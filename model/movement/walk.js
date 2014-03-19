@@ -53,7 +53,7 @@ var Walk = function(mover) {
 
         // make sure we're on a guide
         if (my.moveIntent == Directions.top || my.moveIntent == Directions.bottom) {
-            var toLeftGuide = mover.rect.x % my.guideSize;
+            var toLeftGuide = mover.position.x % my.guideSize;
             if (toLeftGuide > 0) {
                 var toRightGuide = my.guideSize - toLeftGuide;
                 if (toLeftGuide <= toRightGuide) {
@@ -67,7 +67,7 @@ var Walk = function(mover) {
             }
         }
         else if (my.moveIntent == Directions.left || my.moveIntent == Directions.right) {
-            var toTopGuide = mover.rect.y % my.guideSize;
+            var toTopGuide = mover.position.y % my.guideSize;
             if (toTopGuide > 0) {
                 var toBottomGuide = my.guideSize - toTopGuide;
                 if (toTopGuide <= toBottomGuide) {
@@ -98,12 +98,12 @@ var Walk = function(mover) {
     };
 
     mover.isOnVerticalGuide = function() {
-        var toLeftGuide = mover.rect.x % my.guideSize;
+        var toLeftGuide = mover.position.x % my.guideSize;
         return toLeftGuide == 0;
     };
 
     mover.isOnHorizontalGuide = function() {
-        var toTopGuide = mover.rect.y % my.guideSize;
+        var toTopGuide = mover.position.y % my.guideSize;
         return toTopGuide == 0;
     };
 

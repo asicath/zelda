@@ -32,13 +32,13 @@ var Missile = function(mover) {
 
         if (info.velocity == 0) return false;
 
-        var rect = new Rect(mover.rect.x, mover.rect.y, mover.rect.width, mover.rect.height);
+        var position = {x: mover.position.x, y: mover.position.y};
 
         // just go right for now
-        rect.x += Math.cos(info.angle) * info.velocity;
-        rect.y += Math.sin(info.angle) * info.velocity;
+        position.x += Math.cos(info.angle) * info.velocity;
+        position.y += Math.sin(info.angle) * info.velocity;
 
-        mover.attemptMove(room, rect, my);
+        mover.attemptMove(room, position, my);
 
         return true;
     };

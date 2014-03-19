@@ -15,7 +15,7 @@ var Push = function(mover) {
     };
 
     // Will always be pushed, but only aligned to the last walk direction
-    mover.pushFromContact = function(rect) {
+    mover.pushFromContact = function(position) {
 
         var pushDirection;
 
@@ -23,7 +23,7 @@ var Push = function(mover) {
             // Don't move?
         }
         else if (mover.lastWalkDirection == Directions.top || mover.lastWalkDirection == Directions.bottom) {
-            if (rect.y > mover.rect.y) {
+            if (position.y > mover.position.y) {
                 pushDirection = Directions.top;
             }
             else {
@@ -31,7 +31,7 @@ var Push = function(mover) {
             }
         }
         else if (mover.lastWalkDirection == Directions.left || mover.lastWalkDirection == Directions.right) {
-            if (rect.x > mover.rect.x) {
+            if (position.x > mover.position.x) {
                 pushDirection = Directions.left;
             }
             else {

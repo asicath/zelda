@@ -13,7 +13,8 @@ var SwordMissile = function(player, sword) {
 
 
     if (sword) {
-        my.rect = new Rect(sword.rect.x, sword.rect.y, sword.rect.width, sword.rect.height);
+        my.position = {x:sword.position.x, y:sword.position.y};
+        my.size = {width: sword.size.width, height: sword.size.height};
         my.icon.spriteIndex = sword.icon.spriteIndex;
         my.setFacing(sword.facing);
     }
@@ -34,7 +35,7 @@ var SwordMissile = function(player, sword) {
         room.removeEntity(my);
         my.complete = true;
 
-        Explosion.create(room, my.rect.x, my.rect.y);
+        Explosion.create(room, my.position.x, my.position.y);
     };
 
     return my;

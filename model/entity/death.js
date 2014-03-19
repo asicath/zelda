@@ -2,7 +2,7 @@ var Death = function(entity, after) {
     var my = Entity();
 
     my.entityType = "death";
-    my.rect = entity.rect;
+    my.position = entity.position;
 
     my.icon.sprites = Sprites.deathstar;
     my.icon.spriteIndex = 0;

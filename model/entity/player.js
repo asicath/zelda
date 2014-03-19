@@ -12,17 +12,21 @@ var Player = function(playerId) {
     my.playerId = playerId;
     my.wallSensitive = true;
     my.entityType = 'player';
+    my.size = {width:16, height:16};
 
     if (playerId == 0) {
-        my.rect = new Rect(32, 48, 16, 16);
+        my.position = {x: 32, y: 48};
     }
     else {
-        my.rect = new Rect(208, 112, 16, 16);
+        my.position = {x: 208, y: 112};
     }
 
     my.shieldUp = true;
 
-    my.footPrint = new Rect(0, 8, 16, 8); // has a smaller foot print than the monsters
+    my.footPrintSize = {width: 16, height: 8};
+    my.footPrintPosition = {x: 0, y: 8};
+    // = new Rect(0, 8, 16, 8); // has a smaller foot print than the monsters
+
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
@@ -45,10 +49,9 @@ var Player = function(playerId) {
         executeFrame_parent(room);
     };
 
+
     my.getHitZone = function(entity) {
-
         if (entity.entityType == "sword" || entity.entityType == "sword_missile") {return my.rect;}
-
         return new Rect(my.rect.x + 7, my.rect.y + 7, 2, 2);
     };
 
@@ -69,7 +72,7 @@ var Player = function(playerId) {
         }
         else {
             sound_hurt.play();
-            my.pushFromContact(entity.rect);
+            my.pushFromContact(entity.position);
         }
 
     };

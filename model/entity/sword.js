@@ -8,9 +8,6 @@ var Sword = function(player) {
     my.playerId = player.playerId; // expose for kill counting in monster
     my.player = player;             // expose so items can be picked up by swords
 
-    // will get updated by player
-    my.rect = new Rect(0, 0, 0, 0);
-
     var frame = 0;
     my.maxFrame = 12;
 

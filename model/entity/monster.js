@@ -13,7 +13,8 @@ var Monster = function() {
     my.life = 4;
     my.invincible = 0;
     my.stepChange = 8;
-    my.rect = new Rect(128, 88, 16, 16);
+
+    my.size = {width:16, height:16};
 
     my.icon.sprites = Sprites.octopus;
     my.icon.spriteIndex = 0;

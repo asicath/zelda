@@ -8,11 +8,11 @@ var Icon = function(entity) {
     };
 
     my.getXPosition = function() {
-        return entity.rect.x + my.drawOffset.x;
+        return entity.position.x + my.drawOffset.x;
     };
 
     my.getYPosition = function() {
-        return entity.rect.y + my.drawOffset.y;
+        return entity.position.y + my.drawOffset.y;
     };
 
     my.getSprite = function() {

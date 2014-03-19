@@ -69,10 +69,10 @@ var SwordRain = function(actor) {
 
         var sword = SwordMissile(actor, null);
 
-        sword.rect.x = actor.rect.x + p.x;
-        sword.rect.y = actor.rect.y + p.y;
-        sword.rect.width = pos.width;
-        sword.rect.height = pos.height;
+        sword.position.x = actor.position.x + p.x;
+        sword.position.y = actor.position.y + p.y;
+        sword.size.width = pos.width;
+        sword.size.height = pos.height;
         sword.icon.spriteIndex = pos.spriteIndex;
         sword.setFacing(actor.facing);
 

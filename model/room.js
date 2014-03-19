@@ -24,6 +24,8 @@ var Room = function(data) {
     // init tiles
     for (var i = my.tiles.length - 1; i >= 0; i--) {
         my.tiles[i].rect = new Rect(my.tiles[i].x, my.tiles[i].y, 16, 16);
+        my.tiles[i].position = {x: my.tiles[i].x, y: my.tiles[i].y};
+        my.tiles[i].size = {width: 16, height: 16};
     }
 
     my.sprites = Sprites.outside;
@@ -87,12 +89,14 @@ var Room = function(data) {
         removeAfterFrame.push(entity);
     };
 
-    my.intersectsWall = function(rect) {
+    my.intersectsWall = function(position, size) {
         var tile;
         for (var i = my.tiles.length - 1; i > 0; i--) {
             tile = my.tiles[i];
             if (tile.type == "wall") {
-                if (tile.rect.intersects(rect)) return tile;
+                 if (intersects(position, size, tile.position, tile.size)) {
+                     return tile;
+                 }
             }
         }
 
@@ -108,9 +112,10 @@ var Room = function(data) {
 
             e = my.entities[i];
 
-            rect = e.getHitZone ? e.getHitZone(entity) : e.rect;
+            //rect = e.getHitZone ? e.getHitZone(entity) : e.rect;
 
-            if (rect.intersects(entity.rect)) {
+
+            if (intersects(e.position, e.size, entity.position, entity.size)) {
                 a.push(e);
             }
 
@@ -205,12 +210,13 @@ var Room = function(data) {
             var i = Math.floor(Math.random() * my.tiles.length);
             if (my.tiles[i].type == 'floor') tile = my.tiles[i];
         }
-        e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
+        //e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
 
         my.addEntity(e);
     };
 
     var addMonster = function() {
+
         // create the entity
         var e = Monster();
         if (Math.random() > 0.5) {
@@ -224,7 +230,8 @@ var Room = function(data) {
             var i = Math.floor(Math.random() * my.tiles.length);
             if (my.tiles[i].type == 'floor') tile = my.tiles[i];
         }
-        e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
+        //e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
+        e.position = {x: tile.position.x, y: tile.position.y};
 
 
         // place it in a spawn cloud

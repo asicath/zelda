@@ -6,7 +6,7 @@ var Rock = function() {
 
     my.wallSensitive = true;
     my.entityType = "rock";
-    my.rect = new Rect(0, 0, 16, 16);   // will get updated by monster
+    my.size = {width:16, height:16};
 
     my.icon.sprites = Sprites.rock;
     my.icon.palette = Palettes.LinkGreen;

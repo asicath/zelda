@@ -124,22 +124,22 @@ var ThrustSword = function(actor) {
         // ensure correct position
         var pos = swordPosition[actor.facing];
 
-        var updateSword = function(rect, pos, name) {
-            sword.rect.x = actor.rect.x + pos[name].x;
-            sword.rect.y = actor.rect.y + pos[name].y;
-            sword.rect.width = pos.width;
-            sword.rect.height = pos.height;
+        var updateSword = function(pos, name) {
+            sword.position.x = actor.position.x + pos[name].x;
+            sword.position.y = actor.position.y + pos[name].y;
+            sword.size.width = pos.width;
+            sword.size.height = pos.height;
             sword.icon.spriteIndex = pos.spriteIndex;
             sword.facing = actor.facing;
         };
 
         if (swordTick < 9 * slow) {
             swordStance = 2;
-            updateSword(actor.rect, pos, "full");
+            updateSword(pos, "full");
         }
         else if (swordTick < 10 * slow) {
             swordStance = 1;
-            updateSword(actor.rect, pos, "mid");
+            updateSword(pos, "mid");
 
             if (actor.life == actor.maxLife && createMissile) {
                 attemptCreateMissile(room);
@@ -148,7 +148,7 @@ var ThrustSword = function(actor) {
         }
         else if (swordTick < 11 * slow) {
             swordStance = 0;
-            updateSword(actor.rect, pos, "back");
+            updateSword(pos, "back");
         }
         else {
             // Remove sword from room

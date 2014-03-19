@@ -46,8 +46,8 @@ var Shooter = function(my) {
     var createMissile = function(room) {
         var missile = Rock();
 
-        missile.rect.x = my.rect.x;
-        missile.rect.y = my.rect.y;
+        missile.position.x = my.position.x;
+        missile.position.y = my.position.y;
 
         room.addEntity(missile);
 
