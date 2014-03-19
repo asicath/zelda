@@ -9,7 +9,7 @@ var Fly = function() {
     my.life = 4;
     my.invincible = 0;
     my.stepChange = 8;
-    my.rect = new Rect(128, 88, 3, 3);
+    my.size = {width:3, height:3};
 
     // Fast
     my.speed = 1.0; // can move 40 pixels in 1s or 60 frames

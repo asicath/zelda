@@ -210,7 +210,8 @@ var Room = function(data) {
             var i = Math.floor(Math.random() * my.tiles.length);
             if (my.tiles[i].type == 'floor') tile = my.tiles[i];
         }
-        //e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
+
+        e.position = {x: tile.position.x, y: tile.position.y};
 
         my.addEntity(e);
     };
@@ -230,7 +231,7 @@ var Room = function(data) {
             var i = Math.floor(Math.random() * my.tiles.length);
             if (my.tiles[i].type == 'floor') tile = my.tiles[i];
         }
-        //e.rect = new Rect(tile.rect.x, tile.rect.y, e.rect.width, e.rect.height);
+
         e.position = {x: tile.position.x, y: tile.position.y};
 
 
