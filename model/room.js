@@ -104,7 +104,7 @@ var Room = function(data) {
     };
 
     my.getIntersectingEntities = function(entity, targetEntityType) {
-        var a = [];
+        var a = null;
         var e = null;
 
         for (var i = my.entities.length-1; i >= 0; i--) {
@@ -118,6 +118,7 @@ var Room = function(data) {
 
                 // check for intersection
                 if (intersects(e.position, e.size, entity.position, entity.size)) {
+                    if (a == null) a = [];
                     a.push(e);
                 }
 

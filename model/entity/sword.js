@@ -25,9 +25,11 @@ var Sword = function(player) {
 
         // check for intersection
         var a = room.getIntersectingEntities(my, 'monster');
-        for (var i = a.length-1; i >= 0; i--) {
-            a[i].takeDamage(4, my, room);
-            my.onHit(room);
+        if (a) {
+            for (var i = a.length-1; i >= 0; i--) {
+                a[i].takeDamage(4, my, room);
+                my.onHit(room);
+            }
         }
 
         //if (e.entityType == 'player' && e.playerId != my.player.playerId) {
