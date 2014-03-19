@@ -14,7 +14,7 @@ var MovementSource = function(mover) {
         return false;
     };
 
-    var attemptPosition = {x: 0, y: 0};
+    var attemptPosition = new Position(0, 0);
 
     my.attemptSimpleMove = function(room, moveDirection, amount, facingDirection) {
 
@@ -52,12 +52,11 @@ var MovementSource = function(mover) {
 
     };
 
-    var stopShortPosition = {x:0, y:0};
+    var stopShortPosition = new Position(0, 0);
 
     my.stopShort = function(room, wallRect, moving) {
 
-        stopShortPosition.x = mover.position.x;
-        stopShortPosition.y = mover.position.y;
+        stopShortPosition.copy(mover.position);
 
         // stop short
         switch(moving) {

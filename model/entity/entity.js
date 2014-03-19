@@ -2,7 +2,7 @@
 var Entity = function() {
 
     var my = {
-        position: {x: 0, y: 0},
+        position: new Position(0, 0),
         size: {width: 0, height: 0}
     };
 

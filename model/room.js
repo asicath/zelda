@@ -24,7 +24,7 @@ var Room = function(data) {
     // init tiles
     for (var i = my.tiles.length - 1; i >= 0; i--) {
         my.tiles[i].rect = new Rect(my.tiles[i].x, my.tiles[i].y, 16, 16);
-        my.tiles[i].position = {x: my.tiles[i].x, y: my.tiles[i].y};
+        my.tiles[i].position = new Position(my.tiles[i].x, my.tiles[i].y);
         my.tiles[i].size = {width: 16, height: 16};
     }
 
@@ -216,7 +216,7 @@ var Room = function(data) {
             if (my.tiles[i].type == 'floor') tile = my.tiles[i];
         }
 
-        e.position = {x: tile.position.x, y: tile.position.y};
+        e.position.copy(tile.position);
 
         my.addEntity(e);
     };
@@ -237,7 +237,7 @@ var Room = function(data) {
             if (my.tiles[i].type == 'floor') tile = my.tiles[i];
         }
 
-        e.position = {x: tile.position.x, y: tile.position.y};
+        e.position.copy(tile.position);
 
 
         // place it in a spawn cloud

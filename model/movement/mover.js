@@ -29,7 +29,7 @@ var Mover = function(my) {
         my.facing = direction;
     };
 
-    var footPrintPosition = {x: 0, y: 0};
+    var footPrintPosition = new Position(0, 0);
 
     my.attemptMove = function(room, position, source) {
 
@@ -45,8 +45,7 @@ var Mover = function(my) {
             // Get the new foot print to check for wall intersection
             var footPrintSize = my.footPrintSize || my.size;
 
-            footPrintPosition.x = position.x;
-            footPrintPosition.y = position.y;
+            footPrintPosition.copy(position);
 
             if (my.footPrintPosition) {
                 footPrintPosition.x = footPrintPosition.x + my.footPrintPosition.x;
@@ -63,8 +62,7 @@ var Mover = function(my) {
         }
 
         // no problems, complete move
-        my.position.x = position.x;
-        my.position.y = position.y;
+        my.position.copy(position);
     };
 
 

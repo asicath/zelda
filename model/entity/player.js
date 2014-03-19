@@ -15,10 +15,12 @@ var Player = function(playerId) {
     my.size = {width:16, height:16};
 
     if (playerId == 0) {
-        my.position = {x: 32, y: 48};
+        my.position.x = 32;
+        my.position.y = 48;
     }
     else {
-        my.position = {x: 208, y: 112};
+        my.position.x = 208;
+        my.position.y = 112;
     }
 
     my.shieldUp = true;
