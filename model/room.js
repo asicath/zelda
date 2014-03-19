@@ -91,7 +91,7 @@ var Room = function(data) {
 
     my.intersectsWall = function(position, size) {
         var tile;
-        for (var i = my.tiles.length - 1; i > 0; i--) {
+        for (var i = my.tiles.length - 1; i >= 0; i--) {
             tile = my.tiles[i];
             if (tile.type == "wall") {
                  if (intersects(position, size, tile.position, tile.size)) {
@@ -103,20 +103,24 @@ var Room = function(data) {
         return false;
     };
 
-    my.getIntersectingEntities = function(entity) {
+    my.getIntersectingEntities = function(entity, targetEntityType) {
         var a = [];
         var e = null;
-        var rect = null;
 
         for (var i = my.entities.length-1; i >= 0; i--) {
 
             e = my.entities[i];
 
-            //rect = e.getHitZone ? e.getHitZone(entity) : e.rect;
+            // Only check certain types, eventually split into different arrays for speed
+            if (e.entityType == targetEntityType) {
 
+                //rect = e.getHitZone ? e.getHitZone(entity) : e.rect;
 
-            if (intersects(e.position, e.size, entity.position, entity.size)) {
-                a.push(e);
+                // check for intersection
+                if (intersects(e.position, e.size, entity.position, entity.size)) {
+                    a.push(e);
+                }
+
             }
 
         }

@@ -30,18 +30,17 @@ var Item = function() {
 
     var checkForPickup = function(room) {
         // check for player intersection
-        var a = room.getIntersectingEntities(my);
-        var e;
+        var a = room.getIntersectingEntities(my, 'player');
         for (var i = a.length-1; i >= 0; i--) {
-            e = a[i];
-            if (e.entityType == 'player') {
-                my.onPickUp(e);
-                room.removeEntity(my);
-            }
-            else if (e.entityType == 'sword') {
-                my.onPickUp(e.player);
-                room.removeEntity(my);
-            }
+            my.onPickUp(a[i]);
+            room.removeEntity(my);
+        }
+
+        // players swords can pickup items
+        a = room.getIntersectingEntities(my, 'sword');
+        for (var i = a.length-1; i >= 0; i--) {
+            my.onPickUp(a[i].player);
+            room.removeEntity(my);
         }
     };
 

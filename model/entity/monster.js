@@ -103,11 +103,9 @@ var Monster = function() {
         }
 
         // check for intersection with player
-        var a = room.getIntersectingEntities(my);
+        var a = room.getIntersectingEntities(my, 'player');
         for (var i = a.length-1; i >= 0; i--) {
-            if (a[i].entityType == 'player') {
-                a[i].takeDamage(2, my, room);
-            }
+            a[i].takeDamage(2, my, room);
         }
 
     };
