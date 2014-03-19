@@ -29,6 +29,8 @@ var Mover = function(my) {
         my.facing = direction;
     };
 
+    var footPrintPosition = {x: 0, y: 0};
+
     my.attemptMove = function(room, position, source) {
 
         // Check to see if we've gone over the edge
@@ -42,12 +44,13 @@ var Mover = function(my) {
 
             // Get the new foot print to check for wall intersection
             var footPrintSize = my.footPrintSize || my.size;
-            var footPrintPosition = position;
+
+            footPrintPosition.x = position.x;
+            footPrintPosition.y = position.y;
+
             if (my.footPrintPosition) {
-                footPrintPosition = {
-                    x: footPrintPosition.x + my.footPrintPosition.x,
-                    y: footPrintPosition.y + my.footPrintPosition.y
-                };
+                footPrintPosition.x = footPrintPosition.x + my.footPrintPosition.x;
+                footPrintPosition.y = footPrintPosition.y + my.footPrintPosition.y;
             }
 
             // Check for wall intersection
@@ -60,7 +63,8 @@ var Mover = function(my) {
         }
 
         // no problems, complete move
-        my.position = position;
+        my.position.x = position.x;
+        my.position.y = position.y;
     };
 
 

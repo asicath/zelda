@@ -27,12 +27,15 @@ var Missile = function(mover) {
         mover.shoot(angle, velocity);
     };
 
+    var position = {x: 0, y: 0};
+
     // Returns true if this source moved this frame
     my.executeMove = function(room) {
 
         if (info.velocity == 0) return false;
 
-        var position = {x: mover.position.x, y: mover.position.y};
+        position.x = mover.position.x;
+        position.y = mover.position.y;
 
         // just go right for now
         position.x += Math.cos(info.angle) * info.velocity;
