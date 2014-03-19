@@ -14,7 +14,8 @@ var SwordMissile = function(player, sword) {
 
     if (sword) {
         my.position.copy(sword.position);
-        my.size = {width: sword.size.width, height: sword.size.height};
+        my.rect.width = sword.rect.width;
+        my.rect.height = sword.rect.height;
         my.icon.spriteIndex = sword.icon.spriteIndex;
         my.setFacing(sword.facing);
     }

@@ -27,20 +27,24 @@ var Missile = function(mover) {
         mover.shoot(angle, velocity);
     };
 
-    var position = new Position(0, 0);
+    var moveRect = null;
 
     // Returns true if this source moved this frame
     my.executeMove = function(room) {
 
         if (info.velocity == 0) return false;
 
-        position.copy(mover.position);
+        if (!moveRect) {
+            moveRect = new Rect(new Position(0, 0), mover.rect.width, mover.rect.height, 0, 0);
+        }
+
+        moveRect.position.copy(mover.position);
 
         // just go right for now
-        position.x += Math.cos(info.angle) * info.velocity;
-        position.y += Math.sin(info.angle) * info.velocity;
+        moveRect.position.x += Math.cos(info.angle) * info.velocity;
+        moveRect.position.y += Math.sin(info.angle) * info.velocity;
 
-        mover.attemptMove(room, position, my);
+        mover.attemptMove(room, moveRect, my);
 
         return true;
     };

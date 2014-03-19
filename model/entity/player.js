@@ -12,7 +12,9 @@ var Player = function(playerId) {
     my.playerId = playerId;
     my.wallSensitive = true;
     my.entityType = 'player';
-    my.size = {width:16, height:16};
+
+    my.rect.width = 16;
+    my.rect.height = 16;
 
     if (playerId == 0) {
         my.position.x = 32;
@@ -25,9 +27,7 @@ var Player = function(playerId) {
 
     my.shieldUp = true;
 
-    my.footPrintSize = {width: 16, height: 8};
-    my.footPrintPosition = {x: 0, y: 8};
-    // = new Rect(0, 8, 16, 8); // has a smaller foot print than the monsters
+    my.rectFootPrint = new Rect(my.position, 16, 8, 0, 8);
 
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
@@ -52,10 +52,12 @@ var Player = function(playerId) {
     };
 
 
+    /*
     my.getHitZone = function(entity) {
         if (entity.entityType == "sword" || entity.entityType == "sword_missile") {return my.rect;}
         return new Rect(my.rect.x + 7, my.rect.y + 7, 2, 2);
     };
+    */
 
     my.monstersKilled = 0;
     my.life = 20;

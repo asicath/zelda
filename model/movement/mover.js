@@ -29,12 +29,12 @@ var Mover = function(my) {
         my.facing = direction;
     };
 
-    var footPrintPosition = new Position(0, 0);
+    var rectWall = null;
 
-    my.attemptMove = function(room, position, source) {
+    my.attemptMove = function(room, rect, source) {
 
         // Check to see if we've gone over the edge
-        var edge = isOffEdge(room, position, my.size);
+        var edge = isOffEdge(room, rect);
         if (edge) {
             // We've gone over an edge, don't complete the move.
             if (!source.onEdgeEvent(room)) {return;}
@@ -42,27 +42,24 @@ var Mover = function(my) {
 
         if (my.wallSensitive) {
 
-            // Get the new foot print to check for wall intersection
-            var footPrintSize = my.footPrintSize || my.size;
-
-            footPrintPosition.copy(position);
-
-            if (my.footPrintPosition) {
-                footPrintPosition.x = footPrintPosition.x + my.footPrintPosition.x;
-                footPrintPosition.y = footPrintPosition.y + my.footPrintPosition.y;
+            if (!rectWall) {
+                var copyFrom = my.rectFootPrint || my.rect;
+                rectWall = new Rect(new Position(0, 0), copyFrom.width, copyFrom.height, copyFrom.xOffset, copyFrom.yOffset);
             }
 
+            rectWall.position.copy(rect.position);
+
             // Check for wall intersection
-            var wall = room.intersectsWall(footPrintPosition, footPrintSize);
+            var wall = room.intersectsWall(rectWall);
             if (wall) {
-                source.onWallEvent(room, wall, position);
+                source.onWallEvent(room, wall, rectWall);
                 return;
             }
 
         }
 
         // no problems, complete move
-        my.position.copy(position);
+        my.position.copy(rect.position);
     };
 
 
@@ -70,17 +67,17 @@ var Mover = function(my) {
 
 
     /// If the rect is outside of the room, it will return the direction of the edge it is off
-    var isOffEdge = function(room, position, size) {
-        if (position.x < 0) {
+    var isOffEdge = function(room, rect) {
+        if (rect.position.x < 0) {
             return Directions.left;
         }
-        if (position.y < 0) {
+        if (rect.position.y < 0) {
             return Directions.top;
         }
-        if (position.x + size.width >= room.rect.width) {
+        if (rect.position.x + rect.width >= room.rect.width) {
             return Directions.right;
         }
-        if (position.y + size.height >= room.rect.height) {
+        if (rect.position.y + rect.height >= room.rect.height) {
             return Directions.bottom;
         }
         return null;

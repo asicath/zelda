@@ -2,7 +2,8 @@ var Item = function() {
     var my = Entity();
 
     my.entityType = 'item';
-    my.size = {width: 16, height:16};
+    my.rect.width = 16;
+    my.rect.height = 16;
     my.icon.sprites = Sprites.items;
 
     var frameCount = 0;

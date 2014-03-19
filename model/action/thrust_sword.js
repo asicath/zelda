@@ -127,8 +127,8 @@ var ThrustSword = function(actor) {
         var updateSword = function(pos, name) {
             sword.position.x = actor.position.x + pos[name].x;
             sword.position.y = actor.position.y + pos[name].y;
-            sword.size.width = pos.width;
-            sword.size.height = pos.height;
+            sword.rect.width = pos.width;
+            sword.rect.height = pos.height;
             sword.icon.spriteIndex = pos.spriteIndex;
             sword.facing = actor.facing;
         };

@@ -1,10 +1,10 @@
 
 var Entity = function() {
 
-    var my = {
-        position: new Position(0, 0),
-        size: {width: 0, height: 0}
-    };
+    var my = {};
+
+    my.position = new Position(0, 0);
+    my.rect = new Rect(my.position, 0, 0, 0, 0);
 
     my.icon = Icon(my);
 

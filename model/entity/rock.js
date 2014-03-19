@@ -6,7 +6,9 @@ var Rock = function() {
 
     my.wallSensitive = true;
     my.entityType = "rock";
-    my.size = {width:16, height:16};
+
+    my.rect.width = 16;
+    my.rect.height = 16;
 
     my.icon.sprites = Sprites.rock;
     my.icon.palette = Palettes.LinkGreen;

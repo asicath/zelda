@@ -23,13 +23,12 @@ var Room = function(data) {
 
     // init tiles
     for (var i = my.tiles.length - 1; i >= 0; i--) {
-        my.tiles[i].rect = new Rect(my.tiles[i].x, my.tiles[i].y, 16, 16);
         my.tiles[i].position = new Position(my.tiles[i].x, my.tiles[i].y);
-        my.tiles[i].size = {width: 16, height: 16};
+        my.tiles[i].rect = new Rect(my.tiles[i].position, 16, 16, 0, 0);
     }
 
     my.sprites = Sprites.outside;
-    my.rect = new Rect(0, 0, 256, 176);
+    my.rect = new Rect(new Position(0,0), 256, 176, 0, 0);
 
     my.entities = [];
     my.players = [];
@@ -89,14 +88,12 @@ var Room = function(data) {
         removeAfterFrame.push(entity);
     };
 
-    my.intersectsWall = function(position, size) {
+    my.intersectsWall = function(rect) {
         var tile;
         for (var i = my.tiles.length - 1; i >= 0; i--) {
             tile = my.tiles[i];
             if (tile.type == "wall") {
-                 if (intersects(position, size, tile.position, tile.size)) {
-                     return tile;
-                 }
+                if (tile.rect.intersects(rect)) return tile;
             }
         }
 
@@ -117,7 +114,7 @@ var Room = function(data) {
                 //rect = e.getHitZone ? e.getHitZone(entity) : e.rect;
 
                 // check for intersection
-                if (intersects(e.position, e.size, entity.position, entity.size)) {
+                if (e.rect.intersects(entity.rect)) {
                     if (a == null) a = [];
                     a.push(e);
                 }

@@ -14,7 +14,7 @@ var MovementSource = function(mover) {
         return false;
     };
 
-    var attemptPosition = new Position(0, 0);
+    var attemptRect = null;
 
     my.attemptSimpleMove = function(room, moveDirection, amount, facingDirection) {
 
@@ -23,25 +23,28 @@ var MovementSource = function(mover) {
             mover.setFacing(facingDirection);
         }
 
-        attemptPosition.x = mover.position.x;
-        attemptPosition.y = mover.position.y;
+        if (!attemptRect) {
+            attemptRect = new Rect(new Position(0, 0), mover.rect.width, mover.rect.height, 0, 0);
+        }
+
+        attemptRect.position.copy(mover.position);
 
         switch (moveDirection) {
             case Directions.left:
-                attemptPosition.x -= amount;
+                attemptRect.position.x -= amount;
                 break;
             case Directions.right:
-                attemptPosition.x += amount;
+                attemptRect.position.x += amount;
                 break;
             case Directions.top:
-                attemptPosition.y -= amount;
+                attemptRect.position.y -= amount;
                 break;
             case Directions.bottom:
-                attemptPosition.y += amount;
+                attemptRect.position.y += amount;
                 break;
         }
 
-        mover.attemptMove(room, attemptPosition, my);
+        mover.attemptMove(room, attemptRect, my);
     };
 
     my.onEdgeEvent = function(room, edge) {
@@ -52,33 +55,37 @@ var MovementSource = function(mover) {
 
     };
 
-    var stopShortPosition = new Position(0, 0);
+    var stopShortRect = null;
 
     my.stopShort = function(room, wallRect, moving) {
 
-        stopShortPosition.copy(mover.position);
+        if (!stopShortRect) {
+            stopShortRect = new Rect(new Position(0, 0), mover.rect.width, mover.rect.height, 0, 0);
+        }
+
+        stopShortRect.position.copy(mover.position);
 
         // stop short
         switch(moving) {
             case Directions.top:
-                var yOffset = mover.footPrintPosition ? mover.footPrintPosition.y : 0;
+                var yOffset = mover.rectFootPrint ? mover.rectFootPrint.yOffset : 0;
                 // hit wall from the bottom
-                stopShortPosition.y = wallRect.y + 16 - yOffset;
+                stopShortRect.position.y = wallRect.y + 16 - yOffset;
                 break;
             case Directions.bottom:
-                stopShortPosition.y = wallRect.y - mover.size.height;
+                stopShortRect.position.y = wallRect.y - mover.rect.height;
                 break;
             case Directions.left:
-                var xOffset = mover.footPrintPosition ? mover.footPrintPosition.x : 0;
-                stopShortPosition.x = wallRect.x + 16 - xOffset;
+                var xOffset = mover.rectFootPrint ? mover.rectFootPrint.xOffset : 0;
+                stopShortRect.position.x = wallRect.x + 16 - xOffset;
                 break;
             case Directions.right:
-                stopShortPosition.x = wallRect.x - mover.size.width;
+                stopShortRect.position.x = wallRect.x - mover.rect.width;
                 break;
         }
 
         // attempt again
-        mover.attemptMove(room, stopShortPosition, my);
+        mover.attemptMove(room, stopShortRect, my);
     };
 
     return my;
