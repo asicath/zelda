@@ -9,8 +9,7 @@ var Fly = function() {
     my.life = 4;
     my.invincible = 0;
     my.stepChange = 8;
-    my.rect.width = 3;
-    my.rect.height = 3;
+    my.getFootPrint().setSize(3, 3);
 
     // Fast
     my.speed = 1.0; // can move 40 pixels in 1s or 60 frames

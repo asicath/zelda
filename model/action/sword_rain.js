@@ -72,8 +72,7 @@ var SwordRain = function(actor) {
         sword.position.x = actor.position.x + p.x;
         sword.position.y = actor.position.y + p.y;
 
-        sword.rect.width = pos.width;
-        sword.rect.height = pos.height;
+        sword.getFootPrint().setSize(pos.width, pos.height);
 
         sword.icon.spriteIndex = pos.spriteIndex;
         sword.setFacing(actor.facing);

@@ -35,7 +35,7 @@ var Missile = function(mover) {
         if (info.velocity == 0) return false;
 
         if (!moveRect) {
-            moveRect = new Rect(new Position(0, 0), mover.rect.width, mover.rect.height, 0, 0);
+            moveRect = new Rect(new Position(0, 0), mover.getFootPrint().width, mover.getFootPrint().height, 0, 0);
         }
 
         moveRect.position.copy(mover.position);

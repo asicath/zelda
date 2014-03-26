@@ -7,8 +7,7 @@ var Rock = function() {
     my.wallSensitive = true;
     my.entityType = "rock";
 
-    my.rect.width = 16;
-    my.rect.height = 16;
+    my.getFootPrint().setSize(16, 16);
 
     my.icon.sprites = Sprites.rock;
     my.icon.palette = Palettes.LinkGreen;

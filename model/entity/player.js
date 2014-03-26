@@ -13,8 +13,7 @@ var Player = function(playerId) {
     my.wallSensitive = true;
     my.entityType = 'player';
 
-    my.rect.width = 16;
-    my.rect.height = 16;
+    my.getFootPrint().setSize(16, 16);
 
     if (playerId == 0) {
         my.position.x = 32;

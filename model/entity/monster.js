@@ -14,8 +14,7 @@ var Monster = function() {
     my.invincible = 0;
     my.stepChange = 8;
 
-    my.rect.width = 16;
-    my.rect.height = 16;
+    my.getFootPrint().setSize(16, 16);
 
     my.icon.sprites = Sprites.octopus;
     my.icon.spriteIndex = 0;

@@ -103,6 +103,7 @@ var Room = function(data) {
     my.getIntersectingEntities = function(entity, targetEntityType, footPrintType) {
         var a = null;
         var e = null;
+        var rect = entity.getFootPrint();
 
         for (var i = my.entities.length-1; i >= 0; i--) {
 
@@ -111,10 +112,10 @@ var Room = function(data) {
             // Only check certain types, eventually split into different arrays for speed
             if (e.entityType == targetEntityType) {
 
-                var rect = e.getFootPrint(footPrintType);
+                var targetRect = e.getFootPrint(footPrintType);
 
                 // check for intersection
-                if (rect.intersects(entity.rect)) {
+                if (targetRect.intersects(rect)) {
                     if (a == null) a = [];
                     a.push(e);
                 }

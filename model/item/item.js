@@ -2,8 +2,7 @@ var Item = function() {
     var my = Entity();
 
     my.entityType = 'item';
-    my.rect.width = 16;
-    my.rect.height = 16;
+    my.getFootPrint().setSize(16, 16);
     my.icon.sprites = Sprites.items;
 
     var frameCount = 0;

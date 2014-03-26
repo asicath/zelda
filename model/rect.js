@@ -32,6 +32,11 @@ Rect.prototype.intersects = function(rect) {
         );
 };
 
+Rect.prototype.setSize = function(width, height) {
+    this.width = width;
+    this.height = height;
+};
+
 /*
 var intersects = function(positionA, sizeA, positionB, sizeB) {
     return !(

@@ -24,7 +24,7 @@ var MovementSource = function(mover) {
         }
 
         if (!attemptRect) {
-            attemptRect = new Rect(new Position(0, 0), mover.rect.width, mover.rect.height, 0, 0);
+            attemptRect = new Rect(new Position(0, 0), mover.getFootPrint().width, mover.getFootPrint().height, 0, 0);
         }
 
         attemptRect.position.copy(mover.position);
@@ -60,7 +60,7 @@ var MovementSource = function(mover) {
     my.stopShort = function(room, wallRect, moving) {
 
         if (!stopShortRect) {
-            stopShortRect = new Rect(new Position(0, 0), mover.rect.width, mover.rect.height, 0, 0);
+            stopShortRect = new Rect(new Position(0, 0), mover.getFootPrint().width, mover.getFootPrint().height, 0, 0);
         }
 
         stopShortRect.position.copy(mover.position);
@@ -73,14 +73,14 @@ var MovementSource = function(mover) {
                 stopShortRect.position.y = wallRect.y + 16 - yOffset;
                 break;
             case Directions.bottom:
-                stopShortRect.position.y = wallRect.y - mover.rect.height;
+                stopShortRect.position.y = wallRect.y - mover.getFootPrint().height;
                 break;
             case Directions.left:
                 var xOffset = mover.getFootPrint('wall').xOffset;
                 stopShortRect.position.x = wallRect.x + 16 - xOffset;
                 break;
             case Directions.right:
-                stopShortRect.position.x = wallRect.x - mover.rect.width;
+                stopShortRect.position.x = wallRect.x - mover.getFootPrint().width;
                 break;
         }
 
