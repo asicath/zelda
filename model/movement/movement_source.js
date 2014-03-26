@@ -68,7 +68,7 @@ var MovementSource = function(mover) {
         // stop short
         switch(moving) {
             case Directions.top:
-                var yOffset = mover.rectFootPrint ? mover.rectFootPrint.yOffset : 0;
+                var yOffset = mover.getFootPrint('wall').yOffset;
                 // hit wall from the bottom
                 stopShortRect.position.y = wallRect.y + 16 - yOffset;
                 break;
@@ -76,7 +76,7 @@ var MovementSource = function(mover) {
                 stopShortRect.position.y = wallRect.y - mover.rect.height;
                 break;
             case Directions.left:
-                var xOffset = mover.rectFootPrint ? mover.rectFootPrint.xOffset : 0;
+                var xOffset = mover.getFootPrint('wall').xOffset;
                 stopShortRect.position.x = wallRect.x + 16 - xOffset;
                 break;
             case Directions.right:

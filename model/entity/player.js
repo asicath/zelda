@@ -27,7 +27,7 @@ var Player = function(playerId) {
 
     my.shieldUp = true;
 
-    my.rectFootPrint = new Rect(my.position, 16, 8, 0, 8);
+    my.footPrints.wall = new Rect(my.position, 16, 8, 0, 8);
 
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames

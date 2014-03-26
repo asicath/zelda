@@ -100,7 +100,7 @@ var Room = function(data) {
         return false;
     };
 
-    my.getIntersectingEntities = function(entity, targetEntityType) {
+    my.getIntersectingEntities = function(entity, targetEntityType, footPrintType) {
         var a = null;
         var e = null;
 

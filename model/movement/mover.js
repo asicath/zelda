@@ -43,10 +43,11 @@ var Mover = function(my) {
         if (my.wallSensitive) {
 
             if (!rectWall) {
-                var copyFrom = my.rectFootPrint || my.rect;
+                var copyFrom = my.getFootPrint('wall');
                 rectWall = new Rect(new Position(0, 0), copyFrom.width, copyFrom.height, copyFrom.xOffset, copyFrom.yOffset);
             }
 
+            // set the proposed position for checking for wall intersection
             rectWall.position.copy(rect.position);
 
             // Check for wall intersection
@@ -61,10 +62,6 @@ var Mover = function(my) {
         // no problems, complete move
         my.position.copy(rect.position);
     };
-
-
-    my.footPrint = null;
-
 
     /// If the rect is outside of the room, it will return the direction of the edge it is off
     var isOffEdge = function(room, rect) {
