@@ -18,7 +18,7 @@ var Rock = function() {
         executeFrame_parent(room);
 
         // check for intersection
-        var a = room.getIntersectingEntities(my, 'player');
+        var a = room.getIntersectingEntities(my, 'player', 'monsterHit');
         if (a) {
             var e;
             for (var i = a.length-1; i >= 0; i--) {

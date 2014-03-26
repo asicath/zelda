@@ -28,6 +28,7 @@ var Player = function(playerId) {
     my.shieldUp = true;
 
     my.footPrints.wall = new Rect(my.position, 16, 8, 0, 8);
+    my.footPrints.monsterHit = new Rect(my.position, 2, 2, 7, 7);
 
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
@@ -50,14 +51,6 @@ var Player = function(playerId) {
 
         executeFrame_parent(room);
     };
-
-
-    /*
-    my.getHitZone = function(entity) {
-        if (entity.entityType == "sword" || entity.entityType == "sword_missile") {return my.rect;}
-        return new Rect(my.rect.x + 7, my.rect.y + 7, 2, 2);
-    };
-    */
 
     my.monstersKilled = 0;
     my.life = 20;
@@ -86,10 +79,6 @@ var Player = function(playerId) {
         // remove from the room
         room.removeEntity(my);
 
-        // Cause two more monsters to spawn
-        //room.countToAddMonster = 30;
-        //room.addCount += 2;
-
         // prevent further actions
         my.isDead = true;
 
@@ -97,8 +86,6 @@ var Player = function(playerId) {
         var ani = Death(my);
         room.addEntity(ani);
 
-
-        //sound_kill.play();
         sound_die.play();
     };
 

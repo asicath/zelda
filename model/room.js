@@ -111,10 +111,10 @@ var Room = function(data) {
             // Only check certain types, eventually split into different arrays for speed
             if (e.entityType == targetEntityType) {
 
-                //rect = e.getHitZone ? e.getHitZone(entity) : e.rect;
+                var rect = e.getFootPrint(footPrintType);
 
                 // check for intersection
-                if (e.rect.intersects(entity.rect)) {
+                if (rect.intersects(entity.rect)) {
                     if (a == null) a = [];
                     a.push(e);
                 }

@@ -104,7 +104,7 @@ var Monster = function() {
         }
 
         // check for intersection with player
-        var a = room.getIntersectingEntities(my, 'player');
+        var a = room.getIntersectingEntities(my, 'player', 'monsterHit');
         if (a) {
             for (var i = a.length-1; i >= 0; i--) {
                 a[i].takeDamage(2, my, room);
