@@ -8,7 +8,7 @@ var Sprites = {
 
 var spriteLoadFinish = function() {
 
-    if (++Sprites.count < 13) {return;}
+    if (++Sprites.count < 14) {return;}
 
     loadRoom('assets/rooms/ow08-06.js', function(room) {
 
@@ -21,7 +21,7 @@ var spriteLoadFinish = function() {
 
 
         music.loop = true;
-        music.play();
+        //music.play();
     });
 
 };
@@ -73,6 +73,16 @@ loadSprites('assets/sprites/rock.gif', null, function(rock) {
 
 loadSprites('assets/sprites/items.gif', null, function(items) {
     Sprites.items = items;
+    spriteLoadFinish();
+});
+
+loadSprites('assets/sprites/aquamentus.gif', [
+    {x:0,  y: 0, width: 24, height:32},
+    {x:24, y: 0, width: 24, height:32},
+    {x:48, y: 0, width: 24, height:32},
+    {x:72, y: 0, width: 24, height:32}
+], function(aquamentus) {
+    Sprites.aquamentus = aquamentus;
     spriteLoadFinish();
 });
 

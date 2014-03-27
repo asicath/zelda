@@ -5,6 +5,11 @@ var loadRoom = function(filename, success) {
 
         currentRoom = Room(data);
 
+        var boss = Aquamentus();
+        boss.position.x = 220;
+        boss.position.y = 72;
+        currentRoom.addEntity(boss);
+
         success(currentRoom);
 
     }).fail(function(e1, e2, e3) {
