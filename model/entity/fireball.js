@@ -10,8 +10,8 @@ var Fireball = function() {
 
     my.getFootPrint().setSize(16, 16);
 
-    my.icon.sprites = Sprites.rock;
-    my.icon.palette = Palettes.LinkGreen;
+    my.icon.sprites = Sprites.ball;
+    my.icon.palette = Palettes.MonsterRed;
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
