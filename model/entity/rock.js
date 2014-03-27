@@ -1,6 +1,6 @@
 var Rock = function() {
     var my = Entity();
-    my = Mover(my);
+    Mover(my);
 
     my.movementSources.push(new Missile(my));
 

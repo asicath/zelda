@@ -1,6 +1,6 @@
 var SwordMissile = function(player, sword) {
     var my = Sword(player);
-    my = Mover(my);
+    Mover(my);
 
     my.movementSources.push(new Missile(my));
 

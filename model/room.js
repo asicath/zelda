@@ -143,10 +143,13 @@ var Room = function(data) {
     var waveState = 0;
     my.framesToNextWave = 150;
 
-    my.onMonsterKill = function(monster) {
+    my.onMonsterKill = function(monster, player) {
         // Cause two more monsters to spawn
         //countToAddMonster = 30;
         //addCount += 2;
+
+        // keep track of kills
+        my.players[player.playerId].monstersKilled++;
 
         killCount++;
     };

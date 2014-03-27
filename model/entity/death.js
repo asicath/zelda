@@ -70,7 +70,7 @@ var Death = function(entity, after) {
             // animation is complete, remove from room
             room.removeEntity(my);
 
-            if (after) after();
+            if (after) after(room);
         }
 
         deathFrame++;

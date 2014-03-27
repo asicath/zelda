@@ -1,6 +1,7 @@
 var Monster = function() {
     var my = Entity();
-    my = Mover(my);
+    Mortal(my);
+    Mover(my);
     Shooter(my);
 
     ItemDropper(my);
@@ -11,7 +12,6 @@ var Monster = function() {
     my.wallSensitive = true;
     my.entityType = 'monster';
     my.life = 4;
-    my.invincible = 0;
     my.stepChange = 8;
 
     my.getFootPrint().setSize(16, 16);
@@ -39,68 +39,18 @@ var Monster = function() {
         my.homingPercent = 64/255;
     }
 
-
-
-
-
-    my.takeDamage = function(amount, entity, room) {
-
-        if (my.invincible > 0 || my.isDead) return;
-
-        my.life -= amount;
-
-        my.invincible = 30;
-
-        if (my.life <= 0) {
-            death(room);
-
-            // keep track of kills
-
-                currentRoom.players[entity.playerId].monstersKilled++;
-
-
-        }
-        else {
-            sound_hit.play();
-            my.pushFromThrust(entity.facing);
-        }
-
+    my.onTakeDamage = function(entity) {
+        my.pushFromThrust(entity.facing);
     };
 
-    var death = function(room) {
-
-        // remove from the room
-        room.removeEntity(my);
-
-        // tell the room the monster was killed
-        room.onMonsterKill(my);
-
-        // prevent further actions
-        my.isDead = true;
-
-        // replace with a death animation
-        var ani = Death(my, function() {my.dropItem(room, itemDropLevel);});
-
-        room.addEntity(ani);
-
-
-        sound_kill.play();
+    my.afterDeath = function(room) {
+        my.dropItem(room, itemDropLevel);
     };
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
 
-        if (my.isDead) return;
-
         executeFrame_parent(room);
-
-        if (my.invincible > 0) {
-            my.invincible--;
-            my.icon.flashing = true;
-        }
-        else {
-            my.icon.flashing = false;
-        }
 
         // check for intersection with player
         var a = room.getIntersectingEntities(my, 'player', 'monsterHit');

@@ -1,6 +1,6 @@
 var Explosion = function(angle) {
     var my = Entity();
-    my = Mover(my);
+    Mover(my);
 
     my.movementSources.push(new Missile(my));
 

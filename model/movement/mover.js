@@ -1,6 +1,5 @@
 
 var Mover = function(my) {
-    var my = my || Entity();
 
     my.wallSensitive = false;
 
@@ -80,5 +79,4 @@ var Mover = function(my) {
         return null;
     };
 
-    return my;
 };

@@ -1,6 +1,6 @@
 var Player = function(playerId) {
     var my = Entity();
-    my = Mover(my);
+    Mover(my);
     Actor(my);
 
     my.movementSources.push(new WalkControlled(my));
