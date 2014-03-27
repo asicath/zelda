@@ -3,7 +3,7 @@ var Aquamentus = function() {
 
     Mortal(my);
     Mover(my);
-    //Shooter(my);
+    AimedShooter(my);
 
     ItemDropper(my);
 
@@ -23,7 +23,7 @@ var Aquamentus = function() {
 
     var itemDropLevel = 0;
 
-    my.speed = 0.25; // can move 40 pixels in 1s or 60 frames
+    my.speed = 0.25;
     my.changeDirectionPercent = 4/16;
 
 
