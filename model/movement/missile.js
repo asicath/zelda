@@ -8,18 +8,38 @@ var Missile = function(mover) {
         velocity: 0
     };
 
-    mover.shoot = function(angle, velocity) {
+    mover.shoot = function(angle, velocity, direction) {
+
+        angle = (angle + Math.PI * 2) % (Math.PI * 2);
+
         info.angle = angle;
         info.velocity = velocity;
 
-        var direction = null;
-        switch ( Math.floor((angle + Math.PI / 4) % (Math.PI / 2) ) ) {
-            case 0: direction = Directions.top; break;
-            case 1: direction = Directions.left; break;
-            case 2: direction = Directions.bottom; break;
-            case 3: direction = Directions.right; break;
+        if (!direction) {
+
+
+
+
+            switch (Math.floor((angle + Math.PI / 4) / (Math.PI / 2))) {
+                case 1:
+                    direction = Directions.top;
+                    break;
+                case 2:
+                    direction = Directions.left;
+                    break;
+                case 3:
+                    direction = Directions.bottom;
+                    break;
+                case 4:
+                    direction = Directions.right;
+                    break;
+            }
+
+            console.log(angle + " " + direction);
+
+            mover.setFacing(direction);
         }
-        mover.setFacing(direction);
+
     };
 
     mover.shootDirection = function(direction, velocity) {
@@ -33,7 +53,7 @@ var Missile = function(mover) {
         }
 
         mover.setFacing(direction);
-        mover.shoot(angle, velocity);
+        mover.shoot(angle, velocity, direction);
     };
 
     var moveRect = null;
