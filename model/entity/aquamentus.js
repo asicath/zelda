@@ -11,7 +11,7 @@ var Aquamentus = function() {
 
     my.wallSensitive = false;
     my.entityType = 'monster';
-    my.life = 12;
+    my.life = 20;
 
     my.stepChange = 8;
 
@@ -19,7 +19,7 @@ var Aquamentus = function() {
 
     my.icon.sprites = Sprites.aquamentus;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.LinkGreen;
+    my.icon.palette = Palettes.Aquamentus;
 
     var itemDropLevel = 0;
 

@@ -163,7 +163,7 @@ var Room = function(data) {
             }
         }
         else {
-            if (my.wave % 1 == 0) {
+            if (my.wave % 3 == 0) {
                 aquamentusWave();
             }
             else {

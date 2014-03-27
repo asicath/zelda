@@ -17,17 +17,17 @@ var Missile = function(mover) {
 
         if (!direction) {
 
+            var i = Math.floor(((angle + Math.PI / 4) % (Math.PI * 2)) / (Math.PI / 2));
 
 
-
-            switch (Math.floor((angle + Math.PI / 4) / (Math.PI / 2))) {
-                case 1:
+            switch (i) {
+                case 3:
                     direction = Directions.top;
                     break;
                 case 2:
                     direction = Directions.left;
                     break;
-                case 3:
+                case 1:
                     direction = Directions.bottom;
                     break;
                 case 4:
@@ -35,7 +35,7 @@ var Missile = function(mover) {
                     break;
             }
 
-            console.log(angle + " " + direction);
+            console.log(angle + " " + i);
 
             mover.setFacing(direction);
         }

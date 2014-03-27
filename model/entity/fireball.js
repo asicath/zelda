@@ -33,7 +33,7 @@ var Fireball = function() {
                 }
 
                 // Needs big shield to block
-                //blocked = false;
+                blocked = false;
 
                 if (blocked && e.shieldUp) {
                     room.removeEntity(my);

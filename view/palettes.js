@@ -71,6 +71,16 @@ var Palettes = {
         ]
     },
 
+    Aquamentus: {
+        name:'Aquamentus',
+        colors: [
+            [0x00, 0x00, 0x00, 0x00],
+            [0xb8, 0xf8, 0x18, 0xff], // h29
+            [0x0d, 0x93, 0x00, 0xff],
+            [0xff, 0xff, 0xff, 0xff]
+        ]
+    },
+
     MonsterRed: {
         name: 'MonsterRed',
         colors: [
