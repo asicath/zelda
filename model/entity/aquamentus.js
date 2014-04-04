@@ -17,6 +17,9 @@ var Aquamentus = function() {
 
     my.getFootPrint().setSize(24, 32);
 
+    my.fireballAngles = [0.9, 1, 1.1];
+    my.shuffleDirection = [null, Directions.left, Directions.left, Directions.right, Directions.right];
+
     my.icon.sprites = Sprites.aquamentus;
     my.icon.spriteIndex = 0;
     my.icon.palette = Palettes.Aquamentus;

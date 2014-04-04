@@ -5,6 +5,8 @@ var AimedShooter = function(my) {
     var shooting = false;
     var shootFrame = 0;
 
+    my.fireballAngles = [1];
+
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
         if (!shooting) checkShoot(room);
@@ -63,10 +65,10 @@ var AimedShooter = function(my) {
         var yDiff = target.position.y - my.position.y;
         var angle = Math.atan2(yDiff, xDiff);
 
+        for (var i = 0; i < my.fireballAngles.length; i++) {
+            shootFireball(room, angle * my.fireballAngles[i]);
+        }
 
-        shootFireball(room, angle);
-        shootFireball(room, angle * 1.1);
-        shootFireball(room, angle * 0.9);
     };
 
     var shootFireball = function(room, angle) {

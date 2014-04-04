@@ -8,7 +8,7 @@ var Sprites = {
 
 var spriteLoadFinish = function() {
 
-    if (++Sprites.count < 15) {return;}
+    if (++Sprites.count < 16) {return;}
 
     loadRoom('assets/rooms/ow08-06.js', function(room) {
 
@@ -21,7 +21,7 @@ var spriteLoadFinish = function() {
 
 
         music.loop = true;
-        music.play();
+        //music.play();
     });
 
 };
@@ -88,6 +88,21 @@ loadSprites('assets/sprites/aquamentus.gif', [
     {x:72, y: 0, width: 24, height:32}
 ], function(aquamentus) {
     Sprites.aquamentus = aquamentus;
+    spriteLoadFinish();
+});
+
+loadSprites('assets/sprites/gohma.gif', [
+    {x:0,  y: 0, width: 48, height:16},
+    {x:0,  y: 16, width: 48, height:16},
+    {x:48,  y: 0, width: 48, height:16},
+    {x:48,  y: 16, width: 48, height:16},
+    {x:96,  y: 0, width: 48, height:16},
+    {x:96,  y: 16, width: 48, height:16},
+    {x:144,  y: 0, width: 48, height:16},
+    {x:144,  y: 16, width: 48, height:16}
+
+], function(gohma) {
+    Sprites.gohma = gohma;
     spriteLoadFinish();
 });
 

@@ -163,8 +163,9 @@ var Room = function(data) {
             }
         }
         else {
-            if (my.wave % 3 == 0) {
-                aquamentusWave();
+            if (my.wave % 1 == 0) {
+                //aquamentusWave();
+                gohmaWave();
             }
             else {
                 monsterWave();
@@ -185,6 +186,36 @@ var Room = function(data) {
                 var boss = Aquamentus();
                 boss.position.x = 228;
                 boss.position.y = incr * (i+1) - 16;
+                currentRoom.addEntity(boss);
+            }
+
+
+
+            killCount = 0;
+
+            waveState = 2;
+        }
+
+        if (waveState == 2) {
+            if (killCount == aquaCount) {
+                waveState = 0;
+                my.framesToNextWave = 150;
+                aquaCount++;
+            }
+        }
+
+    };
+
+    var gohmaWave = function() {
+
+        if (waveState == 1) {
+
+            var incr = 256 / (aquaCount + 1);
+
+            for (var i = 0; i < aquaCount; i++) {
+                var boss = Gohma();
+                boss.position.x = incr * (i+1) - 16;
+                boss.position.y = 32;
                 currentRoom.addEntity(boss);
             }
 

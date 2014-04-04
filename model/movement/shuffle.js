@@ -10,6 +10,8 @@ var Shuffle = function(mover) {
         frameUntilCheck: 0
     };
 
+    mover.shuffleDirection = [null, Directions.left, Directions.top, Directions.right, Directions.bottom];
+
     // Returns true if this source moved this frame
     my.executeMove = function(room) {
 
@@ -17,18 +19,8 @@ var Shuffle = function(mover) {
 
         if (--info.frameUntilCheck < 0) {
             if (Math.random() < 0.25) {
-
-                var p = Math.random();
-                if (p < 1/5) {
-                    info.moving = null;
-                }
-                else if (p < 3/5) {
-                    info.moving = Directions.left;
-                }
-                else {
-                    info.moving = Directions.right;
-                }
-
+                var p = Math.floor(Math.random() * 5);
+                info.moving = mover.shuffleDirection[p];
             }
             else {
                 // keep doing what you are doing
