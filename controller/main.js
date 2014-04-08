@@ -8,9 +8,9 @@ var Sprites = {
 
 var spriteLoadFinish = function() {
 
-    if (++Sprites.count < 16) {return;}
+    if (++Sprites.count < 18) {return;}
 
-    loadRoom('assets/rooms/ow08-06.js', function(room) {
+    loadRoom('assets/rooms/ow08-07.js', function(room) {
 
         //room.countToAddMonster = -1;
 
@@ -78,6 +78,16 @@ loadSprites('assets/sprites/ball.gif', null, function(ball) {
 
 loadSprites('assets/sprites/items.gif', null, function(items) {
     Sprites.items = items;
+    spriteLoadFinish();
+});
+
+loadSprites('assets/sprites/circle.gif', null, function(s) {
+    Sprites.circle = s;
+    spriteLoadFinish();
+});
+
+loadSprites('assets/sprites/element.gif', null, function(s) {
+    Sprites.element = s;
     spriteLoadFinish();
 });
 
