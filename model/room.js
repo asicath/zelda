@@ -163,12 +163,16 @@ var Room = function(data) {
             }
         }
         else {
-            if (my.wave % 1 == 0) {
-                //aquamentusWave();
-                gohmaWave();
+            if (my.wave % 3 == 1) {
+
+                monsterWave();
+            }
+            else if (my.wave % 3 == 2) {
+                aquamentusWave();
+
             }
             else {
-                monsterWave();
+                gohmaWave();
             }
         }
 
@@ -206,13 +210,15 @@ var Room = function(data) {
 
     };
 
+    var gohmaCount = 1;
+
     var gohmaWave = function() {
 
         if (waveState == 1) {
 
-            var incr = 256 / (aquaCount + 1);
+            var incr = 256 / (gohmaCount + 1);
 
-            for (var i = 0; i < aquaCount; i++) {
+            for (var i = 0; i < gohmaCount; i++) {
                 var boss = Gohma();
                 boss.position.x = incr * (i+1) - 16;
                 boss.position.y = 32;
@@ -227,10 +233,10 @@ var Room = function(data) {
         }
 
         if (waveState == 2) {
-            if (killCount == aquaCount) {
+            if (killCount == gohmaCount) {
                 waveState = 0;
                 my.framesToNextWave = 150;
-                aquaCount++;
+                gohmaCount++;
             }
         }
 

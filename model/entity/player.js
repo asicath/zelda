@@ -35,6 +35,13 @@ var Player = function(playerId) {
     my.icon.sprites = Sprites.link;
     my.icon.palette = Palettes.LinkGreen;
 
+    if (playerId == 1) {
+        my.icon.palette = Palettes.LinkPurple;
+    }
+
+
+
+
     my.setFacing(Directions.top);
 
     var executeFrame_parent = my.executeFrame;

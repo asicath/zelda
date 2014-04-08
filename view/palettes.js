@@ -71,6 +71,20 @@ var Palettes = {
         ]
     },
 
+    LinkPurple: {
+        name:'LinkPurple',
+        colors: [
+            [0x00, 0x00, 0x00, 0x00],
+            [0x99, 0x00, 0x99, 0xff],
+            [0x54, 0x3e, 0x1c, 0xff], // h29
+
+            [0x11, 0x11, 0x11, 0xff]
+        ]
+    },
+
+    //543e1c
+    //8d590e
+
     Aquamentus: {
         name:'Aquamentus',
         colors: [
