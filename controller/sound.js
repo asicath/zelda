@@ -46,6 +46,8 @@ var Sound = function(url) {
 
             target.playing = true;
             target.audio.play();
+
+            return target.audio;
         }
 
     };
@@ -70,7 +72,7 @@ var sound_fanfare = Sound("assets/sounds/fanfare.wav");
 
 var sound_swordForce = Sound("assets/sounds/Sword FCB.mp3");
 
-
+var sound_whiteMagic = Sound("assets/sounds/White Magic.mp3");
 
 var soundConfig = {
 

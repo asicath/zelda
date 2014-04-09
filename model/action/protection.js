@@ -5,6 +5,7 @@ var Protection = function(actor) {
     var stage = 0;
     var circle = null;
     var sigil = [];
+    var sound = null;
 
     my.executeAction = function(room) {
 
@@ -18,9 +19,12 @@ var Protection = function(actor) {
 
                 actor.canWalk = false;
 
+                sound = sound_whiteMagic.play();
+
+                sound.loop = true;
             }
             else {
-                actor.canWalk = true;
+
             }
 
         }
@@ -31,6 +35,8 @@ var Protection = function(actor) {
             frame++;
 
             actor.canWalk = false;
+
+
 
             if (frame == 10) {
                 // init sigil array
@@ -77,6 +83,8 @@ var Protection = function(actor) {
 
                 frame = 0;
                 stage = 2;
+
+
             }
 
 
@@ -114,6 +122,8 @@ var Protection = function(actor) {
 
             if (!my.activateIntent) {
                 stage = 0;
+                actor.canWalk = true;
+                sound.pause();
             }
         }
 
