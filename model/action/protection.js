@@ -10,33 +10,41 @@ var Protection = function(actor) {
 
         // waiting to start
         if (stage == 0) {
+
             if (my.activateIntent) {
                 // start charging
                 stage = 1;
                 frame = 0;
 
+                actor.canWalk = false;
 
             }
+            else {
+                actor.canWalk = true;
+            }
+
         }
 
 
-
+        // Sigils
         if (stage == 1) {
             frame++;
 
+            actor.canWalk = false;
+
             if (frame == 10) {
+                // init sigil array
                 sigil = [];
+
                 sigil[0] = new Sigil();
                 room.addEntity(sigil[0]);
                 sigil[0].position.x = actor.position.x;
                 sigil[0].position.y = actor.position.y - 16;
-
             }
 
             if (frame == 20) {
                 sigil[1] = new Sigil();
                 room.addEntity(sigil[1]);
-
                 sigil[1].position.x = actor.position.x;
                 sigil[1].position.y = actor.position.y + 16;
                 sigil[1].icon.spriteIndex = 2;
@@ -45,7 +53,6 @@ var Protection = function(actor) {
             if (frame == 30) {
                 sigil[2] = new Sigil();
                 room.addEntity(sigil[2]);
-
                 sigil[2].position.x = actor.position.x + 16;
                 sigil[2].position.y = actor.position.y;
                 sigil[2].icon.spriteIndex = 1;
@@ -54,10 +61,15 @@ var Protection = function(actor) {
             if (frame == 40) {
                 sigil[3] = new Sigil();
                 room.addEntity(sigil[3]);
-
                 sigil[3].position.x = actor.position.x - 16;
                 sigil[3].position.y = actor.position.y;
                 sigil[3].icon.spriteIndex = 3;
+            }
+
+            if (!my.activateIntent) {
+                removeCircle(room);
+                clearSigils(room);
+                stage = 0;
             }
 
             if (frame == 50) {
@@ -67,6 +79,8 @@ var Protection = function(actor) {
                 stage = 2;
             }
 
+
+
         }
 
         // charging
@@ -74,14 +88,16 @@ var Protection = function(actor) {
 
             frame++;
 
+            actor.canWalk = false;
+
             if (circle.icon.spriteIndex > 0 && frame % 1 == 0) {
                 circle.icon.spriteIndex--;
             }
             else if (frame > 20 && sigil.length > 0) {
-                clearSigils(room);
+                //clearSigils(room);
             }
 
-            if (!my.activateIntent || circle.hit) {
+            if (!my.activateIntent) {
                 removeCircle(room);
 
                 if (sigil.length > 0) {
@@ -95,6 +111,7 @@ var Protection = function(actor) {
 
         // wait to release button
         if (stage == 3) {
+
             if (!my.activateIntent) {
                 stage = 0;
             }
@@ -121,6 +138,21 @@ var Protection = function(actor) {
         circle.icon.flashing = true;
 
         room.addEntity(circle);
+
+        // give it protection from fireballs
+        var executeFrame_parent = circle.executeFrame;
+        circle.executeFrame = function(room) {
+            executeFrame_parent(room);
+
+            var c = room.getIntersectingEntities(circle, 'fireball', null);
+            while (c && c.length > 0) {
+                var fireball = c.pop();
+                room.removeEntity(fireball);
+            }
+        };
+
+
+
     };
 
     var removeCircle = function(room) {

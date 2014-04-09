@@ -18,14 +18,6 @@ var Fireball = function() {
         executeFrame_parent(room);
 
         // check for intersection
-
-        var c = room.getIntersectingEntities(my, 'circle', null);
-        if (c) {
-            room.removeEntity(my);
-            c[0].hit = true;
-            return;
-        }
-
         var a = room.getIntersectingEntities(my, 'player', 'monsterHit');
         if (a) {
             var e;
