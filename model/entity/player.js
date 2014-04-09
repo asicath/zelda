@@ -7,7 +7,7 @@ var Player = function(playerId) {
     my.movementSources.push(new Push(my));
 
     my.action = ThrustSword(my);
-    //my.specialAction = SwordRain(my);
+    my.specialActionY = SwordRain(my);
     my.specialAction = Protection(my);
 
     my.playerId = playerId;

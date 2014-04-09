@@ -73,9 +73,7 @@ var Protection = function(actor) {
             }
 
             if (!my.activateIntent) {
-                removeCircle(room);
-                clearSigils(room);
-                stage = 0;
+                stage = 3;
             }
 
             if (frame == 50) {
@@ -83,8 +81,6 @@ var Protection = function(actor) {
 
                 frame = 0;
                 stage = 2;
-
-
             }
 
 
@@ -106,11 +102,7 @@ var Protection = function(actor) {
             }
 
             if (!my.activateIntent) {
-                removeCircle(room);
 
-                if (sigil.length > 0) {
-                    clearSigils(room);
-                }
 
                 stage = 3;
             }
@@ -119,6 +111,12 @@ var Protection = function(actor) {
 
         // wait to release button
         if (stage == 3) {
+
+            if (circle) removeCircle(room);
+
+            if (sigil.length > 0) {
+                clearSigils(room);
+            }
 
             if (!my.activateIntent) {
                 stage = 0;

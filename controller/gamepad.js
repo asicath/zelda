@@ -176,7 +176,7 @@ var gamepadSupport = {
         playerInput.right = gamepad.axes[0] > threshold;
         */
 
-
+        playerInput[playerId].specialY = gamepad.buttons[3] > 0;
         playerInput[playerId].special = gamepad.buttons[1] > 0;
         playerInput[playerId].attack = gamepad.buttons[0] > 0;
 
