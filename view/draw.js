@@ -94,10 +94,17 @@ var View = (function() {
             drawEntity(ctx, room.entities[i]);
         }
 
-        drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4);
 
-        displayPlayerInfo(ctx, 0, 4);
-        displayPlayerInfo(ctx, 1, 172);
+        // Optional draws
+        if (room.wave) {
+            drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4);
+        }
+
+        if (room.players) {
+            displayPlayerInfo(ctx, 0, 4);
+            displayPlayerInfo(ctx, 1, 172);
+        }
+
 
         ctx.restore();
     };
