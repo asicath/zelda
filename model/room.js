@@ -42,18 +42,15 @@ var Room = function(data) {
 
     my.executeFrame = function(world) {
 
-        // player start
-        if (!my.players[0] || my.players[0].isDead) {
-            if (playerInput[0].start) {
-                my.createPlayer(0);
+        for (var i = 0; i < playerInput.length; i++) {
+            if (!my.players[i] || my.players[i].isDead) {
+                if (playerInput[i].start) {
+                    my.createPlayer(i);
+                }
             }
         }
 
-        if (!my.players[1] || my.players[1].isDead) {
-            if (playerInput[1].start) {
-                my.createPlayer(1);
-            }
-        }
+
 
         // do entities
         for (var i = my.entities.length-1; i >= 0; i--) {
@@ -250,7 +247,8 @@ var Room = function(data) {
         if (waveState == 1) {
             // setup for the next state
             killCount = 0;
-            monsterCount = Math.pow(2, monsterWaveCount);
+            monsterCount = Math.pow(2, monsterWaveCount + 3);
+
             addCount = monsterCount;
             countToAddMonster = 10;
 
