@@ -6,7 +6,9 @@ loadAllSprites(function() {
 
         currentRoom = DemoRoom(data);
 
-        startDraw(currentRoom);
+        var cycle = Cycle(currentRoom);
+        cycle.start();
+
         gamepadSupport.init();
 
         music.loop = true;

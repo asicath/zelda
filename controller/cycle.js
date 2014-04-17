@@ -1,7 +1,7 @@
 
-var startDraw = function(room, sprites, linkSprites) {
+var Cycle = function(room) {
 
-
+    var my = {};
 
     // Make sure that the canvas is taking the entire window
     View.fullscreen();
@@ -68,12 +68,16 @@ var startDraw = function(room, sprites, linkSprites) {
         processPendingFrames();
 
         // now draw
-        View.drawRoom(room, sprites, linkSprites);
+        View.drawRoom(room);
     }
 
-    animate();
+    my.start = function() {
+        animate();
+    };
 
+    
 
+    return my;
 };
 
 
