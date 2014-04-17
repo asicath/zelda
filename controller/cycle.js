@@ -38,7 +38,7 @@ var startDraw = function(room, sprites, linkSprites) {
     var processFrame = function() {
         // Process input
         //checkPlayerInput();
-        room.executeFrame(null);
+        room.executeFrame();
     };
 
 

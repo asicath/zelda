@@ -21,7 +21,7 @@ var Room = function(data) {
     my.entities = [];
 
 
-    my.executeFrame = function(world) {
+    my.executeFrame = function() {
 
         // do entities
         for (var i = my.entities.length-1; i >= 0; i--) {

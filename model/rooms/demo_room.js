@@ -9,7 +9,7 @@ var DemoRoom = function(data) {
     my.players = [];
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(world) {
+    my.executeFrame = function() {
 
         // check for player creation
         for (var i = 0; i < playerInput.length; i++) {
@@ -21,7 +21,7 @@ var DemoRoom = function(data) {
         }
 
 
-        executeFrame_parent(world);
+        executeFrame_parent();
 
         //checkAddMonster(30);
         checkWave();
