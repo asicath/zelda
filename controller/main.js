@@ -6,7 +6,7 @@ loadAllSprites(function() {
 
         currentRoom = DemoRoom(data);
 
-        var cycle = Cycle(currentRoom);
+        var cycle = DemoCycle(currentRoom);
         cycle.start();
 
         gamepadSupport.init();

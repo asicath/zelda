@@ -11,22 +11,23 @@ window.requestAnimFrame = ( function() {
 })();
 
 
-var Cycle = function(room) {
+var Cycle = function() {
 
     var my = {};
+
 
     // Make sure that the canvas is taking the entire window
     View.fullscreen();
 
     $(window).resize(function() {
+        my.onWindowResize();
+    });
 
+    // default resize event
+    my.onWindowResize = function() {
         // ensure the canvas is taking up the whole parent
         View.fullscreen();
-
-        // reset the room cache
-        room.sizedImage = null;
-
-    });
+    };
 
 
 
@@ -47,28 +48,26 @@ var Cycle = function(room) {
     };
 
     // process a single frame of time
-    my.processFrame = function() {
-        // Give the room a frame of animation
-        room.executeFrame();
-    };
+    my.processFrame = function() {};
+
+
 
     // cycle initiating model frames events and view drawing
-    function animate() {
-
-        gamepadSupport.pollStatus();
+    my.animate = function() {
 
         // setup the next frame draw
-        requestAnimFrame( animate );
+        requestAnimFrame( my.animate );
+
+        // update any player input before processing frames
+        gamepadSupport.pollStatus();
 
         // process the model time
         processPendingFrames();
 
-        // now draw
-        View.drawRoom(room);
-    }
+    };
 
     my.start = function() {
-        animate();
+        my.animate();
     };
 
 
