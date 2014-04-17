@@ -1,4 +1,16 @@
 
+window.requestAnimFrame = ( function() {
+    return  window.requestAnimationFrame       ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        window.oRequestAnimationFrame      ||
+        window.msRequestAnimationFrame     ||
+        function (callback, element) {
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();
+
+
 var Cycle = function(room) {
 
     var my = {};
@@ -30,31 +42,15 @@ var Cycle = function(room) {
 
         while (time >= frameTime) {
             time -= frameTime;
-            processFrame();
+            my.processFrame();
         }
     };
 
     // process a single frame of time
-    var processFrame = function() {
-        // Process input
-        //checkPlayerInput();
+    my.processFrame = function() {
+        // Give the room a frame of animation
         room.executeFrame();
     };
-
-
-
-    window.requestAnimFrame = ( function() {
-        return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            window.oRequestAnimationFrame      ||
-            window.msRequestAnimationFrame     ||
-            function (callback, element) {
-                window.setTimeout(callback, 1000 / 60);
-            };
-    })();
-
-
 
     // cycle initiating model frames events and view drawing
     function animate() {
@@ -75,7 +71,7 @@ var Cycle = function(room) {
         animate();
     };
 
-    
+
 
     return my;
 };
