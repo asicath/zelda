@@ -35,7 +35,7 @@ var Missile = function(mover) {
                     break;
             }
 
-            console.log(angle + " " + i);
+            //console.log(angle + " " + i);
 
             mover.setFacing(direction);
         }
