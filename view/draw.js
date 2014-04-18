@@ -2,20 +2,20 @@
 var View = (function() {
     var my = {};
 
-    var factor = 0;
     var screen;
-    var buffer = document.createElement('canvas');
-    var resize = document.createElement('canvas');
 
     var canvas;
+
+    my.needsResize = true;
 
     my.setSize = function(room, maxWidth, maxHeight) {
 
         // find the maximum screen size
-        factor = Math.min(maxWidth / room.rect.width, maxHeight / room.rect.height);
+        var factor = Math.min(maxWidth / room.rect.width, maxHeight / room.rect.height);
         screen = {
             width: Math.floor(room.rect.width * factor),
-            height: Math.floor(room.rect.height * factor)
+            height: Math.floor(room.rect.height * factor),
+            factor: factor
         };
 
         // find center for later
@@ -24,6 +24,7 @@ var View = (function() {
 
         // Create the virtual screen
         var upscaleFactor = Math.ceil(factor); // must be integer
+        var buffer = document.createElement('canvas');
         buffer.width = room.rect.width * upscaleFactor;
         buffer.height = room.rect.height * upscaleFactor;
         var ctxBuffer = buffer.getContext('2d');
@@ -38,17 +39,18 @@ var View = (function() {
         }
 
         // downscale to exact screen size
+        var resize = document.createElement('canvas');
         resize.width = screen.width;
         resize.height = screen.height;
         ctxBuffer = resize.getContext('2d');
         ctxBuffer.drawImage(buffer, 0, 0, screen.width, screen.height);
 
-        room.sizedImage = resize;
+        screen.sizedImage = resize;
     };
 
     my.drawRoom = function(room) {
 
-        if (!room.sizedImage) {
+        if (my.needsResize) {
             my.setSize(room, canvas.width, canvas.height);
         }
 
@@ -70,32 +72,32 @@ var View = (function() {
 
 
         // draw to the real screen
-        ctx.drawImage(room.sizedImage, 0, 0);
+        ctx.drawImage(screen.sizedImage, 0, 0);
 
 
         // now the entities
         for (var i = room.entities.length-1; i >= 0; i--) {
-            drawEntity(ctx, room.entities[i]);
+            drawEntity(ctx, room.entities[i], screen.factor);
         }
 
 
         // Optional draws
         if (room.wave) {
-            drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4);
+            drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4, screen.factor);
         }
 
         if (room.players) {
-            displayPlayerInfo(ctx, 0, 4);
-            displayPlayerInfo(ctx, 1, 172);
+            displayPlayerInfo(ctx, 0, 4, screen.factor);
+            displayPlayerInfo(ctx, 1, 172, screen.factor);
         }
 
 
         ctx.restore();
     };
 
-    var displayPlayerInfo = function(ctx, playerId, x) {
+    var displayPlayerInfo = function(ctx, playerId, x, factor) {
 
-        drawText(ctx, " player " + (playerId + 1).toString() + " ", x, 4);
+        drawText(ctx, " player " + (playerId + 1).toString() + " ", x, 4, factor);
 
         var player = currentRoom.players[playerId];
 
@@ -105,7 +107,7 @@ var View = (function() {
         }
 
 
-        drawText(ctx, " killed " + player.monstersKilled.toString() + " ", x, 12);
+        drawText(ctx, " killed " + player.monstersKilled.toString() + " ", x, 12, factor);
 
 
         var i = player.maxLife;
@@ -182,7 +184,7 @@ var View = (function() {
         "8": 41,
         "9": 42
     };
-    var drawText = function(ctx, text, x, y) {
+    var drawText = function(ctx, text, x, y, factor) {
 
         //
         ctx.fillStyle="#000000";
@@ -200,12 +202,12 @@ var View = (function() {
 
     };
 
-    var drawEntity = function(ctx, entity) {
+    var drawEntity = function(ctx, entity, factor) {
         // todo allow for multiple icons per entity
-        drawIcon(ctx, entity.icon);
+        drawIcon(ctx, entity.icon, factor);
     };
 
-    var drawIcon = function(ctx, icon) {
+    var drawIcon = function(ctx, icon, factor) {
         if (icon.isVisible())
             drawSprite(ctx, factor, icon.getSprite(), icon.getXPosition(), icon.getYPosition(), icon.getPalette());
     };

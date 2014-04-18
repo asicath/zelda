@@ -8,7 +8,7 @@ var DemoCycle = function(room) {
         onWindowResize_parent();
 
         // reset the room cache
-        room.sizedImage = null;
+        View.needsResize = true;
     };
 
 
