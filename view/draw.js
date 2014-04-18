@@ -52,6 +52,7 @@ var View = (function() {
 
         if (my.needsResize) {
             my.setSize(room, canvas.width, canvas.height);
+            my.needsResize = false;
         }
 
         var ctx = canvas.getContext('2d');
