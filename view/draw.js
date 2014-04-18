@@ -10,20 +10,22 @@ var View = (function() {
     var canvas;
 
     my.setSize = function(room, maxWidth, maxHeight) {
-        var virtualWidth = 256;
-        var virtualHeight = 176;
 
         // find the maximum screen size
-        factor = Math.min(maxWidth / virtualWidth, maxHeight / virtualHeight);
+        factor = Math.min(maxWidth / room.rect.width, maxHeight / room.rect.height);
         screen = {
-            width: Math.floor(virtualWidth * factor),
-            height: Math.floor(virtualHeight * factor)
+            width: Math.floor(room.rect.width * factor),
+            height: Math.floor(room.rect.height * factor)
         };
+
+        // find center for later
+        screen.xOffset = Math.abs(screen.width - maxWidth) / 2;
+        screen.yOffset = Math.abs(screen.height - maxHeight) / 2;
 
         // Create the virtual screen
         var upscaleFactor = Math.ceil(factor); // must be integer
-        buffer.width = virtualWidth * upscaleFactor;
-        buffer.height = virtualHeight * upscaleFactor;
+        buffer.width = room.rect.width * upscaleFactor;
+        buffer.height = room.rect.height * upscaleFactor;
         var ctxBuffer = buffer.getContext('2d');
 
         // draw to the virtual screen
@@ -52,25 +54,19 @@ var View = (function() {
 
         var ctx = canvas.getContext('2d');
 
-        // Center...
-        //var container = $(canvas).parent();
-        var self = $(canvas);
-        var xOffset = Math.abs(screen.width - self.width()) / 2;
-        var yOffset = Math.abs(screen.height - self.height()) / 2;
-
         // Clear top and bottom
-        if (yOffset > 0) {
-            ctx.clearRect(0,0,canvas.width,Math.ceil(yOffset));
-            ctx.clearRect(0, yOffset + screen.height,canvas.width,Math.ceil(yOffset));
+        if (screen.yOffset > 0) {
+            ctx.clearRect(0,0,canvas.width,Math.ceil(screen.yOffset));
+            ctx.clearRect(0, screen.yOffset + screen.height,canvas.width,Math.ceil(screen.yOffset));
         }
-        if (xOffset > 0) {
-            ctx.clearRect(0,0,Math.ceil(xOffset), canvas.height);
-            ctx.clearRect(xOffset + screen.width,0,Math.ceil(xOffset), canvas.height);
+        if (screen.xOffset > 0) {
+            ctx.clearRect(0,0,Math.ceil(screen.xOffset), canvas.height);
+            ctx.clearRect(screen.xOffset + screen.width,0,Math.ceil(screen.xOffset), canvas.height);
         }
 
 
         ctx.save();
-        ctx.translate(xOffset,yOffset);
+        ctx.translate(screen.xOffset,screen.yOffset);
 
 
         // draw to the real screen
