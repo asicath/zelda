@@ -2,67 +2,55 @@
 var View = (function() {
     var my = {};
 
-
     var factor = 0;
-
     var screen;
+    var buffer = document.createElement('canvas');
+    var resize = document.createElement('canvas');
+
     var canvas;
+
+    my.setSize = function(room, maxWidth, maxHeight) {
+        var virtualWidth = 256;
+        var virtualHeight = 176;
+
+        // find the maximum screen size
+        factor = Math.min(maxWidth / virtualWidth, maxHeight / virtualHeight);
+        screen = {
+            width: Math.floor(virtualWidth * factor),
+            height: Math.floor(virtualHeight * factor)
+        };
+
+        // Create the virtual screen
+        var upscaleFactor = Math.ceil(factor); // must be integer
+        buffer.width = virtualWidth * upscaleFactor;
+        buffer.height = virtualHeight * upscaleFactor;
+        var ctxBuffer = buffer.getContext('2d');
+
+        // draw to the virtual screen
+        var palettes = [Palettes.OutsideGreen, Palettes.OutsideBrown, Palettes.OutsideGrey, Palettes.AllBlack];
+        var i = 0;
+        while (i < room.tiles.length) {
+            var t = room.tiles[i];
+            drawSprite(ctxBuffer, upscaleFactor, room.sprites[t.index], t.x, t.y, palettes[t.palette]);
+            i++;
+        }
+
+        // downscale to exact screen size
+        resize.width = screen.width;
+        resize.height = screen.height;
+        ctxBuffer = resize.getContext('2d');
+        ctxBuffer.drawImage(buffer, 0, 0, screen.width, screen.height);
+
+        room.sizedImage = resize;
+    };
 
     my.drawRoom = function(room) {
 
-        var start = new Date();
-
         if (!room.sizedImage) {
-
-            //var start = new Date();
-
-            var virtualWidth = 256;
-            var virtualHeight = 176;
-
-            // find the maximum screen size
-
-            factor = Math.min(canvas.width / virtualWidth, canvas.height / virtualHeight);
-            screen = {
-                width: Math.floor(virtualWidth * factor),
-                height: Math.floor(virtualHeight * factor)
-            };
-
-            console.log(factor);
-
-            // Create the virtual screen
-            var upscaleFactor = Math.ceil(factor); // must be integer
-            var buffer = document.createElement('canvas');
-            buffer.width = virtualWidth * upscaleFactor;
-            buffer.height = virtualHeight * upscaleFactor;
-            var ctx = buffer.getContext('2d');
-
-            // draw to the virtual screen
-            var palettes = [Palettes.OutsideGreen, Palettes.OutsideBrown, Palettes.OutsideGrey, Palettes.AllBlack];
-            var i = 0;
-            while (i < room.tiles.length) {
-                var t = room.tiles[i];
-                drawSprite(ctx, upscaleFactor, room.sprites[t.index], t.x, t.y, palettes[t.palette]);
-                i++;
-            }
-
-            console.log(new Date() - start);
-            var start = new Date();
-
-
-            // downscale to exact screen size
-            var resize = document.createElement('canvas');
-            resize.width = screen.width;
-            resize.height = screen.height;
-            ctx = resize.getContext('2d');
-            ctx.drawImage(buffer, 0, 0, screen.width, screen.height);
-
-            room.sizedImage = resize;
-
-            console.log(new Date() - start);
-            var start = new Date();
+            my.setSize(room, canvas.width, canvas.height);
         }
 
-        ctx = canvas.getContext('2d');
+        var ctx = canvas.getContext('2d');
 
         // Center...
         //var container = $(canvas).parent();
@@ -225,7 +213,6 @@ var View = (function() {
         if (icon.isVisible())
             drawSprite(ctx, factor, icon.getSprite(), icon.getXPosition(), icon.getYPosition(), icon.getPalette());
     };
-
 
     var drawSprite = function(ctx, pixelScale, sprite, x, y, palette) {
 
