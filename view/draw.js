@@ -2,7 +2,7 @@
 var View = (function() {
     var my = {};
 
-    var screen;
+    //var screen;
 
     var canvas;
 
@@ -12,15 +12,15 @@ var View = (function() {
 
         // find the maximum screen size
         var factor = Math.min(maxWidth / room.rect.width, maxHeight / room.rect.height);
-        screen = {
+        room.screen = {
             width: Math.floor(room.rect.width * factor),
             height: Math.floor(room.rect.height * factor),
             factor: factor
         };
 
         // find center for later
-        screen.xOffset = Math.abs(screen.width - maxWidth) / 2;
-        screen.yOffset = Math.abs(screen.height - maxHeight) / 2;
+        room.screen.xOffset = Math.abs(room.screen.width - maxWidth) / 2;
+        room.screen.yOffset = Math.abs(room.screen.height - maxHeight) / 2;
 
         // Create the virtual screen
         var upscaleFactor = Math.ceil(factor); // must be integer
@@ -40,15 +40,51 @@ var View = (function() {
 
         // downscale to exact screen size
         var resize = document.createElement('canvas');
-        resize.width = screen.width;
-        resize.height = screen.height;
+        resize.width = room.screen.width;
+        resize.height = room.screen.height;
         ctxBuffer = resize.getContext('2d');
-        ctxBuffer.drawImage(buffer, 0, 0, screen.width, screen.height);
+        ctxBuffer.drawImage(buffer, 0, 0, room.screen.width, room.screen.height);
 
-        screen.sizedImage = resize;
+        room.screen.sizedImage = resize;
     };
 
-    my.drawRoom = function(room) {
+
+    my.drawRoomTransition = function(roomPrev, roomNext, percent) {
+
+        if (my.needsResize) {
+            my.setSize(roomPrev, canvas.width, canvas.height);
+            my.setSize(roomNext, canvas.width, canvas.height);
+            my.needsResize = false;
+        }
+
+        var ctx = canvas.getContext('2d');
+
+        // determine offset
+        var xOffset = 0;
+        var yOffsetPrev = -1 * roomPrev.screen.height * percent;
+        var yOffsetNext = roomPrev.screen.height + yOffsetPrev;
+
+        // draw the rooms
+        drawRoom(ctx, roomPrev, xOffset, yOffsetPrev);
+        drawRoom(ctx, roomNext, xOffset, yOffsetNext);
+
+        // Draw info
+        drawInfo(ctx, roomPrev);
+
+        // mask top and bottom
+        if (roomPrev.screen.yOffset > 0) {
+            ctx.clearRect(0,0,canvas.width,Math.ceil(roomPrev.screen.yOffset));
+            ctx.clearRect(0, roomPrev.screen.yOffset + roomPrev.screen.height,canvas.width,Math.ceil(roomPrev.screen.yOffset));
+        }
+        if (roomPrev.screen.xOffset > 0) {
+            ctx.clearRect(0,0,Math.ceil(roomPrev.screen.xOffset), canvas.height);
+            ctx.clearRect(roomPrev.screen.xOffset + roomPrev.screen.width,0,Math.ceil(roomPrev.screen.xOffset), canvas.height);
+        }
+
+    };
+
+
+    my.drawRoomFullScreen = function(room) {
 
         if (my.needsResize) {
             my.setSize(room, canvas.width, canvas.height);
@@ -58,40 +94,51 @@ var View = (function() {
         var ctx = canvas.getContext('2d');
 
         // Clear top and bottom
-        if (screen.yOffset > 0) {
-            ctx.clearRect(0,0,canvas.width,Math.ceil(screen.yOffset));
-            ctx.clearRect(0, screen.yOffset + screen.height,canvas.width,Math.ceil(screen.yOffset));
+        if (room.screen.yOffset > 0) {
+            ctx.clearRect(0,0,canvas.width,Math.ceil(room.screen.yOffset));
+            ctx.clearRect(0, room.screen.yOffset + room.screen.height,canvas.width,Math.ceil(room.screen.yOffset));
         }
-        if (screen.xOffset > 0) {
-            ctx.clearRect(0,0,Math.ceil(screen.xOffset), canvas.height);
-            ctx.clearRect(screen.xOffset + screen.width,0,Math.ceil(screen.xOffset), canvas.height);
+        if (room.screen.xOffset > 0) {
+            ctx.clearRect(0,0,Math.ceil(room.screen.xOffset), canvas.height);
+            ctx.clearRect(room.screen.xOffset + room.screen.width,0,Math.ceil(room.screen.xOffset), canvas.height);
         }
 
+        // draw the room
+        drawRoom(ctx, room, 0, 0);
 
+        // Draw info
+        drawInfo(ctx, room);
+
+    };
+
+    var drawRoom = function(ctx, room, xOffset, yOffset) {
         ctx.save();
-        ctx.translate(screen.xOffset,screen.yOffset);
-
+        ctx.translate(room.screen.xOffset + xOffset, room.screen.yOffset + yOffset);
 
         // draw to the real screen
-        ctx.drawImage(screen.sizedImage, 0, 0);
-
+        ctx.drawImage(room.screen.sizedImage, 0, 0);
 
         // now the entities
         for (var i = room.entities.length-1; i >= 0; i--) {
-            drawEntity(ctx, room.entities[i], screen.factor);
+            drawEntity(ctx, room.entities[i], room.screen.factor);
         }
 
+        ctx.restore();
+    };
+
+    var drawInfo = function(ctx, room) {
+        ctx.save();
+        ctx.translate(room.screen.xOffset, room.screen.yOffset);
 
         // Optional draws
         if (room.wave) {
-            drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4, screen.factor);
+            drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4, room.screen.factor);
         }
 
         if (room.players) {
-            displayPlayerInfo(ctx, 0, 4, screen.factor);
-            displayPlayerInfo(ctx, 1, 172, screen.factor);
+            displayPlayerInfo(ctx, 0, 4, room.screen.factor);
+            displayPlayerInfo(ctx, 1, 172, room.screen.factor);
         }
-
 
         ctx.restore();
     };

@@ -26,10 +26,16 @@ var DemoCycle = function(room) {
 
         animate_parent();
 
-        // now draw
-        View.drawRoom(room);
+        // now draw, taking up the entire canvas
+        View.drawRoomFullScreen(room);
 
+        //View.drawRoomTransition(room, room, percent);
+
+        //percent += 0.001;
+        //if (percent >= 1.0) {percent -= 1.0;}
     };
+
+    var percent = 0.75;
 
     return my;
 };
