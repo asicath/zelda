@@ -3,6 +3,9 @@ var DemoRoom = function(data) {
 
     var createPlayer = function(playerId) {
         my.players[playerId] = Player(playerId);
+
+        my.setPositionToOpenTile(my.players[playerId]);
+
         my.addEntity(my.players[playerId]);
     };
 
@@ -222,19 +225,14 @@ var DemoRoom = function(data) {
         }
 
         // find a spot for it
-        var tile = null;
-        while (!tile) {
-            var i = Math.floor(Math.random() * my.tiles.length);
-            if (my.tiles[i].type == 'floor') tile = my.tiles[i];
-        }
-
-        e.position.copy(tile.position);
-
+        my.setPositionToOpenTile(e);
 
         // place it in a spawn cloud
         var spawn = SpawnCloud(e);
         my.addEntity(spawn);
     };
+
+
 
     return my;
 };

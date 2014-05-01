@@ -49,6 +49,15 @@ var Room = function(data) {
 
     };
 
+    my.setPositionToOpenTile = function(entity) {
+        var tile = null;
+        while (!tile) {
+            var i = Math.floor(Math.random() * my.tiles.length);
+            if (my.tiles[i].type == 'floor') tile = my.tiles[i];
+        }
+        entity.position.copy(tile.position);
+    };
+
     my.addEntity = function(entity) {
         addAfterFrame.push(entity);
     };

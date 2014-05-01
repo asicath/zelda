@@ -1,39 +1,3 @@
-
-var currentRoom;
-/*
-
-
-loadAllSprites(function() {
-    loadRoomJson('assets/rooms/ow08-07.js', function(data) {
-
-        currentRoom = DemoRoom(data);
-
-        var cycle = DemoCycle(currentRoom);
-        cycle.start();
-
-        gamepadSupport.init();
-
-        music.loop = true;
-        //music.play();
-    });
-});
-*/
-
-loadAllSprites(function() {
-    loadAllRooms(function(rooms) {
-
-        //currentRoom = rooms['08_07'];
-
-        var cycle = RoomRunnerCycle(rooms);
-        cycle.start();
-
-        gamepadSupport.init();
-
-        music.loop = true;
-        //music.play();
-    });
-});
-
 var loadRoomJson = function(key, filename, success) {
 
     $.getJSON(filename).done(function(data) {
@@ -76,3 +40,51 @@ var loadAllRooms = function(success) {
 
 
 };
+
+
+
+
+var currentRoom;
+
+var runDemo = function() {
+
+    loadAllSprites(function() {
+        loadRoomJson('', 'assets/rooms/ow08-07.js', function(data) {
+
+            currentRoom = DemoRoom(data);
+
+            var cycle = DemoCycle(currentRoom);
+            cycle.start();
+
+            gamepadSupport.init();
+
+            music.loop = true;
+            //music.play();
+        });
+    });
+
+};
+
+var roomRunner = function() {
+    loadAllSprites(function() {
+        loadAllRooms(function(rooms) {
+
+            //currentRoom = rooms['08_07'];
+
+            var cycle = RoomRunnerCycle(rooms);
+            cycle.start();
+
+            gamepadSupport.init();
+
+            music.loop = true;
+            //music.play();
+        });
+    });
+};
+
+
+
+
+
+
+roomRunner();
