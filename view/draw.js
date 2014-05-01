@@ -2,8 +2,6 @@
 var View = (function() {
     var my = {};
 
-    //var screen;
-
     var canvas;
 
     my.needsResize = true;
@@ -49,7 +47,7 @@ var View = (function() {
     };
 
 
-    my.drawRoomTransition = function(roomPrev, roomNext, percent) {
+    my.drawRoomTransition = function(roomPrev, roomNext, percent, direction) {
 
         if (my.needsResize) {
             my.setSize(roomPrev, canvas.width, canvas.height);
@@ -60,13 +58,31 @@ var View = (function() {
         var ctx = canvas.getContext('2d');
 
         // determine offset
-        var xOffset = 0;
-        var yOffsetPrev = -1 * roomPrev.screen.height * percent;
-        var yOffsetNext = roomPrev.screen.height + yOffsetPrev;
+        var offsetPrev = {x: 0, y: 0};
+        var offsetNext = {x: 0, y: 0};
 
-        // draw the rooms
-        drawRoom(ctx, roomPrev, xOffset, yOffsetPrev);
-        drawRoom(ctx, roomNext, xOffset, yOffsetNext);
+        switch(direction) {
+            case Directions.top:
+                offsetPrev.y = -1 * roomPrev.screen.height * percent;
+                offsetNext.y = offsetPrev.y + roomPrev.screen.height;
+                break;
+            case Directions.bottom:
+                offsetPrev.y = roomPrev.screen.height * percent;
+                offsetNext.y = offsetPrev.y - roomPrev.screen.height;
+                break;
+            case Directions.left:
+                offsetPrev.x = -1 * roomPrev.screen.width * percent;
+                offsetNext.x = offsetPrev.x + roomPrev.screen.width;
+                break;
+            case Directions.right:
+                offsetPrev.x = roomPrev.screen.width * percent;
+                offsetNext.x = offsetPrev.x - roomPrev.screen.width;
+                break;
+        }
+
+        // draw the prev room
+        drawRoom(ctx, roomPrev, offsetPrev.x, offsetPrev.y);
+        drawRoom(ctx, roomNext, offsetNext.x, offsetNext.y);
 
         // Draw info
         drawInfo(ctx, roomPrev);
