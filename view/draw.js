@@ -50,9 +50,17 @@ var View = (function() {
     my.drawRoomTransition = function(roomPrev, roomNext, percent, direction) {
 
         if (my.needsResize) {
-            my.setSize(roomPrev, canvas.width, canvas.height);
-            my.setSize(roomNext, canvas.width, canvas.height);
+            roomPrev.screen = null;
+            roomNext.screen = null;
             my.needsResize = false;
+        }
+
+        if (!roomPrev.screen) {
+            my.setSize(roomPrev, canvas.width, canvas.height);
+        }
+
+        if (!roomNext.screen) {
+            my.setSize(roomNext, canvas.width, canvas.height);
         }
 
         var ctx = canvas.getContext('2d');
@@ -103,8 +111,12 @@ var View = (function() {
     my.drawRoomFullScreen = function(room) {
 
         if (my.needsResize) {
-            my.setSize(room, canvas.width, canvas.height);
+            room.screen = null;
             my.needsResize = false;
+        }
+
+        if (!room.screen) {
+            my.setSize(room, canvas.width, canvas.height);
         }
 
         var ctx = canvas.getContext('2d');
