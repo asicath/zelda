@@ -163,7 +163,8 @@ var View = (function() {
 
         drawText(ctx, " player " + (playerId + 1).toString() + " ", x, 4, factor);
 
-        var player = currentRoom.players[playerId];
+        //var player = currentRoom.players[playerId];
+        var player = null;
 
         if (!player) {
 

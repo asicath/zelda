@@ -1,6 +1,7 @@
-
-var DemoCycle = function(room) {
+var RoomRunnerCycle = function(rooms) {
     var my = Cycle();
+
+    var currentRoom = rooms['07_07'];
 
     // Make sure to clear the room's cache on resize?
     var onWindowResize_parent = my.onWindowResize;
@@ -19,7 +20,7 @@ var DemoCycle = function(room) {
         processFrame_parent();
 
         // Give the room a frame of animation
-        room.executeFrame();
+        currentRoom.executeFrame();
     };
 
     // one call per animation call from window
@@ -31,7 +32,7 @@ var DemoCycle = function(room) {
         // now draw, taking up the entire canvas
         //View.drawRoomFullScreen(room);
 
-        View.drawRoomTransition(room, room, percent, Directions.right);
+        View.drawRoomTransition(currentRoom, currentRoom, percent, Directions.right);
 
         //percent += 0.001;
         //if (percent >= 1.0) {percent -= 1.0;}
