@@ -8,7 +8,7 @@ var loadRoomJson = function(key, filename, success) {
 
 };
 
-var loadAllRooms = function(success) {
+var loadAllRooms = function(roomModel, success) {
     var rooms = {};
     var toLoad = 16*8;
 
@@ -31,7 +31,7 @@ var loadAllRooms = function(success) {
             var filepath = 'assets/rooms/ow' + xVal + '-' + yVal + '.js';
             loadRoomJson(key, filepath, function(data, key) {
 
-                rooms[key] = Room(data);
+                rooms[key] = roomModel(data);
                 onLoadComplete();
             });
 
@@ -67,7 +67,7 @@ var runDemo = function() {
 
 var roomRunner = function() {
     loadAllSprites(function() {
-        loadAllRooms(function(rooms) {
+        loadAllRooms(RunnerRoom, function(rooms) {
 
             //currentRoom = rooms['08_07'];
 

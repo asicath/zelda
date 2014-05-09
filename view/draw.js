@@ -281,6 +281,7 @@ var View = (function() {
 
     var drawEntity = function(ctx, entity, factor) {
         // todo allow for multiple icons per entity
+        if (!entity.icon) return;
         drawIcon(ctx, entity.icon, factor);
     };
 
