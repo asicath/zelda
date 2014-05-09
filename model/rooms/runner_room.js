@@ -18,6 +18,8 @@ var RunnerRoom = function(data) {
     my.addEntity(Edge(Directions.bottom));
 
 
+    var monsterCount = 0;
+
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function() {
@@ -36,9 +38,32 @@ var RunnerRoom = function(data) {
         // Check for edge events
         checkForTransition();
 
+        if (monsterCount < 10) {
+            addMonster();
+            monsterCount++;
+        }
     };
 
+    my.onMonsterKill = function(my, entity) {
+        
+    };
 
+    var addMonster = function() {
+
+        // create the entity
+        var e = Monster();
+        if (Math.random() > 0.5) {
+            e.icon.palette = Palettes.MonsterBlue;
+            e.life = 8;
+        }
+
+        // find a spot for it
+        my.setPositionToOpenTile(e);
+
+        // place it in a spawn cloud
+        var spawn = SpawnCloud(e);
+        my.addEntity(spawn);
+    };
 
 
     my.transition = null;
