@@ -2,23 +2,25 @@ var RunnerRoom = function(data) {
     var my = Room(data);
 
     var createPlayer = function(playerId) {
-        my.players[playerId] = Player(playerId);
+        var player = Player(playerId);
 
-        my.setPositionToOpenTile(my.players[playerId]);
+        my.players[playerId] = player
 
-        my.addEntity(my.players[playerId]);
+        my.setPositionToOpenTile(player);
+        player.monstersKilled = 0;
+        my.addEntity(player);
+
+
     };
 
     my.players = [];
 
 
-    my.addEntity(Edge(Directions.left));
-    my.addEntity(Edge(Directions.right));
-    my.addEntity(Edge(Directions.top));
-    my.addEntity(Edge(Directions.bottom));
+
 
 
     var monsterCount = 0;
+    var monsterKillCount = 0;
 
 
     var executeFrame_parent = my.executeFrame;
@@ -44,8 +46,18 @@ var RunnerRoom = function(data) {
         }
     };
 
-    my.onMonsterKill = function(my, entity) {
-        
+    my.onMonsterKill = function(monster, sword) {
+        monsterKillCount++;
+
+        if (monsterKillCount == monsterCount) {
+            // Cleared! add edges
+            my.addEntity(Edge(Directions.left));
+            my.addEntity(Edge(Directions.right));
+            my.addEntity(Edge(Directions.top));
+            my.addEntity(Edge(Directions.bottom));
+        }
+
+        sword.player.monstersKilled++;
     };
 
     var addMonster = function() {
