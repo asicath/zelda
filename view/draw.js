@@ -164,25 +164,23 @@ var View = (function() {
         }
 
         if (room.players) {
-            displayPlayerInfo(ctx, 0, 4, room.screen.factor);
-            displayPlayerInfo(ctx, 1, 172, room.screen.factor);
+            displayPlayerInfo(ctx, 0, 4, room.screen.factor, room.players[0]);
+            displayPlayerInfo(ctx, 1, 172, room.screen.factor, room.players[1]);
         }
 
         ctx.restore();
     };
 
-    var displayPlayerInfo = function(ctx, playerId, x, factor) {
-
-        drawText(ctx, " player " + (playerId + 1).toString() + " ", x, 4, factor);
+    var displayPlayerInfo = function(ctx, playerId, x, factor, player) {
 
         //var player = currentRoom.players[playerId];
-        var player = null;
 
         if (!player) {
 
             return;
         }
 
+        drawText(ctx, " player " + (playerId + 1).toString() + " ", x, 4, factor);
 
         drawText(ctx, " killed " + player.monstersKilled.toString() + " ", x, 12, factor);
 
