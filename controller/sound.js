@@ -1,5 +1,10 @@
 var music = new Audio("assets/music/8 Bit Legend.mp3");
 
+
+var music_normal = new Audio("assets/music/ENM WAVE 1.mp3");
+var music_boss = new Audio("assets/music/Boss 1 .mp3");
+var music_bossIntro = new Audio("assets/music/Boss intro.mp3");
+
 //http://www.w3schools.com/tags/ref_av_dom.asp
 var Sound = function(url) {
     var my = {};
@@ -73,6 +78,9 @@ var sound_fanfare = Sound("assets/sounds/fanfare.wav");
 var sound_swordForce = Sound("assets/sounds/Sword FCB.mp3");
 
 var sound_whiteMagic = Sound("assets/sounds/White Magic.mp3");
+
+
+
 
 var soundConfig = {
 

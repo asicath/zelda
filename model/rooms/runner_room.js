@@ -40,21 +40,62 @@ var RunnerRoom = function(data) {
         // Check for edge events
         checkForTransition();
 
-        if (monsterCount < 10) {
-            addMonster();
-            monsterCount++;
+        checkAddMonster();
+
+
+    };
+
+    var checkAddMonster = function() {
+
+        if (data.key == '09_07') {
+            if (monsterCount < 1) {
+                var boss = Aquamentus();
+                boss.position.x = 170;
+                boss.position.y = 32;
+                my.addEntity(boss);
+                monsterCount++;
+
+                boss = Aquamentus();
+                boss.position.x = 170;
+                boss.position.y = 110;
+                my.addEntity(boss);
+                monsterCount++;
+
+                music_normal.pause();
+                music_boss.loop = true;
+                music_boss.play();
+                music_bossIntro.play();
+
+                my.isBoss = true;
+            }
         }
+        else {
+            // Plain old monster room
+            if (monsterCount < 20) {
+                addMonster();
+                monsterCount++;
+            }
+        }
+
+
+
     };
 
     my.onMonsterKill = function(monster, sword) {
         monsterKillCount++;
 
+
+
         if (monsterKillCount == monsterCount) {
             // Cleared! add edges
-            my.addEntity(Edge(Directions.left));
+            //my.addEntity(Edge(Directions.left));
             my.addEntity(Edge(Directions.right));
-            my.addEntity(Edge(Directions.top));
-            my.addEntity(Edge(Directions.bottom));
+            //my.addEntity(Edge(Directions.top));
+            //my.addEntity(Edge(Directions.bottom));
+
+            if (my.isBoss) {
+                music_boss.pause();
+            }
         }
 
         sword.player.monstersKilled++;

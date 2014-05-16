@@ -30,7 +30,7 @@ var loadAllRooms = function(roomModel, success) {
             var key = xVal + '_' + yVal;
             var filepath = 'assets/rooms/ow' + xVal + '-' + yVal + '.js';
             loadRoomJson(key, filepath, function(data, key) {
-
+                data.key = key;
                 rooms[key] = roomModel(data);
                 onLoadComplete();
             });
@@ -58,6 +58,8 @@ var runDemo = function() {
 
             gamepadSupport.init();
 
+
+
             music.loop = true;
             //music.play();
         });
@@ -75,6 +77,9 @@ var roomRunner = function() {
             cycle.start();
 
             gamepadSupport.init();
+
+            music_normal.loop = true;
+            music_normal.play();
 
             music.loop = true;
             //music.play();
