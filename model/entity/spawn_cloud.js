@@ -9,26 +9,19 @@ var SpawnCloud = function(entity) {
 
     my.entityType = "spawn";
 
-    var frame = 0;
+    my.setFrameTimeout(32, function() {
+        my.icon.spriteIndex = 1;
+    });
 
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
+    my.setFrameTimeout(38, function() {
+        my.icon.spriteIndex = 2;
+    });
 
-        if (frame == 32) {
-            my.icon.spriteIndex = 1;
-        }
+    my.setFrameTimeout(44, function(room) {
+        room.removeEntity(my);
+        room.addEntity(entity);
+    });
 
-        if (frame == 38) {
-            my.icon.spriteIndex = 2;
-        }
-
-        if (frame == 44) {
-            room.removeEntity(my);
-            room.addEntity(entity);
-        }
-
-        frame++;
-    };
 
     return my;
 };

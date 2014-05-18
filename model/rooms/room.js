@@ -4,6 +4,8 @@
 var Room = function(data) {
     var my = {};
 
+    FrameEventHaver(my);
+
     var removeAfterFrame = [];
     var addAfterFrame = [];
 
@@ -22,6 +24,8 @@ var Room = function(data) {
 
 
     my.executeFrame = function() {
+
+        my.processEventQueue(my);
 
         // do entities
         for (var i = my.entities.length-1; i >= 0; i--) {
