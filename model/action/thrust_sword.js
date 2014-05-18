@@ -1,3 +1,16 @@
+// 14 ticks to complete sword thrust
+// 14 - Take sword stance
+// 10 - Sword goes all the way out
+// 02 - Relax stance, sword moves back slightly
+// 01 - Sword moves back, tip showing. foot change.
+// 00 - Sword gone.
+
+// 10 frames to complete sword thrust
+// 1,2,3,4,5,6,7,8 - Sword is all the way out, in thrust stance
+// 9               - Sword moves back slightly, relax stance
+// 10 - Sword moves back, tip showing. foot change.
+// 11 - Sword gone.
+
 var ThrustSword = function(actor) {
     var my = Action(actor);
 
@@ -5,6 +18,8 @@ var ThrustSword = function(actor) {
     var missile = null;
     var swordState = 0; // 0 = ready, 1 = activate, 2 = in progress, 3 = waiting to let go
     var coolingDown = false;
+    var createMissile = false;
+    var swordStance = 0;
 
     // Override sprite if thrusting sword
     var getSprite_parent = actor.icon.getSprite;
@@ -31,7 +46,7 @@ var ThrustSword = function(actor) {
 
         // waiting for sword to retract
         if (swordState == 2) {
-            executeSwordFrame(room);
+            updateSwordPosition();
         }
 
         // wait for player to not be pressing the attack button
@@ -63,13 +78,39 @@ var ThrustSword = function(actor) {
         // create the sword
         sword = Sword(actor);
         room.addEntity(sword);
-        swordTick = 0;
 
         // indicate that a missile should get created
         createMissile = true;
 
         // next state
         swordState = 2;
+
+        // all the way out
+        swordStance = 2;
+        sword.extend = "full";
+        updateSwordPosition();
+
+        var slow = 1;
+
+        actor.setFrameTimeout(9 * slow, function(room) {
+            swordStance = 1;
+            sword.extend = "mid";
+            if (actor.life == actor.maxLife && createMissile) {
+                attemptCreateMissile(room);
+                createMissile = false;
+            }
+        });
+
+        actor.setFrameTimeout(10 * slow, function() {
+            swordStance = 0;
+            sword.extend = "back";
+        });
+
+        actor.setFrameTimeout(11 * slow, function(room) {
+            // Remove sword from room
+            room.removeEntity(sword);
+            thrustCleanUp();
+        });
     };
 
     var thrustCleanUp = function() {
@@ -86,64 +127,17 @@ var ThrustSword = function(actor) {
         });
     };
 
-
-    var createMissile = false;
-
-
-    var swordTick;
-    var slow = 1;
-    var swordStance = 0;
-
-    var executeSwordFrame = function(room) {
-        // 14 ticks to complete sword thrust
-        // 14 - Take sword stance
-        // 10 - Sword goes all the way out
-        // 02 - Relax stance, sword moves back slightly
-        // 01 - Sword moves back, tip showing. foot change.
-        // 00 - Sword gone.
-
-        // 10 frames to complete sword thrust
-        // 1,2,3,4,5,6,7,8 - Sword is all the way out, in thrust stance
-        // 9               - Sword moves back slightly, relax stance
-        // 10 - Sword moves back, tip showing. foot change.
-        // 11 - Sword gone.
-
-        swordTick++;
+    var updateSwordPosition = function() {
+        if (!sword) return;
 
         // ensure correct position
         var pos = swordPosition[actor.facing];
 
-        var updateSword = function(pos, name) {
-            sword.position.x = actor.position.x + pos[name].x;
-            sword.position.y = actor.position.y + pos[name].y;
-            sword.getFootPrint().setSize(pos.width, pos.height);
-            sword.icon.spriteIndex = pos.spriteIndex;
-            sword.facing = actor.facing;
-        };
-
-        if (swordTick < 9 * slow) {
-            swordStance = 2;
-            updateSword(pos, "full");
-        }
-        else if (swordTick < 10 * slow) {
-            swordStance = 1;
-            updateSword(pos, "mid");
-
-            if (actor.life == actor.maxLife && createMissile) {
-                attemptCreateMissile(room);
-                createMissile = false;
-            }
-        }
-        else if (swordTick < 11 * slow) {
-            swordStance = 0;
-            updateSword(pos, "back");
-        }
-        else {
-            // Remove sword from room
-            room.removeEntity(sword);
-            thrustCleanUp();
-        }
-
+        sword.position.x = actor.position.x + pos[sword.extend].x;
+        sword.position.y = actor.position.y + pos[sword.extend].y;
+        sword.getFootPrint().setSize(pos.width, pos.height);
+        sword.icon.spriteIndex = pos.spriteIndex;
+        sword.facing = actor.facing;
     };
 
     var attemptCreateMissile = function(room) {
