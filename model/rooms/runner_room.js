@@ -4,7 +4,7 @@ var RunnerRoom = function(data) {
     var createPlayer = function(playerId) {
         var player = Player(playerId);
 
-        my.players[playerId] = player
+        my.players[playerId] = player;
 
         my.setPositionToOpenTile(player);
         player.monstersKilled = 0;
@@ -71,7 +71,7 @@ var RunnerRoom = function(data) {
         }
         else {
             // Plain old monster room
-            if (monsterCount < 20) {
+            if (monsterCount < 10) {
                 addMonster();
                 monsterCount++;
             }
@@ -95,7 +95,9 @@ var RunnerRoom = function(data) {
 
             if (my.isBoss) {
                 music_boss.pause();
+                sound_fanfare.play();
             }
+
         }
 
         sword.player.monstersKilled++;
