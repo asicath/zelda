@@ -4,12 +4,7 @@ var ThrustSword = function(actor) {
     var sword = null;          // Sword
     var missile = null;
     var swordState = 0; // 0 = ready, 1 = activate, 2 = in progress, 3 = waiting to let go
-    var attackActivateFrames = 0;
-    //var snd = new Audio("assets/sounds/sword.wav");
-    var coolDown = 0;
-
-
-
+    var coolingDown = false;
 
     // Override sprite if thrusting sword
     var getSprite_parent = actor.icon.getSprite;
@@ -29,74 +24,68 @@ var ThrustSword = function(actor) {
         // 01 - Sword moves back, tip showing. foot change.
         // 00 - Sword gone.
 
-        if (coolDown) {
-            coolDown--;
-        }
-
         // waiting for attack signal
-        if (swordState == 0) {
-            // check player input
-            if (my.activateIntent && coolDown == 0) {
-                // attack indicated, move to next state
-                swordState = 1;
-
-                // wait 4 frames
-                attackActivateFrames = 4;
-
-                // can't move while attacking
-                actor.canWalk = false;
-                actor.shieldUp = false;
-
-                sound_sword.play();
-            }
-
-        }
-
-        // Waiting for sword to come out
-        if (swordState == 1) {
-            // count down to actual sword thrust
-            if (attackActivateFrames-- == 0) {
-
-                // create the sword
-                sword = Sword(actor);
-                room.addEntity(sword);
-                swordTick = 0;
-
-                // indicate that a missile should get created
-                createMissile = true;
-
-
-                // next state
-                swordState = 2;
-            }
+        if (swordState == 0 && my.activateIntent && !coolingDown) {
+            startThrust();
         }
 
         // waiting for sword to retract
         if (swordState == 2) {
-
             executeSwordFrame(room);
-
-            if (sword.done) {
-                sword = null;
-                actor.canWalk = true;
-                actor.shieldUp = true;
-                actor.resetStep();
-
-                swordState = 3;
-                coolDown = 6;
-            }
-
         }
 
         // wait for player to not be pressing the attack button
-        if (swordState == 3) {
-            if (!my.activateIntent) {
-                swordState = 0;
-            }
+        if (swordState == 3 && !my.activateIntent) {
+            swordState = 0;
         }
 
 
     };
+
+    var startThrust = function() {
+        // attack indicated, move to next state
+        swordState = 1;
+
+        // can't move while attacking
+        actor.canWalk = false;
+        actor.shieldUp = false;
+
+        // start thrust sound
+        sound_sword.play();
+
+        // count down to actual sword thrust
+        // Waiting for sword to come out
+        actor.setFrameTimeout(4, createSwordEntity);
+    };
+
+    var createSwordEntity = function(room) {
+
+        // create the sword
+        sword = Sword(actor);
+        room.addEntity(sword);
+        swordTick = 0;
+
+        // indicate that a missile should get created
+        createMissile = true;
+
+        // next state
+        swordState = 2;
+    };
+
+    var thrustCleanUp = function() {
+        sword = null;
+        actor.canWalk = true;
+        actor.shieldUp = true;
+        actor.resetStep();
+
+        swordState = 3;
+
+        coolingDown = true;
+        actor.setFrameTimeout(6, function() {
+            coolingDown = false;
+        });
+    };
+
 
     var createMissile = false;
 
@@ -152,7 +141,7 @@ var ThrustSword = function(actor) {
         else {
             // Remove sword from room
             room.removeEntity(sword);
-            sword.done = true;
+            thrustCleanUp();
         }
 
     };

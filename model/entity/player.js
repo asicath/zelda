@@ -1,5 +1,6 @@
 var Player = function(playerId) {
     var my = Entity();
+
     Mover(my);
     Actor(my);
 
