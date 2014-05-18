@@ -1,49 +1,42 @@
 var AimedShooter = function(my) {
 
     my.shootPercent = 3/16;
-    var framesUntilCheck = 16;
-    var shooting = false;
-    var shootFrame = 0;
 
     my.fireballAngles = [1];
 
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        if (!shooting) checkShoot(room);
-        if (shooting) executeShootFrame(room);
-
-        executeFrame_parent(room);
+    var setCheckShoot = function() {
+        my.setFrameTimeout(16, function(room) {
+            if (Math.random() < my.shootPercent) {
+                // shooting!
+                shoot();
+            }
+            else {
+                // no shoot, wait again
+                setCheckShoot();
+            }
+        });
     };
 
-    var checkShoot = function(room) {
-        if (--framesUntilCheck > 0) return;
-
-        if (Math.random() < my.shootPercent) shoot();
-
-        framesUntilCheck = 16;
-    };
+    // setup the shoot check interval
+    setCheckShoot();
 
     var shoot = function() {
-        shooting = true;
-        shootFrame = 0;
-    };
 
-    var executeShootFrame = function(room) {
-        if (shootFrame == 0) {
-            my.canWalk = false;
-        }
-        else if (shootFrame == 34) {
-            // create rock
+        // Can't walk while shooting
+        my.canWalk = false;
+
+        // Create the missile
+        my.setFrameTimeout(34, function(room) {
             createMissile(room);
-        }
-        else if (shootFrame == 49) {
+        });
+
+        // when done shooting, allow walk and wait for next
+        my.setFrameTimeout(49, function() {
             my.canWalk = true;
-            shooting = false;
-        }
+            setCheckShoot();
+        });
 
-        shootFrame++;
     };
-
 
     var createMissile = function(room) {
         // find a player
