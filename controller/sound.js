@@ -75,7 +75,7 @@ var sound_getRupee = Sound("assets/sounds/get_rupee.wav");
 var sound_shield = Sound("assets/sounds/shield.wav");
 var sound_fanfare = Sound("assets/sounds/fanfare.wav");
 
-var sound_swordForce = Sound("assets/sounds/Sword FCB.mp3");
+var sound_swordForce = Sound("assets/sounds/Swrd Brst Full 2.mp3");
 
 var sound_whiteMagic = Sound("assets/sounds/White Magic.mp3");
 
