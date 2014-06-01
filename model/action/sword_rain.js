@@ -1,66 +1,42 @@
 var SwordRain = function(actor) {
     var my = Action(actor);
 
-    var frame = 0;
-    var stage = 0;
     var swords = null;
 
-    my.executeAction = function(room) {
+    my.onActivate = function(room) {
+        // start charging
+        swords = [];
 
-        // waiting to start
-        if (stage == 0) {
-            if (my.activateIntent) {
-                // start charging
-                stage = 1;
-                swords = [];
-                frame = 0;
-                // prevent movement while charging
-                actor.canWalk = false;
-                actor.canChangeFace = false;
-            }
-        }
-
-        // charging
-        if (stage == 1) {
-
-            frame++;
-
-
-            if (frame % 20 == 0) {
-                var i = Math.floor(frame / 20) - 1;
-                if (i < 5) {
-                    createSword(i, room);
-                }
-            }
-
-            if (!my.activateIntent) {
-                // let fly
-                for (var i = 0; i < swords.length; i++) {
-                    swords[i].launch();
-                }
-                if (swords.length > 0) {
-                    sound_swordForce.play();
-                }
-
-
-                // allow move again
-                actor.canWalk = true;
-                actor.canChangeFace = true;
-
-                stage = 2;
-            }
-
-        }
-
-        // wait to release button
-        if (stage == 2) {
-            if (!my.activateIntent) {
-                stage = 0;
-            }
-        }
-
+        // prevent movement while charging
+        actor.canWalk = false;
+        actor.canChangeFace = false;
     };
 
+    my.onHold = function(room, frame) {
+        if (frame % 20 == 0) {
+            var i = Math.floor(frame / 20) - 1;
+            if (i < 5) {
+                createSword(i, room);
+            }
+        }
+    };
+
+    my.onDeactivate = function() {
+
+        // let fly
+        for (var i = 0; i < swords.length; i++) {
+            swords[i].launch();
+        }
+
+        // Play a sound if there were swords
+        if (swords.length > 0) {
+            sound_swordForce.play();
+        }
+
+        // allow move again
+        actor.canWalk = true;
+        actor.canChangeFace = true;
+    };
 
     var createSword = function(i,room) {
         var pos = swordPosition[actor.facing];
