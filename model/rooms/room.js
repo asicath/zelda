@@ -27,7 +27,6 @@ var Room = function(data) {
         for (var i = my.tiles.length - 1; i >= 0; i--) {
             var tile = my.tiles[i];
             if (tile.type == 'wall') {
-                console.log(tile.index);
                 walls.push({ rect: new Rect(new Position(tile.position.x, tile.position.y), 8, 8, 0, 0) });
                 walls.push({ rect: new Rect(new Position(tile.position.x + 8, tile.position.y), 8, 8, 0, 0) });
                 walls.push({ rect: new Rect(new Position(tile.position.x, tile.position.y + 8), 8, 8, 0, 0) });
@@ -41,6 +40,10 @@ var Room = function(data) {
 
     if (data.overlay) {
         my.backgroundImage = data.overlay.image;
+        my.tiles = [];
+        my.tiles[0] = {x:0, y:0, type:'floor'};
+        my.tiles[0].position = new Position(my.tiles[0].x, my.tiles[0].y);
+        my.tiles[0].rect = new Rect(my.tiles[0].position, 16, 16, 0, 0);
     }
 
 

@@ -18,6 +18,7 @@ var loadAllRooms = function(roomModel, success) {
         }
     };
 
+
     for (var x = 0; x <= 15; x++) {
         for (var y = 0; y <= 7; y++) {
 
@@ -28,11 +29,28 @@ var loadAllRooms = function(roomModel, success) {
             if (yVal.length == 1) yVal = "0" + yVal;
 
             var key = xVal + '_' + yVal;
+
             var filepath = 'assets/rooms/ow' + xVal + '-' + yVal + '.js';
             loadRoomJson(key, filepath, function(data, key) {
                 data.key = key;
-                rooms[key] = roomModel(data);
-                onLoadComplete();
+                if (key == '07_07x') {
+                    data.tiles = null;
+                    data.overlay = {
+                        imageUrl: 'assets/rooms/testroom.gif'
+                    };
+                    data.overlay.image = new Image();
+                    data.overlay.image.src = data.overlay.imageUrl;
+                    data.overlay.image.onload = function() {
+                        rooms[key] = roomModel(data);
+                        onLoadComplete();
+                    };
+                }
+                else {
+                    rooms[key] = roomModel(data);
+                    onLoadComplete();
+                }
+
+
             });
 
         }
@@ -79,7 +97,7 @@ var roomRunner = function() {
             gamepadSupport.init();
 
             music_normal.loop = true;
-            music_normal.play();
+            //music_normal.play();
 
             music.loop = true;
             //music.play();

@@ -27,14 +27,20 @@ var View = (function() {
         buffer.height = room.rect.height * upscaleFactor;
         var ctxBuffer = buffer.getContext('2d');
 
-        // draw to the virtual screen
-        var palettes = [Palettes.OutsideGreen, Palettes.OutsideBrown, Palettes.OutsideGrey, Palettes.AllBlack];
-        var i = 0;
-        while (i < room.tiles.length) {
-            var t = room.tiles[i];
-            drawSprite(ctxBuffer, upscaleFactor, room.sprites[t.index], t.x, t.y, palettes[t.palette]);
-            i++;
+        if (room.backgroundImage) {
+            ctxBuffer.drawImage(room.backgroundImage, 0, 0, buffer.width, buffer.height);
         }
+        else {
+            // draw to the virtual screen
+            var palettes = [Palettes.OutsideGreen, Palettes.OutsideBrown, Palettes.OutsideGrey, Palettes.AllBlack];
+            var i = 0;
+            while (i < room.tiles.length) {
+                var t = room.tiles[i];
+                drawSprite(ctxBuffer, upscaleFactor, room.sprites[t.index], t.x, t.y, palettes[t.palette]);
+                i++;
+            }
+        }
+
 
         // downscale to exact screen size
         var resize = document.createElement('canvas');

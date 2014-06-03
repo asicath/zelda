@@ -4,7 +4,7 @@ var SwordRain = function(actor) {
     var swords = null;
 
     my.onActivate = function(room) {
-        // start charging
+        // clear swords for new charging
         swords = [];
 
         // prevent movement while charging
