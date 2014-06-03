@@ -108,7 +108,7 @@ var Walk = function(mover) {
     };
 
     my.onWallEvent = function(room, wall, rect) {
-        my.stopShort(room, wall, my.moveIntent);
+        my.stopShort(room, wall.rect, my.moveIntent);
     };
 
     my.onEdgeEvent = function(room, wall, rect) {

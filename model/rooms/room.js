@@ -9,18 +9,40 @@ var Room = function(data) {
     var removeAfterFrame = [];
     var addAfterFrame = [];
 
-    my.tiles = data.tiles;
+    var walls = [];
+    my.rect = new Rect(new Position(0,0), 256, 176, 0, 0);
+    my.entities = [];
 
-    // init tiles
-    for (var i = my.tiles.length - 1; i >= 0; i--) {
-        my.tiles[i].position = new Position(my.tiles[i].x, my.tiles[i].y);
-        my.tiles[i].rect = new Rect(my.tiles[i].position, 16, 16, 0, 0);
+    // Load from tiles if present
+    if (data.tiles) {
+        my.tiles = data.tiles;
+
+        // init tiles
+        for (var i = my.tiles.length - 1; i >= 0; i--) {
+            my.tiles[i].position = new Position(my.tiles[i].x, my.tiles[i].y);
+            my.tiles[i].rect = new Rect(my.tiles[i].position, 16, 16, 0, 0);
+        }
+
+        // init walls from tiles
+        for (var i = my.tiles.length - 1; i >= 0; i--) {
+            var tile = my.tiles[i];
+            if (tile.type == 'wall') {
+                console.log(tile.index);
+                walls.push({ rect: new Rect(new Position(tile.position.x, tile.position.y), 8, 8, 0, 0) });
+                walls.push({ rect: new Rect(new Position(tile.position.x + 8, tile.position.y), 8, 8, 0, 0) });
+                walls.push({ rect: new Rect(new Position(tile.position.x, tile.position.y + 8), 8, 8, 0, 0) });
+                if (tile.index !=24)
+                walls.push({ rect: new Rect(new Position(tile.position.x + 8, tile.position.y + 8), 8, 8, 0, 0) });
+            }
+        }
+
+        my.sprites = Sprites.outside;
     }
 
-    my.sprites = Sprites.outside;
-    my.rect = new Rect(new Position(0,0), 256, 176, 0, 0);
+    if (data.overlay) {
+        my.backgroundImage = data.overlay.image;
+    }
 
-    my.entities = [];
 
 
     my.executeFrame = function() {
@@ -71,14 +93,9 @@ var Room = function(data) {
     };
 
     my.intersectsWall = function(rect) {
-        var tile;
-        for (var i = my.tiles.length - 1; i >= 0; i--) {
-            tile = my.tiles[i];
-            if (tile.type == "wall") {
-                if (tile.rect.intersects(rect)) return tile;
-            }
+        for (var i = walls.length - 1; i >= 0; i--) {
+            if (walls[i].rect.intersects(rect)) return walls[i];
         }
-
         return false;
     };
 

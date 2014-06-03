@@ -106,7 +106,7 @@ var Push = function(mover) {
 
     my.onWallEvent = function(room, wall, rect) {
         endPush();
-        my.stopShort(room, wall, info.direction);
+        my.stopShort(room, wall.rect, info.direction);
     };
     my.onEdgeEvent = function(room, wall, rect) {
         endPush();

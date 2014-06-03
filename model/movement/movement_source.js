@@ -70,17 +70,17 @@ var MovementSource = function(mover) {
             case Directions.top:
                 var yOffset = mover.getFootPrint('wall').yOffset;
                 // hit wall from the bottom
-                stopShortRect.position.y = wallRect.y + 16 - yOffset;
+                stopShortRect.position.y = wallRect.position.y + wallRect.height - yOffset;
                 break;
             case Directions.bottom:
-                stopShortRect.position.y = wallRect.y - mover.getFootPrint().height;
+                stopShortRect.position.y = wallRect.position.y - mover.getFootPrint().height;
                 break;
             case Directions.left:
                 var xOffset = mover.getFootPrint('wall').xOffset;
-                stopShortRect.position.x = wallRect.x + 16 - xOffset;
+                stopShortRect.position.x = wallRect.position.x + wallRect.width - xOffset;
                 break;
             case Directions.right:
-                stopShortRect.position.x = wallRect.x - mover.getFootPrint().width;
+                stopShortRect.position.x = wallRect.position.x - mover.getFootPrint().width;
                 break;
         }
 
