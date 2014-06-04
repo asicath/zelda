@@ -8,7 +8,7 @@ var Sprite = function(width, height) {
         naturalPalette: null
     };
 
-    var getPixel = function(x, y) {
+    exports.getPixel = function(x, y) {
         if (x < 0 || x >= exports.width) {return null;}
         if (y < 0 || y >= exports.height) {return null;}
 

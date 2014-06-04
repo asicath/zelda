@@ -37,13 +37,19 @@ var loadAllRooms = function(roomModel, success) {
                     data.tiles = null;
 
                     data.overlay = {
-                        imageUrl: 'assets/rooms/testroom.gif'
+                        imageUrl: 'assets/rooms/testroom.gif',
+                        overlayUrl: 'assets/rooms/testroom_overlay.gif'
                     };
 
-                    loadSpritesFromImgUrl(data.overlay.imageUrl,[{x:0,  y: 0, width: 256, height:176}], function(v) {
-                        data.overlay.sprite = v;
-                        rooms[key] = roomModel(data);
-                        onLoadComplete();
+                    loadSpritesFromImgUrl(data.overlay.imageUrl,[{x:0,  y: 0, width: 256, height:176}], function(sprite) {
+
+                        data.overlay.sprite = sprite;
+
+                        loadSpritesFromImgUrl(data.overlay.overlayUrl,[{x:0,  y: 0, width: 256, height:176}], function(overlay) {
+                            data.overlay.overlay = overlay;
+                            rooms[key] = roomModel(data);
+                            onLoadComplete();
+                        }, true);
                     }, true);
 
                 }

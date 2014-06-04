@@ -41,9 +41,20 @@ var Room = function(data) {
     if (data.overlay) {
         my.backgroundSprite = data.overlay.sprite;
         my.tiles = [];
-        my.tiles[0] = {x:0, y:0, type:'floor'};
+        my.tiles[0] = {x:256/2, y:176/2, type:'floor'};
         my.tiles[0].position = new Position(my.tiles[0].x, my.tiles[0].y);
         my.tiles[0].rect = new Rect(my.tiles[0].position, 16, 16, 0, 0);
+
+        // init walls
+        var overlay = data.overlay.overlay[0];
+        for (var x = 0; x < 256; x+=8) {
+            for (var y = 0; y < 176; y+=8) {
+                var p = overlay.getPixel(x, y);
+                if (p.naturalColor.a > 0) {
+                    walls.push({ rect: new Rect(new Position(x, y), 8, 8, 0, 0) });
+                }
+            }
+        }
     }
 
 
