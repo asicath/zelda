@@ -2,12 +2,13 @@
 
 
 
-var Pixel = function(i, x, y) {
+var Pixel = function(i, x, y, naturalColor) {
 
     var exports = {
         i: i,
         x: x,
-        y: y
+        y: y,
+        naturalColor: naturalColor
     };
 
     exports.sameColor = function(p) {
@@ -15,6 +16,10 @@ var Pixel = function(i, x, y) {
     };
 
     exports.getColor = function(palette) {
+
+        if (exports.i == -1)
+            return exports.getNaturalColor();
+
         if (!palette) {
             palette = Palettes.Default;
         }
@@ -25,6 +30,10 @@ var Pixel = function(i, x, y) {
         }
 
         return 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
+    };
+
+    exports.getNaturalColor = function() {
+        return 'rgba(' + naturalColor.r + ', ' + naturalColor.g + ', ' + naturalColor.b + ', ' + (naturalColor.a / 255) + ')';
     };
 
     return exports;

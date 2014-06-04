@@ -27,8 +27,10 @@ var View = (function() {
         buffer.height = room.rect.height * upscaleFactor;
         var ctxBuffer = buffer.getContext('2d');
 
-        if (room.backgroundImage) {
-            ctxBuffer.drawImage(room.backgroundImage, 0, 0, buffer.width, buffer.height);
+        if (room.backgroundSprite) {
+            //ctxBuffer.drawImage(room.backgroundImage, 0, 0, buffer.width, buffer.height);
+
+            drawSprite(ctxBuffer, upscaleFactor, room.backgroundSprite[0], 0, 0, Palettes.Default);
         }
         else {
             // draw to the virtual screen

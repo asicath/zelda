@@ -39,7 +39,7 @@ var Room = function(data) {
     }
 
     if (data.overlay) {
-        my.backgroundImage = data.overlay.image;
+        my.backgroundSprite = data.overlay.sprite;
         my.tiles = [];
         my.tiles[0] = {x:0, y:0, type:'floor'};
         my.tiles[0].position = new Position(my.tiles[0].x, my.tiles[0].y);

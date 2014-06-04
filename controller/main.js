@@ -33,17 +33,19 @@ var loadAllRooms = function(roomModel, success) {
             var filepath = 'assets/rooms/ow' + xVal + '-' + yVal + '.js';
             loadRoomJson(key, filepath, function(data, key) {
                 data.key = key;
-                if (key == '07_07x') {
+                if (key == '07_07') {
                     data.tiles = null;
+
                     data.overlay = {
                         imageUrl: 'assets/rooms/testroom.gif'
                     };
-                    data.overlay.image = new Image();
-                    data.overlay.image.src = data.overlay.imageUrl;
-                    data.overlay.image.onload = function() {
+
+                    loadSpritesFromImgUrl(data.overlay.imageUrl,[{x:0,  y: 0, width: 256, height:176}], function(v) {
+                        data.overlay.sprite = v;
                         rooms[key] = roomModel(data);
                         onLoadComplete();
-                    };
+                    }, true);
+
                 }
                 else {
                     rooms[key] = roomModel(data);
