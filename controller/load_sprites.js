@@ -5,7 +5,7 @@ var Sprites = {
 
 var loadAllSprites = function(success) {
 
-    $.getJSON('assets/sprite_info.js', function(spriteInfo) {
+    $.getJSON(baseUrl + 'assets/sprite_info.js', function(spriteInfo) {
 
         var spriteLoadFinish = function() {
             if (++Sprites.count < spriteInfo.length) {return;}

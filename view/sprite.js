@@ -23,7 +23,7 @@ var Sprite = function(width, height) {
 var loadSpritesFromImgUrl = function(imgUrl, map, success, useNaturalPalette) {
 
     var img = new Image();
-    img.src = imgUrl;
+    img.src = baseUrl + imgUrl;
     img.onload = function(){
 
         // Create canvas, size it, get the context
