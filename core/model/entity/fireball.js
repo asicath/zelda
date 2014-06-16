@@ -37,7 +37,7 @@ var Fireball = function() {
 
                 if (blocked && e.shieldUp) {
                     room.removeEntity(my);
-                    sound_shield.play();
+                    Sounds.shield.play();
                 }
                 else {
                     e.takeDamage(2, my, room);

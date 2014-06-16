@@ -19,7 +19,7 @@ var Protection = function(actor) {
 
                 actor.canWalk = false;
 
-                sound = sound_whiteMagic.play();
+                sound = Sounds.whiteMagic.play();
 
                 sound.loop = true;
             }

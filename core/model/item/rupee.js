@@ -15,7 +15,7 @@ var Rupee = function() {
     my.onPickUp = function(player) {
         // add money
 
-        sound_getRupee.play();
+        Sounds.getRupee.play();
     };
 
     return my;

@@ -61,10 +61,10 @@ var RunnerRoom = function(data) {
                 my.addEntity(boss);
                 monsterCount++;
 
-                music_normal.pause();
-                music_boss.loop = true;
-                music_boss.play();
-                music_bossIntro.play();
+                Music.normal.pause();
+                Music.boss.loop = true;
+                Music.boss.play();
+                Music.bossIntro.play();
 
                 my.isBoss = true;
             }
@@ -94,8 +94,8 @@ var RunnerRoom = function(data) {
             //my.addEntity(Edge(Directions.bottom));
 
             if (my.isBoss) {
-                music_boss.pause();
-                sound_fanfare.play();
+                Music.boss.pause();
+                Sounds.fanfare.play();
             }
 
         }

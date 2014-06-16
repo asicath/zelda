@@ -11,7 +11,7 @@ var Fairy = function() {
         }
         player.life += amount;
 
-        sound_getItem.play();
+        Sounds.getItem.play();
     };
 
     return my;

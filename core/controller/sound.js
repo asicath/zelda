@@ -1,9 +1,19 @@
-var music = new Audio("assets/music/8 Bit Legend.mp3");
 
+var Music = (function() {
+    var my = {};
 
-var music_normal = new Audio("assets/music/ENM WAVE 1.mp3");
-var music_boss = new Audio("assets/music/Boss 1 .mp3");
-var music_bossIntro = new Audio("assets/music/Boss intro.mp3");
+    my.loadAll = function() {
+
+        my.eightBit = new Audio(baseUrl + "assets/music/8 Bit Legend.mp3");
+        my.normal = new Audio(baseUrl + "assets/music/ENM WAVE 1.mp3");
+        my.boss = new Audio(baseUrl + "assets/music/Boss 1 .mp3");
+        my.bossIntro = new Audio(baseUrl + "assets/music/Boss intro.mp3");
+
+    };
+
+    return my;
+})();
+
 
 //http://www.w3schools.com/tags/ref_av_dom.asp
 var Sound = function(url) {
@@ -60,42 +70,42 @@ var Sound = function(url) {
     return my;
 };
 
-var sound_kill = Sound("assets/sounds/kill.wav");
-var sound_candle = Sound("assets/sounds/candle.wav");
-var sound_text = Sound("assets/sounds/text.wav");
-var sound_hit = Sound("assets/sounds/hit.wav");
-var sound_hurt = Sound("assets/sounds/hurt.wav");
-var sound_SwordShoot = Sound("assets/sounds/sword_shoot.wav");
-var sound_sword = Sound("assets/sounds/sword.wav");
-var sound_die = Sound("assets/sounds/die.wav");
-
-var sound_getItem = Sound("assets/sounds/get_item.wav");
-var sound_getHeart = Sound("assets/sounds/get_heart.wav");
-var sound_getRupee = Sound("assets/sounds/get_rupee.wav");
-var sound_shield = Sound("assets/sounds/shield.wav");
-var sound_fanfare = Sound("assets/sounds/fanfare.wav");
-
-var sound_swordForce = Sound("assets/sounds/Swrd Brst Full 2.mp3");
-
-var sound_whiteMagic = Sound("assets/sounds/White Magic.mp3");
-
-
-
-
-var soundConfig = {
-
-    sounds: [
-        {file: 'assets/sounds/kill.wav', name:'kill'},
-        {file: 'assets/sounds/hit.wav', name:'hit'},
-        {file: 'assets/sounds/hurt.wav', name:'hurt'},
-        {file: 'assets/sounds/sword_shoot.wav', name:'sword_shoot'},
-        {file: 'assets/sounds/candle.wav', name:'candle'}
-    ]
-
-};
 
 var Sounds = (function() {
+    var my = {};
 
-    var audios = {};
+    var config = {
+        sounds: [
+            {file: 'assets/sounds/kill.wav', name:'kill'},
+            {file: 'assets/sounds/candle.wav', name:'candle'},
+            {file: 'assets/sounds/text.wav', name:'text'},
+            {file: 'assets/sounds/hit.wav', name:'hit'},
+            {file: 'assets/sounds/hurt.wav', name:'hurt'},
+            {file: 'assets/sounds/sword_shoot.wav', name:'SwordShoot'},
+            {file: 'assets/sounds/sword.wav', name:'sword'},
+            {file: 'assets/sounds/die.wav', name:'die'},
+            {file: 'assets/sounds/get_item.wav', name:'getItem'},
+            {file: 'assets/sounds/get_heart.wav', name:'getHeart'},
+            {file: 'assets/sounds/get_rupee.wav', name:'getRupee'},
+            {file: 'assets/sounds/shield.wav', name:'shield'},
+            {file: 'assets/sounds/fanfare.wav', name:'fanfare'},
+            {file: 'assets/sounds/Swrd Brst Full 2.mp3', name:'swordForce'},
+            {file: 'assets/sounds/White Magic.mp3', name:'whiteMagic'}
 
+        ]
+    };
+
+    my.loadAll = function() {
+
+        for (var i = 0; i < config.sounds.length; i++) {
+            var c = config.sounds[i];
+            my[c.name] = Sound(baseUrl + c.file);
+        }
+
+    };
+
+    return my;
 })();
+
+
+

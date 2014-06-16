@@ -3,6 +3,11 @@ var baseUrl = "../core/";
 var currentRoom;
 
 var roomRunner = function() {
+
+    Sounds.loadAll();
+    Music.loadAll();
+
+
     loadAllSprites(function() {
         loadAllRooms(RunnerRoom, function(rooms) {
 
@@ -11,11 +16,8 @@ var roomRunner = function() {
 
             gamepadSupport.init();
 
-            music_normal.loop = true;
-            //music_normal.play();
-
-            music.loop = true;
-            //music.play();
+            Music.normal.loop = true;
+            Music.normal.play();
         });
     });
 };

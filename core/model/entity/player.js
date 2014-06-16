@@ -76,7 +76,7 @@ var Player = function(playerId) {
             death(room);
         }
         else {
-            sound_hurt.play();
+            Sounds.hurt.play();
             my.pushFromContact(entity.position);
         }
 
@@ -94,7 +94,7 @@ var Player = function(playerId) {
         var ani = Death(my);
         room.addEntity(ani);
 
-        sound_die.play();
+        Sounds.die.play();
     };
 
     return my;

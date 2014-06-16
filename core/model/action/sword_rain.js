@@ -30,7 +30,7 @@ var SwordRain = function(actor) {
 
         // Play a sound if there were swords
         if (swords.length > 0) {
-            sound_swordForce.play();
+            Sounds.swordForce.play();
         }
 
         // allow move again
@@ -56,7 +56,7 @@ var SwordRain = function(actor) {
         swords.push(sword);
 
         room.addEntity(sword);
-        sound_candle.play();
+        Sounds.candle.play();
     };
 
 

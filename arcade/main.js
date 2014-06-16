@@ -4,6 +4,9 @@ var currentRoom;
 
 var runDemo = function() {
 
+    Sounds.loadAll();
+    Music.loadAll();
+
     loadAllSprites(function() {
         loadRoomJson('', baseUrl + 'assets/rooms/ow08-07.js', function(data) {
 
@@ -14,8 +17,8 @@ var runDemo = function() {
 
             gamepadSupport.init();
 
-            music.loop = true;
-            //music.play();
+            Music.eightBit.loop = true;
+            Music.eightBit.play();
         });
     });
 

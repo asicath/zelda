@@ -66,7 +66,7 @@ var ThrustSword = function(actor) {
         actor.shieldUp = false;
 
         // start thrust sound
-        sound_sword.play();
+        Sounds.sword.play();
 
         // count down to actual sword thrust
         // Waiting for sword to come out
@@ -148,7 +148,7 @@ var ThrustSword = function(actor) {
         missile = SwordMissile(actor, sword);
         room.addEntity(missile);
         missile.launch();
-        sound_SwordShoot.play();
+        Sounds.SwordShoot.play();
     };
 
     var swordPosition = {};

@@ -15,7 +15,7 @@ var Mortal = function(my) {
             death(room, entity);
         }
         else {
-            sound_hit.play();
+            Sounds.hit.play();
             my.onTakeDamage(entity);
         }
 
@@ -38,7 +38,7 @@ var Mortal = function(my) {
         var ani = Death(my, my.afterDeath);
         room.addEntity(ani);
 
-        sound_kill.play();
+        Sounds.kill.play();
     };
 
     my.afterDeath = function() {};

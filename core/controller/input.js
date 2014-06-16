@@ -17,11 +17,11 @@ $(document).on('keydown', function(e1, e2, e3) {
         case 17: playerInput[keyboardPlayerId].special = true; break;
         case 32: playerInput[keyboardPlayerId].attack = true; break;
         case 80:
-            if (music.paused) {
-                music.play();
+            if (Music.eightBit.paused) {
+                Music.eightBit.play();
             }
             else {
-                music.pause();
+                Music.eightBit.pause();
             }
             break;
     }

@@ -59,7 +59,7 @@ var DemoRoom = function(data) {
             if (--my.framesToNextWave == 0) {
                 // move to the next state
                 waveState = 1;
-                sound_fanfare.play();
+                Sounds.fanfare.play();
                 my.wave++;
             }
         }

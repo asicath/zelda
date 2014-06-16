@@ -80,7 +80,7 @@ var Gohma = function() {
 
         if (eyeClosed || eyeSwapFrames > 0) {
             if (soundWait == 0) {
-                sound_shield.play();
+                Sounds.shield.play();
                 soundWait = 10;
             }
 

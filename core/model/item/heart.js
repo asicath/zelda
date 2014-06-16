@@ -19,7 +19,7 @@ var Heart = function() {
         }
         player.life += amount;
 
-        sound_getHeart.play();
+        Sounds.getHeart.play();
     };
 
     return my;
