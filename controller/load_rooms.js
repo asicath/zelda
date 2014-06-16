@@ -37,8 +37,8 @@ var loadAllRooms = function(roomModel, success) {
                     data.tiles = null;
 
                     data.overlay = {
-                        imageUrl: baseUrl + 'assets/rooms/testroom.gif',
-                        overlayUrl: baseUrl + 'assets/rooms/testroom_overlay.gif'
+                        imageUrl: 'assets/rooms/testroom.gif',
+                        overlayUrl: 'assets/rooms/testroom_overlay.gif'
                     };
 
                     loadSpritesFromImgUrl(data.overlay.imageUrl,[{x:0,  y: 0, width: 256, height:176}], function(sprite) {
