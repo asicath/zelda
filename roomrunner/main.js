@@ -1,4 +1,4 @@
-var baseUrl = "../../";
+var baseUrl = "../core/";
 
 var currentRoom;
 
