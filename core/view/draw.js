@@ -30,7 +30,7 @@ var View = (function() {
         if (room.backgroundSprite) {
             //ctxBuffer.drawImage(room.backgroundImage, 0, 0, buffer.width, buffer.height);
 
-            drawSprite(ctxBuffer, upscaleFactor, room.backgroundSprite[0], 0, 0, Palettes.Default);
+            View.drawSprite(ctxBuffer, upscaleFactor, room.backgroundSprite[0], 0, 0, Palettes.Default);
         }
         else {
             // draw to the virtual screen
@@ -38,7 +38,7 @@ var View = (function() {
             var i = 0;
             while (i < room.tiles.length) {
                 var t = room.tiles[i];
-                drawSprite(ctxBuffer, upscaleFactor, room.sprites[t.index], t.x, t.y, palettes[t.palette]);
+                View.drawSprite(ctxBuffer, upscaleFactor, room.sprites[t.index], t.x, t.y, palettes[t.palette]);
                 i++;
             }
         }
@@ -208,7 +208,7 @@ var View = (function() {
                     index = 2;
                 }
             }
-            drawSprite(ctx, factor, Sprites.heart[index], x + (i/4)*8, 20, Palettes.DeathStarRedBlue);
+            View.drawSprite(ctx, factor, Sprites.heart[index], x + (i/4)*8, 20, Palettes.DeathStarRedBlue);
             i-=4;
         }
 
@@ -279,7 +279,7 @@ var View = (function() {
             if (typeof char === "undefined") char = 43;
 
             var sprite = Sprites.letters[char];
-            drawSprite(ctx, factor, sprite, x + i*8, y, Palettes.Text);
+            View.drawSprite(ctx, factor, sprite, x + i*8, y, Palettes.Text);
         }
 
 
@@ -293,84 +293,10 @@ var View = (function() {
 
     var drawIcon = function(ctx, icon, factor) {
         if (icon.isVisible())
-            drawSprite(ctx, factor, icon.getSprite(), icon.getXPosition(), icon.getYPosition(), icon.getPalette());
-    };
-
-    var drawSprite = function(ctx, pixelScale, sprite, x, y, palette) {
-
-        if (!sprite.cache) sprite.cache = {};
-
-        var key = palette.name + '_' + pixelScale.toString();
-
-        if (!sprite.cache[key]) {
-            var pixelScaleUp = Math.ceil(pixelScale);
-
-            if (pixelScale == pixelScaleUp) {
-                // direct draw, no need to upscale
-                sprite.cache[key] = createSpriteCanvas(pixelScale, sprite, palette);
-            }
-            else {
-                // get the upscaled image
-                var upscaleKey = pixelScaleUp.toString();
-                sprite.cache[upscaleKey] = createSpriteCanvas(pixelScaleUp, sprite, palette);
-
-                // now downscale
-                var img = document.createElement('canvas');
-                img.width = Math.ceil(sprite.width * pixelScale);
-                img.height = Math.ceil(sprite.height * pixelScale);
-                var context = img.getContext('2d');
-
-                context.drawImage(sprite.cache[upscaleKey], 0, 0, sprite.width * pixelScale, sprite.height * pixelScale);
-
-                sprite.cache[key] = img;
-            }
-
-
-        }
-
-        // Draw the cached image
-        ctx.drawImage(sprite.cache[key], x * pixelScale, y * pixelScale);
-
+            View.drawSprite(ctx, factor, icon.getSprite(), icon.getXPosition(), icon.getYPosition(), icon.getPalette());
     };
 
 
-    // Return a canvas object with the sprite rendered to it
-    var createSpriteCanvas = function(pixelScale, sprite, palette) {
-        var img = document.createElement('canvas');
-        img.width = sprite.width * pixelScale;
-        img.height = sprite.height * pixelScale;
-        var context = img.getContext('2d');
-
-        // do the actual rendering of the pixels
-        drawSpriteFromPixels(context, pixelScale, sprite, palette);
-
-        return img;
-    };
-
-
-    // Draw the raw pixels of a sprite to the specified canvas context
-    var drawSpriteFromPixels = function(ctx, pixelScale, sprite, palette) {
-        var i = 0;
-        var c = null;
-        while (i < sprite.pixels.length) {
-
-            var p = sprite.pixels[i];
-
-            c = p.getColor(palette);
-
-            if (c != null) {
-                ctx.fillStyle = c;
-                ctx.fillRect(
-                    p.x * pixelScale,
-                    p.y * pixelScale,
-                    pixelScale,
-                    pixelScale
-                );
-            }
-
-            i++;
-        }
-    };
 
     // ensure the canvas is taking up the whole parent
     my.fullscreen = function() {
