@@ -30,6 +30,7 @@ var Sound = function(url) {
 
         value.audio.addEventListener('ended', function(){
             value.playing = false;
+            value.audio.load();
         });
 
         array.push(value);
