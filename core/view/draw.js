@@ -215,11 +215,6 @@ var View = (function() {
 
     };
 
-    var renderTime = [];
-    var renderIndex = 0;
-
-    var frameCount = 0;
-
     var textMap = {
         "a": 0,
         "b": 1,
