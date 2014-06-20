@@ -64,17 +64,15 @@ var DemoRoom = function(data) {
             }
         }
         else {
-            if (my.wave % 3 == 1) {
-
+            //if (my.wave % 1 == 1) {
                 monsterWave();
-            }
-            else if (my.wave % 3 == 2) {
-                aquamentusWave();
-
-            }
-            else {
-                gohmaWave();
-            }
+            //}
+            //else if (my.wave % 3 == 2) {
+            //    aquamentusWave();
+            //}
+            //else {
+            //    gohmaWave();
+            //}
         }
 
     };
@@ -151,7 +149,7 @@ var DemoRoom = function(data) {
         if (waveState == 1) {
             // setup for the next state
             killCount = 0;
-            monsterCount = Math.pow(2, monsterWaveCount + 3);
+            monsterCount = Math.pow(2, monsterWaveCount);
 
             addCount = monsterCount;
             countToAddMonster = 10;
