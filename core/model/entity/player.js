@@ -7,10 +7,11 @@ var Player = function(playerId) {
     my.movementSources.push(new WalkControlled(my));
     my.movementSources.push(new Push(my));
 
-    my.setAction(ThrustSword(my), 'attack');
-    my.setAction(SwordRain(my), 'specialY');
+    my.setAction(ThrustSword(my), 'button_a');
+    my.setAction(SwordRain(my), 'button_y');
     //my.setAction(Protection(my), 'special');
-    my.setAction(DropBomb(my), 'special');
+    my.setAction(DropBomb(my, LiveBomb), 'button_b');
+    my.setAction(DropBomb(my, BigBomb), 'button_x');
 
     my.playerId = playerId;
     my.wallSensitive = true;

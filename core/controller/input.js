@@ -24,10 +24,10 @@ $(document).on('keydown', function(e1, e2, e3) {
         case 13: playerInput[keyboardPlayerId].start = true; break;
 
         // left-ctrl
-        case 17: playerInput[keyboardPlayerId].special = true; break;
+        case 17: playerInput[keyboardPlayerId].button_b = true; break;
 
         // space
-        case 32: playerInput[keyboardPlayerId].attack = true; break;
+        case 32: playerInput[keyboardPlayerId].button_a = true; break;
 
         // P
         case 80:
@@ -62,10 +62,10 @@ $(document).on('keyup', function(e1, e2, e3) {
         case 13: playerInput[keyboardPlayerId].start = false; break;
 
         // left-ctrl
-        case 17: playerInput[keyboardPlayerId].special = false; break;
+        case 17: playerInput[keyboardPlayerId].button_b = false; break;
 
         // space
-        case 32: playerInput[keyboardPlayerId].attack = false; break;
+        case 32: playerInput[keyboardPlayerId].button_a = false; break;
     }
 
 });

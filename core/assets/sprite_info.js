@@ -41,5 +41,6 @@
         {"x":16, "y": 8, "width": 16, "height":8}
     ]},
     {"url":"assets/sprites/letters.gif", "name":"letters"},
-    {"url":"assets/sprites/icons.gif", "name":"icons"}
+    {"url":"assets/sprites/icons.gif", "name":"icons"},
+    {"url":"assets/sprites/bigbomb.gif", "name":"bigbomb"}
 ]

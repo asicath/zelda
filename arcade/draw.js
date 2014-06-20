@@ -28,20 +28,16 @@ var DemoDraw = (function() {
             return;
         }
 
-        View.drawText(ctx, " player " + (playerId + 1).toString() + " ", x, 4, factor);
-        View.drawText(ctx, " killed " + player.monstersKilled.toString() + " ", x, 12, factor);
+        var y = 0;
+        View.drawText(ctx, " player " + (playerId + 1).toString() + " ", x, y, factor);
 
-        View.drawText(ctx, " x" + (player.rupees || 0) + "", x, 28, factor);
-        View.drawSprite(ctx, factor, Sprites.icons[0], x, 28, Palettes.Icon);
+        y+=8;
+        View.drawText(ctx, " killed " + player.monstersKilled.toString() + " ", x, y, factor);
 
-        View.drawText(ctx, " x" + (player.bombs || 0) + "", x, 36, factor);
-        View.drawSprite(ctx, factor, Sprites.icons[2], x, 36, Palettes.IconBlue);
-
-
+        y+=8;
         var i = player.maxLife;
-
         ctx.fillStyle="#000000";
-        ctx.fillRect(x * factor, 20 * factor, ((i / 4)+2) * factor * 8, 8 * factor);
+        ctx.fillRect(x * factor, y * factor, ((i / 4)+2) * factor * 8, 8 * factor);
 
         while (i > 0) {
             var index = 0;
@@ -53,9 +49,16 @@ var DemoDraw = (function() {
                     index = 2;
                 }
             }
-            View.drawSprite(ctx, factor, Sprites.heart[index], x + (i/4)*8, 20, Palettes.DeathStarRedBlue);
+            View.drawSprite(ctx, factor, Sprites.heart[index], x + (i/4)*8, y, Palettes.DeathStarRedBlue);
             i-=4;
         }
+
+        y+=8;
+        View.drawText(ctx, " x" + (player.rupees || 0) + "", x, y, factor);
+        View.drawSprite(ctx, factor, Sprites.icons[0], x, y, Palettes.Icon);
+
+        View.drawText(ctx, " x" + (player.bombs || 0) + "", x+8*6, y, factor);
+        View.drawSprite(ctx, factor, Sprites.icons[2], x+8*6, y, Palettes.IconBlue);
 
     };
 
