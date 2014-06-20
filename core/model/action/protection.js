@@ -7,7 +7,7 @@ var Protection = function(actor) {
     var sigil = [];
     var sound = null;
 
-    my.executeAction = function(room) {
+    my.executeFrame = function(room) {
 
         // waiting to start
         if (stage == 0) {

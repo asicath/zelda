@@ -30,7 +30,7 @@ var ThrustSword = function(actor) {
         return getSprite_parent();
     };
 
-    my.executeAction = function(room) {
+    my.executeFrame = function(room) {
 
         // 14 frames to complete sword thrust
         // 14 - Take sword stance

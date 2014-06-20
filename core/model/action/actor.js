@@ -25,7 +25,7 @@ var Actor = function(my) {
     // Give the actions a frame of time
     var executeActions = function(room) {
         for (var i = 0; i < actions.length; i++) {
-            actions[i].action.executeAction(room);
+            actions[i].action.executeFrame(room);
         }
     };
 

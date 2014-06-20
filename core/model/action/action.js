@@ -7,7 +7,7 @@ var Action = function(actor) {
     var activated = false;
     var heldFrameCount = 0;
 
-    my.executeAction = function(room) {
+    my.executeFrame = function(room) {
 
         // Intent detected, activate!
         if (my.activateIntent && !activated) {
