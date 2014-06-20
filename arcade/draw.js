@@ -29,8 +29,13 @@ var DemoDraw = (function() {
         }
 
         View.drawText(ctx, " player " + (playerId + 1).toString() + " ", x, 4, factor);
-
         View.drawText(ctx, " killed " + player.monstersKilled.toString() + " ", x, 12, factor);
+
+        View.drawText(ctx, " x" + (player.rupees || 0) + "", x, 28, factor);
+        View.drawSprite(ctx, factor, Sprites.icons[0], x, 28, Palettes.Icon);
+
+        View.drawText(ctx, " x" + (player.bombs || 0) + "", x, 36, factor);
+        View.drawSprite(ctx, factor, Sprites.icons[2], x, 36, Palettes.IconBlue);
 
 
         var i = player.maxLife;

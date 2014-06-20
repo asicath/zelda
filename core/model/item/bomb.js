@@ -6,6 +6,7 @@ var Bomb = function() {
 
     my.onPickUp = function(player) {
         // add a bomb
+        player.bombs = (player.bombs || 0) + 1;
 
         Sounds.getItem.play();
     };

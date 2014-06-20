@@ -6,6 +6,7 @@ var RupeeBlue = function() {
 
     my.onPickUp = function(player) {
         // add money
+        player.rupees = (player.rupees || 0) + 5;
 
         Sounds.getRupee.play();
     };

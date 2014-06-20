@@ -40,5 +40,6 @@
         {"x":16, "y": 0, "width": 16, "height":8},
         {"x":16, "y": 8, "width": 16, "height":8}
     ]},
-    {"url":"assets/sprites/letters.gif", "name":"letters"}
+    {"url":"assets/sprites/letters.gif", "name":"letters"},
+    {"url":"assets/sprites/icons.gif", "name":"icons"}
 ]
