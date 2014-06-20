@@ -2,9 +2,24 @@
 var View = (function() {
     var my = {};
 
-    var canvas;
+    var canvas, ctx;
 
     my.needsResize = true;
+
+    // ensure the canvas is taking up the whole parent
+    my.fullscreen = function() {
+
+        canvas = document.getElementById('img');
+        ctx = canvas.getContext('2d');
+        my.ctx = ctx;
+
+        var container = $(canvas).parent();
+        var c = $(canvas);
+
+        // Set width and height
+        if (c.attr('width') != container.width()) { c.attr('width', container.width()); }
+        if (c.attr('height') != container.height()) { c.attr('height', container.height()); }
+    };
 
     my.setSize = function(room, maxWidth, maxHeight) {
 
@@ -71,8 +86,6 @@ var View = (function() {
             my.setSize(roomNext, canvas.width, canvas.height);
         }
 
-        var ctx = canvas.getContext('2d');
-
         // determine offset
         var offsetPrev = {x: 0, y: 0};
         var offsetNext = {x: 0, y: 0};
@@ -100,9 +113,6 @@ var View = (function() {
         drawRoom(ctx, roomPrev, offsetPrev.x, offsetPrev.y);
         drawRoom(ctx, roomNext, offsetNext.x, offsetNext.y);
 
-        // Draw info
-        drawInfo(ctx, roomPrev);
-
         // mask top and bottom
         if (roomPrev.screen.yOffset > 0) {
             ctx.clearRect(0,0,canvas.width,Math.ceil(roomPrev.screen.yOffset));
@@ -127,8 +137,6 @@ var View = (function() {
             my.setSize(room, canvas.width, canvas.height);
         }
 
-        var ctx = canvas.getContext('2d');
-
         // Clear top and bottom
         if (room.screen.yOffset > 0) {
             ctx.clearRect(0,0,canvas.width,Math.ceil(room.screen.yOffset));
@@ -141,9 +149,6 @@ var View = (function() {
 
         // draw the room
         drawRoom(ctx, room, 0, 0);
-
-        // Draw info
-        drawInfo(ctx, room);
 
     };
 
@@ -162,58 +167,7 @@ var View = (function() {
         ctx.restore();
     };
 
-    var drawInfo = function(ctx, room) {
-        ctx.save();
-        ctx.translate(room.screen.xOffset, room.screen.yOffset);
 
-        // Optional draws
-        if (room.wave) {
-            drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4, room.screen.factor);
-        }
-
-        if (room.players) {
-            displayPlayerInfo(ctx, 0, 4, room.screen.factor, room.players[0]);
-            displayPlayerInfo(ctx, 1, 172, room.screen.factor, room.players[1]);
-        }
-
-        ctx.restore();
-    };
-
-    var displayPlayerInfo = function(ctx, playerId, x, factor, player) {
-
-        //var player = currentRoom.players[playerId];
-
-        if (!player) {
-
-            return;
-        }
-
-        drawText(ctx, " player " + (playerId + 1).toString() + " ", x, 4, factor);
-
-        drawText(ctx, " killed " + player.monstersKilled.toString() + " ", x, 12, factor);
-
-
-        var i = player.maxLife;
-
-        ctx.fillStyle="#000000";
-        ctx.fillRect(x * factor, 20 * factor, ((i / 4)+2) * factor * 8, 8 * factor);
-
-        while (i > 0) {
-            var index = 0;
-            if (i > player.life) {
-                if (i - player.life == 2) {
-                    index = 1;
-                }
-                else {
-                    index = 2;
-                }
-            }
-            View.drawSprite(ctx, factor, Sprites.heart[index], x + (i/4)*8, 20, Palettes.DeathStarRedBlue);
-            i-=4;
-        }
-
-
-    };
 
     var textMap = {
         "a": 0,
@@ -262,7 +216,8 @@ var View = (function() {
         "8": 41,
         "9": 42
     };
-    var drawText = function(ctx, text, x, y, factor) {
+
+    my.drawText = function(ctx, text, x, y, factor) {
 
         //
         ctx.fillStyle="#000000";
@@ -293,17 +248,7 @@ var View = (function() {
 
 
 
-    // ensure the canvas is taking up the whole parent
-    my.fullscreen = function() {
 
-        canvas = document.getElementById('img');
-        var container = $(canvas).parent();
-        var c = $(canvas);
-
-        // Set width and height
-        if (c.attr('width') != container.width()) { c.attr('width', container.width()); }
-        if (c.attr('height') != container.height()) { c.attr('height', container.height()); }
-    };
 
     return my;
 })();
