@@ -9,7 +9,8 @@ var Player = function(playerId) {
 
     my.setAction(ThrustSword(my), 'attack');
     my.setAction(SwordRain(my), 'specialY');
-    my.setAction(Protection(my), 'special');
+    //my.setAction(Protection(my), 'special');
+    my.setAction(DropBomb(my), 'special');
 
     my.playerId = playerId;
     my.wallSensitive = true;

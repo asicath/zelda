@@ -91,8 +91,10 @@ var Sounds = (function() {
             {file: 'assets/sounds/shield.wav', name:'shield'},
             {file: 'assets/sounds/fanfare.wav', name:'fanfare'},
             {file: 'assets/sounds/Swrd Brst Full 2.mp3', name:'swordForce'},
-            {file: 'assets/sounds/White Magic.mp3', name:'whiteMagic'}
+            {file: 'assets/sounds/White Magic.mp3', name:'whiteMagic'},
 
+            {file: 'assets/sounds/bomb_blow.wav', name:'bombBlow'},
+            {file: 'assets/sounds/bomb_drop.wav', name:'bombDrop'}
         ]
     };
 

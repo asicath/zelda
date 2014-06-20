@@ -1,7 +1,8 @@
 var SpawnCloud = function(entity) {
     var my = Entity();
 
-    my.position = entity.position;
+    if (entity)
+        my.position = entity.position;
 
     my.icon.sprites = Sprites.cloud;
     my.icon.spriteIndex = 0;
@@ -19,7 +20,8 @@ var SpawnCloud = function(entity) {
 
     my.setFrameTimeout(44, function(room) {
         room.removeEntity(my);
-        room.addEntity(entity);
+        if (entity)
+            room.addEntity(entity);
     });
 
 
