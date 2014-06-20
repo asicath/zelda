@@ -1,8 +1,15 @@
 var Actor = function(my) {
 
-    my.action = null;
-    my.specialAction = null;
-    my.specialActionY = null;
+    var actions = [];
+
+    my.setAction = function(action, inputName) {
+        var i = 0;
+        while (i < actions.length) {
+            if (actions[i].inputName == inputName) break;
+            i++;
+        }
+        actions[i] = {action: action, inputName: inputName};
+    };
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
@@ -15,38 +22,24 @@ var Actor = function(my) {
 
     };
 
+    // Give the actions a frame of time
     var executeActions = function(room) {
-
-        my.action.executeAction(room);
-
-        if (my.specialAction) my.specialAction.executeAction(room);
-
-        if (my.specialActionY) my.specialActionY.executeAction(room);
+        for (var i = 0; i < actions.length; i++) {
+            actions[i].action.executeAction(room);
+        }
     };
 
+    // Read playerInput object and map to actions
     var updateInput = function(id) {
-
-        if (playerInput[id].attack) {
-            my.action.activateIntent = true;
+        for (var i = 0; i < actions.length; i++) {
+            var action = actions[i];
+            if (playerInput[id][action.inputName]) {
+                action.action.activateIntent = true;
+            }
+            else {
+                action.action.activateIntent = false;
+            }
         }
-        else {
-            my.action.activateIntent = false;
-        }
-
-        if (playerInput[id].special) {
-            my.specialAction.activateIntent = true;
-        }
-        else {
-            my.specialAction.activateIntent = false;
-        }
-
-        if (playerInput[id].specialY) {
-            my.specialActionY.activateIntent = true;
-        }
-        else {
-            my.specialActionY.activateIntent = false;
-        }
-
     };
 
 };
