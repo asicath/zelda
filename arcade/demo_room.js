@@ -1,4 +1,6 @@
-var DemoRoom = function(data) {
+
+
+var DemoRoom = function(data, music) {
     var my = Room(data);
 
     var createPlayer = function(playerId) {
