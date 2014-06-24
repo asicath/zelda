@@ -60,6 +60,7 @@ $(function() {
 
             // Blazing
             (function () {
+                if (imgBlazing.width <= 0) return;
                 var x = Math.floor((63 - imgBlazing.width)/2) + 1;
                 var y = 0 + 1;
                 ctx.drawImage(imgBlazing, x, 0);
@@ -67,6 +68,7 @@ $(function() {
 
             // pixel
             (function () {
+                if (imgPixel.width <= 0) return;
                 var x = Math.floor((63 - imgPixel.width)/2) + 1;
                 var y = 63 - imgPixel.height + 1;
                 ctx.drawImage(imgPixel, x, y);
@@ -140,8 +142,6 @@ $(function() {
         // setup the next frame draw
         requestAnimFrame(draw);
 
-
-
         main.draw();
 
         //Upscaled via drawImage (canvas)
@@ -153,12 +153,6 @@ $(function() {
         ctxx.drawImage(img, 0, 0, 63, 63, 0, 0, 500, 500);
     };
 
-
-    imgBlazing.onload = function(){
-        imgPixel.onload = function() {
-            draw();
-        };
-    };
-
+    draw();
 
 });
