@@ -1,90 +1,116 @@
 
 $(function() {
 
-    var canvas, ctx, width, height;
+    var imgBlazing = new Image();
+    imgBlazing.src = 'blazing.gif';
 
-    canvas = document.getElementById('blazingpixel');
-    ctx = canvas.getContext('2d');
+    var imgPixel = new Image();
+    imgPixel.src = 'pixel.gif';
 
-    width = $(canvas).attr('width');
-    height = $(canvas).attr('height');
+    var Main = function(canvas) {
 
-
-    var squareSideLength = width * 0.01;
-    var maxGloryRadius = width / 2 - 2;
-    var minGloryRadius = squareSideLength / 2 - 2;
-
-    var radiusOffset = Math.PI / 2;
-
-    var drawGlory = function(total, increment, radius, color) {
-        var n = 0;
-
-        while (n < total) {
-            var r = Math.PI * 2 * (n / total) + radiusOffset;
-            var x = Math.cos(r) * radius + width/2;
-            var y = Math.sin(r) * radius + height/2;
-            ctx.beginPath();
-            ctx.moveTo(width/2, height/2);
-            ctx.lineTo(x, y);
-            ctx.lineWidth=3;
-            ctx.strokeStyle=color;
-            ctx.stroke();
-            n += increment;
-        }
-    };
-
-    var getColor = function(r, g, b, a) {
-        return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
-    };
-
-    var total = 200;
+        var ctx, width, height;
 
 
-    var draw = function() {
+        ctx = canvas.getContext('2d');
 
-        total += 0.05;
-        radiusOffset -= Math.PI / 400;
+        width = $(canvas).attr('width');
+        height = $(canvas).attr('height');
 
-        // setup the next frame draw
-        requestAnimFrame( draw );
 
-        ctx.clearRect(0, 0, width, height);
+        var squareSideLength = 1;
+        var maxGloryRadius = width / 2;
+        var minGloryRadius = squareSideLength / 2;
 
-        // draw the glory
-        (function() {
-            //var total = 200;
-            var max = 200;
-            var numbers = [
-                2,
-                3,
-                5,
-                7,
-                11,
-                13,
-                17
-            ];
-            //var numbers = [2, 3];
-            for (var i = numbers.length - 1; i >= 0; i--) {
+        var radiusOffset = Math.PI / 2;
 
-                var radius = (maxGloryRadius - minGloryRadius) * ((i + 1) / numbers.length) + minGloryRadius;
-                //drawGlory(total, numbers[i], radius, Color.ByNumber(numbers.length - 1 - i, numbers.length, max));
-                drawGlory(total, numbers[i], radius, Color.ByNumber(numbers.length - 1 - i, numbers.length, max, 0.2 + 0.8 * (i/numbers.length)));
+        var drawGlory = function (total, increment, radius, color) {
+            var n = 0;
+
+            while (n < total) {
+                var r = Math.PI * 2 * (n / total) + radiusOffset;
+                var x = Math.cos(r) * radius + width / 2;
+                var y = Math.sin(r) * radius + height / 2;
+                ctx.beginPath();
+                ctx.moveTo(width / 2, height / 2);
+                ctx.lineTo(x, y);
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = color;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+                n += increment;
             }
+        };
 
-            //drawGlory(total, 3, maxGloryRadius * 0.8, Color.ByNumber(1, 3, max));
-            //drawGlory(total, 5, maxGloryRadius, Color.ByNumber(2, 3, max));
-        })();
+        var getColor = function (r, g, b, a) {
+            return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
+        };
 
-        // draw the square
-        (function() {
-            var x = (width - squareSideLength) / 2;
-            var y = (height - squareSideLength) / 2;
+        var total = 221;
+
+
+        var draw = function () {
+
+            //total += 0.05;
+            radiusOffset += Math.PI / 1200;
+
+
+
+            ctx.clearRect(0, 0, width, height);
+
+            // Blazing
+            (function () {
+                var x = Math.floor((63 - imgBlazing.width)/2) + 1;
+                var y = 0 + 1;
+                ctx.drawImage(imgBlazing, x, 0);
+            })();
+
+            // pixel
+            (function () {
+                var x = Math.floor((63 - imgPixel.width)/2) + 1;
+                var y = 63 - imgPixel.height + 1;
+                ctx.drawImage(imgPixel, x, y);
+            })();
+
+            // draw the glory
+            (function () {
+                //var total = 200;
+                var max = 255;
+                var numbers = [
+                    2,
+                    3,
+                    5,
+                    7,
+                    11,
+                    13,
+                    17
+                ];
+
+                var baseA = 0.05;
+
+                //var numbers = [2, 3];
+                for (var i = numbers.length - 1; i >= 0; i--) {
+                    var radius = (maxGloryRadius - minGloryRadius) * ((i + 1) / numbers.length) + minGloryRadius;
+                    drawGlory(total, numbers[i], radius, Color.ByNumber(numbers.length - 1 - i, numbers.length, max, baseA + (1-baseA) * (i / numbers.length)));
+                }
+
+            })();
 
             // draw the square
-            ctx.fillStyle="#ffffff";
-            ctx.fillRect(x,y,squareSideLength,squareSideLength);
-        })();
+            (function () {
+                var x = (width - squareSideLength) / 2;
+                var y = (height - squareSideLength) / 2;
+
+                // draw the square
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(x, y, squareSideLength, squareSideLength);
+            })();
+        };
+
+        return {draw: draw};
     };
+
+
 
 
 
@@ -99,20 +125,40 @@ $(function() {
             };
     })();
 
-    draw();
+
+    var img = document.createElement('canvas');
+    img.width = 63;
+    img.height = 63;
+
+
+    var main = Main(img);
+
+    var canvas = document.getElementById('blazingpixel');
+    var ctxx = canvas.getContext('2d');
+
+    var draw = function() {
+        // setup the next frame draw
+        requestAnimFrame(draw);
 
 
 
-    var init = function() {
-        //var container = $(canvas).parent();
-        //var c = $(canvas);
+        main.draw();
 
-        // Set width and height
-        //if (c.attr('width') != container.width()) { c.attr('width', container.width()); }
-        //if (c.attr('height') != container.height()) { c.attr('height', container.height()); }
+        //Upscaled via drawImage (canvas)
+        ctxx.clearRect(0, 0, 500, 500);
+        ctxx.mozImageSmoothingEnabled = false;
+        ctxx.webkitImageSmoothingEnabled = false;
+        ctxx.msImageSmoothingEnabled = false;
+        ctxx.imageSmoothingEnabled = false;
+        ctxx.drawImage(img, 0, 0, 63, 63, 0, 0, 500, 500);
     };
 
 
+    imgBlazing.onload = function(){
+        imgPixel.onload = function() {
+            draw();
+        };
+    };
 
 
 });
