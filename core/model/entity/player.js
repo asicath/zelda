@@ -92,6 +92,9 @@ var Player = function(playerId) {
         // prevent further actions
         my.isDead = true;
 
+        room.onPlayerKill(my);
+
+
         // replace with a death animation
         var ani = Death(my);
         room.addEntity(ani);

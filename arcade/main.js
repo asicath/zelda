@@ -88,18 +88,17 @@ var runDemo = function() {
     loadAllSprites(function() {
         loadRoomJson('', baseUrl + 'assets/rooms/ow08-07.js', function(data) {
 
-            currentRoom = DemoRoom(data);
+            currentRoom = DemoRoom(data, music);
 
             var cycle = DemoCycle(currentRoom);
             cycle.start();
 
             gamepadSupport.init();
 
-            music.start();
+            //music.setPercent(0);
+            //music.start();
 
-
-            music.setPercent(0);
-
+            /*
             var p = 0;
             setInterval(function() {
                 if (p < 1) {
@@ -107,6 +106,7 @@ var runDemo = function() {
                     music.setPercent(p);
                 }
             }, 1000);
+            */
 
             //Music.eightBit.loop = true;
             //Music.eightBit.play();
