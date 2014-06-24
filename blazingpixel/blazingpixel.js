@@ -43,7 +43,7 @@ $(function() {
     var draw = function() {
 
         total += 0.05;
-        radiusOffset -= Math.PI / 400;
+        radiusOffset += Math.PI / 400;
 
         // setup the next frame draw
         requestAnimFrame( draw );
