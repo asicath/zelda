@@ -18,6 +18,12 @@ var LayeredMusicWithIntro = function(layers, intro) {
         intro.audio.play();
     };
 
+    var isReadyToPlay_base = my.isReadyToPlay;
+    my.isReadyToPlay = function() {
+        if (intro.audio.readyState < 3) return false;
+        return isReadyToPlay_base();
+    };
+
     var setPercent_base = my.setPercent;
     my.setPercent = function(level) {
         var full = 1 / layers.length;
@@ -47,6 +53,13 @@ var LayeredMusic = function(layers) {
             this.play();
         }, false);
     }
+
+    my.isReadyToPlay = function() {
+        for (var i = 0; i < layers.length; i++) {
+            if (layers[i].audio.readyState < 3) return false;
+        }
+        return true;
+    };
 
     my.start = function() {
         for (var i = 0; i < layers.length; i++) {

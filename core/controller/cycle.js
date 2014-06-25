@@ -15,21 +15,13 @@ var Cycle = function() {
 
     var my = {};
 
-
     // Make sure that the canvas is taking the entire window
-    View.fullscreen();
+    View.init();
 
     $(window).resize(function() {
-        my.onWindowResize();
+        // reset the room cache
+        View.needsResize = true;
     });
-
-    // default resize event
-    my.onWindowResize = function() {
-        // ensure the canvas is taking up the whole parent
-        View.fullscreen();
-    };
-
-
 
     // Setup the model frame process
     var prev = new Date();

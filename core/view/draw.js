@@ -6,19 +6,28 @@ var View = (function() {
 
     my.needsResize = true;
 
-    // ensure the canvas is taking up the whole parent
-    my.fullscreen = function() {
-
+    my.init = function() {
         canvas = document.getElementById('img');
         ctx = canvas.getContext('2d');
         my.ctx = ctx;
 
+        ctx.mozImageSmoothingEnabled = false;
+        ctx.webkitImageSmoothingEnabled = false;
+        ctx.msImageSmoothingEnabled = false;
+        ctx.imageSmoothingEnabled = false;
+    };
+
+    // ensure the canvas is taking up the whole parent
+    var fullscreen = function() {
         var container = $(canvas).parent();
         var c = $(canvas);
 
         // Set width and height
         if (c.attr('width') != container.width()) { c.attr('width', container.width()); }
         if (c.attr('height') != container.height()) { c.attr('height', container.height()); }
+
+        c.css('width', container.width());
+        c.css('height', container.height());
     };
 
     var setSize = function(room, maxWidth, maxHeight) {
@@ -26,17 +35,19 @@ var View = (function() {
         // find the maximum screen size
         var factor = Math.min(maxWidth / room.rect.width, maxHeight / room.rect.height);
         room.screen = {
-            width: Math.floor(room.rect.width * factor),
-            height: Math.floor(room.rect.height * factor),
-            factor: factor
+            drawWidth: Math.floor(room.rect.width * factor),
+            drawHeight: Math.floor(room.rect.height * factor),
+            width: Math.floor(room.rect.width),
+            height: Math.floor(room.rect.height),
+            factor: 1
         };
 
         // find center for later
-        room.screen.xOffset = Math.abs(room.screen.width - maxWidth) / 2;
-        room.screen.yOffset = Math.abs(room.screen.height - maxHeight) / 2;
+        room.screen.xOffset = Math.abs(room.screen.drawWidth - maxWidth) / 2;
+        room.screen.yOffset = Math.abs(room.screen.drawHeight - maxHeight) / 2;
 
         // Create the virtual screen
-        var upscaleFactor = Math.ceil(factor); // must be integer
+        var upscaleFactor = Math.ceil(room.screen.factor); // must be integer
         var buffer = document.createElement('canvas');
         buffer.width = room.rect.width * upscaleFactor;
         buffer.height = room.rect.height * upscaleFactor;
@@ -75,6 +86,7 @@ var View = (function() {
             roomPrev.screen = null;
             roomNext.screen = null;
             my.needsResize = false;
+            fullscreen();
         }
 
         if (!roomPrev.screen) {
@@ -124,16 +136,22 @@ var View = (function() {
 
     };
 
-
+    var offscreen, offscreenCtx;
     my.drawRoomFullScreen = function(room) {
 
         if (my.needsResize) {
             room.screen = null;
             my.needsResize = false;
+            fullscreen();
         }
 
         if (!room.screen) {
             setSize(room, canvas.width, canvas.height);
+
+            offscreen = document.createElement('canvas');
+            offscreen.width = room.screen.width;
+            offscreen.height = room.screen.height;
+            offscreenCtx = offscreen.getContext('2d');
         }
 
         // Clear top and bottom
@@ -146,14 +164,31 @@ var View = (function() {
             ctx.clearRect(room.screen.xOffset + room.screen.width,0,Math.ceil(room.screen.xOffset), canvas.height);
         }
 
-        // draw the room
-        drawRoom(ctx, room, 0, 0);
+        /*
+        room.screen = {
+            drawWidth: Math.floor(room.rect.width * factor),
+            drawHeight: Math.floor(room.rect.height * factor),
+            width: Math.floor(room.rect.width),
+            height: Math.floor(room.rect.height),
+            factor: 1
+        };
+        */
 
+        // draw the room
+        drawRoom(offscreenCtx, room, 0, 0);
+
+        //ctx.drawImage(offscreen, 0, 0);
+
+        ctx.mozImageSmoothingEnabled = false;
+        ctx.webkitImageSmoothingEnabled = false;
+        ctx.msImageSmoothingEnabled = false;
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(offscreen, 0, 0, offscreen.width, offscreen.height, room.screen.xOffset, room.screen.yOffset, room.screen.drawWidth, room.screen.drawHeight);
     };
 
     var drawRoom = function(ctx, room, xOffset, yOffset) {
-        ctx.save();
-        ctx.translate(room.screen.xOffset + xOffset, room.screen.yOffset + yOffset);
+        //ctx.save();
+        //ctx.translate(room.screen.xOffset + xOffset, room.screen.yOffset + yOffset);
 
         // draw to the real screen
         ctx.drawImage(room.screen.sizedImage, 0, 0);
@@ -163,7 +198,7 @@ var View = (function() {
             drawEntity(ctx, room.entities[i], room.screen.factor);
         }
 
-        ctx.restore();
+        //ctx.restore();
     };
 
 

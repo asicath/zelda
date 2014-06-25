@@ -5,7 +5,18 @@ var DemoRoom = function(data, music) {
 
     var musicPercent = 0.1;
     music.setPercent(musicPercent);
-    music.start();
+
+
+    var startMusicWhenReady = function() {
+        if (music.isReadyToPlay()) {
+            music.start();
+            return;
+        }
+        setTimeout(startMusicWhenReady, 1000);
+    }
+
+    startMusicWhenReady();
+
 
     var createPlayer = function(playerId) {
         my.players[playerId] = Player(playerId);

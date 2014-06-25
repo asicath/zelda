@@ -6,16 +6,6 @@ var RoomRunnerCycle = function(rooms) {
     var y = 7;
     var transition = null;
 
-    // Make sure to clear the room's cache on resize?
-    var onWindowResize_parent = my.onWindowResize;
-    my.onWindowResize = function() {
-        onWindowResize_parent();
-
-        // reset the room cache
-        View.needsResize = true;
-    };
-
-
     // guaranteed one call per 16ms
     var processFrame_parent = my.processFrame;
     my.processFrame = function() {
