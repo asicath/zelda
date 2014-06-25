@@ -46,6 +46,8 @@ var View = (function() {
         room.screen.xOffset = Math.abs(room.screen.drawWidth - maxWidth) / 2;
         room.screen.yOffset = Math.abs(room.screen.drawHeight - maxHeight) / 2;
 
+
+
         // Create the virtual screen
         var buffer = document.createElement('canvas');
         buffer.width = room.rect.width;
@@ -67,15 +69,9 @@ var View = (function() {
             }
         }
 
+        room.screen.sizedImage = buffer;
 
-        // downscale to exact screen size
-        var resize = document.createElement('canvas');
-        resize.width = room.screen.width;
-        resize.height = room.screen.height;
-        ctxBuffer = resize.getContext('2d');
-        ctxBuffer.drawImage(buffer, 0, 0, room.screen.width, room.screen.height);
-
-        room.screen.sizedImage = resize;
+        
     };
 
 
