@@ -145,12 +145,12 @@ $(function() {
         main.draw();
 
         //Upscaled via drawImage (canvas)
-        ctxx.clearRect(0, 0, 500, 500);
+        ctxx.clearRect(0, 0, canvas.width, canvas.height);
         ctxx.mozImageSmoothingEnabled = false;
         ctxx.webkitImageSmoothingEnabled = false;
         ctxx.msImageSmoothingEnabled = false;
         ctxx.imageSmoothingEnabled = false;
-        ctxx.drawImage(img, 0, 0, 63, 63, 0, 0, 500, 500);
+        ctxx.drawImage(img, 0, 0, 63, 63, 0, 0, canvas.width, canvas.height);
     };
 
     draw();
