@@ -21,7 +21,7 @@ var View = (function() {
         if (c.attr('height') != container.height()) { c.attr('height', container.height()); }
     };
 
-    my.setSize = function(room, maxWidth, maxHeight) {
+    var setSize = function(room, maxWidth, maxHeight) {
 
         // find the maximum screen size
         var factor = Math.min(maxWidth / room.rect.width, maxHeight / room.rect.height);
@@ -42,9 +42,8 @@ var View = (function() {
         buffer.height = room.rect.height * upscaleFactor;
         var ctxBuffer = buffer.getContext('2d');
 
+        // actually draw the sprites
         if (room.backgroundSprite) {
-            //ctxBuffer.drawImage(room.backgroundImage, 0, 0, buffer.width, buffer.height);
-
             View.drawSprite(ctxBuffer, upscaleFactor, room.backgroundSprite[0], 0, 0, Palettes.Default);
         }
         else {
@@ -79,11 +78,11 @@ var View = (function() {
         }
 
         if (!roomPrev.screen) {
-            my.setSize(roomPrev, canvas.width, canvas.height);
+            setSize(roomPrev, canvas.width, canvas.height);
         }
 
         if (!roomNext.screen) {
-            my.setSize(roomNext, canvas.width, canvas.height);
+            setSize(roomNext, canvas.width, canvas.height);
         }
 
         // determine offset
@@ -134,7 +133,7 @@ var View = (function() {
         }
 
         if (!room.screen) {
-            my.setSize(room, canvas.width, canvas.height);
+            setSize(room, canvas.width, canvas.height);
         }
 
         // Clear top and bottom
