@@ -1,13 +1,14 @@
 var ItemDropper = function(entity) {
 
-    var chance = 1/3;
+
 
     entity.dropItem = function(room, itemClass) {
+        var table = ItemDropper.dropGroups[itemClass];
 
-        if (Math.random() > chance) return;
+        if (Math.random() > table.chance) return;
 
-        var table = ItemDropper.DropTables[itemClass];
-        var type = table[Math.floor(Math.random() * table.length)];
+
+        var type = table.items[Math.floor(Math.random() * table.items.length)];
         var item = type();
         item.position.x = entity.position.x;
         item.position.y = entity.position.y;
@@ -16,6 +17,59 @@ var ItemDropper = function(entity) {
     };
 
 };
+
+
+ItemDropper.dropGroups = {
+    a:{
+        chance: 1/2,
+        items:[
+            Rupee,
+            Rupee,
+            RupeeBlue,
+            Rupee,
+            Heart,
+            Rupee,
+            Rupee,
+            Rupee,
+            Rupee,
+            Heart
+        ]
+    },
+    b:{
+        chance: 13/20,
+        items:[
+            RupeeBlue,
+            Rupee,
+            Bomb,
+            Rupee,
+            RupeeBlue,
+            Rupee,
+            Heart,
+            StopTimer,
+            Bomb,
+            Rupee
+        ]
+    },
+    c:{
+        chance: 4/5,
+        items:[
+            Heart,
+            Rupee,
+            Fairy,
+            Rupee,
+            Rupee,
+            Heart,
+            Rupee,
+            StopTimer,
+            Rupee,
+            Heart
+        ]
+    }
+};
+
+/*
+
+ var chance = 1/3;
 
 ItemDropper.DropTables = [
     [
@@ -70,3 +124,4 @@ ItemDropper.DropTables = [
 
 
 ];
+*/

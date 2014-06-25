@@ -23,14 +23,14 @@ var Monster = function() {
 
     my.facingSpriteBaseIndex = [0, 2, 4, 6];
 
-    var itemDropLevel = 0;
+    var itemDropLevel = 'a';
 
     if (Math.random() < 0.25) {
         // Fast
         my.speed = 1.0; // can move 40 pixels in 1s or 60 frames
         my.changeDirectionPercent = 6/16;
         my.homingPercent = 128/255;
-        itemDropLevel = 1;
+        itemDropLevel = 'b';
     }
     else {
         // Slow

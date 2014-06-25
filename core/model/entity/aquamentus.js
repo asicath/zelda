@@ -46,7 +46,7 @@ var Aquamentus = function() {
     };
 
     my.afterDeath = function(room) {
-        my.dropItem(room, itemDropLevel);
+        my.dropItem(room, 'c');
     };
 
     return my;
