@@ -47,15 +47,14 @@ var View = (function() {
         room.screen.yOffset = Math.abs(room.screen.drawHeight - maxHeight) / 2;
 
         // Create the virtual screen
-        var upscaleFactor = Math.ceil(room.screen.factor); // must be integer
         var buffer = document.createElement('canvas');
-        buffer.width = room.rect.width * upscaleFactor;
-        buffer.height = room.rect.height * upscaleFactor;
+        buffer.width = room.rect.width;
+        buffer.height = room.rect.height;
         var ctxBuffer = buffer.getContext('2d');
 
         // actually draw the sprites
         if (room.backgroundSprite) {
-            View.drawSprite(ctxBuffer, upscaleFactor, room.backgroundSprite[0], 0, 0, Palettes.Default);
+            View.drawSprite(ctxBuffer, room.backgroundSprite[0], 0, 0, Palettes.Default);
         }
         else {
             // draw to the virtual screen
@@ -63,7 +62,7 @@ var View = (function() {
             var i = 0;
             while (i < room.tiles.length) {
                 var t = room.tiles[i];
-                View.drawSprite(ctxBuffer, upscaleFactor, room.sprites[t.index], t.x, t.y, palettes[t.palette]);
+                View.drawSprite(ctxBuffer, room.sprites[t.index], t.x, t.y, palettes[t.palette]);
                 i++;
             }
         }
@@ -186,19 +185,14 @@ var View = (function() {
         ctx.drawImage(offscreen, 0, 0, offscreen.width, offscreen.height, room.screen.xOffset, room.screen.yOffset, room.screen.drawWidth, room.screen.drawHeight);
     };
 
-    var drawRoom = function(ctx, room, xOffset, yOffset) {
-        //ctx.save();
-        //ctx.translate(room.screen.xOffset + xOffset, room.screen.yOffset + yOffset);
-
+    var drawRoom = function(ctx, room) {
         // draw to the real screen
         ctx.drawImage(room.screen.sizedImage, 0, 0);
 
         // now the entities
         for (var i = room.entities.length-1; i >= 0; i--) {
-            drawEntity(ctx, room.entities[i], room.screen.factor);
+            drawEntity(ctx, room.entities[i]);
         }
-
-        //ctx.restore();
     };
 
 
@@ -251,11 +245,10 @@ var View = (function() {
         "9": 42
     };
 
-    my.drawText = function(ctx, text, x, y, factor) {
+    my.drawText = function(ctx, text, x, y) {
 
-        //
         ctx.fillStyle="#000000";
-        ctx.fillRect(x * factor, y * factor, text.length * factor * 8, 8 * factor);
+        ctx.fillRect(x, y, text.length * 8, 8);
 
         for (var i = 0; i < text.length; i++) {
 
@@ -263,21 +256,21 @@ var View = (function() {
             if (typeof char === "undefined") char = 43;
 
             var sprite = Sprites.letters[char];
-            View.drawSprite(ctx, factor, sprite, x + i*8, y, Palettes.Text);
+            View.drawSprite(ctx, sprite, x + i*8, y, Palettes.Text);
         }
 
 
     };
 
-    var drawEntity = function(ctx, entity, factor) {
+    var drawEntity = function(ctx, entity) {
         // todo allow for multiple icons per entity
         if (!entity.icon) return;
-        drawIcon(ctx, entity.icon, factor);
+        drawIcon(ctx, entity.icon);
     };
 
-    var drawIcon = function(ctx, icon, factor) {
+    var drawIcon = function(ctx, icon) {
         if (icon.isVisible())
-            View.drawSprite(ctx, factor, icon.getSprite(), icon.getXPosition(), icon.getYPosition(), icon.getPalette());
+            View.drawSprite(ctx, icon.getSprite(), icon.getXPosition(), icon.getYPosition(), icon.getPalette());
     };
 
 

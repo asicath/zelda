@@ -1,6 +1,8 @@
 (function() {
 
-    View.drawSprite = function(ctx, pixelScale, sprite, x, y, palette) {
+    View.drawSprite = function(ctx, sprite, x, y, palette) {
+
+        var pixelScale = 1;
 
         if (!sprite.cache) sprite.cache = {};
 
