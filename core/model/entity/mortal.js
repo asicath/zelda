@@ -29,7 +29,13 @@ var Mortal = function(my) {
         room.removeEntity(my);
 
         // tell the room the monster was killed
-        room.onMonsterKill(my, entity);
+        if (my.entityType == 'player') {
+            room.onPlayerKill(my, entity);
+        }
+        else {
+            room.onMonsterKill(my, entity);
+        }
+
 
         // prevent further actions
         my.isDead = true;

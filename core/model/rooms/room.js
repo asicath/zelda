@@ -89,6 +89,9 @@ var Room = function(data) {
 
     };
 
+    my.onPlayerKill = function() {};
+    my.onMonsterKill = function() {};
+
     my.setPositionToOpenTile = function(entity) {
         var tile = null;
         while (!tile) {

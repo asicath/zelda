@@ -1,5 +1,11 @@
-var DemoRoom = function(data) {
+
+
+var DemoRoom = function(data, music) {
     var my = Room(data);
+
+    var musicPercent = 0.1;
+    music.setPercent(musicPercent);
+    music.start();
 
     var createPlayer = function(playerId) {
         my.players[playerId] = Player(playerId);
@@ -41,6 +47,11 @@ var DemoRoom = function(data) {
     var waveState = 0;
     my.framesToNextWave = 150;
 
+    my.onPlayerKill = function(player, killedBy) {
+        musicPercent = 0.1;
+        music.setPercent(musicPercent);
+    };
+
     my.onMonsterKill = function(monster, player) {
         // Cause two more monsters to spawn
         //countToAddMonster = 30;
@@ -50,6 +61,9 @@ var DemoRoom = function(data) {
         my.players[player.playerId].monstersKilled++;
 
         killCount++;
+
+        musicPercent += 0.02;
+        music.setPercent(musicPercent);
     };
 
     var checkWave = function() {
