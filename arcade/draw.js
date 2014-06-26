@@ -3,25 +3,18 @@ var DemoDraw = (function() {
     var my = {};
 
     my.drawInfo = function(ctx, room) {
-        ctx.save();
-        ctx.translate(room.screen.xOffset, room.screen.yOffset);
-
         // Optional draws
         if (room.wave) {
-            //View.drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4);
+            View.drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4);
         }
 
         if (room.players) {
-            //displayPlayerInfo(ctx, 0, 4, room.players[0]);
-            //displayPlayerInfo(ctx, 1, 172, room.players[1]);
+            displayPlayerInfo(ctx, 0, 4, room.players[0]);
+            displayPlayerInfo(ctx, 1, 172, room.players[1]);
         }
-
-        ctx.restore();
     };
 
     var displayPlayerInfo = function(ctx, playerId, x, player) {
-
-        //var player = currentRoom.players[playerId];
 
         if (!player) {
             return;

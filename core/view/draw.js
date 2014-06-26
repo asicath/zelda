@@ -25,9 +25,6 @@ var View = (function() {
         // Set width and height
         if (c.attr('width') != container.width()) { c.attr('width', container.width()); }
         if (c.attr('height') != container.height()) { c.attr('height', container.height()); }
-
-        c.css('width', container.width());
-        c.css('height', container.height());
     };
 
     var setSize = function(room, maxWidth, maxHeight) {
@@ -71,7 +68,7 @@ var View = (function() {
 
         room.screen.sizedImage = buffer;
 
-        
+
     };
 
 
@@ -132,7 +129,7 @@ var View = (function() {
     };
 
     var offscreen, offscreenCtx;
-    my.drawRoomFullScreen = function(room) {
+    my.drawRoomFullScreen = function(room, post) {
 
         if (my.needsResize) {
             room.screen = null;
@@ -159,21 +156,12 @@ var View = (function() {
             ctx.clearRect(room.screen.xOffset + room.screen.width,0,Math.ceil(room.screen.xOffset), canvas.height);
         }
 
-        /*
-        room.screen = {
-            drawWidth: Math.floor(room.rect.width * factor),
-            drawHeight: Math.floor(room.rect.height * factor),
-            width: Math.floor(room.rect.width),
-            height: Math.floor(room.rect.height),
-            factor: 1
-        };
-        */
-
         // draw the room
         drawRoom(offscreenCtx, room, 0, 0);
 
-        //ctx.drawImage(offscreen, 0, 0);
+        if (post) post(offscreenCtx);
 
+        // draw to the onscreen canvas
         ctx.mozImageSmoothingEnabled = false;
         ctx.webkitImageSmoothingEnabled = false;
         ctx.msImageSmoothingEnabled = false;
@@ -266,7 +254,7 @@ var View = (function() {
 
     var drawIcon = function(ctx, icon) {
         if (icon.isVisible())
-            View.drawSprite(ctx, icon.getSprite(), icon.getXPosition(), icon.getYPosition(), icon.getPalette());
+            View.drawSprite(ctx, icon.getSprite(), Math.floor(icon.getXPosition()), Math.floor(icon.getYPosition()), icon.getPalette());
     };
 
 

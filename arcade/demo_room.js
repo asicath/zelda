@@ -13,9 +13,9 @@ var DemoRoom = function(data, music) {
             return;
         }
         setTimeout(startMusicWhenReady, 1000);
-    }
+    };
 
-    startMusicWhenReady();
+    //startMusicWhenReady();
 
 
     var createPlayer = function(playerId) {
