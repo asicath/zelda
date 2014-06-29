@@ -175,7 +175,7 @@ var View = (function() {
 
         // now the entities
         for (var i = room.entities.length-1; i >= 0; i--) {
-            room.entities[i].draw(ctx);
+            room.entities[i].drawEntity(ctx);
         }
     };
 
