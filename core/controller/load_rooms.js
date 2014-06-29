@@ -49,7 +49,7 @@ var loadAllRooms = function(roomModel, success) {
                             data.overlay.overlay = overlay;
                             rooms[key] = roomModel(data);
                             onLoadComplete();
-                        }, true);
+                        });
                     }, true);
 
                 }

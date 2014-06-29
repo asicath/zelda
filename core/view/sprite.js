@@ -20,7 +20,7 @@ var Sprite = function(width, height) {
 };
 
 
-var loadSpritesFromImgUrl = function(imgUrl, map, success, useNaturalPalette) {
+var loadSpritesFromImgUrl = function(imgUrl, map, success) {
 
     var img = new Image();
     img.src = baseUrl + imgUrl;
@@ -36,7 +36,6 @@ var loadSpritesFromImgUrl = function(imgUrl, map, success, useNaturalPalette) {
         ctx.drawImage(img, 0, 0, img.width, img.height);
 
         var sprites = [];
-
 
         if (!map) {
             var xStart = 0;
@@ -81,26 +80,7 @@ var loadSpritesFromImgUrl = function(imgUrl, map, success, useNaturalPalette) {
                 i += 4;
             }
 
-            if (!useNaturalPalette) {
-                // Then map the colors to indexes
-                var pixel;
-                for (i=0;i < sprite.pixels.length;i++) {
-
-                    // Get the pixel
-                    pixel = sprite.pixels[i];
-
-                    switch (pixel.naturalColor.r) {
-                        case 0: pixel.i = 0; break;
-                        case 64: pixel.i = 1; break;
-                        case 128: pixel.i = 2; break;
-                        case 191: pixel.i = 3; break;
-                    }
-
-                }
-            }
-
             sprites.push(sprite);
-
 
         }
 
