@@ -24,6 +24,13 @@ var Cycle = function() {
         needsDraw = true;
     });
 
+    // Start both chain reactions
+    my.start = function() {
+        gameFrame();
+        animate();
+    };
+
+
 
     // 60 frames per second
     var targetFrameTime = 1000/60;
@@ -35,8 +42,6 @@ var Cycle = function() {
         // update any player input before processing frames
         gamepadSupport.pollStatus();
 
-        //processPendingFrames();
-
         // just one frame
         my.processFrame();
 
@@ -46,6 +51,7 @@ var Cycle = function() {
 
     // process a single frame of time
     my.processFrame = function() {};
+
 
 
     // cycle initiating model frames events and view drawing
@@ -61,13 +67,6 @@ var Cycle = function() {
     };
 
     my.drawFrame = function() {};
-
-
-    my.start = function() {
-        gameFrame();
-        animate();
-    };
-
 
 
     return my;
