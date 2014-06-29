@@ -13,10 +13,10 @@ var DemoCycle = function(room) {
     };
 
     // one call per animation call from window
-    var animate_parent = my.animate;
-    my.animate = function() {
+    var drawFrame_parent = my.drawFrame;
+    my.drawFrame = function() {
 
-        animate_parent();
+        drawFrame_parent();
 
         // now draw, taking up the entire canvas
         View.drawRoomFullScreen(room, function(ctx) {

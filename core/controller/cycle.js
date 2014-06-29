@@ -23,6 +23,7 @@ var Cycle = function() {
         View.needsResize = true;
     });
 
+    /*
     // Setup the model frame process
     var prev = new Date();
     var time = 0;
@@ -39,27 +40,51 @@ var Cycle = function() {
         }
     };
 
+    */
+
+    var needsDraw = false;
+
     // process a single frame of time
-    my.processFrame = function() {};
+    my.processFrame = function() {
+        needsDraw = true;
+    };
 
 
+    var targetFrameTime = 1000/60;
 
-    // cycle initiating model frames events and view drawing
-    my.animate = function() {
-
-        // setup the next frame draw
-        requestAnimFrame( my.animate );
+    var gameFrame = function() {
+        setTimeout(gameFrame, targetFrameTime);
 
         // update any player input before processing frames
         gamepadSupport.pollStatus();
 
-        // process the model time
-        processPendingFrames();
+        //processPendingFrames();
+
+        // just one frame
+        my.processFrame();
+    };
+
+
+
+    // cycle initiating model frames events and view drawing
+    var animate = function() {
+
+        // setup the next frame draw
+        requestAnimFrame( animate );
+
+        if (!needsDraw) return;
+        needsDraw = false;
+
+        my.drawFrame();
+    };
+
+    my.drawFrame = function() {
 
     };
 
     my.start = function() {
-        my.animate();
+        gameFrame();
+        animate();
     };
 
 
