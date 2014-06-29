@@ -21,6 +21,12 @@ var Entity = function() {
         return my.footPrints[type];
     };
 
+    my.draw = function(ctx) {
+        // todo allow for multiple icons per entity
+        if (!my.icon) return;
+        my.icon.draw(ctx);
+    };
+
     return my;
 };
 

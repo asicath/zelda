@@ -16,6 +16,84 @@ var Sprite = function(width, height) {
         return exports.pixels[i];
     };
 
+    exports.draw = function(ctx, x, y, palette) {
+
+        var pixelScale = 1;
+
+        if (!exports.cache) exports.cache = {};
+
+        var key = palette.name + '_' + pixelScale.toString();
+
+        if (!exports.cache[key]) {
+            var pixelScaleUp = Math.ceil(pixelScale);
+
+            if (pixelScale == pixelScaleUp) {
+                // direct draw, no need to upscale
+                exports.cache[key] = createSpriteCanvas(pixelScale, palette);
+            }
+            else {
+                // get the upscaled image
+                var upscaleKey = pixelScaleUp.toString();
+                exports.cache[upscaleKey] = createSpriteCanvas(pixelScaleUp, palette);
+
+                // now downscale
+                var img = document.createElement('canvas');
+                img.width = Math.ceil(exports.width * pixelScale);
+                img.height = Math.ceil(exports.height * pixelScale);
+                var context = img.getContext('2d');
+
+                context.drawImage(exports.cache[upscaleKey], 0, 0, exports.width * pixelScale, exports.height * pixelScale);
+
+                exports.cache[key] = img;
+            }
+
+
+        }
+
+        // Draw the cached image
+        ctx.drawImage(exports.cache[key], x * pixelScale, y * pixelScale);
+
+    };
+
+
+    // Return a canvas object with the sprite rendered to it
+    var createSpriteCanvas = function(pixelScale, palette) {
+        var img = document.createElement('canvas');
+        img.width = exports.width * pixelScale;
+        img.height = exports.height * pixelScale;
+        var context = img.getContext('2d');
+
+        // do the actual rendering of the pixels
+        drawSpriteFromPixels(context, pixelScale, palette);
+
+        return img;
+    };
+
+
+    // Draw the raw pixels of a sprite to the specified canvas context
+    var drawSpriteFromPixels = function(ctx, pixelScale, palette) {
+        var i = 0;
+        var c = null;
+        while (i < exports.pixels.length) {
+
+            var p = exports.pixels[i];
+
+            c = p.getColor(palette);
+
+            if (c != null) {
+                ctx.fillStyle = c;
+                ctx.fillRect(
+                        p.x * pixelScale,
+                        p.y * pixelScale,
+                    pixelScale,
+                    pixelScale
+                );
+            }
+
+            i++;
+        }
+    };
+
     return exports;
 };
 

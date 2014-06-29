@@ -53,7 +53,7 @@ var View = (function() {
 
         // actually draw the sprites
         if (room.backgroundSprite) {
-            View.drawSprite(ctxBuffer, room.backgroundSprite[0], 0, 0, Palettes.Default);
+            room.backgroundSprite[0].draw(ctxBuffer, 0, 0, Palettes.Default);
         }
         else {
             // draw to the virtual screen
@@ -61,7 +61,7 @@ var View = (function() {
             var i = 0;
             while (i < room.tiles.length) {
                 var t = room.tiles[i];
-                View.drawSprite(ctxBuffer, room.sprites[t.index], t.x, t.y, palettes[t.palette]);
+                room.sprites[t.index].draw(ctxBuffer, t.x, t.y, palettes[t.palette]);
                 i++;
             }
         }
@@ -175,7 +175,7 @@ var View = (function() {
 
         // now the entities
         for (var i = room.entities.length-1; i >= 0; i--) {
-            drawEntity(ctx, room.entities[i]);
+            room.entities[i].draw(ctx);
         }
     };
 
@@ -240,22 +240,15 @@ var View = (function() {
             if (typeof char === "undefined") char = 43;
 
             var sprite = Sprites.letters[char];
-            View.drawSprite(ctx, sprite, x + i*8, y, Palettes.Text);
+            sprite.draw(ctx, x + i*8, y, Palettes.Text);
         }
 
 
     };
 
-    var drawEntity = function(ctx, entity) {
-        // todo allow for multiple icons per entity
-        if (!entity.icon) return;
-        drawIcon(ctx, entity.icon);
-    };
 
-    var drawIcon = function(ctx, icon) {
-        if (icon.isVisible())
-            View.drawSprite(ctx, icon.getSprite(), Math.floor(icon.getXPosition()), Math.floor(icon.getYPosition()), icon.getPalette());
-    };
+
+
 
 
 

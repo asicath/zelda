@@ -54,5 +54,10 @@ var Icon = function(entity) {
     my.flashInterval = 2;
     var flashIndex = 0;
 
+    my.draw = function(ctx) {
+        if (my.isVisible())
+            my.getSprite().draw(ctx, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()), my.getPalette());
+    };
+
     return my;
 };
