@@ -21,36 +21,13 @@ var Cycle = function() {
     $(window).resize(function() {
         // reset the room cache
         View.needsResize = true;
+        needsDraw = true;
     });
 
-    /*
-    // Setup the model frame process
-    var prev = new Date();
-    var time = 0;
-    var frameTime = 1000 / 60;
 
-    var processPendingFrames = function() {
-        var now = new Date();
-        time += now - prev; // add some more time
-        prev = now;
-
-        while (time >= frameTime) {
-            time -= frameTime;
-            my.processFrame();
-        }
-    };
-
-    */
-
-    var needsDraw = false;
-
-    // process a single frame of time
-    my.processFrame = function() {
-        needsDraw = true;
-    };
-
-
+    // 60 frames per second
     var targetFrameTime = 1000/60;
+    var needsDraw = false;
 
     var gameFrame = function() {
         setTimeout(gameFrame, targetFrameTime);
@@ -62,8 +39,13 @@ var Cycle = function() {
 
         // just one frame
         my.processFrame();
+
+        // Let the animate function know that its ok to draw
+        needsDraw = true;
     };
 
+    // process a single frame of time
+    my.processFrame = function() {};
 
 
     // cycle initiating model frames events and view drawing
@@ -78,9 +60,8 @@ var Cycle = function() {
         my.drawFrame();
     };
 
-    my.drawFrame = function() {
+    my.drawFrame = function() {};
 
-    };
 
     my.start = function() {
         gameFrame();
