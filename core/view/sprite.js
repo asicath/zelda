@@ -16,7 +16,7 @@ var Sprite = function(width, height) {
         return exports.pixels[i];
     };
 
-    exports.draw = function(ctx, x, y, palette) {
+    exports.drawSprite = function(ctx, x, y, palette) {
 
         var pixelScale = 1;
 

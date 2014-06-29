@@ -56,7 +56,7 @@ var Icon = function(entity) {
 
     my.draw = function(ctx) {
         if (my.isVisible())
-            my.getSprite().draw(ctx, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()), my.getPalette());
+            my.getSprite().drawSprite(ctx, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()), my.getPalette());
     };
 
     return my;
