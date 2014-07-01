@@ -28,8 +28,6 @@ var Edge = function(direction) {
             break;
     }
 
-    //my.icon.sprites = Sprites.rock;
-    //my.icon.palette = Palettes.LinkGreen;
     my.visible = false;
 
     var executeFrame_parent = my.executeFrame;

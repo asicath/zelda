@@ -1,7 +1,9 @@
 [
     {"url":"assets/sprites/deathstar.gif", "name":"deathstar"},
     {"url":"assets/sprites/fairy.gif", "name":"fairy"},
-    {"url":"assets/sprites/outside.gif", "name":"outside"},
+    {"url":"assets/sprites/outside_green.gif", "name":"outsideGreen"},
+    {"url":"assets/sprites/outside_brown.gif", "name":"outsideBrown"},
+    {"url":"assets/sprites/outside_grey.gif", "name":"outsideGrey"},
     {"url":"assets/sprites/link.gif", "name":"link"},
     {"url":"assets/sprites/octopus.gif", "name":"octopus"},
     {"url":"assets/sprites/fly.gif", "name":"fly"},

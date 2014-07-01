@@ -6,7 +6,6 @@ var SpawnCloud = function(entity) {
 
     my.icon.sprites = Sprites.cloud;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.DeathStarWhiteBlue;
 
     my.entityType = "spawn";
 

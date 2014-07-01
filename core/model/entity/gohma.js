@@ -19,7 +19,6 @@ var Gohma = function() {
 
     my.icon.sprites = Sprites.gohma;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.MonsterRed;
 
     var itemDropLevel = 0;
 

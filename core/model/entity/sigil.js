@@ -3,7 +3,6 @@ var Sigil = function() {
 
     my.icon.sprites = Sprites.element;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.MonsterRed;
 
     my.getFootPrint().setSize(16, 16);
 

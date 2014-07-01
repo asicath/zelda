@@ -37,14 +37,6 @@ var Player = function(playerId) {
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
     my.icon.sprites = Sprites.link;
-    my.icon.palette = Palettes.LinkGreen;
-
-    if (playerId == 1) {
-        my.icon.palette = Palettes.LinkPurple;
-    }
-
-
-
 
     my.setFacing(Directions.top);
 

@@ -6,9 +6,6 @@ var Death = function(entity, after) {
 
     my.icon.sprites = Sprites.deathstar;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.MonsterRed;
-
-
 
     /* Death animation
      19 frames
@@ -40,6 +37,7 @@ var Death = function(entity, after) {
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
 
+        /*
         switch (deathFrame) {
             case 0: my.icon.palette = Palettes.DeathStarRedBlue; break;
             case 2: my.icon.palette = Palettes.DeathStarWhiteGold; break;
@@ -52,6 +50,7 @@ var Death = function(entity, after) {
             case 16: my.icon.palette = Palettes.DeathStarRedBlue; break;
             case 18: my.icon.palette = Palettes.DeathStarWhiteGold; break;
         }
+        */
 
 
         if (deathFrame <= 0) {

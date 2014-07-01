@@ -18,7 +18,6 @@ var Monster = function() {
 
     my.icon.sprites = Sprites.octopus;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.MonsterRed;
     my.icon.drawOffset.y = -2;
 
     my.facingSpriteBaseIndex = [0, 2, 4, 6];

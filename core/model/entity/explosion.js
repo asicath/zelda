@@ -8,7 +8,6 @@ var Explosion = function(angle) {
 
     my.icon.sprites = Sprites.explosion;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.MonsterBlue;
     my.icon.flashing = true;
 
     // Launch by default
@@ -26,12 +25,14 @@ var Explosion = function(angle) {
 
     };
 
+    /*
     my.icon.flashPalates = [
         Palettes.DeathStarRedBlue, // should be all blue
         Palettes.DeathStarWhiteGold,
         Palettes.DeathStarWhiteBlue,
         Palettes.DeathStarRedGold
     ];
+    */
 
     my.onEdgeEvent = function(room, wall, rect) {
         return true;

@@ -5,7 +5,6 @@ var BigBomb = function(player) {
     my.getFootPrint().setSize(16, 16);
     my.icon.sprites = Sprites.bigbomb;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.MonsterBlue;
     my.playerId = player.playerId; // expose for kill counting in monster
 
     var cloudPositions = [

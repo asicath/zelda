@@ -17,10 +17,21 @@ var Room = function(data) {
     if (data.tiles) {
         my.tiles = data.tiles;
 
+        var sprites = [
+            Sprites.outsideGreen,
+            Sprites.outsideBrown,
+            Sprites.outsideGrey
+        ];
+
         // init tiles
         for (var i = my.tiles.length - 1; i >= 0; i--) {
-            my.tiles[i].position = new Position(my.tiles[i].x, my.tiles[i].y);
-            my.tiles[i].rect = new Rect(my.tiles[i].position, 16, 16, 0, 0);
+            var tile = my.tiles[i];
+            tile.position = new Position(tile.x, tile.y);
+            tile.rect = new Rect(tile.position, 16, 16, 0, 0);
+
+
+            tile.sprite = sprites[tile.palette][tile.index];
+
         }
 
         // init walls from tiles
@@ -35,7 +46,6 @@ var Room = function(data) {
             }
         }
 
-        my.sprites = Sprites.outside;
     }
 
     if (data.overlay) {

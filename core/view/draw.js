@@ -60,7 +60,7 @@ var View = (function() {
             var i = 0;
             while (i < room.tiles.length) {
                 var t = room.tiles[i];
-                room.sprites[t.index].drawSprite(ctxBuffer, t.x, t.y);
+                t.sprite.drawSprite(ctxBuffer, t.x, t.y);
                 i++;
             }
         }

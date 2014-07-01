@@ -19,7 +19,6 @@ var Fly = function() {
 
     my.icon.sprites = Sprites.fly;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.Nihil;
     my.icon.drawOffset.y = 0;
     my.facingSpriteBaseIndex = [0, 0, 0, 0];
 

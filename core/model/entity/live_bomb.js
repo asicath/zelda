@@ -5,7 +5,6 @@ var LiveBomb = function(player) {
     my.getFootPrint().setSize(16, 16);
     my.icon.sprites = Sprites.items;
     my.icon.spriteIndex = 1;
-    my.icon.palette = Palettes.MonsterBlue;
     my.playerId = player.playerId; // expose for kill counting in monster
 
     var explode = function(room) {

@@ -99,6 +99,9 @@ var runDemo = function() {
     );
 
     loadAllSprites(function() {
+
+
+
         loadRoomJson('', baseUrl + 'assets/rooms/ow08-07.js', function(data) {
 
             currentRoom = DemoRoom(data, music);

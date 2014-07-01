@@ -22,7 +22,6 @@ var Aquamentus = function() {
 
     my.icon.sprites = Sprites.aquamentus;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.Aquamentus;
 
     var itemDropLevel = 0;
 

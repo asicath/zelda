@@ -1,6 +1,5 @@
 var Icon = function(entity) {
     var my = {
-        palette: null,
         sprites: null,
         spriteIndex: 0,
         drawOffset: {x: 0, y: 0},
@@ -21,11 +20,9 @@ var Icon = function(entity) {
 
     /*
     my.getPalette = function() {
-
         if (my.flashing) {
             return my.flashPalates[Math.floor((flashIndex++ / my.flashInterval) % my.flashPalates.length)];
         }
-
         return my.palette;
     };
     */
@@ -44,6 +41,7 @@ var Icon = function(entity) {
         return my.visible;
     };
 
+    /*
     // *** FLASHING ***
     my.flashPalates = [
         Palettes.MonsterBlack, // should be all blue
@@ -51,6 +49,7 @@ var Icon = function(entity) {
         Palettes.MonsterRed,
         Palettes.LinkGreen
     ];
+    */
 
     my.flashing = false;
     my.flashInterval = 2;

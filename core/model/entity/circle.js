@@ -3,7 +3,6 @@ var Circle = function() {
 
     my.icon.sprites = Sprites.circle;
     my.icon.spriteIndex = 0;
-    my.icon.palette = Palettes.MonsterRed;
 
     my.getFootPrint().setSize(32, 32);
 
