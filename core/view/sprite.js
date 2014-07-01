@@ -4,8 +4,7 @@ var Sprite = function(width, height) {
     var exports = {
         width: width,
         height: height,
-        pixels: [],
-        naturalPalette: null
+        pixels: []
     };
 
     exports.getPixel = function(x, y) {
@@ -16,25 +15,25 @@ var Sprite = function(width, height) {
         return exports.pixels[i];
     };
 
-    exports.drawSprite = function(ctx, x, y, palette) {
+    exports.drawSprite = function(ctx, x, y) {
 
         var pixelScale = 1;
 
         if (!exports.cache) exports.cache = {};
 
-        var key = palette.name + '_' + pixelScale.toString();
+        var key = pixelScale.toString();
 
         if (!exports.cache[key]) {
             var pixelScaleUp = Math.ceil(pixelScale);
 
             if (pixelScale == pixelScaleUp) {
                 // direct draw, no need to upscale
-                exports.cache[key] = createSpriteCanvas(pixelScale, palette);
+                exports.cache[key] = createSpriteCanvas(pixelScale);
             }
             else {
                 // get the upscaled image
                 var upscaleKey = pixelScaleUp.toString();
-                exports.cache[upscaleKey] = createSpriteCanvas(pixelScaleUp, palette);
+                exports.cache[upscaleKey] = createSpriteCanvas(pixelScaleUp);
 
                 // now downscale
                 var img = document.createElement('canvas');
@@ -57,28 +56,28 @@ var Sprite = function(width, height) {
 
 
     // Return a canvas object with the sprite rendered to it
-    var createSpriteCanvas = function(pixelScale, palette) {
+    var createSpriteCanvas = function(pixelScale) {
         var img = document.createElement('canvas');
         img.width = exports.width * pixelScale;
         img.height = exports.height * pixelScale;
         var context = img.getContext('2d');
 
         // do the actual rendering of the pixels
-        drawSpriteFromPixels(context, pixelScale, palette);
+        drawSpriteFromPixels(context, pixelScale);
 
         return img;
     };
 
 
     // Draw the raw pixels of a sprite to the specified canvas context
-    var drawSpriteFromPixels = function(ctx, pixelScale, palette) {
+    var drawSpriteFromPixels = function(ctx, pixelScale) {
         var i = 0;
         var c = null;
         while (i < exports.pixels.length) {
 
             var p = exports.pixels[i];
 
-            c = p.getColor(palette);
+            c = p.getColor();
 
             if (c != null) {
                 ctx.fillStyle = c;

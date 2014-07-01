@@ -53,15 +53,14 @@ var View = (function() {
 
         // actually draw the sprites
         if (room.backgroundSprite) {
-            room.backgroundSprite[0].drawSprite(ctxBuffer, 0, 0, Palettes.Default);
+            room.backgroundSprite[0].drawSprite(ctxBuffer, 0, 0);
         }
         else {
             // draw to the virtual screen
-            var palettes = [Palettes.OutsideGreen, Palettes.OutsideBrown, Palettes.OutsideGrey, Palettes.AllBlack];
             var i = 0;
             while (i < room.tiles.length) {
                 var t = room.tiles[i];
-                room.sprites[t.index].drawSprite(ctxBuffer, t.x, t.y, palettes[t.palette]);
+                room.sprites[t.index].drawSprite(ctxBuffer, t.x, t.y);
                 i++;
             }
         }
@@ -240,7 +239,7 @@ var View = (function() {
             if (typeof char === "undefined") char = 43;
 
             var sprite = Sprites.letters[char];
-            sprite.drawSprite(ctx, x + i*8, y, Palettes.Text);
+            sprite.drawSprite(ctx, x + i*8, y);
         }
 
 

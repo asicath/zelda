@@ -19,6 +19,7 @@ var Icon = function(entity) {
         return my.sprites[my.spriteIndex];
     };
 
+    /*
     my.getPalette = function() {
 
         if (my.flashing) {
@@ -27,6 +28,7 @@ var Icon = function(entity) {
 
         return my.palette;
     };
+    */
 
     // *** FLICKERING ***
     my.flickering = false;
@@ -56,7 +58,7 @@ var Icon = function(entity) {
 
     my.drawIcon = function(ctx) {
         if (my.isVisible())
-            my.getSprite().drawSprite(ctx, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()), my.getPalette());
+            my.getSprite().drawSprite(ctx, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()));
     };
 
     return my;
