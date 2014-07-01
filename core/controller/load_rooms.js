@@ -41,12 +41,12 @@ var loadAllRooms = function(roomModel, success) {
                         overlayUrl: 'assets/rooms/testroom_overlay.gif'
                     };
 
-                    loadSpritesFromImgUrl(data.overlay.imageUrl,[{x:0,  y: 0, width: 256, height:176}], function(sprite) {
+                    loadSpriteSheetFromImgUrl(data.overlay.imageUrl,[{x:0,  y: 0, width: 256, height:176}], function(sheet) {
 
-                        data.overlay.sprite = sprite;
+                        data.overlay.sprite = sheet.natural;
 
-                        loadSpritesFromImgUrl(data.overlay.overlayUrl,[{x:0,  y: 0, width: 256, height:176}], function(overlay) {
-                            data.overlay.overlay = overlay;
+                        loadSpriteSheetFromImgUrl(data.overlay.overlayUrl,[{x:0,  y: 0, width: 256, height:176}], function(overlay) {
+                            data.overlay.overlay = overlay.natural;
                             rooms[key] = roomModel(data);
                             onLoadComplete();
                         });

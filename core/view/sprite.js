@@ -1,4 +1,14 @@
 
+var SpriteSheet = function(naturalSprites) {
+    var my = {
+        natural: naturalSprites
+    };
+
+    // will eventually contain a method for mapping all natural sprites to modified color
+
+    return my;
+};
+
 var Sprite = function(width, height) {
 
     var exports = {
@@ -72,7 +82,7 @@ var Sprite = function(width, height) {
 };
 
 
-var loadSpritesFromImgUrl = function(imgUrl, map, success) {
+var loadSpriteSheetFromImgUrl = function(imgUrl, map, success) {
 
     var img = new Image();
     img.src = baseUrl + imgUrl;
@@ -136,7 +146,9 @@ var loadSpritesFromImgUrl = function(imgUrl, map, success) {
 
         }
 
-        success(sprites);
+        var sheet = SpriteSheet(sprites);
+
+        success(sheet);
     };
 };
 
