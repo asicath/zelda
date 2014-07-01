@@ -60,7 +60,7 @@ var Room = function(data) {
         for (var x = 0; x < 256; x+=8) {
             for (var y = 0; y < 176; y+=8) {
                 var p = overlay.getPixel(x, y);
-                if (p.naturalColor.a > 0) {
+                if (p.color.a > 0) {
                     walls.push({ rect: new Rect(new Position(x, y), 8, 8, 0, 0) });
                 }
             }

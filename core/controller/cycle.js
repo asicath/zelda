@@ -52,22 +52,20 @@ var Cycle = function() {
     // process a single frame of time
     my.processFrame = function() {};
 
-
-
     // cycle initiating model frames events and view drawing
     var animate = function() {
 
         // setup the next frame draw
         requestAnimFrame( animate );
 
-        if (!needsDraw) return;
-        needsDraw = false;
+        if (needsDraw) {
+            my.drawFrame();
+            needsDraw = false;
+        }
 
-        my.drawFrame();
     };
 
     my.drawFrame = function() {};
-
 
     return my;
 };

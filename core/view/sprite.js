@@ -24,29 +24,8 @@ var Sprite = function(width, height) {
         var key = pixelScale.toString();
 
         if (!exports.cache[key]) {
-            var pixelScaleUp = Math.ceil(pixelScale);
-
-            if (pixelScale == pixelScaleUp) {
-                // direct draw, no need to upscale
-                exports.cache[key] = createSpriteCanvas(pixelScale);
-            }
-            else {
-                // get the upscaled image
-                var upscaleKey = pixelScaleUp.toString();
-                exports.cache[upscaleKey] = createSpriteCanvas(pixelScaleUp);
-
-                // now downscale
-                var img = document.createElement('canvas');
-                img.width = Math.ceil(exports.width * pixelScale);
-                img.height = Math.ceil(exports.height * pixelScale);
-                var context = img.getContext('2d');
-
-                context.drawImage(exports.cache[upscaleKey], 0, 0, exports.width * pixelScale, exports.height * pixelScale);
-
-                exports.cache[key] = img;
-            }
-
-
+            exports.cache[key] = createSpriteCanvas(pixelScale);
+            console.log('cache:' + key);
         }
 
         // Draw the cached image
@@ -56,37 +35,33 @@ var Sprite = function(width, height) {
 
 
     // Return a canvas object with the sprite rendered to it
-    var createSpriteCanvas = function(pixelScale) {
+    var createSpriteCanvas = function() {
+
         var img = document.createElement('canvas');
-        img.width = exports.width * pixelScale;
-        img.height = exports.height * pixelScale;
+        img.width = exports.width;
+        img.height = exports.height;
         var context = img.getContext('2d');
 
         // do the actual rendering of the pixels
-        drawSpriteFromPixels(context, pixelScale);
+        drawSpriteFromPixels(context);
 
         return img;
     };
 
 
     // Draw the raw pixels of a sprite to the specified canvas context
-    var drawSpriteFromPixels = function(ctx, pixelScale) {
+    var drawSpriteFromPixels = function(ctx) {
         var i = 0;
         var c = null;
         while (i < exports.pixels.length) {
 
             var p = exports.pixels[i];
 
-            c = p.getColor();
+            c = p.getDrawColor();
 
             if (c != null) {
                 ctx.fillStyle = c;
-                ctx.fillRect(
-                        p.x * pixelScale,
-                        p.y * pixelScale,
-                    pixelScale,
-                    pixelScale
-                );
+                ctx.fillRect(p.x, p.y, 1, 1);
             }
 
             i++;
@@ -145,14 +120,14 @@ var loadSpritesFromImgUrl = function(imgUrl, map, success) {
                 y = ((i / 4) - x) / sprite.width;
 
                 // Load up the natural color
-                var naturalColor = {
+                var color = {
                     r: pixelData[i],
                     g: pixelData[i + 1],
                     b: pixelData[i + 2],
                     a: pixelData[i + 3]
                 };
 
-                sprite.pixels.push(Pixel(-1, x, y, naturalColor));
+                sprite.pixels.push(Pixel(x, y, color));
 
                 i += 4;
             }
