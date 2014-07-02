@@ -41,16 +41,16 @@ var DemoDraw = (function() {
                     index = 2;
                 }
             }
-            SpriteSheets.heart.natural[index].drawSprite(ctx, x + (i/4)*8, y);
+            SpriteSheets.heart.sprites[index].drawSprite(ctx, x + (i/4)*8, y);
             i-=4;
         }
 
         y+=8;
         View.drawText(ctx, " x" + (player.rupees || 0) + "", x, y);
-        SpriteSheets.icons.natural[0].drawSprite(ctx, x, y);
+        SpriteSheets.icons.sprites[0].drawSprite(ctx, x, y);
 
         View.drawText(ctx, " x" + (player.bombs || 0) + "", x+8*6, y);
-        SpriteSheets.icons.natural[2].drawSprite(ctx, x+8*6, y);
+        SpriteSheets.icons.sprites[2].drawSprite(ctx, x+8*6, y);
 
     };
 

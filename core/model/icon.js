@@ -15,7 +15,7 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
     };
 
     my.getSprite = function() {
-        return my.spriteSheet.natural[my.spriteIndex];
+        return my.spriteSheet.sprites[my.spriteIndex];
     };
 
     /*

@@ -25,7 +25,7 @@ var ThrustSword = function(actor) {
     var getSprite_parent = actor.icon.getSprite;
     actor.icon.getSprite = function() {
         if (swordState == 1 || swordState == 2) {
-            return actor.icon.spriteSheet.natural[actor.icon.spriteIndex + swordStance];
+            return actor.icon.spriteSheet.sprites[actor.icon.spriteIndex + swordStance];
         }
         return getSprite_parent();
     };

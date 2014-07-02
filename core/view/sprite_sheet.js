@@ -1,7 +1,7 @@
 
 var SpriteSheet = function(naturalSprites) {
     var my = {
-        natural: naturalSprites
+        sprites: naturalSprites
     };
 
     // will eventually contain a method for mapping all natural sprites to modified color

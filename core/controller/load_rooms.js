@@ -43,10 +43,10 @@ var loadAllRooms = function(roomModel, success) {
 
                     SpriteSheet.loadFromImgUrl(data.overlay.imageUrl,[{x:0,  y: 0, width: 256, height:176}], function(sheet) {
 
-                        data.overlay.sprite = sheet.natural;
+                        data.overlay.sprite = sheet.sprites;
 
                         SpriteSheet.loadFromImgUrl(data.overlay.overlayUrl,[{x:0,  y: 0, width: 256, height:176}], function(overlay) {
-                            data.overlay.overlay = overlay.natural;
+                            data.overlay.overlay = overlay.sprites;
                             rooms[key] = roomModel(data);
                             onLoadComplete();
                         });
