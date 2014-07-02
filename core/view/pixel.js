@@ -1,20 +1,25 @@
 
+var Color = function(r, g, b, a) {
+    var my = {};
 
+    my.getDrawColor = function() {
+        return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + (a / 255) + ')';
+    };
+
+    my.equals = function(p) {
+        return p.getDrawColor() == my.getDrawColor();
+    };
+
+    return my;
+};
 
 
 var Pixel = function(x, y, color) {
 
     var exports = {
         x: x,
-        y: y
-    };
-
-    exports.sameColor = function(p) {
-        return p.r == exports.r && p.g == exports.g && p.b == exports.b;
-    };
-
-    exports.getDrawColor = function() {
-        return 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + (color.a / 255) + ')';
+        y: y,
+        color: color
     };
 
     return exports;

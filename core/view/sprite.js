@@ -18,7 +18,7 @@ var Sprite = function(width, height) {
     };
 
     exports.drawSprite = function(ctx, x, y) {
-        var img = getImage({key:"natural"});
+        var img = exports.getImage({key:"natural"});
 
         // Draw the cached image
         ctx.drawImage(img, x, y);
@@ -27,7 +27,7 @@ var Sprite = function(width, height) {
     var imageCache = {};
 
     // Return a canvas object with the sprite rendered to it
-    var getImage = function(options) {
+    exports.getImage = function(options) {
 
         // create the image if it doesn't exist in the cache already
         if (!imageCache[options.key]) {
@@ -55,7 +55,7 @@ var Sprite = function(width, height) {
 
             var p = exports.pixels[i];
 
-            c = p.getDrawColor();
+            c = p.color.getDrawColor();
 
             if (c != null) {
                 ctx.fillStyle = c;

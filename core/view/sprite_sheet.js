@@ -58,12 +58,12 @@ SpriteSheet.loadFromImgUrl = function(imgUrl, map, success) {
                 y = ((i / 4) - x) / sprite.width;
 
                 // Load up the natural color
-                var color = {
-                    r: pixelData[i],
-                    g: pixelData[i + 1],
-                    b: pixelData[i + 2],
-                    a: pixelData[i + 3]
-                };
+                var color = Color(
+                    pixelData[i],
+                    pixelData[i + 1],
+                    pixelData[i + 2],
+                    pixelData[i + 3]
+                );
 
                 sprite.pixels.push(Pixel(x, y, color));
 
