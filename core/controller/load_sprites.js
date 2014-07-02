@@ -14,7 +14,7 @@ var loadAllSprites = function(success) {
 
         var load = function(info) {
             loadSpriteSheetFromImgUrl(info.url, info.map, function(sheet) {
-                Sprites[info.name] = sheet.natural;
+                Sprites[info.name] = sheet;
                 spriteLoadFinish();
             });
         };

@@ -50,7 +50,7 @@ var Shuffle = function(mover) {
     my.stepChange = 30;
 
     mover.icon.getSprite = function() {
-        return mover.icon.sprites[mover.icon.spriteIndex + step];
+        return mover.icon.sprites.natural[mover.icon.spriteIndex + step];
     };
 
     // Allow others to reset the step count

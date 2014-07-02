@@ -15,7 +15,7 @@ var Icon = function(entity) {
     };
 
     my.getSprite = function() {
-        return my.sprites[my.spriteIndex];
+        return my.sprites.natural[my.spriteIndex];
     };
 
     /*
@@ -56,8 +56,10 @@ var Icon = function(entity) {
     var flashIndex = 0;
 
     my.drawIcon = function(ctx) {
-        if (my.isVisible())
-            my.getSprite().drawSprite(ctx, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()));
+        if (my.isVisible()) {
+              my.getSprite().drawSprite(ctx, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()));
+        }
+
     };
 
     return my;
