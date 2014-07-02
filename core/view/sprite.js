@@ -1,14 +1,5 @@
 
-var demoSwaps = [
-    {
-        target: Color(0, 0, 0, 255),
-        replaceWith: Color(255, 0, 0, 255)
-    },
-    {
-        target: Color(64, 64, 64, 255),
-        replaceWith: Color(255, 0, 255, 255)
-    }
-];
+
 
 var Sprite = function(width, height) {
 
@@ -27,7 +18,7 @@ var Sprite = function(width, height) {
     };
 
     exports.drawSprite = function(ctx, x, y) {
-        var img = exports.getImage({key:"natural", colorSwaps:demoSwaps});
+        var img = exports.getImage();
 
         // Draw the cached image
         ctx.drawImage(img, x, y);
@@ -37,6 +28,8 @@ var Sprite = function(width, height) {
 
     // Return a canvas object with the sprite rendered to it
     exports.getImage = function(options) {
+
+        if (!options) options = {key: 'natural'};
 
         // create the image if it doesn't exist in the cache already
         if (!imageCache[options.key]) {

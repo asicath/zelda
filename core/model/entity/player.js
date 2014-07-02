@@ -39,6 +39,16 @@ var Player = function(playerId) {
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
 
+    my.icon.imageOptions = {
+        key: 'purple',
+        colorSwaps:
+        [
+            {
+                target: Color(204, 255, 0, 255),
+                replaceWith: Color(200, 0, 200, 255)
+            }
+        ]
+    };
 
     my.setFacing(Directions.top);
 

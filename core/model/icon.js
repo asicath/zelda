@@ -55,9 +55,13 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
     my.flashInterval = 2;
     var flashIndex = 0;
 
+
+    my.imageOptions = null;
+
     my.drawIcon = function(ctx) {
         if (my.isVisible()) {
-              my.getSprite().drawSprite(ctx, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()));
+            var img = my.getSprite().getImage(my.imageOptions);
+            ctx.drawImage(img, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()));
         }
 
     };
