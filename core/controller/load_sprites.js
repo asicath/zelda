@@ -1,5 +1,5 @@
 
-var Sprites = {
+var SpriteSheets = {
     count: 0
 };
 
@@ -8,13 +8,13 @@ var loadAllSprites = function(success) {
     $.getJSON(baseUrl + 'assets/sprite_info.js', function(spriteInfo) {
 
         var spriteLoadFinish = function() {
-            if (++Sprites.count < spriteInfo.length) {return;}
+            if (++SpriteSheets.count < spriteInfo.length) {return;}
             success();
         };
 
         var load = function(info) {
-            loadSpriteSheetFromImgUrl(info.url, info.map, function(sheet) {
-                Sprites[info.name] = sheet;
+            SpriteSheet.loadFromImgUrl(info.url, info.map, function(sheet) {
+                SpriteSheets[info.name] = sheet;
                 spriteLoadFinish();
             });
         };

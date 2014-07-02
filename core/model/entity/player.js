@@ -1,7 +1,7 @@
 var Player = function(playerId) {
     var my = Entity();
 
-    my.icon = Icon(my, Sprites.link);
+    my.icon = Icon(my, SpriteSheets.link);
 
     Mover(my);
     Actor(my);

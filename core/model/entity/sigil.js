@@ -1,7 +1,7 @@
 var Sigil = function() {
     var my = Entity();
 
-    my.icon.spriteSheet = Icon(my, Sprites.element);
+    my.icon.spriteSheet = Icon(my, SpriteSheets.element);
 
     my.getFootPrint().setSize(16, 16);
 

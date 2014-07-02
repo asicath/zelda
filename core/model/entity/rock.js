@@ -1,7 +1,7 @@
 var Rock = function() {
     var my = Entity();
 
-    my.icon = Icon(my, Sprites.rock);
+    my.icon = Icon(my, SpriteSheets.rock);
 
 
     Mover(my);

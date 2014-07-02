@@ -3,7 +3,7 @@ var Item = function() {
 
     my.entityType = 'item';
     my.getFootPrint().setSize(16, 16);
-    my.icon = Icon(my, Sprites.items);
+    my.icon = Icon(my, SpriteSheets.items);
 
     var frameCount = 0;
 

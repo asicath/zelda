@@ -1,7 +1,7 @@
 var Fly = function() {
     var my = Entity();
 
-    my.icon = Icon(my, Sprites.fly);
+    my.icon = Icon(my, SpriteSheets.fly);
     my.icon.drawOffset.y = 0;
 
     Mover(my);

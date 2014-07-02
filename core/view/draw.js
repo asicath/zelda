@@ -238,7 +238,7 @@ var View = (function() {
             var char = textMap[text[i]];
             if (typeof char === "undefined") char = 43;
 
-            var sprite = Sprites.letters.natural[char];
+            var sprite = SpriteSheets.letters.natural[char];
             sprite.drawSprite(ctx, x + i*8, y);
         }
 

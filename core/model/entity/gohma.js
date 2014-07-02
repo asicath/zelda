@@ -1,7 +1,7 @@
 var Gohma = function() {
     var my = Entity();
 
-    my.icon = Icon(my, Sprites.gohma);
+    my.icon = Icon(my, SpriteSheets.gohma);
 
     Mortal(my);
     Mover(my);

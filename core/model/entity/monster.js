@@ -1,7 +1,7 @@
 var Monster = function() {
     var my = Entity();
 
-    my.icon = Icon(my, Sprites.octopus);
+    my.icon = Icon(my, SpriteSheets.octopus);
     my.icon.drawOffset.y = -2;
 
     Mortal(my);

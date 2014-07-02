@@ -4,7 +4,7 @@ var Death = function(entity, after) {
     my.entityType = "death";
     my.position = entity.position;
 
-    my.icon = Icon(my, Sprites.deathstar);
+    my.icon = Icon(my, SpriteSheets.deathstar);
 
     /* Death animation
      19 frames

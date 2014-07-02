@@ -1,7 +1,7 @@
 var Aquamentus = function() {
     var my = Entity();
 
-    my.icon = Icon(my, Sprites.aquamentus);
+    my.icon = Icon(my, SpriteSheets.aquamentus);
 
     Mortal(my);
     Mover(my);

@@ -1,7 +1,7 @@
 var Explosion = function(angle) {
     var my = Entity();
 
-    my.icon = Icon(my, Sprites.explosion);
+    my.icon = Icon(my, SpriteSheets.explosion);
     my.icon.flashing = true;
 
     Mover(my);
