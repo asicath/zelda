@@ -1,5 +1,14 @@
 
-
+var demoSwaps = [
+    {
+        target: Color(0, 0, 0, 255),
+        replaceWith: Color(255, 0, 0, 255)
+    },
+    {
+        target: Color(64, 64, 64, 255),
+        replaceWith: Color(255, 0, 255, 255)
+    }
+];
 
 var Sprite = function(width, height) {
 
@@ -18,7 +27,7 @@ var Sprite = function(width, height) {
     };
 
     exports.drawSprite = function(ctx, x, y) {
-        var img = exports.getImage({key:"natural"});
+        var img = exports.getImage({key:"natural", colorSwaps:demoSwaps});
 
         // Draw the cached image
         ctx.drawImage(img, x, y);
@@ -37,7 +46,7 @@ var Sprite = function(width, height) {
             var context = img.getContext('2d');
 
             // do the actual rendering of the pixels
-            drawSpriteFromPixels(context);
+            drawSpriteFromPixels(context, options.colorSwaps);
 
             imageCache[options.key] = img;
         }
@@ -46,19 +55,30 @@ var Sprite = function(width, height) {
         return imageCache[options.key];
     };
 
-
     // Draw the raw pixels of a sprite to the specified canvas context
-    var drawSpriteFromPixels = function(ctx) {
-        var i = 0;
+    var drawSpriteFromPixels = function(ctx, colorSwaps) {
+        var i = 0, j;
         var c = null;
+
         while (i < exports.pixels.length) {
 
             var p = exports.pixels[i];
 
-            c = p.color.getDrawColor();
+            // default color
+            c = p.color;
+
+            if (colorSwaps) {
+                // determine if we are swapping this color out
+                for (j = 0; j < colorSwaps.length; j++) {
+                    if (c.equals(colorSwaps[j].target)) {
+                        c = colorSwaps[j].replaceWith;
+                        break;
+                    }
+                }
+            }
 
             if (c != null) {
-                ctx.fillStyle = c;
+                ctx.fillStyle = c.getDrawColor();
                 ctx.fillRect(p.x, p.y, 1, 1);
             }
 
