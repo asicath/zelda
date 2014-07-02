@@ -1,7 +1,7 @@
-var Icon = function(entity) {
+var Icon = function(entity, spriteSheet, initialSpriteIndex) {
     var my = {
-        spriteSheet: null,
-        spriteIndex: 0,
+        spriteSheet: spriteSheet,
+        spriteIndex: initialSpriteIndex || 0,
         drawOffset: {x: 0, y: 0},
         visible: true
     };

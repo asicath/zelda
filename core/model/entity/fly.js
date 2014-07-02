@@ -1,5 +1,9 @@
 var Fly = function() {
     var my = Entity();
+
+    my.icon = Icon(my, Sprites.fly);
+    my.icon.drawOffset.y = 0;
+
     Mover(my);
 
     my.movementSources.push(new WalkRandom(my));
@@ -17,9 +21,7 @@ var Fly = function() {
     my.homingPercent = 128/255;
     my.guideSize = 1;
 
-    my.icon.spriteSheet = Sprites.fly;
-    my.icon.spriteIndex = 0;
-    my.icon.drawOffset.y = 0;
+
     my.facingSpriteBaseIndex = [0, 0, 0, 0];
 
     return my;

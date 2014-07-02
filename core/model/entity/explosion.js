@@ -1,14 +1,16 @@
 var Explosion = function(angle) {
     var my = Entity();
+
+    my.icon = Icon(my, Sprites.explosion);
+    my.icon.flashing = true;
+
     Mover(my);
 
     my.movementSources.push(new Missile(my));
 
     my.entityType = "explosion";
 
-    my.icon.spriteSheet = Sprites.explosion;
-    my.icon.spriteIndex = 0;
-    my.icon.flashing = true;
+
 
     // Launch by default
     my.shoot(angle, 30/22);

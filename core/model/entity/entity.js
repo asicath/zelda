@@ -10,7 +10,7 @@ var Entity = function() {
     my.footPrints = {};
     my.footPrints.default = new Rect(my.position, 0, 0, 0, 0);
 
-    my.icon = Icon(my);
+    my.icon = null;
 
     my.executeFrame = function(room) {
         my.processEventQueue(room);

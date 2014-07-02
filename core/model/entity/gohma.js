@@ -1,6 +1,8 @@
 var Gohma = function() {
     var my = Entity();
 
+    my.icon = Icon(my, Sprites.gohma);
+
     Mortal(my);
     Mover(my);
     AimedShooter(my);
@@ -17,8 +19,7 @@ var Gohma = function() {
 
     my.getFootPrint().setSize(48, 16);
 
-    my.icon.spriteSheet = Sprites.gohma;
-    my.icon.spriteIndex = 0;
+
 
     var itemDropLevel = 0;
 

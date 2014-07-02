@@ -1,5 +1,9 @@
 var Monster = function() {
     var my = Entity();
+
+    my.icon = Icon(my, Sprites.octopus);
+    my.icon.drawOffset.y = -2;
+
     Mortal(my);
     Mover(my);
     Shooter(my);
@@ -16,9 +20,7 @@ var Monster = function() {
 
     my.getFootPrint().setSize(16, 16);
 
-    my.icon.spriteSheet = Sprites.octopus;
-    my.icon.spriteIndex = 0;
-    my.icon.drawOffset.y = -2;
+
 
     my.facingSpriteBaseIndex = [0, 2, 4, 6];
 

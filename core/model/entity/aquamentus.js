@@ -1,6 +1,8 @@
 var Aquamentus = function() {
     var my = Entity();
 
+    my.icon = Icon(my, Sprites.aquamentus);
+
     Mortal(my);
     Mover(my);
     AimedShooter(my);
@@ -20,8 +22,7 @@ var Aquamentus = function() {
     my.fireballAngles = [0.9, 1, 1.1];
     my.shuffleDirection = [null, Directions.left, Directions.left, Directions.right, Directions.right];
 
-    my.icon.spriteSheet = Sprites.aquamentus;
-    my.icon.spriteIndex = 0;
+
 
     var itemDropLevel = 0;
 

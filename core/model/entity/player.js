@@ -1,6 +1,8 @@
 var Player = function(playerId) {
     var my = Entity();
 
+    my.icon = Icon(my, Sprites.link);
+
     Mover(my);
     Actor(my);
 
@@ -36,7 +38,7 @@ var Player = function(playerId) {
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
-    my.icon.spriteSheet = Sprites.link;
+
 
     my.setFacing(Directions.top);
 

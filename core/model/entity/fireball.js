@@ -1,16 +1,20 @@
 var Fireball = function() {
     var my = Entity();
+
+    my.icon = Icon(my, Sprites.ball);
+    my.icon.flashing = true;
+
     Mover(my);
 
     my.movementSources.push(new Missile(my));
 
     my.wallSensitive = false;
     my.entityType = "fireball";
-    my.icon.flashing = true;
+
 
     my.getFootPrint().setSize(16, 16);
 
-    my.icon.spriteSheet = Sprites.ball;
+
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {

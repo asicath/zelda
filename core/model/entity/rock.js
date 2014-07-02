@@ -1,5 +1,9 @@
 var Rock = function() {
     var my = Entity();
+
+    my.icon = Icon(my, Sprites.rock);
+
+
     Mover(my);
 
     my.movementSources.push(new Missile(my));
@@ -9,7 +13,7 @@ var Rock = function() {
 
     my.getFootPrint().setSize(16, 16);
 
-    my.icon.spriteSheet = Sprites.rock;
+
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {

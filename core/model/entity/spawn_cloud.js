@@ -4,8 +4,7 @@ var SpawnCloud = function(entity) {
     if (entity)
         my.position = entity.position;
 
-    my.icon.spriteSheet = Sprites.cloud;
-    my.icon.spriteIndex = 0;
+    my.icon = Icon(my, Sprites.cloud);
 
     my.entityType = "spawn";
 

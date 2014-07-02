@@ -1,7 +1,7 @@
 var Sword = function(player) {
     var my = Entity();
 
-    my.icon.spriteSheet = Sprites.sword;
+    my.icon = Icon(my, Sprites.sword);
 
     my.entityType = "sword";
     my.playerId = player.playerId; // expose for kill counting in monster
