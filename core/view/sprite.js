@@ -18,36 +18,32 @@ var Sprite = function(width, height) {
     };
 
     exports.drawSprite = function(ctx, x, y) {
-
-        var pixelScale = 1;
-
-        if (!exports.cache) exports.cache = {};
-
-        var key = pixelScale.toString();
-
-        if (!exports.cache[key]) {
-            exports.cache[key] = createSpriteCanvas(pixelScale);
-            console.log('cache:' + key);
-        }
+        var img = getImage({key:"natural"});
 
         // Draw the cached image
-        ctx.drawImage(exports.cache[key], x * pixelScale, y * pixelScale);
-
+        ctx.drawImage(img, x, y);
     };
 
+    var imageCache = {};
 
     // Return a canvas object with the sprite rendered to it
-    var createSpriteCanvas = function() {
+    var getImage = function(options) {
 
-        var img = document.createElement('canvas');
-        img.width = exports.width;
-        img.height = exports.height;
-        var context = img.getContext('2d');
+        // create the image if it doesn't exist in the cache already
+        if (!imageCache[options.key]) {
+            var img = document.createElement('canvas');
+            img.width = exports.width;
+            img.height = exports.height;
+            var context = img.getContext('2d');
 
-        // do the actual rendering of the pixels
-        drawSpriteFromPixels(context);
+            // do the actual rendering of the pixels
+            drawSpriteFromPixels(context);
 
-        return img;
+            imageCache[options.key] = img;
+        }
+
+        // return from the cache
+        return imageCache[options.key];
     };
 
 
