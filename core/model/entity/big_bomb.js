@@ -3,7 +3,7 @@ var BigBomb = function(player) {
 
     my.entityType = 'livebomb';
     my.getFootPrint().setSize(16, 16);
-    my.icon.sprites = Sprites.bigbomb;
+    my.icon.spriteSheet = Sprites.bigbomb;
     my.icon.spriteIndex = 0;
     my.playerId = player.playerId; // expose for kill counting in monster
 

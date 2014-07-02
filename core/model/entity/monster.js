@@ -16,7 +16,7 @@ var Monster = function() {
 
     my.getFootPrint().setSize(16, 16);
 
-    my.icon.sprites = Sprites.octopus;
+    my.icon.spriteSheet = Sprites.octopus;
     my.icon.spriteIndex = 0;
     my.icon.drawOffset.y = -2;
 

@@ -9,7 +9,7 @@ var Rock = function() {
 
     my.getFootPrint().setSize(16, 16);
 
-    my.icon.sprites = Sprites.rock;
+    my.icon.spriteSheet = Sprites.rock;
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {

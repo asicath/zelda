@@ -6,7 +6,7 @@ var Explosion = function(angle) {
 
     my.entityType = "explosion";
 
-    my.icon.sprites = Sprites.explosion;
+    my.icon.spriteSheet = Sprites.explosion;
     my.icon.spriteIndex = 0;
     my.icon.flashing = true;
 

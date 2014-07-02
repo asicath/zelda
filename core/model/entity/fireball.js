@@ -10,7 +10,7 @@ var Fireball = function() {
 
     my.getFootPrint().setSize(16, 16);
 
-    my.icon.sprites = Sprites.ball;
+    my.icon.spriteSheet = Sprites.ball;
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {

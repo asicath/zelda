@@ -144,7 +144,7 @@ var Walk = function(mover) {
     my.stepChange = 6;
 
     mover.icon.getSprite = function() {
-        return mover.icon.sprites.natural[mover.icon.spriteIndex + step];
+        return mover.icon.spriteSheet.natural[mover.icon.spriteIndex + step];
     };
 
     // Allow others to reset the step count

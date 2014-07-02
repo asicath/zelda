@@ -4,7 +4,7 @@ var Death = function(entity, after) {
     my.entityType = "death";
     my.position = entity.position;
 
-    my.icon.sprites = Sprites.deathstar;
+    my.icon.spriteSheet = Sprites.deathstar;
     my.icon.spriteIndex = 0;
 
     /* Death animation

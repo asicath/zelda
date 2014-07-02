@@ -17,7 +17,7 @@ var Gohma = function() {
 
     my.getFootPrint().setSize(48, 16);
 
-    my.icon.sprites = Sprites.gohma;
+    my.icon.spriteSheet = Sprites.gohma;
     my.icon.spriteIndex = 0;
 
     var itemDropLevel = 0;

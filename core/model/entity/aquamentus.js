@@ -20,7 +20,7 @@ var Aquamentus = function() {
     my.fireballAngles = [0.9, 1, 1.1];
     my.shuffleDirection = [null, Directions.left, Directions.left, Directions.right, Directions.right];
 
-    my.icon.sprites = Sprites.aquamentus;
+    my.icon.spriteSheet = Sprites.aquamentus;
     my.icon.spriteIndex = 0;
 
     var itemDropLevel = 0;

@@ -1,6 +1,6 @@
 var Icon = function(entity) {
     var my = {
-        sprites: null,
+        spriteSheet: null,
         spriteIndex: 0,
         drawOffset: {x: 0, y: 0},
         visible: true
@@ -15,7 +15,7 @@ var Icon = function(entity) {
     };
 
     my.getSprite = function() {
-        return my.sprites.natural[my.spriteIndex];
+        return my.spriteSheet.natural[my.spriteIndex];
     };
 
     /*

@@ -1,7 +1,7 @@
 var Fairy = function() {
     var my = Item();
 
-    my.icon.sprites = Sprites.fairy;
+    my.icon.spriteSheet = Sprites.fairy;
 
     my.onPickUp = function(player) {
         var amount = 12;

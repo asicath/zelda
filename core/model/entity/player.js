@@ -36,7 +36,7 @@ var Player = function(playerId) {
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
-    my.icon.sprites = Sprites.link;
+    my.icon.spriteSheet = Sprites.link;
 
     my.setFacing(Directions.top);
 
