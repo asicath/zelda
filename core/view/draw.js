@@ -58,9 +58,11 @@ var View = (function() {
         else {
             // draw to the virtual screen
             var i = 0;
+            var img;
             while (i < room.tiles.length) {
                 var t = room.tiles[i];
-                t.sprite.drawSprite(ctxBuffer, t.x, t.y);
+                img = t.sprite.getImage(t.imageOptions);
+                ctxBuffer.drawImage(img, t.x, t.y);
                 i++;
             }
         }

@@ -17,10 +17,42 @@ var Room = function(data) {
     if (data.tiles) {
         my.tiles = data.tiles;
 
-        var sprites = [
-            SpriteSheets.outsideGreen.sprites,
-            SpriteSheets.outsideGreen.sprites,// brown
-            SpriteSheets.outsideGreen.sprites // grey
+        var outsideGreen = null;
+
+        var outsideBrown = {
+            key: 'brown',
+            colorSwaps:
+                [
+                    {
+                        target: Color.fromNESPalette("1A"),
+                        replaceWith: Color.fromNESPalette("17")
+                    }
+
+                ]
+        };
+
+        var outsideGrey = {
+            key: 'brown',
+            colorSwaps:
+                [
+                    // forecolor
+                    {
+                        target: Color.fromNESPalette("1A"),
+                        replaceWith: Color.fromNESPalette("20")
+                    },
+                    // Ground
+                    {
+                        target: Color.fromNESPalette("37"),
+                        replaceWith: Color.fromNESPalette("00")
+                    }
+
+                ]
+        };
+
+        var imageOptions = [
+            outsideGreen,
+            outsideBrown,
+            outsideGrey
         ];
 
         // init tiles
@@ -30,8 +62,8 @@ var Room = function(data) {
             tile.rect = new Rect(tile.position, 16, 16, 0, 0);
 
 
-            tile.sprite = sprites[tile.palette][tile.index];
-
+            tile.sprite = SpriteSheets.outside.sprites[tile.index];
+            tile.imageOptions = imageOptions[tile.palette];
         }
 
         // init walls from tiles
