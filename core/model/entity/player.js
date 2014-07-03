@@ -43,10 +43,22 @@ var Player = function(playerId) {
         key: 'purple',
         colorSwaps:
         [
+            // Green to Purple
             {
-                target: Color(204, 255, 0, 255),
-                replaceWith: Color(200, 0, 200, 255)
+                target: Color.fromNESPalette("29"),
+                replaceWith: Color.fromNESPalette("04")
+            },
+            // Brown Skin
+            {
+                target: Color.fromNESPalette("27"),
+                replaceWith: Color.fromNESPalette("08")
+            },
+            // Brown Skin
+            {
+                target: Color.fromNESPalette("17"),
+                replaceWith: Color.fromNESPalette("1D")
             }
+
         ]
     };
 

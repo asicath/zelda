@@ -13,6 +13,11 @@ var Color = function(r, g, b, a) {
     return my;
 };
 
+Color.fromNESPalette = function(hex) {
+    var c = NESPalette["h" + hex];
+    return Color(c[0], c[1], c[2], 255);
+};
+
 
 var Pixel = function(x, y, color) {
 

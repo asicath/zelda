@@ -11,7 +11,7 @@ and every 8x8 or 8x16 pixels can have their own palette, allowing for a total of
 */
 
 // http://en.wikipedia.org/wiki/List_of_video_game_console_palettes#Famicom.2FNES
-var Colors = {
+var NESPalette = {
 
     h00: [124,124,124],
     h01: [0,0,252],
