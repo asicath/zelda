@@ -19,8 +19,8 @@ var Room = function(data) {
 
         var sprites = [
             SpriteSheets.outsideGreen.sprites,
-            SpriteSheets.outsideBrown.sprites,
-            SpriteSheets.outsideGrey.sprites
+            SpriteSheets.outsideGreen.sprites,// brown
+            SpriteSheets.outsideGreen.sprites // grey
         ];
 
         // init tiles

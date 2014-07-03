@@ -169,6 +169,7 @@ var View = (function() {
     };
 
     var drawRoom = function(ctx, room) {
+
         // draw to the real screen
         ctx.drawImage(room.screen.sizedImage, 0, 0);
 
