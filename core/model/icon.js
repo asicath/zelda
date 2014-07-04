@@ -70,7 +70,7 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
     };
 
     // Setup the flashPalettes
-    if (!Icon.flashPalettes) {
+    if (!Icon.defaultFlashPalettes) {
 
         var colorMap = {
             "29": ["0D", "02", "06", "29"], // Link green
@@ -83,7 +83,7 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
             "": []
         };
 
-        Icon.flashPalettes = [
+        Icon.defaultFlashPalettes = [
             ImageOptions('flash0'),
             ImageOptions('flash1'),
             ImageOptions('flash2'),
@@ -92,15 +92,17 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
 
         for (var c in colorMap) {
             for (var i = 0; i < 4; i++) {
-                Icon.flashPalettes[i].addColorSwap(c, colorMap[c][i]);
+                Icon.defaultFlashPalettes[i].addColorSwap(c, colorMap[c][i]);
             }
         }
 
     }
 
+    my.flashPalettes = Icon.defaultFlashPalettes;
+
     my.getPalette = function() {
         if (flashing) {
-            return Icon.flashPalettes[Math.floor((flashIndex++ / flashInterval) % Icon.flashPalettes.length)] || my.imageOptions;
+            return my.flashPalettes[Math.floor((flashIndex++ / flashInterval) % my.flashPalettes.length)] || my.imageOptions;
         }
         return my.imageOptions;
     };

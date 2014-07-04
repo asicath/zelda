@@ -21,12 +21,7 @@ var Monster = function(level) {
     }
     else if (level == 2) {
         my.life = 8;
-
-        if (!Monster.Blue) {
-            Monster.Blue = ImageOptions('blue').addColorSwap("06", "02").addColorSwap("27", "32");
-        }
-
-        my.icon.imageOptions = Monster.Blue;
+        my.icon.imageOptions = ImageOptions.RedToBlue;
     }
 
 

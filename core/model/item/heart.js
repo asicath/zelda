@@ -6,12 +6,11 @@ var Heart = function() {
     // blinks every 8 frames
     my.icon.startFlashing(8);
 
-    /*
-    my.icon.flashPalates = [
-        Palettes.MonsterBlue,
-        Palettes.MonsterRed
+    // flash red/blue
+    my.icon.flashPalettes = [
+        ImageOptions.RedToBlue,
+        null
     ];
-    */
 
     my.onPickUp = function(player) {
         var amount = 4;

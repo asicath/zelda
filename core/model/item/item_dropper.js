@@ -5,7 +5,7 @@ var ItemDropper = function(entity) {
     entity.dropItem = function(room, itemClass) {
         var table = ItemDropper.dropGroups[itemClass];
 
-        if (Math.random() > table.chance) return;
+        //if (Math.random() > table.chance) return;
 
 
         var type = table.items[Math.floor(Math.random() * table.items.length)];

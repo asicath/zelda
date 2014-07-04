@@ -17,6 +17,8 @@ var ImageOptions = function(key) {
     return my;
 };
 
+ImageOptions.RedToBlue = ImageOptions('blue').addColorSwap("06", "02").addColorSwap("27", "32");
+
 
 
 var Sprite = function(width, height) {
