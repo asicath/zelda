@@ -32,6 +32,7 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
     // *** FLICKERING ***
     var flickering = false;
     var flickerFrame = 0;
+    var flickerInterval = 2;
 
     my.startFlickering = function() {
         flickering = true;
@@ -46,7 +47,7 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
 
         if (flickering) {
             // flickers invisible in 2 frame intervals
-            return flickerFrame++ % 2 == 0;
+            return flickerFrame++ % flickerInterval == 0;
         }
 
         return my.visible;
