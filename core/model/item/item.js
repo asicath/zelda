@@ -16,7 +16,7 @@ var Item = function() {
     });
 
     // Lasts for 508 frames
-    my.setFrameTimeout(508, function() {
+    my.setFrameTimeout(508, function(room) {
         room.removeEntity(my);
     });
 

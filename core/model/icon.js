@@ -78,9 +78,7 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
             "17": ["08", "30", "30", "17"], // Link Highlight
 
             "06": ["0D", "02", "06", "29"], // Monster Red
-            "30": ["08", "30", "30", "17"], // Monster White
-
-            "": []
+            "30": ["08", "30", "30", "17"]  // Monster White
         };
 
         Icon.defaultFlashPalettes = [

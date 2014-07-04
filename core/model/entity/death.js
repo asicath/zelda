@@ -6,74 +6,42 @@ var Death = function(entity, after) {
 
     my.icon = Icon(my, SpriteSheets.deathstar);
 
-    /* Death animation
-     19 frames
-     0 blank
-     1-6 small
-     7-12 large
-     13-18 small
+    // flash red/blue
+    my.icon.flashPalettes = [
+        ImageOptions('red_blue').addColorSwap("06", "08").addColorSwap("27", "1C"),
+        ImageOptions('white_gold').addColorSwap("06", "30").addColorSwap("27", "27"),
+        ImageOptions('white_blue').addColorSwap("06", "30").addColorSwap("27", "22"),
+        ImageOptions('red_gold').addColorSwap("06", "17").addColorSwap("27", "27")
+    ];
 
-     DeathStarRedBlue
-     DeathStarWhiteGold
-     DeathStarWhiteBlue
-     DeathStarRedGold
+    my.icon.startFlashing();
 
-     0 redblue
-     2 whitegold
-     4 white blue
-     6 redgold
-     8 redblue
-     10 whitegold
-     12 whiteblue
-     14 redgold
-     16 redblue
-     18 whitegold
-     */
+    // 19 frames of animation
+    // 0 = blank
 
-    my.isDead = false;
-    var deathFrame = 0;
+    // 1-6 small
+    my.setFrameTimeout(1, function() {
+        my.icon.spriteIndex = 2; // small
+    });
 
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
+    // 7-12 large
+    my.setFrameTimeout(7, function() {
+        my.icon.spriteIndex = 1; // large
+    });
 
-        /*
-        switch (deathFrame) {
-            case 0: my.icon.palette = Palettes.DeathStarRedBlue; break;
-            case 2: my.icon.palette = Palettes.DeathStarWhiteGold; break;
-            case 4: my.icon.palette = Palettes.DeathStarWhiteBlue; break;
-            case 6: my.icon.palette = Palettes.DeathStarRedGold; break;
-            case 8: my.icon.palette = Palettes.DeathStarRedBlue; break;
-            case 10: my.icon.palette = Palettes.DeathStarWhiteGold; break;
-            case 12: my.icon.palette = Palettes.DeathStarWhiteBlue; break;
-            case 14: my.icon.palette = Palettes.DeathStarRedGold; break;
-            case 16: my.icon.palette = Palettes.DeathStarRedBlue; break;
-            case 18: my.icon.palette = Palettes.DeathStarWhiteGold; break;
-        }
-        */
+    // 13-18 small
+    my.setFrameTimeout(13, function() {
+        my.icon.spriteIndex = 2; // small
+    });
+    my.setFrameTimeout(19, function(room) {
+        // animation is complete, remove from room
+        room.removeEntity(my);
+
+        if (after) after(room);
+    });
 
 
-        if (deathFrame <= 0) {
-            my.icon.spriteIndex = 0;
-        }
-        else if (deathFrame <= 6) {
-            my.icon.spriteIndex = 2;
-        }
-        else if (deathFrame <= 12) {
-            my.icon.spriteIndex = 1;
-        }
-        else if (deathFrame <= 18) {
-            my.icon.spriteIndex = 2;
-        }
-        else {
-            // animation is complete, remove from room
-            room.removeEntity(my);
 
-            if (after) after(room);
-        }
-
-        deathFrame++;
-
-    };
 
     return my;
 };
