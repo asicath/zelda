@@ -100,11 +100,17 @@ var runDemo = function() {
 
     loadAllSprites(function() {
 
+        var x = Math.floor(Math.random() * 16).toString();
+        var y = Math.floor(Math.random() * 8).toString();
 
+        if (x.length == 1) x = "0" + x;
+        if (y.length == 1) y = "0" + y;
 
-        loadRoomJson('', baseUrl + 'assets/rooms/ow06-06.js', function(data) {
+        loadRoomJson('', baseUrl + 'assets/rooms/ow' + x + '-' + y + '.js', function(data) {
 
             currentRoom = DemoRoom(data, music);
+
+            currentRoom.title = "room " + x + "-" + y;
 
             var cycle = DemoCycle(currentRoom);
             cycle.start();

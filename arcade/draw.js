@@ -4,13 +4,20 @@ var DemoDraw = (function() {
 
     my.drawInfo = function(ctx, room) {
         // Optional draws
-        if (room.wave) {
-            View.drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4);
-        }
+
+
 
         if (room.players) {
             displayPlayerInfo(ctx, 0, 4, room.players[0]);
             displayPlayerInfo(ctx, 1, 172, room.players[1]);
+        }
+
+        if (room.wave) {
+            View.drawText(ctx, " wave " + room.wave.toString() + " ", 96, 4+8);
+        }
+
+        if (room.title) {
+            View.drawText(ctx, " " + room.title + " ", 80, 4);
         }
     };
 
