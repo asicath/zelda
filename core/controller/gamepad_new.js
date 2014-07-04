@@ -81,24 +81,6 @@ var gamepadSupport = (function() {
 
     };
 
-    /*
-     axes: Array[0]
-     buttons: Array[16]
-     connected: true
-     id: "USB Gamepad  (STANDARD GAMEPAD Vendor: 0079 Product: 0011)"
-     index: 1
-     mapping: "standard"
-     timestamp: 50341
-
-     axes: Array[4]
-     buttons: Array[16]
-     connected: true
-     id: "Xbox 360 Controller (XInput STANDARD GAMEPAD)"
-     index: 2
-     mapping: "standard"
-     timestamp: 2
-     */
-
     return my;
 })();
 

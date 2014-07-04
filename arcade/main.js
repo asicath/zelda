@@ -130,8 +130,8 @@ var runDemo = function() {
             }, 1000);
             */
 
-            //Music.eightBit.loop = true;
-            //Music.eightBit.play();
+            Music.eightBit.loop = true;
+            Music.eightBit.play();
         });
     });
 
