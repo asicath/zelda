@@ -29,6 +29,7 @@ var gamepadSupport = (function() {
         var pads = navigator.getGamepads();
 
 
+        var j;
         for (var i in pads) {
 
             var gamepad = pads[i];
@@ -38,34 +39,42 @@ var gamepadSupport = (function() {
 
             //var playerId = parseInt(i);
 
-            if (gamepad.id == "Xbox 360 Controller (XInput STANDARD GAMEPAD)") {
-                // dpad
-                playerInput[playerId].up = gamepad.buttons[12].value > 0;
-                playerInput[playerId].down = gamepad.buttons[13].value > 0;
-                playerInput[playerId].left = gamepad.buttons[14].value > 0;
-                playerInput[playerId].right = gamepad.buttons[15].value > 0;
+            playerInput[playerId].down = false;
+            playerInput[playerId].up = false;
+            playerInput[playerId].left = false;
+            playerInput[playerId].right = false;
 
-                playerInput[playerId].button_a = gamepad.buttons[0].value > 0;
-                playerInput[playerId].button_b = gamepad.buttons[1].value > 0;
-                playerInput[playerId].button_x = gamepad.buttons[2].value > 0;
-                playerInput[playerId].button_y = gamepad.buttons[3].value > 0;
+            // Firefox and some pads on chrome
+            if (gamepad.axes.length > 0) {
+                var threshold = 0.75;
+                j = 0;
+                // if uneven number of axes, start at 1?
+                if (gamepad.axes.length % 2 == 1) j = 1;
 
-                playerInput[playerId].start = gamepad.buttons[9].value > 0;
+                while (j < gamepad.axes.length) {
+                    if (gamepad.axes[j+1] > threshold) playerInput[playerId].down = true;
+                    if (gamepad.axes[j+1] < -threshold) playerInput[playerId].up = true;
+                    if (gamepad.axes[j] > threshold) playerInput[playerId].right = true;
+                    if (gamepad.axes[j] < -threshold) playerInput[playerId].left = true;
+                    j += 2;
+                }
+
             }
-            else if (gamepad.id == "USB Gamepad  (STANDARD GAMEPAD Vendor: 0079 Product: 0011)") {
-                console.log(JSON.stringify(gamepad.buttons));
 
-                playerInput[playerId].up = gamepad.buttons[12].value > 0;
-                playerInput[playerId].down = gamepad.buttons[13].value > 0;
-                playerInput[playerId].left = gamepad.buttons[14].value > 0;
-                playerInput[playerId].right = gamepad.buttons[15].value > 0;
-
-                playerInput[playerId].button_a = gamepad.buttons[0].value > 0; // actually the B
-                playerInput[playerId].button_b = gamepad.buttons[1].value > 0; // A
-
-                playerInput[playerId].start = gamepad.buttons[9].value > 0;
-                playerInput[playerId].select = gamepad.buttons[8].value > 0;
+            // Some pads on chrome
+            if (gamepad.buttons.length >= 16){
+                if (gamepad.buttons[12].value > 0) playerInput[playerId].up = true;
+                if (gamepad.buttons[13].value > 0) playerInput[playerId].down = true;
+                if (gamepad.buttons[14].value > 0) playerInput[playerId].left = true;
+                if (gamepad.buttons[15].value > 0) playerInput[playerId].right = true;
             }
+
+            playerInput[playerId].button_a = gamepad.buttons[0].value > 0 || gamepad.buttons[2].value > 0; // actually the B
+            playerInput[playerId].button_b = gamepad.buttons[1].value > 0 || gamepad.buttons[3].value > 0; // A
+            playerInput[playerId].start = gamepad.buttons[7].value > 0 || gamepad.buttons[9].value > 0;
+            playerInput[playerId].select = gamepad.buttons[6].value > 0 || gamepad.buttons[8].value > 0;
+
+
 
             playerId++;
         }
