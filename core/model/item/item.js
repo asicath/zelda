@@ -5,28 +5,28 @@ var Item = function() {
     my.getFootPrint().setSize(16, 16);
     my.icon = Icon(my, SpriteSheets.items);
 
-    var frameCount = 0;
+    var pickupAllowed = false;
+
+    // Flicker for 30 frames
+    // Dont allow pickup during flicker
+    my.icon.startFlickering();
+    my.setFrameTimeout(30, function() {
+        my.icon.stopFlickering();
+        pickupAllowed = true;
+    });
+
+    // Lasts for 508 frames
+    my.setFrameTimeout(508, function() {
+        room.removeEntity(my);
+    });
 
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
         executeFrame_parent(room);
 
-        frameCount++;
-
-        // flickers for 30 frames
-        if (frameCount <= 30) {
-            my.flickering = true;
-        }
-        else {
-            my.flickering = false;
+        if (pickupAllowed)
             checkForPickup(room);
-        }
-
-        // Lasts for 508 frames
-        if (frameCount >= 508) {
-            room.removeEntity(my);
-        }
 
     };
 

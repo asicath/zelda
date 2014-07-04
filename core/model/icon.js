@@ -6,11 +6,11 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
         visible: true
     };
 
-    my.getXPosition = function() {
+    var getXPosition = function() {
         return entity.position.x + my.drawOffset.x;
     };
 
-    my.getYPosition = function() {
+    var getYPosition = function() {
         return entity.position.y + my.drawOffset.y;
     };
 
@@ -18,22 +18,33 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
         return my.spriteSheet.sprites[my.spriteIndex];
     };
 
+    // Default image options
+    my.imageOptions = null;
 
-    my.getPalette = function() {
-        if (flashing) {
-            return Icon.flashPalettes[Math.floor((flashIndex++ / flashInterval) % Icon.flashPalettes.length)] || my.imageOptions;
+    my.drawIcon = function(ctx) {
+        if (my.isVisible()) {
+            var img = my.getSprite().getImage(my.getPalette());
+            ctx.drawImage(img, Math.floor(getXPosition()), Math.floor(getYPosition()));
         }
-        return my.imageOptions;
     };
 
 
     // *** FLICKERING ***
-    my.flickering = false;
+    var flickering = false;
     var flickerFrame = 0;
+
+    my.startFlickering = function() {
+        flickering = true;
+    };
+
+    my.stopFlickering = function() {
+        flickering = false;
+        flickerFrame = 0;
+    };
 
     my.isVisible = function() {
 
-        if (my.flickering) {
+        if (flickering) {
             // flickers invisible in 2 frame intervals
             return flickerFrame++ % 2 == 0;
         }
@@ -41,20 +52,23 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
         return my.visible;
     };
 
+
+    // *** FLASHING ***
     var flashing = false;
     var flashInterval = 2;
     var flashIndex = 0;
 
     my.startFlashing = function(interval) {
         flashing = true;
-        flashIndex = 0;
         if (interval) flashInterval = interval;
     };
 
     my.stopFlashing = function() {
         flashing = false;
+        flashIndex = 0;
     };
 
+    // Setup the flashPalettes
     if (!Icon.flashPalettes) {
 
         var colorMap = {
@@ -67,7 +81,6 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
 
             "": []
         };
-
 
         Icon.flashPalettes = [
             ImageOptions('flash0'),
@@ -82,21 +95,13 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
             }
         }
 
-
     }
 
-
-    my.imageOptions = null;
-
-    my.drawIcon = function(ctx) {
-        if (my.isVisible()) {
-
-
-
-            var img = my.getSprite().getImage(my.getPalette());
-            ctx.drawImage(img, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()));
+    my.getPalette = function() {
+        if (flashing) {
+            return Icon.flashPalettes[Math.floor((flashIndex++ / flashInterval) % Icon.flashPalettes.length)] || my.imageOptions;
         }
-
+        return my.imageOptions;
     };
 
     return my;
