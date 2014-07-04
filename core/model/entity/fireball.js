@@ -2,7 +2,7 @@ var Fireball = function() {
     var my = Entity();
 
     my.icon = Icon(my, SpriteSheets.ball);
-    my.icon.flashing = true;
+    my.icon.startFlashing();
 
     Mover(my);
 

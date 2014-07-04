@@ -4,8 +4,8 @@ var Heart = function() {
     my.icon.spriteIndex = 2;
 
     // blinks every 8 frames
-    my.icon.flashing = true;
-    my.icon.flashInterval = 8;
+    my.icon.startFlashing(8);
+
     /*
     my.icon.flashPalates = [
         Palettes.MonsterBlue,

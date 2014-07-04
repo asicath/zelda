@@ -15,9 +15,11 @@ var Item = function() {
         frameCount++;
 
         // flickers for 30 frames
-        my.flickering = frameCount <= 30;
-
-        if (!my.flickering) {
+        if (frameCount <= 30) {
+            my.flickering = true;
+        }
+        else {
+            my.flickering = false;
             checkForPickup(room);
         }
 

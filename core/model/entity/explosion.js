@@ -2,7 +2,7 @@ var Explosion = function(angle) {
     var my = Entity();
 
     my.icon = Icon(my, SpriteSheets.explosion);
-    my.icon.flashing = true;
+    my.icon.startFlashing();
 
     Mover(my);
 

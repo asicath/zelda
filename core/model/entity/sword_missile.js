@@ -5,7 +5,7 @@ var SwordMissile = function(player, sword) {
     my.movementSources.push(new Missile(my));
 
     my.entityType = "sword_missile";
-    my.icon.flashing = true;
+    my.icon.startFlashing();
     my.complete = false;
 
     my.maxFrame = 10000;

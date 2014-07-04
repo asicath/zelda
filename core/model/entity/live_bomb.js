@@ -50,7 +50,7 @@ var LiveBomb = function(player) {
     };
 
     var warning = function() {
-        my.icon.flashing = true;
+        my.icon.startFlashing();
     };
 
     my.setFrameTimeout(160, explode);

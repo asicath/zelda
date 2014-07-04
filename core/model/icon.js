@@ -51,9 +51,18 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
     ];
     */
 
-    my.flashing = false;
-    my.flashInterval = 2;
+    var flashing = false;
+    var flashInterval = 2;
     var flashIndex = 0;
+
+    my.startFlashing = function(interval) {
+        flashing = true;
+        flashInterval = interval;
+    };
+
+    my.stopFlashing = function() {
+        flashing = false;
+    };
 
 
     my.imageOptions = null;

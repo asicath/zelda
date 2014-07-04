@@ -69,10 +69,10 @@ var Player = function(playerId) {
 
         if (my.invincible > 0) {
             my.invincible--;
-            my.icon.flashing = true;
+            my.icon.startFlashing();
         }
         else {
-            my.icon.flashing = false;
+            my.icon.stopFlashing();
         }
 
         executeFrame_parent(room);

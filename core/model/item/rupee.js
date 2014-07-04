@@ -4,8 +4,8 @@ var Rupee = function() {
     my.icon.spriteIndex = 0;
 
     // blinks every 8 frames
-    my.icon.flashing = true;
-    my.icon.flashInterval = 8;
+    my.icon.startFlashing(8);
+
     /*
     my.icon.flashPalates = [
         Palettes.MonsterBlue,

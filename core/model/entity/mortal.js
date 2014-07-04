@@ -59,10 +59,10 @@ var Mortal = function(my) {
 
         if (my.invincible > 0) {
             my.invincible--;
-            my.icon.flashing = true;
+            my.icon.startFlashing();
         }
         else {
-            my.icon.flashing = false;
+            my.icon.stopFlashing();
         }
 
     };

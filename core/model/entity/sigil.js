@@ -6,7 +6,7 @@ var Sigil = function() {
     my.getFootPrint().setSize(16, 16);
 
     my.entityType = "sigil";
-    my.icon.flashing = true;
+    my.icon.startFlashing();
 
     return my;
 };

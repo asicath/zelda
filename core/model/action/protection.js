@@ -143,7 +143,7 @@ var Protection = function(actor) {
         // create the circle
         circle = new Circle();
         circle.icon.spriteIndex = 0;
-        circle.icon.flashing = true;
+        circle.icon.startFlashing();
 
         room.addEntity(circle);
 
