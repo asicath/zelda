@@ -38,7 +38,7 @@ var Player = function(playerId) {
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
-
+    if (playerId == "2")
     my.icon.imageOptions = ImageOptions('purple')
         .addColorSwap("29", "04") // Clothes: Green to Purple
         .addColorSwap("27", "08") // Skin: Brown
@@ -47,31 +47,24 @@ var Player = function(playerId) {
 
     my.setFacing(Directions.top);
 
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-
-        if (my.invincible > 0) {
-            my.invincible--;
-            my.icon.startFlashing();
-        }
-        else {
-            my.icon.stopFlashing();
-        }
-
-        executeFrame_parent(room);
-    };
-
     my.monstersKilled = 0;
     my.life = 20;
     my.maxLife = 20;
-    my.invincible = 0;
+
+    var invincible = false;
     my.takeDamage = function(amount, entity, room) {
 
-        if (my.invincible > 0) return;
+        if (invincible) return;
 
         my.life -= amount;
 
-        my.invincible = 48;
+        invincible = true;
+
+        my.icon.startFlashing();
+        my.setFrameTimeout(48, function() {
+            my.icon.stopFlashing();
+            invincible = false;
+        });
 
         if (my.life <= 0) {
             death(room);

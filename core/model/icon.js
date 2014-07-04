@@ -18,14 +18,15 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
         return my.spriteSheet.sprites[my.spriteIndex];
     };
 
-    /*
+
     my.getPalette = function() {
-        if (my.flashing) {
-            return my.flashPalates[Math.floor((flashIndex++ / my.flashInterval) % my.flashPalates.length)];
+        if (flashing) {
+            var p = flashPalettes[Math.floor((flashIndex++ / flashInterval) % flashPalettes.length)];
+            return p || my.imageOptions;
         }
-        return my.palette;
+        return my.imageOptions;
     };
-    */
+
 
     // *** FLICKERING ***
     my.flickering = false;
@@ -41,42 +42,34 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
         return my.visible;
     };
 
-    /*
-    // *** FLASHING ***
-    my.flashPalates = [
-        Palettes.MonsterBlack, // should be all blue
-        Palettes.MonsterBlue,
-        Palettes.MonsterRed,
-        Palettes.LinkGreen
-    ];
-    */
-
     var flashing = false;
     var flashInterval = 2;
     var flashIndex = 0;
 
     my.startFlashing = function(interval) {
         flashing = true;
-        flashInterval = interval;
+        if (interval) flashInterval = interval;
     };
 
     my.stopFlashing = function() {
         flashing = false;
     };
 
-    var flashingOptionSets = [
-
+    var flashPalettes =[
+        ImageOptions('flashBlack').addColorSwap("29", "0D").addColorSwap("27", "1C").addColorSwap("17", "08"),
+        ImageOptions('flashBlue').addColorSwap("29", "02").addColorSwap("27", "32").addColorSwap("17", "30"),
+        ImageOptions('flashRed').addColorSwap("29", "06").addColorSwap("27", "27").addColorSwap("17", "30"),
+        null
     ];
-
-
-
-
 
     my.imageOptions = null;
 
     my.drawIcon = function(ctx) {
         if (my.isVisible()) {
-            var img = my.getSprite().getImage(my.imageOptions);
+
+
+
+            var img = my.getSprite().getImage(my.getPalette());
             ctx.drawImage(img, Math.floor(my.getXPosition()), Math.floor(my.getYPosition()));
         }
 
