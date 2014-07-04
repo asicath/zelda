@@ -39,28 +39,11 @@ var Player = function(playerId) {
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
 
-    my.icon.imageOptions = {
-        key: 'purple',
-        colorSwaps:
-        [
-            // Green to Purple
-            {
-                target: Color.fromNESPalette("29"),
-                replaceWith: Color.fromNESPalette("04")
-            },
-            // Brown Skin
-            {
-                target: Color.fromNESPalette("27"),
-                replaceWith: Color.fromNESPalette("08")
-            },
-            // Brown Skin
-            {
-                target: Color.fromNESPalette("17"),
-                replaceWith: Color.fromNESPalette("1D")
-            }
+    my.icon.imageOptions = ImageOptions('purple')
+        .addColorSwap("29", "04") // Clothes: Green to Purple
+        .addColorSwap("27", "08") // Skin: Brown
+        .addColorSwap("17", "1D"); // Hair + Highlights: Dark Grey
 
-        ]
-    };
 
     my.setFacing(Directions.top);
 

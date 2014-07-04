@@ -1,5 +1,23 @@
 
 
+var ImageOptions = function(key) {
+    var my = {
+        key: key,
+        colorSwaps: []
+    };
+
+    my.addColorSwap = function(target, replaceWith) {
+        my.colorSwaps.push({
+            target: Color.fromNESPalette(target),
+            replaceWith: Color.fromNESPalette(replaceWith)
+        });
+        return my;
+    };
+
+    return my;
+};
+
+
 
 var Sprite = function(width, height) {
 

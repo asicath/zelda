@@ -64,6 +64,13 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
         flashing = false;
     };
 
+    var flashingOptionSets = [
+
+    ];
+
+
+
+
 
     my.imageOptions = null;
 

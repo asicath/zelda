@@ -1,4 +1,4 @@
-var Monster = function() {
+var Monster = function(level) {
     var my = Entity();
 
     my.icon = Icon(my, SpriteSheets.octopus);
@@ -15,7 +15,21 @@ var Monster = function() {
 
     my.wallSensitive = true;
     my.entityType = 'monster';
-    my.life = 4;
+
+    if (level == 1) {
+        my.life = 4;
+    }
+    else if (level == 2) {
+        my.life = 8;
+
+        if (!Monster.Blue) {
+            Monster.Blue = ImageOptions('blue').addColorSwap("06", "02").addColorSwap("27", "32");
+        }
+
+        my.icon.imageOptions = Monster.Blue;
+    }
+
+
     my.stepChange = 8;
 
     my.getFootPrint().setSize(16, 16);
@@ -66,7 +80,3 @@ var Monster = function() {
 
     return my;
 };
-
-
-
-

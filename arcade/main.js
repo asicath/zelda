@@ -102,7 +102,7 @@ var runDemo = function() {
 
 
 
-        loadRoomJson('', baseUrl + 'assets/rooms/ow08-07.js', function(data) {
+        loadRoomJson('', baseUrl + 'assets/rooms/ow06-06.js', function(data) {
 
             currentRoom = DemoRoom(data, music);
 

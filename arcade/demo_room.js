@@ -241,9 +241,12 @@ var DemoRoom = function(data, music) {
     var addMonster = function() {
 
         // create the entity
-        var e = Monster();
+        var e;
         if (Math.random() > 0.5) {
-             e.life = 8;
+            e = Monster(2);
+        }
+        else {
+            e = Monster(1);
         }
 
         // find a spot for it

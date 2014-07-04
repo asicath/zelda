@@ -18,36 +18,8 @@ var Room = function(data) {
         my.tiles = data.tiles;
 
         var outsideGreen = null;
-
-        var outsideBrown = {
-            key: 'brown',
-            colorSwaps:
-                [
-                    {
-                        target: Color.fromNESPalette("1A"),
-                        replaceWith: Color.fromNESPalette("17")
-                    }
-
-                ]
-        };
-
-        var outsideGrey = {
-            key: 'brown',
-            colorSwaps:
-                [
-                    // forecolor
-                    {
-                        target: Color.fromNESPalette("1A"),
-                        replaceWith: Color.fromNESPalette("20")
-                    },
-                    // Ground
-                    {
-                        target: Color.fromNESPalette("37"),
-                        replaceWith: Color.fromNESPalette("00")
-                    }
-
-                ]
-        };
+        var outsideBrown = ImageOptions('brown').addColorSwap("1A", "17");
+        var outsideGrey = ImageOptions('grey').addColorSwap("1A", "20").addColorSwap("37", "00");
 
         var imageOptions = [
             outsideGreen,
