@@ -14,7 +14,7 @@ var Actor = function(my) {
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function(room) {
 
-        updateInput(my.playerId);
+        updateInput(my.playerInputIndex);
 
         executeActions(room);
 

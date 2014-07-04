@@ -24,7 +24,7 @@ var gamepadSupport = (function() {
     my.pollStatus = function() {
         //checkForNewGamePads();
 
-        var playerId = 0;
+
 
         var pads = navigator.getGamepads();
 
@@ -36,6 +36,11 @@ var gamepadSupport = (function() {
 
             if (!gamepad || i.length > 1) continue;
             if (gamepad.buttons.length == 0) continue;
+
+            var playerId = gamepad.index + 1; // 0 is reserved for keyboard
+            if (playerInput.length <= playerId || !playerInput[playerId]) {
+                playerInput[playerId] = {};
+            }
 
             //var playerId = parseInt(i);
 

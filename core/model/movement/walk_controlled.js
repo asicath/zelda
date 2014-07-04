@@ -3,7 +3,7 @@ var WalkControlled = function(mover) {
 
     var executeMove_parent = my.executeMove;
     my.executeMove = function(room) {
-        checkInput(mover.playerId);
+        checkInput(mover.playerInputIndex);
         executeMove_parent(room);
     };
 

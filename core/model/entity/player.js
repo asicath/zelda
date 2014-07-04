@@ -1,4 +1,4 @@
-var Player = function(playerId) {
+var Player = function(playerId, playerInputIndex) {
     var my = Entity();
 
     my.icon = Icon(my, SpriteSheets.link);
@@ -16,6 +16,7 @@ var Player = function(playerId) {
     my.setAction(DropBomb(my, BigBomb), 'button_x');
 
     my.playerId = playerId;
+    my.playerInputIndex = playerInputIndex;
     my.wallSensitive = true;
     my.entityType = 'player';
 
@@ -38,7 +39,7 @@ var Player = function(playerId) {
     my.facingSpriteBaseIndex = [0, 3, 6, 9];
     my.speed = 80/60; // can move 80 pixels in 1s or 60 frames
 
-    if (playerId == "2")
+    if (playerId == "1")
     my.icon.imageOptions = ImageOptions('purple')
         .addColorSwap("29", "04") // Clothes: Green to Purple
         .addColorSwap("27", "08") // Skin: Brown

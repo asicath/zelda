@@ -18,8 +18,8 @@ var DemoRoom = function(data, music) {
     //startMusicWhenReady();
 
 
-    var createPlayer = function(playerId) {
-        my.players[playerId] = Player(playerId);
+    var createPlayer = function(playerId, playerInputIndex) {
+        my.players[playerId] = Player(playerId, playerInputIndex);
 
         my.setPositionToOpenTile(my.players[playerId]);
 
@@ -27,15 +27,29 @@ var DemoRoom = function(data, music) {
     };
 
     my.players = [];
+    var playerInputMap = {};
 
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function() {
 
         // check for player creation
         for (var i = 0; i < playerInput.length; i++) {
-            if (!my.players[i] || my.players[i].isDead) {
-                if (playerInput[i].start) {
-                    createPlayer(i);
+            if (!playerInput[i]) continue;
+
+            if (playerInput[i].start) {
+
+                // determine playerId
+                var playerId;
+                var playerInputKey = i.toString();
+                if (typeof playerInputMap[playerInputKey] === 'undefined') {
+                    // give the controller a player id
+                    playerInputMap[playerInputKey] = my.players.length;
+                }
+                playerId = playerInputMap[playerInputKey];
+
+                // Allow start if possible
+                if (!my.players[playerId] || my.players[playerId].isDead) {
+                    createPlayer(playerId, i);
                 }
             }
         }
