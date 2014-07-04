@@ -54,7 +54,9 @@ var Monster = function(level) {
         my.homingPercent = 64/255;
     }
 
+    var takeDamage_parent = my.onTakeDamage;
     my.onTakeDamage = function(entity) {
+        takeDamage_parent(entity);
         my.pushFromThrust(entity.facing);
     };
 

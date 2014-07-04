@@ -1,15 +1,13 @@
 var Mortal = function(my) {
 
     my.life = 4;
-    my.invincible = 0;
+    var invincible = 0;
 
     my.takeDamage = function(amount, entity, room) {
 
-        if (my.invincible > 0 || my.isDead) return;
+        if (invincible || my.isDead) return;
 
         my.life -= amount;
-
-        my.invincible = 30;
 
         if (my.life <= 0) {
             death(room, entity);
@@ -21,7 +19,17 @@ var Mortal = function(my) {
 
     };
 
-    my.onTakeDamage = function(entity) {};
+    my.onTakeDamage = function(entity) {
+
+        invincible = true;
+
+        my.icon.startFlashing();
+        my.setFrameTimeout(30, function() {
+            my.icon.stopFlashing();
+            invincible = false;
+        });
+
+    };
 
     var death = function(room, entity) {
 
@@ -48,23 +56,5 @@ var Mortal = function(my) {
     };
 
     my.afterDeath = function() {};
-
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-
-        if (my.isDead) return;
-
-        // If dead, don't do anything else
-        executeFrame_parent(room);
-
-        if (my.invincible > 0) {
-            my.invincible--;
-            my.icon.startFlashing();
-        }
-        else {
-            my.icon.stopFlashing();
-        }
-
-    };
 
 };

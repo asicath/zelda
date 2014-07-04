@@ -21,8 +21,7 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
 
     my.getPalette = function() {
         if (flashing) {
-            var p = flashPalettes[Math.floor((flashIndex++ / flashInterval) % flashPalettes.length)];
-            return p || my.imageOptions;
+            return Icon.flashPalettes[Math.floor((flashIndex++ / flashInterval) % Icon.flashPalettes.length)] || my.imageOptions;
         }
         return my.imageOptions;
     };
@@ -48,6 +47,7 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
 
     my.startFlashing = function(interval) {
         flashing = true;
+        flashIndex = 0;
         if (interval) flashInterval = interval;
     };
 
@@ -55,12 +55,36 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
         flashing = false;
     };
 
-    var flashPalettes =[
-        ImageOptions('flashBlack').addColorSwap("29", "0D").addColorSwap("27", "1C").addColorSwap("17", "08"),
-        ImageOptions('flashBlue').addColorSwap("29", "02").addColorSwap("27", "32").addColorSwap("17", "30"),
-        ImageOptions('flashRed').addColorSwap("29", "06").addColorSwap("27", "27").addColorSwap("17", "30"),
-        null
-    ];
+    if (!Icon.flashPalettes) {
+
+        var colorMap = {
+            "29": ["0D", "02", "06", "29"], // Link green
+            "27": ["1C", "32", "27", "27"], // Link Skin
+            "17": ["08", "30", "30", "17"], // Link Highlight
+
+            "06": ["0D", "02", "06", "29"], // Monster Red
+            "30": ["08", "30", "30", "17"], // Monster White
+
+            "": []
+        };
+
+
+        Icon.flashPalettes = [
+            ImageOptions('flash0'),
+            ImageOptions('flash1'),
+            ImageOptions('flash2'),
+            ImageOptions('flash3')
+        ];
+
+        for (var c in colorMap) {
+            for (var i = 0; i < 4; i++) {
+                Icon.flashPalettes[i].addColorSwap(c, colorMap[c][i]);
+            }
+        }
+
+
+    }
+
 
     my.imageOptions = null;
 
@@ -77,3 +101,4 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
 
     return my;
 };
+
