@@ -131,7 +131,7 @@ var runDemo = function() {
             */
 
             Music.eightBit.loop = true;
-            Music.eightBit.play();
+            //Music.eightBit.play();
         });
     });
 
