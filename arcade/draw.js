@@ -8,6 +8,9 @@ var DemoDraw = (function() {
         if (room.players) {
             displayPlayerInfo(ctx, 0, 2, 16, room.players[0]);
             displayPlayerInfo(ctx, 1, View.virtualWidth - 5*8 - 1, 16, room.players[1]);
+
+            displayPlayerInfo(ctx, 2, 2, ((View.virtualHeight - 16) / 2) + 16, room.players[2]);
+            displayPlayerInfo(ctx, 3, View.virtualWidth - 5*8 - 1, ((View.virtualHeight - 16) / 2) + 16, room.players[3]);
         }
 
         // Top screen info
