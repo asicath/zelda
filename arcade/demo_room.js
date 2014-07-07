@@ -32,6 +32,10 @@ var DemoRoom = function(data, music) {
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function() {
 
+        if (!crystal) {
+            addCrystal();
+        }
+
         // check for player creation
         for (var i = 0; i < playerInput.length; i++) {
             if (!playerInput[i]) continue;
@@ -86,6 +90,16 @@ var DemoRoom = function(data, music) {
         my.players[player.playerId].monstersKilled++;
 
         killCount++;
+
+        if (killCount > 3) {
+            crystal.setLevel(3);
+        }
+        else if (killCount > 2) {
+            crystal.setLevel(2);
+        }
+        else if (killCount > 1) {
+            crystal.setLevel(1);
+        }
 
         musicPercent += 0.02;
         music.setPercent(musicPercent);
@@ -235,23 +249,6 @@ var DemoRoom = function(data, music) {
 
     };
 
-
-
-
-    var addFly = function() {
-        var e = Fly();
-        // find a spot for it
-        var tile = null;
-        while (!tile) {
-            var i = Math.floor(Math.random() * my.tiles.length);
-            if (my.tiles[i].type == 'floor') tile = my.tiles[i];
-        }
-
-        e.position.copy(tile.position);
-
-        my.addEntity(e);
-    };
-
     var addMonster = function() {
 
         // create the entity
@@ -269,6 +266,13 @@ var DemoRoom = function(data, music) {
         // place it in a spawn cloud
         var spawn = SpawnCloud(e);
         my.addEntity(spawn);
+    };
+
+    var crystal;
+    var addCrystal = function() {
+        crystal = Crystal();
+        my.setPositionToOpenTile(crystal);
+        my.addEntity(crystal);
     };
 
 
