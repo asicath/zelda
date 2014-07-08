@@ -17,7 +17,7 @@ var ImageOptions = function(key) {
     return my;
 };
 
-ImageOptions.RedToBlue = ImageOptions('blue').addColorSwap("06", "02").addColorSwap("27", "32");
+ImageOptions.RedToBlue = ImageOptions('blue').addColorSwap("16", "02").addColorSwap("27", "22");
 
 
 

@@ -73,11 +73,11 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
     if (!Icon.defaultFlashPalettes) {
 
         var colorMap = {
-            "29": ["0D", "02", "06", "29"], // Link green
+            "29": ["0D", "02", "16", "29"], // Link green
             "27": ["1C", "32", "27", "27"], // Link Skin
             "17": ["08", "30", "30", "17"], // Link Highlight
 
-            "06": ["0D", "02", "06", "29"], // Monster Red
+            "16": ["0D", "02", "16", "29"], // Monster Red
             "30": ["08", "30", "30", "17"]  // Monster White
         };
 

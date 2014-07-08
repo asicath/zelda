@@ -8,10 +8,10 @@ var Death = function(entity, after) {
 
     // flash red/blue
     my.icon.flashPalettes = [
-        ImageOptions('red_blue').addColorSwap("06", "08").addColorSwap("27", "1C"),
-        ImageOptions('white_gold').addColorSwap("06", "30").addColorSwap("27", "27"),
-        ImageOptions('white_blue').addColorSwap("06", "30").addColorSwap("27", "22"),
-        ImageOptions('red_gold').addColorSwap("06", "17").addColorSwap("27", "27")
+        ImageOptions('red_blue').addColorSwap("16", "08").addColorSwap("27", "1C"),
+        ImageOptions('white_gold').addColorSwap("16", "30").addColorSwap("27", "27"),
+        ImageOptions('white_blue').addColorSwap("16", "30").addColorSwap("27", "22"),
+        ImageOptions('red_gold').addColorSwap("16", "17").addColorSwap("27", "27")
     ];
 
     my.icon.startFlashing();
