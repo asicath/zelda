@@ -2,25 +2,25 @@
 var DemoDraw = (function() {
     var my = {};
 
-    my.drawInfo = function(ctx, room) {
+    my.drawInfo = function(ctx, room, virtualWidth, virtualHeight) {
 
         // Optional draws
         if (room.players) {
             displayPlayerInfo(ctx, 0, 2, 16, room.players[0]);
-            displayPlayerInfo(ctx, 1, View.virtualWidth - 5*8 - 1, 16, room.players[1]);
+            displayPlayerInfo(ctx, 1, virtualWidth - 5*8 - 1, 16, room.players[1]);
 
-            displayPlayerInfo(ctx, 2, 2, ((View.virtualHeight - 16) / 2) + 16, room.players[2]);
-            displayPlayerInfo(ctx, 3, View.virtualWidth - 5*8 - 1, ((View.virtualHeight - 16) / 2) + 16, room.players[3]);
+            displayPlayerInfo(ctx, 2, 2, ((virtualHeight - 16) / 2) + 16, room.players[2]);
+            displayPlayerInfo(ctx, 3, virtualWidth - 5*8 - 1, ((virtualHeight - 16) / 2) + 16, room.players[3]);
         }
 
         // Top screen info
         if (room.wave) {
             var text = "wave " + room.wave.toString();
-            View.drawText(ctx, text, (View.virtualWidth - text.length * 8) / 2, 8);
+            View.drawText(ctx, text, (virtualWidth - text.length * 8) / 2, 8);
         }
 
         if (room.title) {
-            View.drawText(ctx, room.title, (View.virtualWidth - room.title.length * 8) / 2, 0);
+            View.drawText(ctx, room.title, (virtualWidth - room.title.length * 8) / 2, 0);
         }
     };
 

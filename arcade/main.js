@@ -112,6 +112,7 @@ var runDemo = function() {
 
             currentRoom.title = "room " + x + "-" + y;
 
+
             var cycle = DemoCycle(currentRoom);
             cycle.start();
 
