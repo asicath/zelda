@@ -106,13 +106,15 @@ var Room = function(data) {
     my.onPlayerKill = function() {};
     my.onMonsterKill = function() {};
 
-    my.setPositionToOpenTile = function(entity) {
+    my.addEntityAtOpenTile = function(entity) {
         var tile = null;
         while (!tile) {
             var i = Math.floor(Math.random() * my.tiles.length);
             if (my.tiles[i].type == 'floor') tile = my.tiles[i];
         }
         entity.position.copy(tile.position);
+
+        my.addEntity(entity);
     };
 
     my.addEntity = function(entity) {

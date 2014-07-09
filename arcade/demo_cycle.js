@@ -24,12 +24,16 @@ var DemoCycle = function() {
                 loading = false;
                 xOffset = Math.floor((virtualWidth - room.rect.width)/2);
                 yOffset = Math.floor((virtualHeight - room.rect.height));
+                room.onComplete = nextRoom;
             });
             loading = true;
         }
 
     };
 
+    var nextRoom = function() {
+        room = null;
+    };
 
 
     // one call per animation call from window

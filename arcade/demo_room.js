@@ -3,6 +3,8 @@
 var DemoRoom = function(data) {
     var my = Room(data);
 
+    my.wave = 0;
+
     /*
 
      //music.setPercent(0);
@@ -23,29 +25,19 @@ var DemoRoom = function(data) {
     //startMusicWhenReady();
     */
 
-    Music.eightBit.loop = true;
+    //Music.eightBit.loop = true;
     //Music.eightBit.play();
 
 
-
-    var createPlayer = function(playerId, playerInputIndex) {
-        my.players[playerId] = Player(playerId, playerInputIndex);
-
-        my.setPositionToOpenTile(my.players[playerId]);
-
-        my.addEntity(my.players[playerId]);
-    };
-
+    // *** Players ***
     my.players = [];
     var playerInputMap = {};
+    var createPlayer = function(playerId, playerInputIndex) {
+        my.players[playerId] = Player(playerId, playerInputIndex);
+        my.addEntityAtOpenTile(my.players[playerId]);
+    };
 
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function() {
-
-        if (!crystal) {
-            addCrystal();
-        }
-
+    var checkForPlayerAdd = function() {
         // check for player creation
         for (var i = 0; i < playerInput.length; i++) {
             if (!playerInput[i]) continue;
@@ -67,40 +59,65 @@ var DemoRoom = function(data) {
                 }
             }
         }
+    };
 
+
+    // *** Crystals ***
+    var crystal;
+    var addCrystal = function() {
+        crystal = Crystal();
+        my.addEntityAtOpenTile(crystal);
+    };
+
+
+
+    var executeFrame_parent = my.executeFrame;
+    my.executeFrame = function() {
+
+        if (!crystal) {
+            addCrystal();
+        }
+
+        checkForPlayerAdd();
 
         executeFrame_parent();
-
-        //checkAddMonster(30);
-        checkWave();
     };
 
 
-    var countToAddMonster = 0;
-    var addCount = 0;
+    var monsterCount = 0;
+    var monsterCountMax = 10;
+
+    var addMonsterCheck = function() {
+        addMonster();
+        monsterCount++;
+
+        if (monsterCount < monsterCountMax) {
+            my.setFrameTimeout(30, addMonsterCheck);
+        }
+
+    };
+
+    // start adding monsters
+    my.setFrameTimeout(60*2, addMonsterCheck);
+
+
 
     var killCount = 0;
-    var monsterCount = 0;
-
-    my.wave = 0;
-    var waveState = 0;
-    my.framesToNextWave = 150;
-
-    my.onPlayerKill = function(player, killedBy) {
-        //musicPercent = 0.1;
-        //music.setPercent(musicPercent);
-    };
 
     my.onMonsterKill = function(monster, player) {
-        // Cause two more monsters to spawn
-        //countToAddMonster = 30;
-        //addCount += 2;
 
         // keep track of kills
         my.players[player.playerId].monstersKilled++;
 
+        // keep track of total room kills
         killCount++;
 
+        // when all the monsters are dead, room is complete
+        if (monsterCount == monsterCountMax && killCount == monsterCount) {
+            my.onComplete();
+        }
+
+        /*
         if (killCount > 3) {
             crystal.setLevel(3);
         }
@@ -110,10 +127,38 @@ var DemoRoom = function(data) {
         else if (killCount > 1) {
             crystal.setLevel(1);
         }
-
-        //musicPercent += 0.02;
-        //music.setPercent(musicPercent);
+        */
     };
+
+    my.onComplete = function() {
+
+    };
+
+
+
+    var addMonster = function() {
+
+        // create the entity
+        var e;
+        if (Math.random() > 0.5) {
+            e = Monster(2);
+        }
+        else {
+            e = Monster(1);
+        }
+
+
+
+        // place it in a spawn cloud
+        var spawn = SpawnCloud(e);
+
+        // find a spot for it
+        my.addEntityAtOpenTile(spawn);
+    };
+
+
+
+    /*
 
     var checkWave = function() {
 
@@ -132,10 +177,11 @@ var DemoRoom = function(data) {
     };
 
 
-
-
-
+    var countToAddMonster = 0;
+    var addCount = 0;
     var monsterWaveCount = 1;
+
+
 
     var monsterWave = function() {
 
@@ -190,31 +236,10 @@ var DemoRoom = function(data) {
 
     };
 
-    var addMonster = function() {
 
-        // create the entity
-        var e;
-        if (Math.random() > 0.5) {
-            e = Monster(2);
-        }
-        else {
-            e = Monster(1);
-        }
+    */
 
-        // find a spot for it
-        my.setPositionToOpenTile(e);
 
-        // place it in a spawn cloud
-        var spawn = SpawnCloud(e);
-        my.addEntity(spawn);
-    };
-
-    var crystal;
-    var addCrystal = function() {
-        crystal = Crystal();
-        my.setPositionToOpenTile(crystal);
-        my.addEntity(crystal);
-    };
 
 
 
