@@ -44,14 +44,18 @@ var DemoRoom = function(data) {
 
             if (playerInput[i].start) {
 
-                // determine playerId
-                var playerId;
-                var playerInputKey = i.toString();
-                if (typeof playerInputMap[playerInputKey] === 'undefined') {
-                    // give the controller a player id
-                    playerInputMap[playerInputKey] = my.players.length;
+                var playerId = playerInput[i].playerId;
+
+                // create playerId
+                if (typeof playerId === 'undefined') {
+                    var max = -1;
+                    for (var j = 0; j < playerInput.length; j++) {
+                        if (playerInput[j] && typeof playerInput[j].playerId !== 'undefined')
+                            max = playerInput[j].playerId > max ? playerInput[j].playerId : max;
+                    }
+                    playerId = max+1;
+                    playerInput[i].playerId = playerId;
                 }
-                playerId = playerInputMap[playerInputKey];
 
                 // Allow start if possible
                 if (!my.players[playerId] || my.players[playerId].isDead) {

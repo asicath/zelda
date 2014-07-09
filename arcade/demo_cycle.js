@@ -3,6 +3,7 @@ var DemoCycle = function() {
     var virtualWidth = 342;
     var virtualHeight = 192;
     var room = null;
+    var previousRoom;
     var loading = false;
     var xOffset, yOffset;
 
@@ -20,6 +21,17 @@ var DemoCycle = function() {
         }
         else {
             loadRoom(null, null, function(loadedRoom) {
+
+                if (previousRoom) {
+                    loadedRoom.players = previousRoom.players;
+                    for (var i = 0; i < loadedRoom.players.length; i++) {
+                        // Allow start if possible
+                        if (loadedRoom.players[i] && !loadedRoom.players[i].isDead) {
+                            loadedRoom.addEntityAtOpenTile(loadedRoom.players[i]);
+                        }
+                    }
+                }
+
                 room = loadedRoom;
                 loading = false;
                 xOffset = Math.floor((virtualWidth - room.rect.width)/2);
@@ -32,6 +44,7 @@ var DemoCycle = function() {
     };
 
     var nextRoom = function() {
+        previousRoom = room;
         room = null;
     };
 
