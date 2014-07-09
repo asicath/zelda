@@ -1,22 +1,53 @@
 
-var DemoCycle = function(room) {
+var DemoCycle = function() {
     var virtualWidth = 342;
     var virtualHeight = 192;
+    var room = null;
+    var loading = false;
+    var xOffset, yOffset;
 
     var my = Cycle(virtualWidth, virtualHeight);
 
     // guaranteed one call per 16ms
     my.processFrame = function() {
-        // Give the room a frame of animation
-        room.executeFrame();
+
+        if (room != null) {
+            // Give the room a frame of animation
+            room.executeFrame();
+        }
+        else if (loading) {
+            // wait
+        }
+        else {
+            loadRoom(null, null, function(loadedRoom) {
+                room = loadedRoom;
+                loading = false;
+                xOffset = Math.floor((virtualWidth - room.rect.width)/2);
+                yOffset = Math.floor((virtualHeight - room.rect.height));
+            });
+            loading = true;
+        }
+
     };
 
-    var xOffset = Math.floor((virtualWidth - room.rect.width)/2);
-    var yOffset = Math.floor((virtualHeight - room.rect.height));
+
 
     // one call per animation call from window
     my.drawFrame = function(ctx) {
 
+        if (!room) {
+            View.drawText(ctx, "loading", 64, 64);
+            return;
+        }
+
+        drawMenu(ctx);
+
+        // draw the room
+        View.drawRoom(ctx, xOffset, yOffset, room);
+
+    };
+
+    var drawMenu = function(ctx) {
         // black out the sides
         ctx.fillStyle = 'black';
         // left
@@ -26,13 +57,24 @@ var DemoCycle = function(room) {
         // top
         ctx.fillRect(0, 0, virtualWidth, yOffset);
 
-
-        // draw the room
-        View.drawRoom(ctx, xOffset, yOffset, room);
-
         // draw the arcade overlay
         DemoDraw.drawInfo(ctx, room, virtualWidth, virtualHeight);
+    };
 
+    var loadRoom = function(x, y, success) {
+
+        // generate random if not specified
+        x = x || Math.floor(Math.random() * 16).toString();
+        y = y || Math.floor(Math.random() * 8).toString();
+
+        if (x.length == 1) x = "0" + x;
+        if (y.length == 1) y = "0" + y;
+
+        loadRoomJson('', baseUrl + 'assets/rooms/ow' + x + '-' + y + '.js', function(data) {
+            var room = DemoRoom(data);
+            room.title = "room " + x + "-" + y;
+            success(room);
+        });
 
     };
 

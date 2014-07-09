@@ -59,11 +59,6 @@ var Cycle = function(virtualWidth, virtualHeight) {
     my.canvas = document.getElementById('img');
     my.ctx = my.canvas.getContext('2d');
 
-    my.ctx.mozImageSmoothingEnabled = false;
-    my.ctx.webkitImageSmoothingEnabled = false;
-    my.ctx.msImageSmoothingEnabled = false;
-    my.ctx.imageSmoothingEnabled = false;
-
     // Create the offscreen canvas if need be
     // Should only be the first time throgh
 
@@ -97,6 +92,10 @@ var Cycle = function(virtualWidth, virtualHeight) {
 
             // draw to the onscreen canvas
 
+            my.ctx.mozImageSmoothingEnabled = false;
+            my.ctx.webkitImageSmoothingEnabled = false;
+            my.ctx.msImageSmoothingEnabled = false;
+            my.ctx.imageSmoothingEnabled = false;
             my.ctx.drawImage(offscreen, 0, 0, offscreen.width, offscreen.height, drawOffset.x, drawOffset.y, drawWidth, drawHeight);
 
 

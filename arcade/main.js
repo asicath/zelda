@@ -1,8 +1,5 @@
 var baseUrl = "../core/";
 
-var currentRoom;
-
-
 var LayeredMusicWithIntro = function(layers, intro) {
     var my = LayeredMusic(layers);
 
@@ -100,40 +97,11 @@ var runDemo = function() {
 
     loadAllSprites(function() {
 
-        var x = Math.floor(Math.random() * 16).toString();
-        var y = Math.floor(Math.random() * 8).toString();
+        gamepadSupport.init();
 
-        if (x.length == 1) x = "0" + x;
-        if (y.length == 1) y = "0" + y;
+        var cycle = DemoCycle();
+        cycle.start();
 
-        loadRoomJson('', baseUrl + 'assets/rooms/ow' + x + '-' + y + '.js', function(data) {
-
-            currentRoom = DemoRoom(data, music);
-
-            currentRoom.title = "room " + x + "-" + y;
-
-
-            var cycle = DemoCycle(currentRoom);
-            cycle.start();
-
-            gamepadSupport.init();
-
-            //music.setPercent(0);
-            //music.start();
-
-            /*
-            var p = 0;
-            setInterval(function() {
-                if (p < 1) {
-                    p+=0.01;
-                    music.setPercent(p);
-                }
-            }, 1000);
-            */
-
-            Music.eightBit.loop = true;
-            //Music.eightBit.play();
-        });
     });
 
 };

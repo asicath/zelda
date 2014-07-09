@@ -1,7 +1,12 @@
 
 
-var DemoRoom = function(data, music) {
+var DemoRoom = function(data) {
     var my = Room(data);
+
+    /*
+
+     //music.setPercent(0);
+     //music.start();
 
     var musicPercent = 0.1;
     music.setPercent(musicPercent);
@@ -16,6 +21,11 @@ var DemoRoom = function(data, music) {
     };
 
     //startMusicWhenReady();
+    */
+
+    Music.eightBit.loop = true;
+    //Music.eightBit.play();
+
 
 
     var createPlayer = function(playerId, playerInputIndex) {
@@ -77,8 +87,8 @@ var DemoRoom = function(data, music) {
     my.framesToNextWave = 150;
 
     my.onPlayerKill = function(player, killedBy) {
-        musicPercent = 0.1;
-        music.setPercent(musicPercent);
+        //musicPercent = 0.1;
+        //music.setPercent(musicPercent);
     };
 
     my.onMonsterKill = function(monster, player) {
@@ -101,8 +111,8 @@ var DemoRoom = function(data, music) {
             crystal.setLevel(1);
         }
 
-        musicPercent += 0.02;
-        music.setPercent(musicPercent);
+        //musicPercent += 0.02;
+        //music.setPercent(musicPercent);
     };
 
     var checkWave = function() {
@@ -117,82 +127,13 @@ var DemoRoom = function(data, music) {
             }
         }
         else {
-            //if (my.wave % 1 == 1) {
-                monsterWave();
-            //}
-            //else if (my.wave % 3 == 2) {
-            //    aquamentusWave();
-            //}
-            //else {
-            //    gohmaWave();
-            //}
+            monsterWave();
         }
-
     };
 
-    var aquaCount = 1;
-
-    var aquamentusWave = function() {
-
-        if (waveState == 1) {
-
-            var incr = 176 / (aquaCount + 1);
-
-            for (var i = 0; i < aquaCount; i++) {
-                var boss = Aquamentus();
-                boss.position.x = 228;
-                boss.position.y = incr * (i+1) - 16;
-                currentRoom.addEntity(boss);
-            }
 
 
 
-            killCount = 0;
-
-            waveState = 2;
-        }
-
-        if (waveState == 2) {
-            if (killCount == aquaCount) {
-                waveState = 0;
-                my.framesToNextWave = 150;
-                aquaCount++;
-            }
-        }
-
-    };
-
-    var gohmaCount = 1;
-
-    var gohmaWave = function() {
-
-        if (waveState == 1) {
-
-            var incr = 256 / (gohmaCount + 1);
-
-            for (var i = 0; i < gohmaCount; i++) {
-                var boss = Gohma();
-                boss.position.x = incr * (i+1) - 16;
-                boss.position.y = 32;
-                currentRoom.addEntity(boss);
-            }
-
-
-
-            killCount = 0;
-
-            waveState = 2;
-        }
-
-        if (waveState == 2) {
-            if (killCount == gohmaCount) {
-                waveState = 0;
-                my.framesToNextWave = 150;
-                gohmaCount++;
-            }
-        }
-
-    };
 
     var monsterWaveCount = 1;
 
