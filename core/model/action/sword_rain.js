@@ -2,6 +2,7 @@ var SwordRain = function(actor) {
     var my = Action(actor);
 
     var swords = null;
+    my.weaponIconIndex = 3;
 
     my.onActivate = function(room) {
         // clear swords for new charging

@@ -8,6 +8,28 @@ var loadRoomJson = function(key, filename, success) {
 
 };
 
+var loadRoomJsonFromOverlay = function(imageUrl, overlayUrl, key, success) {
+    var data = {
+        key: key
+    };
+    data.tiles = null;
+
+    data.overlay = {
+        imageUrl: imageUrl,
+        overlayUrl: overlayUrl
+    };
+
+    SpriteSheet.loadFromImgUrl(data.overlay.imageUrl,[{x:0,  y: 0, width: 256, height:176}], null, function(sheet) {
+
+        data.overlay.sprite = sheet.sprites;
+
+        SpriteSheet.loadFromImgUrl(data.overlay.overlayUrl,[{x:0,  y: 0, width: 256, height:176}], null, function(overlay) {
+            data.overlay.overlay = overlay.sprites;
+            success(data, key);
+        });
+    }, true);
+};
+
 var loadAllRooms = function(roomModel, success) {
     var rooms = {};
     var toLoad = 16*8;
@@ -30,36 +52,18 @@ var loadAllRooms = function(roomModel, success) {
 
             var key = xVal + '_' + yVal;
 
-            var filepath = baseUrl + 'assets/rooms/ow' + xVal + '-' + yVal + '.js';
-            loadRoomJson(key, filepath, function(data, key) {
-                data.key = key;
-                if (key == '07_07') {
-                    data.tiles = null;
+            if (key == '07_07') {
 
-                    data.overlay = {
-                        imageUrl: 'assets/rooms/testroom.gif',
-                        overlayUrl: 'assets/rooms/testroom_overlay.gif'
-                    };
+            }
+            else {
+                var filepath = baseUrl + 'assets/rooms/ow' + xVal + '-' + yVal + '.js';
+                loadRoomJson(key, filepath, function (data, key) {
+                    data.key = key;
 
-                    SpriteSheet.loadFromImgUrl(data.overlay.imageUrl,[{x:0,  y: 0, width: 256, height:176}], function(sheet) {
-
-                        data.overlay.sprite = sheet.sprites;
-
-                        SpriteSheet.loadFromImgUrl(data.overlay.overlayUrl,[{x:0,  y: 0, width: 256, height:176}], function(overlay) {
-                            data.overlay.overlay = overlay.sprites;
-                            rooms[key] = roomModel(data);
-                            onLoadComplete();
-                        });
-                    }, true);
-
-                }
-                else {
                     rooms[key] = roomModel(data);
                     onLoadComplete();
-                }
-
-
-            });
+                });
+            }
 
         }
     }

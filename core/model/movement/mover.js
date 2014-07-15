@@ -70,10 +70,10 @@ var Mover = function(my) {
         if (rect.position.y < 0) {
             return Directions.top;
         }
-        if (rect.position.x + rect.width >= room.rect.width) {
+        if (rect.position.x + rect.width > room.rect.width) {
             return Directions.right;
         }
-        if (rect.position.y + rect.height >= room.rect.height) {
+        if (rect.position.y + rect.height > room.rect.height) {
             return Directions.bottom;
         }
         return null;

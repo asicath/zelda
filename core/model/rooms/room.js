@@ -55,20 +55,35 @@ var Room = function(data) {
     if (data.overlay) {
         my.backgroundSprite = data.overlay.sprite;
         my.tiles = [];
-        my.tiles[0] = {x:256/2, y:176/2, type:'floor'};
-        my.tiles[0].position = new Position(my.tiles[0].x, my.tiles[0].y);
-        my.tiles[0].rect = new Rect(my.tiles[0].position, 16, 16, 0, 0);
+
+
+        var wallColor = Color.fromNESPalette("00");
 
         // init walls
         var overlay = data.overlay.overlay[0];
         for (var x = 0; x < 256; x+=8) {
             for (var y = 0; y < 176; y+=8) {
                 var p = overlay.getPixel(x, y);
-                if (p.color.a > 0) {
+                if (p.color.equals(wallColor)) {
                     walls.push({ rect: new Rect(new Position(x, y), 8, 8, 0, 0) });
+                }
+                else {
+
+                    var p1 = overlay.getPixel(x+8, y);
+                    var p2 = overlay.getPixel(x, y+8);
+                    var p3 = overlay.getPixel(x+8, y+8);
+
+                    if (p1 && p2 && p3 && !p1.color.equals(wallColor) && !p2.color.equals(wallColor) && !p3.color.equals(wallColor)) {
+
+                        var tile = {x: x, y: y, type: 'floor'};
+                        tile.position = new Position(tile.x, tile.y);
+                        tile.rect = new Rect(tile.position, 16, 16, 0, 0);
+                        my.tiles.push(tile);
+                    }
                 }
             }
         }
+
     }
 
 

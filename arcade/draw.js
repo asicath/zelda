@@ -64,6 +64,22 @@ var DemoDraw = (function() {
         View.drawText(ctx, " x" + (player.bombs || 0), x, y);
         SpriteSheets.icons.sprites[2].drawSprite(ctx, x, y);
 
+        y+=8;
+
+
+        SpriteSheets.weaponBorder.sprites[0].drawSprite(ctx, x, y+3);
+        View.drawText(ctx, "b", x+5, y);
+        SpriteSheets.weaponIcons.sprites[2].drawSprite(ctx, x+2, y+5);
+
+
+        SpriteSheets.weaponBorder.sprites[0].drawSprite(ctx, x+21, y+3);
+        View.drawText(ctx, "a", x+26, y);
+
+        if (player.altWeaponIconIndex > -1) {
+            SpriteSheets.weaponIcons.sprites[player.altWeaponIconIndex].drawSprite(ctx, x+2+21, y+5);
+        }
+
+
     };
 
     return my;

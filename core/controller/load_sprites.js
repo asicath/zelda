@@ -13,7 +13,7 @@ var loadAllSprites = function(success) {
         };
 
         var load = function(info) {
-            SpriteSheet.loadFromImgUrl(info.url, info.map, function(sheet) {
+            SpriteSheet.loadFromImgUrl(info.url, info.map, info.width, function(sheet) {
                 SpriteSheets[info.name] = sheet;
                 spriteLoadFinish();
             });

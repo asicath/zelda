@@ -11,7 +11,7 @@
     {"url":"assets/sprites/ball.gif", "name":"ball"},
     {"url":"assets/sprites/items.gif", "name":"items"},
     {"url":"assets/sprites/circle.gif", "name":"circle"},
-    {"url":"assets/sprites/element.gif", "name":"element"},
+    {"url":"assets/sprites/element.gif", "name":"elements"},
     {"url":"assets/sprites/aquamentus.gif", "name":"aquamentus", "map":[
         {"x":0,  "y": 0, "width": 24, "height":32},
         {"x":24, "y": 0, "width": 24, "height":32},
@@ -42,5 +42,7 @@
     ]},
     {"url":"assets/sprites/letters.gif", "name":"letters"},
     {"url":"assets/sprites/icons.gif", "name":"icons"},
-    {"url":"assets/sprites/bigbomb.gif", "name":"bigbomb"}
+    {"url":"assets/sprites/bigbomb.gif", "name":"bigbomb"},
+    {"url":"assets/sprites/weapon_border.gif", "name":"weaponBorder"},
+    {"url":"assets/sprites/weapon_icons.gif", "name":"weaponIcons", "width": 14}
 ]

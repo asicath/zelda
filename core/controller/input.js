@@ -27,6 +27,9 @@ $(document).on('keydown', function(e1, e2, e3) {
         // return
         case 13: playerInput[keyboardControlIndex].start = true; break;
 
+        // left-shift
+        case 16: playerInput[keyboardControlIndex].select = true; break;
+
         // left-ctrl
         case 17: playerInput[keyboardControlIndex].button_b = true; break;
 
@@ -68,6 +71,9 @@ $(document).on('keyup', function(e1, e2, e3) {
 
         // return
         case 13: playerInput[keyboardControlIndex].start = false; break;
+
+        // left-shift
+        case 16: playerInput[keyboardControlIndex].select = false; break;
 
         // left-ctrl
         case 17: playerInput[keyboardControlIndex].button_b = false; break;

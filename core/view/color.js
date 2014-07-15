@@ -5,8 +5,8 @@ var Color = function(r, g, b, a) {
         return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + (a / 255) + ')';
     };
 
-    my.equals = function(p) {
-        return p.getDrawColor() == my.getDrawColor();
+    my.equals = function(c) {
+        return c.getDrawColor() == my.getDrawColor();
     };
 
     return my;

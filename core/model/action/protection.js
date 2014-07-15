@@ -6,6 +6,7 @@ var Protection = function(actor) {
     var circle = null;
     var sigil = [];
     var sound = null;
+    my.weaponIconIndex = 4;
 
     my.executeFrame = function(room) {
 

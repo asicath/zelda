@@ -10,7 +10,7 @@ var SpriteSheet = function(naturalSprites) {
 };
 
 
-SpriteSheet.loadFromImgUrl = function(imgUrl, map, success) {
+SpriteSheet.loadFromImgUrl = function(imgUrl, map, width, success) {
 
     var img = new Image();
     img.src = baseUrl + imgUrl;
@@ -26,6 +26,21 @@ SpriteSheet.loadFromImgUrl = function(imgUrl, map, success) {
         ctx.drawImage(img, 0, 0, img.width, img.height);
 
         var sprites = [];
+
+        if (width) {
+            var xStart = 0;
+            var incr = width;
+            map = [];
+            while (xStart < img.width) {
+                map.push({
+                    x: xStart,
+                    y: 0,
+                    width: incr,
+                    height: img.height
+                });
+                xStart += incr;
+            }
+        }
 
         if (!map) {
             var xStart = 0;
