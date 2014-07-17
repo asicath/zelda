@@ -15,27 +15,26 @@ var StoreRoom = function(data) {
         {main:DropBomb, arg0: BigBomb}
     ];
 
-    var addTreasure = function() {
+    var xOffset = (my.rect.width - (possible.length * 2 - 1) * 16) / 2 + 1;
 
-        // create the entity
-
-
-        var r = Math.floor(Math.random() * possible.length);
-        var a = possible[r];
+    for (var i = 0; i < possible.length; i++) {
+        var a = possible[i];
         var e = ActionItem(a.main, a.arg0);
 
-        // find a spot for it
-        my.addEntityAtOpenTile(e);
+        e.position.y = 8 * 11;
 
-        if (++count < target)
-            my.setFrameTimeout(10, addTreasure);
-    };
 
-    my.setFrameTimeout(30, addTreasure);
 
-    my.setFrameTimeout(300, function() {
-        my.onComplete();
-    });
+        e.position.x = 16 * i * 2 + xOffset;
+
+
+
+        my.addEntity(e);
+    }
+
+    //my.setFrameTimeout(300, function() {
+    //    my.onComplete();
+    //});
 
     my.onComplete = function() {};
 
