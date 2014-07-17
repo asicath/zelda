@@ -16,25 +16,29 @@ var StoreRoom = function(data) {
     ];
 
     var xOffset = (my.rect.width - (possible.length * 2 - 1) * 16) / 2 + 1;
-
     for (var i = 0; i < possible.length; i++) {
         var a = possible[i];
         var e = ActionItem(a.main, a.arg0);
-
         e.position.y = 8 * 11;
-
-
-
         e.position.x = 16 * i * 2 + xOffset;
-
-
-
         my.addEntity(e);
     }
 
-    //my.setFrameTimeout(300, function() {
-    //    my.onComplete();
-    //});
+    var playerPositions = [
+        {x: 120-8*2, y: 8*16},
+        {x: 120+8*2, y: 8*16},
+        {x: 120-8*5, y: 8*16},
+        {x: 120+8*5, y: 8*16}
+    ];
+
+    var playersAdd = 0;
+
+    my.addEntityAtOpenTile = function(entity) {
+        var i = playersAdd++;
+        entity.position.x = playerPositions[i].x;
+        entity.position.y = playerPositions[i].y;
+        my.addEntity(entity);
+    };
 
     my.onComplete = function() {};
 

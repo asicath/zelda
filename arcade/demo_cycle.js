@@ -36,7 +36,7 @@ var DemoCycle = function() {
 
 
     // Just temp for forcing right away
-    //treasureRoomCount = 1;
+    treasureRoomCount = 1;
 
     var my = Cycle(virtualWidth, virtualHeight);
 
@@ -93,15 +93,7 @@ var DemoCycle = function() {
 
     };
 
-    var transferPlayers = function(sourceRoom, desRoom) {
-        desRoom.players = sourceRoom.players;
-        for (var i = 0; i < desRoom.players.length; i++) {
-            // Allow start if possible
-            if (desRoom.players[i] && !desRoom.players[i].isDead) {
-                desRoom.addEntityAtOpenTile(desRoom.players[i]);
-            }
-        }
-    };
+
 
     var nextRoom = function() {
         previousRoom = room;
