@@ -9,25 +9,22 @@ var Player = function(playerId, playerInputIndex) {
     my.movementSources.push(new WalkControlled(my));
     my.movementSources.push(new Push(my));
 
+
     my.setAction(ThrustSword(my), 'button_a');
 
-    my.altActions = [
-        SwordRain(my),
-        Protection(my),
-        DropBomb(my, LiveBomb),
-        DropBomb(my, BigBomb)
-    ];
-
-    my.altActions[3].weaponIconIndex = 1;
+    my.altActions = [];
 
     my.setAltAction = function(action) {
         my.setAction(action, 'button_b');
         my.altWeaponIconIndex = action.weaponIconIndex;
     };
 
-    my.setAltAction(my.altActions[0]);
-
     my.setAction(SwitchAlt(my), 'select');
+
+    my.addAltAction = function(action) {
+        my.altActions.push(action);
+        my.setAltAction(action);
+    };
 
 
     my.playerId = playerId;

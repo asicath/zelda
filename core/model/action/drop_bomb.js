@@ -3,6 +3,8 @@ var DropBomb = function(actor, type) {
 
     my.weaponIconIndex = 0;
 
+    if (type == BigBomb) my.weaponIconIndex = 1;
+
     my.onActivate = function(room) {
         var bomb = type(actor);
         bomb.position.x = actor.position.x;
