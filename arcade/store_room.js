@@ -40,6 +40,21 @@ var StoreRoom = function(data) {
         my.addEntity(entity);
     };
 
+    // create the exit
+    var exited = 0;
+    var exit = new Edge(Directions.bottom, function(player) {
+        my.removeEntity(player);
+        if (++exited == my.players.length) {
+
+            my.setFrameTimeout(60, my.onComplete);
+
+
+        }
+    });
+
+    my.addEntity(exit);
+
+
     my.onComplete = function() {};
 
     return my;

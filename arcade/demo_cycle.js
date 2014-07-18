@@ -61,7 +61,7 @@ var DemoCycle = function() {
 
         var onSuccess = function(loadedRoom) {
             if (previousRoom) {
-                transferPlayers(previousRoom, loadedRoom);
+                loadedRoom.transferPlayers(previousRoom);
             }
 
             room = loadedRoom;
@@ -114,7 +114,7 @@ var DemoCycle = function() {
 
 
         if (!room) {
-            View.drawText(ctx, "loading", 64, 64);
+            //View.drawText(ctx, "loading", 64, 64);
             return;
         }
 

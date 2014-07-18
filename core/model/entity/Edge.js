@@ -1,4 +1,4 @@
-var Edge = function(direction) {
+var Edge = function(direction, onPlayerOver) {
     var my = Entity();
 
     my.wallSensitive = true;
@@ -40,22 +40,11 @@ var Edge = function(direction) {
             var e;
             for (var i = a.length-1; i >= 0; i--) {
                 e = a[i];
-
-                if (!room.transition) {
-                    room.transition = direction;
-
-                    // Also bring over the player
-
-
-                }
-
-
+                onPlayerOver(e);
             }
         }
 
     };
-
-
 
     return my;
 };
