@@ -36,7 +36,7 @@ var DemoCycle = function() {
 
 
     // Just temp for forcing right away
-    treasureRoomCount = 1;
+    //treasureRoomCount = 1;
 
     var my = Cycle(virtualWidth, virtualHeight);
 
