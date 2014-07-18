@@ -19,6 +19,10 @@ var DemoDraw = (function() {
             View.drawText(ctx, text, (virtualWidth - text.length * 8) / 2, 8);
         }
 
+        if (Directives.message) {
+            View.drawText(ctx, Directives.message, (virtualWidth - Directives.message.length * 8) / 2, 8);
+        }
+
         if (room.title) {
             View.drawText(ctx, room.title, (virtualWidth - room.title.length * 8) / 2, 0);
         }

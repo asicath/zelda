@@ -1,4 +1,31 @@
 
+var Directives = (function() {
+    var my = {};
+
+    var messages = [
+        "press enter to start",
+        "use arrows or wasd to move",
+        "press space to attack",
+        "kill all the monsters",
+        "",
+        "press/hold ctrl to use alt weapon",
+        "",
+        "press shift to switch alt weapon",
+        ""
+    ];
+
+    my.nextMessage = function(from) {
+        if (messageIndex == from)
+            my.message = messages[++messageIndex];
+    };
+
+    var messageIndex = -1;
+
+    return my;
+})();
+
+
+
 var DemoCycle = function() {
     var virtualWidth = 342;
     var virtualHeight = 192;
@@ -81,12 +108,16 @@ var DemoCycle = function() {
                 onSuccess(room);
             });
             loading = true;
+
+            if (Directives) Directives.nextMessage(3);
         }
         else {
             roomType = DemoRoom;
 
             loadRoom(null, null, roomType, onSuccess);
             loading = true;
+
+            Directives.nextMessage(-1);
         }
 
 

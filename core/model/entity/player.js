@@ -27,6 +27,10 @@ var Player = function(playerId, playerInputIndex) {
     };
 
 
+
+
+
+
     my.playerId = playerId;
     my.playerInputIndex = playerInputIndex;
     my.wallSensitive = true;

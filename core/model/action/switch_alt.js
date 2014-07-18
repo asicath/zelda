@@ -7,6 +7,8 @@ var SwitchAlt = function(actor) {
         if (actor.altActions.length == 0) return;
         index = (index + 1) % actor.altActions.length;
         actor.setAltAction(actor.altActions[index]);
+
+        if (Directives) Directives.nextMessage(7);
     };
 
     return my;

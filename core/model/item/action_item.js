@@ -34,6 +34,9 @@ var ActionItem = function(cost, actionType, arg0) {
                     my.onPickUp(player);
                     room.removeEntity(my);
                     player.rupees -= cost;
+
+                    if (Directives) Directives.nextMessage(4);
+                    if (Directives) Directives.nextMessage(6);
                 }
 
             }

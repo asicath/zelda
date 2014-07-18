@@ -15,6 +15,10 @@ var Action = function(actor) {
             my.onActivate(room);
             activated = true;
             heldFrameCount = 0;
+
+            if (!my.isMain) {
+                if (Directives) Directives.nextMessage(5);
+            }
         }
 
         // Intent Removed, deactivate

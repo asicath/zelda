@@ -9,6 +9,9 @@ var PlayerRoom = function(data) {
     var createPlayer = function(playerId, playerInputIndex) {
         my.players[playerId] = Player(playerId, playerInputIndex);
         my.addEntityAtOpenTile(my.players[playerId]);
+
+        // advance message
+        if (Directives) Directives.nextMessage(0);
     };
 
     var checkForPlayerAdd = function() {

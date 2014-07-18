@@ -21,6 +21,8 @@ var ThrustSword = function(actor) {
     var createMissile = false;
     var swordStance = 0;
 
+    my.isMain = true;
+
     // Override sprite if thrusting sword
     var getSprite_parent = actor.icon.getSprite;
     actor.icon.getSprite = function() {
@@ -71,6 +73,8 @@ var ThrustSword = function(actor) {
         // count down to actual sword thrust
         // Waiting for sword to come out
         actor.setFrameTimeout(4, createSwordEntity);
+
+        if (Directives) Directives.nextMessage(2);
     };
 
     var createSwordEntity = function(room) {
