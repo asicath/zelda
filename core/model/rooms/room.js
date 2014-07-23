@@ -119,7 +119,6 @@ var Room = function(data) {
     };
 
     my.onPlayerKill = function() {};
-    my.onMonsterKill = function() {};
 
     my.transferPlayers = function(sourceRoom) {
         // first get the players

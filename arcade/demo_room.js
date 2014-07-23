@@ -13,11 +13,6 @@ var DemoRoom = function(data) {
         my.setFrameTimeout(60*2, my.onComplete);
     };
 
-    // should be added onto each monster?
-    my.onMonsterKill = function(monster, player) {
-        wave.onMonsterKill(monster, player);
-    };
-
     // container will overwrite
     my.onComplete = function() {};
 
@@ -59,6 +54,8 @@ var Wave = function(room) {
             e = Monster(1);
         }
 
+        e.onDeath = onMonsterKill;
+
         // place it in a spawn cloud
         var spawn = SpawnCloud(e);
 
@@ -66,7 +63,7 @@ var Wave = function(room) {
         room.addEntityAtOpenTile(spawn);
     };
 
-    my.onMonsterKill = function(monster, player) {
+    var onMonsterKill = function(monster, player) {
 
         // keep track of kills
         room.players[player.playerId].monstersKilled++;

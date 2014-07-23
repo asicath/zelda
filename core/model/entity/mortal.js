@@ -41,8 +41,10 @@ var Mortal = function(my) {
             room.onPlayerKill(my, entity);
         }
         else {
-            room.onMonsterKill(my, entity);
+            my.onDeath(my, entity);
         }
+
+
 
 
         // prevent further actions
@@ -54,6 +56,8 @@ var Mortal = function(my) {
 
         Sounds.kill.play();
     };
+
+    my.onDeath = function(killed, killer) {};
 
     my.afterDeath = function() {};
 
