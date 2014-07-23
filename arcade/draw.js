@@ -14,11 +14,6 @@ var DemoDraw = (function() {
         }
 
         // Top screen info
-        if (room.wave) {
-            var text = "wave " + room.wave.toString();
-            View.drawText(ctx, text, (virtualWidth - text.length * 8) / 2, 8);
-        }
-
         if (Directives.message) {
             View.drawText(ctx, Directives.message, (virtualWidth - Directives.message.length * 8) / 2, 8);
         }
