@@ -97,9 +97,11 @@ var Room = function(data) {
             my.entities[i].executeFrame(my);
         }
 
-        // After frame stuff
+        // Remove entities
         while (removeAfterFrame.length) {
             var entity = removeAfterFrame.pop();
+
+            // construct a new array without the entity
             var a = [];
             for (var i = 0; i < my.entities.length; i++) {
                 if (my.entities[i] != entity) {
@@ -108,11 +110,16 @@ var Room = function(data) {
             }
 
             my.entities = a;
+
+            // remove entities room reference
+            entity.room = null;
         }
 
+        // Add entities
         while (addAfterFrame.length) {
             var entity = addAfterFrame.pop();
             my.entities.push(entity);
+            entity.room = my;
         }
 
 

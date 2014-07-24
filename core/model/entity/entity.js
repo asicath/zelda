@@ -1,7 +1,9 @@
 
 var Entity = function() {
 
-    var my = {};
+    var my = {
+        room: null
+    };
 
     FrameEventHaver(my);
 
@@ -12,8 +14,8 @@ var Entity = function() {
 
     my.icon = null;
 
-    my.executeFrame = function(room) {
-        my.processEventQueue(room);
+    my.executeFrame = function() {
+        my.processEventQueue(my.room);
     };
 
     my.getFootPrint = function(type) {
