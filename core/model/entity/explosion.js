@@ -18,11 +18,11 @@ var Explosion = function(angle) {
     var frame = 0;
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        executeFrame_parent(room);
+    my.executeFrame = function() {
+        executeFrame_parent();
 
         if (frame++ == 22) {
-            room.removeEntity(my);
+            my.room.removeEntity(my);
         }
 
     };
@@ -36,7 +36,7 @@ var Explosion = function(angle) {
     ];
     */
 
-    my.onEdgeEvent = function(room, wall, rect) {
+    my.onEdgeEvent = function(edge, rect) {
         return true;
     };
 

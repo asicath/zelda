@@ -8,11 +8,11 @@ var Action = function(actor) {
     var heldFrameCount = 0;
     var waitFrameCount = 0;
 
-    my.executeFrame = function(room) {
+    my.executeFrame = function() {
 
         // Intent detected, activate!
         if (my.activateIntent && !activated) {
-            my.onActivate(room);
+            my.onActivate();
             activated = true;
             heldFrameCount = 0;
 
@@ -23,29 +23,29 @@ var Action = function(actor) {
 
         // Intent Removed, deactivate
         else if (!my.activateIntent && activated) {
-            my.onDeactivate(room);
+            my.onDeactivate();
             activated = false;
             waitFrameCount = 0;
         }
 
         // Intent held for more than one frame
         else if (activated) {
-            my.onHold(room, ++heldFrameCount);
+            my.onHold(++heldFrameCount);
         }
 
         else {
-            my.onWait(room, ++waitFrameCount);
+            my.onWait(++waitFrameCount);
         }
 
     };
 
-    my.onActivate = function(room) {};
+    my.onActivate = function() {};
 
-    my.onDeactivate = function(room) {};
+    my.onDeactivate = function() {};
 
-    my.onHold = function(room, frames) {};
+    my.onHold = function(frames) {};
 
-    my.onWait = function(room, frames) {};
+    my.onWait = function(frames) {};
 
     return my;
 };

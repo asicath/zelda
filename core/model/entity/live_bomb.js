@@ -7,7 +7,7 @@ var LiveBomb = function(player) {
     my.icon.imageOptions = ImageOptions.RedToBlue;
     my.playerId = player.playerId; // expose for kill counting in monster
 
-    var explode = function(room) {
+    var explode = function() {
 
         Sounds.bombBlow.play();
 
@@ -38,15 +38,15 @@ var LiveBomb = function(player) {
         clouds[6].position.y = my.position.y;
 
         for (var i = 0; i < 7; i++) {
-            room.addEntity(clouds[i]);
+            my.room.addEntity(clouds[i]);
         }
 
         var blast = BombBlast(player);
         blast.position.x = my.position.x;
         blast.position.y = my.position.y;
-        room.addEntity(blast);
+        my.room.addEntity(blast);
 
-        room.removeEntity(my);
+        my.room.removeEntity(my);
 
     };
 

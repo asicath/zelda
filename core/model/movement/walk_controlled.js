@@ -2,9 +2,9 @@ var WalkControlled = function(mover) {
     var my = Walk(mover);
 
     var executeMove_parent = my.executeMove;
-    my.executeMove = function(room) {
-        checkInput(mover.playerInputIndex, room);
-        executeMove_parent(room);
+    my.executeMove = function() {
+        checkInput(mover.playerInputIndex);
+        executeMove_parent();
     };
 
     var moving = {
@@ -23,7 +23,7 @@ var WalkControlled = function(mover) {
         return null;
     };
 
-    var startMoving = function(direction, room) {
+    var startMoving = function(direction) {
         //console.log("start move: " + direction);
         if (moving[direction]) {
             console.log("Already moving " + direction);
@@ -36,7 +36,7 @@ var WalkControlled = function(mover) {
         if (Directives) Directives.nextMessage(1);
     };
 
-    var endMoving = function(direction, room) {
+    var endMoving = function(direction) {
         //console.log("end move: " + direction);
         if (!moving[direction]) {
             console.log("Not moving " + direction);
@@ -46,34 +46,34 @@ var WalkControlled = function(mover) {
         my.moveIntent = getMovingPriority();
     };
 
-    var checkInput = function(id, room) {
+    var checkInput = function(id) {
 
         if (playerInput[id].up && !moving[Directions.top]) {
-            startMoving(Directions.top, room);
+            startMoving(Directions.top);
         }
         else if (!playerInput[id].up && moving[Directions.top]) {
-            endMoving(Directions.top, room);
+            endMoving(Directions.top);
         }
 
         if (playerInput[id].down && !moving[Directions.bottom]) {
-            startMoving(Directions.bottom, room);
+            startMoving(Directions.bottom);
         }
         else if (!playerInput[id].down && moving[Directions.bottom]) {
-            endMoving(Directions.bottom, room);
+            endMoving(Directions.bottom);
         }
 
         if (playerInput[id].left && !moving[Directions.left]) {
-            startMoving(Directions.left, room);
+            startMoving(Directions.left);
         }
         else if (!playerInput[id].left && moving[Directions.left]) {
-            endMoving(Directions.left, room);
+            endMoving(Directions.left);
         }
 
         if (playerInput[id].right && !moving[Directions.right]) {
-            startMoving(Directions.right, room);
+            startMoving(Directions.right);
         }
         else if (!playerInput[id].right && moving[Directions.right]) {
-            endMoving(Directions.right, room);
+            endMoving(Directions.right);
         }
 
     };

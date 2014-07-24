@@ -13,7 +13,7 @@ var Shuffle = function(mover) {
     mover.shuffleDirection = [null, Directions.left, Directions.top, Directions.right, Directions.bottom];
 
     // Returns true if this source moved this frame
-    my.executeMove = function(room) {
+    my.executeMove = function() {
 
         if (!mover.canWalk) return false;
 
@@ -31,7 +31,7 @@ var Shuffle = function(mover) {
 
         if (info.moving) {
             // push does not change facing
-            my.attemptSimpleMove(room, info.moving, 0.1, null);
+            my.attemptSimpleMove(info.moving, 0.1, null);
 
         }
 
@@ -40,7 +40,7 @@ var Shuffle = function(mover) {
         return true;
     };
 
-    my.onEdgeEvent = function(room, wall, rect) {
+    my.onEdgeEvent = function(edge, rect) {
         //endPush();
     };
 

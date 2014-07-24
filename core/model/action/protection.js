@@ -8,7 +8,7 @@ var Protection = function(actor) {
     var sound = null;
     my.weaponIconIndex = 4;
 
-    my.executeFrame = function(room) {
+    my.executeFrame = function() {
 
         // waiting to start
         if (stage == 0) {
@@ -44,14 +44,14 @@ var Protection = function(actor) {
                 sigil = [];
 
                 sigil[0] = new Sigil();
-                room.addEntity(sigil[0]);
+                actor.room.addEntity(sigil[0]);
                 sigil[0].position.x = actor.position.x;
                 sigil[0].position.y = actor.position.y - 16;
             }
 
             if (frame == 20) {
                 sigil[1] = new Sigil();
-                room.addEntity(sigil[1]);
+                actor.room.addEntity(sigil[1]);
                 sigil[1].position.x = actor.position.x;
                 sigil[1].position.y = actor.position.y + 16;
                 sigil[1].icon.spriteIndex = 2;
@@ -59,7 +59,7 @@ var Protection = function(actor) {
 
             if (frame == 30) {
                 sigil[2] = new Sigil();
-                room.addEntity(sigil[2]);
+                actor.room.addEntity(sigil[2]);
                 sigil[2].position.x = actor.position.x + 16;
                 sigil[2].position.y = actor.position.y;
                 sigil[2].icon.spriteIndex = 1;
@@ -67,7 +67,7 @@ var Protection = function(actor) {
 
             if (frame == 40) {
                 sigil[3] = new Sigil();
-                room.addEntity(sigil[3]);
+                actor.room.addEntity(sigil[3]);
                 sigil[3].position.x = actor.position.x - 16;
                 sigil[3].position.y = actor.position.y;
                 sigil[3].icon.spriteIndex = 3;
@@ -78,7 +78,7 @@ var Protection = function(actor) {
             }
 
             if (frame == 50) {
-                addCircle(room);
+                addCircle();
 
                 frame = 0;
                 stage = 2;
@@ -99,7 +99,7 @@ var Protection = function(actor) {
                 circle.icon.spriteIndex--;
             }
             else if (frame > 20 && sigil.length > 0) {
-                //clearSigils(room);
+                //clearSigils();
             }
 
             if (!my.activateIntent) {
@@ -113,10 +113,10 @@ var Protection = function(actor) {
         // wait to release button
         if (stage == 3) {
 
-            if (circle) removeCircle(room);
+            if (circle) removeCircle();
 
             if (sigil.length > 0) {
-                clearSigils(room);
+                clearSigils();
             }
 
             if (!my.activateIntent) {
@@ -133,30 +133,30 @@ var Protection = function(actor) {
 
     };
 
-    var clearSigils = function(room) {
+    var clearSigils = function() {
         while (sigil.length > 0) {
             var s = sigil.pop();
-            room.removeEntity(s);
+            s.room.removeEntity(s);
         }
     };
 
-    var addCircle = function(room) {
+    var addCircle = function() {
         // create the circle
         circle = new Circle();
         circle.icon.spriteIndex = 0;
         circle.icon.startFlashing();
 
-        room.addEntity(circle);
+        actor.room.addEntity(circle);
 
         // give it protection from fireballs
         var executeFrame_parent = circle.executeFrame;
-        circle.executeFrame = function(room) {
-            executeFrame_parent(room);
+        circle.executeFrame = function() {
+            executeFrame_parent();
 
-            var c = room.getIntersectingEntities(circle, 'fireball', null);
+            var c = circle.room.getIntersectingEntities(circle, 'fireball', null);
             while (c && c.length > 0) {
                 var fireball = c.pop();
-                room.removeEntity(fireball);
+                circle.room.removeEntity(fireball);
             }
         };
 
@@ -164,9 +164,9 @@ var Protection = function(actor) {
 
     };
 
-    var removeCircle = function(room) {
+    var removeCircle = function() {
         if (circle) {
-            room.removeEntity(circle);
+            circle.room.removeEntity(circle);
             circle = null;
         }
     };

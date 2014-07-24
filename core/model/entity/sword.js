@@ -11,34 +11,34 @@ var Sword = function(player) {
     my.maxFrame = 12;
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        executeFrame_parent(room);
+    my.executeFrame = function() {
+        executeFrame_parent();
 
         frame++;
 
         if (frame > my.maxFrame) {
             // Make sure the sword doesn't stick around after death
             // should do this differently
-            room.removeEntity(my);
+            my.room.removeEntity(my);
         }
 
         // check for intersection
-        var a = room.getIntersectingEntities(my, 'monster');
+        var a = my.room.getIntersectingEntities(my, 'monster');
         if (a) {
             for (var i = a.length-1; i >= 0; i--) {
-                a[i].takeDamage(4, my, room);
-                my.onHit(room);
+                a[i].takeDamage(4, my);
+                my.onHit();
             }
         }
 
         //if (e.entityType == 'player' && e.playerId != my.player.playerId) {
-        //e.takeDamage(4, my, room);
-        //my.onHit(room);
+        //e.takeDamage(4, my);
+        //my.onHit();
         //}
 
     };
 
-    my.onHit = function(room) {
+    my.onHit = function() {
 
     };
 

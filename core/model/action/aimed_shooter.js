@@ -5,7 +5,7 @@ var AimedShooter = function(my) {
     my.fireballAngles = [1];
 
     var setCheckShoot = function() {
-        my.setFrameTimeout(16, function(room) {
+        my.setFrameTimeout(16, function() {
             if (Math.random() < my.shootPercent) {
                 // shooting!
                 shoot();
@@ -26,8 +26,8 @@ var AimedShooter = function(my) {
         my.canWalk = false;
 
         // Create the missile
-        my.setFrameTimeout(34, function(room) {
-            createMissile(room);
+        my.setFrameTimeout(34, function() {
+            createMissile();
         });
 
         // when done shooting, allow walk and wait for next
@@ -38,15 +38,15 @@ var AimedShooter = function(my) {
 
     };
 
-    var createMissile = function(room) {
+    var createMissile = function() {
         // find a player
         var target = null;
 
-        if (room.players.length == 1) {
-            target = room.players[0];
+        if (my.room.players.length == 1) {
+            target = my.room.players[0];
         }
         else {
-            target = room.players[Math.floor(Math.random() * room.players.length)];
+            target = my.room.players[Math.floor(Math.random() * my.room.players.length)];
         }
 
         // no target no missile
@@ -59,18 +59,18 @@ var AimedShooter = function(my) {
         var angle = Math.atan2(yDiff, xDiff);
 
         for (var i = 0; i < my.fireballAngles.length; i++) {
-            shootFireball(room, angle * my.fireballAngles[i]);
+            shootFireball(angle * my.fireballAngles[i]);
         }
 
     };
 
-    var shootFireball = function(room, angle) {
+    var shootFireball = function(angle) {
         var missile = Fireball();
 
         missile.position.x = my.position.x;
         missile.position.y = my.position.y;
 
-        room.addEntity(missile);
+        my.room.addEntity(missile);
 
         missile.shoot(angle, 3);
     };

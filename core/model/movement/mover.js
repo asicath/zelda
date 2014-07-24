@@ -5,20 +5,20 @@ var Mover = function(my) {
 
     my.movementSources = [];
 
-    var executeMove = function(room) {
+    var executeMove = function() {
         for (var i = my.movementSources.length - 1; i >= 0; i--) {
-            if (my.movementSources[i].executeMove(room)) return;
+            if (my.movementSources[i].executeMove()) return;
         }
     };
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
+    my.executeFrame = function() {
 
         // allow for inputto be read
-        executeFrame_parent(room);
+        executeFrame_parent();
 
         // check for new input from player
-        executeMove(room);
+        executeMove();
 
     };
 
@@ -30,13 +30,13 @@ var Mover = function(my) {
 
     var rectWall = null;
 
-    my.attemptMove = function(room, rect, source) {
+    my.attemptMove = function(rect, source) {
 
         // Check to see if we've gone over the edge
-        var edge = isOffEdge(room, rect);
+        var edge = isOffEdge(rect);
         if (edge) {
             // We've gone over an edge, don't complete the move.
-            if (!source.onEdgeEvent(room)) {return;}
+            if (!source.onEdgeEvent(edge, rect)) {return;}
         }
 
         if (my.wallSensitive) {
@@ -50,9 +50,9 @@ var Mover = function(my) {
             rectWall.position.copy(rect.position);
 
             // Check for wall intersection
-            var wall = room.intersectsWall(rectWall);
+            var wall = my.room.intersectsWall(rectWall);
             if (wall) {
-                source.onWallEvent(room, wall, rectWall);
+                source.onWallEvent(wall, rectWall);
                 return;
             }
 
@@ -63,17 +63,17 @@ var Mover = function(my) {
     };
 
     /// If the rect is outside of the room, it will return the direction of the edge it is off
-    var isOffEdge = function(room, rect) {
+    var isOffEdge = function(rect) {
         if (rect.position.x < 0) {
             return Directions.left;
         }
         if (rect.position.y < 0) {
             return Directions.top;
         }
-        if (rect.position.x + rect.width > room.rect.width) {
+        if (rect.position.x + rect.width > my.room.rect.width) {
             return Directions.right;
         }
-        if (rect.position.y + rect.height > room.rect.height) {
+        if (rect.position.y + rect.height > my.room.rect.height) {
             return Directions.bottom;
         }
         return null;

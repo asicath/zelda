@@ -75,7 +75,7 @@ var Push = function(mover) {
     };
 
     // Returns true if this source moved this frame
-    my.executeMove = function(room) {
+    my.executeMove = function() {
 
         if (!info) return false;
 
@@ -99,16 +99,16 @@ var Push = function(mover) {
         }
 
         // push does not change facing
-        my.attemptSimpleMove(room, info.direction, amount, null);
+        my.attemptSimpleMove(info.direction, amount, null);
 
         return true;
     };
 
-    my.onWallEvent = function(room, wall, rect) {
+    my.onWallEvent = function(wall, rect) {
         endPush();
-        my.stopShort(room, wall.rect, info.direction);
+        my.stopShort(wall.rect, info.direction);
     };
-    my.onEdgeEvent = function(room, wall, rect) {
+    my.onEdgeEvent = function(edge, rect) {
         endPush();
     };
 

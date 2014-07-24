@@ -3,7 +3,7 @@ var Shooter = function(my) {
     my.shootPercent = 3/16;
 
     var setCheckShoot = function() {
-        my.setFrameTimeout(16, function(room) {
+        my.setFrameTimeout(16, function() {
             if (Math.random() < my.shootPercent) {
                 // shooting!
                 shoot();
@@ -22,8 +22,8 @@ var Shooter = function(my) {
         my.canWalk = false;
 
         // Create the missile
-        my.setFrameTimeout(34, function(room) {
-            createMissile(room);
+        my.setFrameTimeout(34, function() {
+            createMissile();
         });
 
         // when done shooting, allow walk and wait for next
@@ -33,13 +33,13 @@ var Shooter = function(my) {
         });
     };
 
-    var createMissile = function(room) {
+    var createMissile = function() {
         var missile = Rock();
 
         missile.position.x = my.position.x;
         missile.position.y = my.position.y;
 
-        room.addEntity(missile);
+        my.room.addEntity(missile);
 
         missile.shootDirection(my.facing, 204/68);
     };

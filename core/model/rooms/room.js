@@ -111,8 +111,8 @@ var Room = function(data) {
 
             my.entities = a;
 
-            // remove entities room reference
-            entity.room = null;
+            // let it keep reference
+            //entity.room = null;
         }
 
         // Add entities

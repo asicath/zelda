@@ -33,11 +33,11 @@ var Death = function(entity, after) {
     my.setFrameTimeout(13, function() {
         my.icon.spriteIndex = 2; // small
     });
-    my.setFrameTimeout(19, function(room) {
+    my.setFrameTimeout(19, function() {
         // animation is complete, remove from room
-        room.removeEntity(my);
+        my.room.removeEntity(my);
 
-        if (after) after(room);
+        if (after) after();
     });
 
 

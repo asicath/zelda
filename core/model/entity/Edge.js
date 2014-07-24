@@ -31,11 +31,11 @@ var Edge = function(direction, onPlayerOver) {
     my.visible = false;
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        executeFrame_parent(room);
+    my.executeFrame = function() {
+        executeFrame_parent();
 
         // check for intersection
-        var a = room.getIntersectingEntities(my, 'player', null);
+        var a = my.room.getIntersectingEntities(my, 'player', null);
         if (a) {
             var e;
             for (var i = a.length-1; i >= 0; i--) {

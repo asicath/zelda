@@ -55,20 +55,20 @@ var Monster = function(level) {
         my.pushFromThrust(entity.facing);
     };
 
-    my.afterDeath = function(room) {
-        my.dropItem(room, itemDropLevel);
+    my.afterDeath = function() {
+        my.dropItem(itemDropLevel);
     };
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
+    my.executeFrame = function() {
 
-        executeFrame_parent(room);
+        executeFrame_parent();
 
         // check for intersection with player
-        var a = room.getIntersectingEntities(my, 'player', 'monsterHit');
+        var a = my.room.getIntersectingEntities(my, 'player', 'monsterHit');
         if (a) {
             for (var i = a.length-1; i >= 0; i--) {
-                a[i].takeDamage(2, my, room);
+                a[i].takeDamage(2, my);
             }
         }
 
