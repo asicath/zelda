@@ -1,10 +1,13 @@
+var musicDefeat = new Audio("music/Defeat1.mp3");
+var musicVictory = new Audio("music/Victory1.mp3");
 
+var musicMiniBossIntro = new Audio("music/minibossintro.mp3");
 
 var DemoRoom = function(data) {
     var my = PlayerRoom(data);
 
-    //Music.eightBit.loop = true;
-    //Music.eightBit.play();
+    Music.eightBit.loop = true;
+    Music.eightBit.play();
 
     var waveCount = 0;
 
@@ -15,18 +18,43 @@ var DemoRoom = function(data) {
 
         // First two waves just start a new monster wave
         if (waveCount <= 3) {
-            var wave = MonsterWave(my, 1 * waveCount);
+            var wave = MonsterWave(my, 10 * waveCount);
             my.title = "wave " + waveCount;
             wave.onComplete = nextWave;
         }
         else if (waveCount == 4) {
             // aquamentus
             var wave = BossWave(my);
+
+            musicMiniBossIntro.play();
+            musicMiniBossIntro.addEventListener('ended', function(){
+                musicMiniBossIntro.load();
+            });
+
             my.title = "boss";
             wave.onComplete = nextWave;
         }
         else {
-            my.setFrameTimeout(60*2, my.onComplete);
+
+            // stop the music
+            Music.eightBit.pause();
+            Music.eightBit.load();
+
+            musicMiniBossIntro.pause();
+            musicMiniBossIntro.load();
+
+            my.setFrameTimeout(30, function() {
+                musicVictory.play();
+
+                musicVictory.addEventListener('ended', function() {
+                    musicVictory.load();
+                    my.setFrameTimeout(30, my.onComplete);
+                });
+            });
+
+
+
+
         }
     };
 
@@ -126,6 +154,7 @@ var MonsterWave = function(room, monsterCountMax) {
 
         // when all the monsters are dead, room is complete
         if (monsterCount == monsterCountMax && killCount == monsterCount) {
+
             my.onComplete();
         }
 

@@ -37,10 +37,10 @@ var DemoCycle = function() {
 
 
     // *** LOGO ***
-    var showLogo = false;
+    var showLogo = true;
 
     if (showLogo) {
-        var logoMusic = new Audio("aum_logo.mp3");
+        var logoMusic = new Audio("music/aum_logo.mp3");
 
         logoMusic.addEventListener('ended', function(){
             showLogo = false;

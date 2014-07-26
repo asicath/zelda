@@ -1,8 +1,10 @@
-
+var musicStore = new Audio("music/DISTANCE.mp3");
 
 var StoreRoom = function(data) {
     var my = PlayerRoom(data);
 
+
+    musicStore.play();
 
     // Treasure room
     var count = 0;
@@ -46,7 +48,9 @@ var StoreRoom = function(data) {
         my.removeEntity(player);
         if (++exited == my.players.length) {
 
-            my.setFrameTimeout(60, my.onComplete);
+            musicStore.pause();
+            musicStore.load();
+            my.setFrameTimeout(30, my.onComplete);
 
 
         }
