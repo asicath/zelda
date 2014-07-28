@@ -94,7 +94,8 @@ var Sounds = (function() {
             {file: 'assets/sounds/White Magic.mp3', name:'whiteMagic'},
 
             {file: 'assets/sounds/bomb_blow.wav', name:'bombBlow'},
-            {file: 'assets/sounds/bomb_drop.wav', name:'bombDrop'}
+            {file: 'assets/sounds/bomb_drop.wav', name:'bombDrop'},
+            {file: 'assets/sounds/Defeat1.mp3', name:'playerDefeat'}
         ]
     };
 

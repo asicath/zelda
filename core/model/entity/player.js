@@ -108,7 +108,7 @@ var Player = function(playerId, playerInputIndex) {
         var ani = Death(my);
         my.room.addEntity(ani);
 
-        Sounds.die.play();
+        Sounds.playerDefeat.play();
     };
 
     return my;
