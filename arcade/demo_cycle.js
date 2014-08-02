@@ -15,8 +15,11 @@ var Directives = (function() {
     ];
 
     my.nextMessage = function(from) {
-        if (messageIndex == from)
+        if (messageIndex == from) {
             my.message = messages[++messageIndex];
+            _gaq.push(['_trackEvent', 'achievement', 'v1.0', "m" + messageIndex]);
+        }
+
     };
 
     var messageIndex = -1;
@@ -173,8 +176,11 @@ var DemoCycle = function() {
     var loadRoom = function(x, y, type, success) {
 
         // generate random if not specified
-        x = x || Math.floor(Math.random() * 16).toString();
-        y = y || Math.floor(Math.random() * 8).toString();
+        if (x == null || y == null) {
+            var c = getRandomRoomCoords();
+            x = c.x;
+            y = c.y;
+        }
 
         if (x.length == 1) x = "0" + x;
         if (y.length == 1) y = "0" + y;
@@ -185,6 +191,52 @@ var DemoCycle = function() {
             success(room);
         });
 
+    };
+
+    var invalidRooms = [
+        // split
+        {x:3, y:2},
+        {x:13, y:1},
+        {x:12, y:5},
+        {x:5, y:5},
+        {x:2, y:6},
+        {x:13, y:6},
+        {x:7, y:2},
+        {x:11, y:4},
+        {x:5, y:7},
+        {x:2, y:7},
+        {x:7, y:1},
+
+        // too small
+        {x:6, y:4},
+        {x:14, y:0},
+        {x:6, y:3},
+        {x:15, y:7},
+        {x:0, y:0},
+        {x:9, y:1},
+        {x:2, y:0},
+        {x:3, y:0},
+        {x:7, y:0}
+    ];
+
+    var getRandomRoomCoords = function() {
+        var validRoom = false;
+        var c;
+        while (!validRoom) {
+            c = {
+                x: Math.floor(Math.random() * 16).toString(),
+                y: Math.floor(Math.random() * 8).toString()
+            };
+            validRoom = true;
+            for (var i = 0; i < invalidRooms.length; i++) {
+                if (c.x == invalidRooms[i].x && c.y == invalidRooms[i].y) {
+                    validRoom = false;
+                    break;
+                }
+            }
+        }
+
+        return c;
     };
 
 
