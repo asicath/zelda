@@ -23,16 +23,21 @@ var Boomerang = function(player, direction) {
     });
 
     my.setFrameTimeout(32, function() {
+        startReturn();
+    });
+
+    var startReturn = function() {
+        if (isReturning) return;
+
         // slow return
         isReturning = true;
         speed = 1;
 
-    });
-
-    my.setFrameTimeout(48, function() {
-        // fast return
-        speed = 2;
-    });
+        // fast return after 16 frames
+        my.setFrameTimeout(16, function() {
+            speed = 2;
+        });
+    };
 
     var nextFrame = function() {
         my.icon.spriteIndex = (my.icon.spriteIndex+1) % 8;
@@ -47,6 +52,13 @@ var Boomerang = function(player, direction) {
 
     setupNextFrame();
 
+    var freeze = function(entity) {
+        entity.canWalk = false;
+        entity.setFrameTimeout(154, function() {
+            entity.canWalk = true;
+        });
+    };
+
     var executeFrame_parent = my.executeFrame;
     my.executeFrame = function() {
         executeFrame_parent();
@@ -55,8 +67,9 @@ var Boomerang = function(player, direction) {
         var a = my.room.getIntersectingEntities(my, 'monster');
         if (a) {
             for (var i = a.length-1; i >= 0; i--) {
-
+                freeze(a[i]);
             }
+            startReturn();
         }
 
         var x = 0;
