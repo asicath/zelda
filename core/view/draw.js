@@ -31,7 +31,6 @@ var View = (function() {
     };
 
 
-    var entityDrawDirection = 0;
     my.drawRoom = function(ctx, xOffset, yOffset, room) {
 
         // should only be needed once
@@ -44,18 +43,10 @@ var View = (function() {
         ctx.drawImage(room.backgroundImage, 0, 0);
 
         // now the entities
-        if (entityDrawDirection == 0) {
-            for (var i = room.entities.length-1; i >= 0; i--) {
-                room.entities[i].drawEntity(ctx);
-            }
-            entityDrawDirection = 1;
+        for (var i = room.entities.length-1; i >= 0; i--) {
+            room.entities[i].drawEntity(ctx);
         }
-        else {
-            for (var i = 0; i < room.entities.length; i++) {
-                room.entities[i].drawEntity(ctx);
-            }
-            entityDrawDirection = 0;
-        }
+
 
 
         ctx.restore();
