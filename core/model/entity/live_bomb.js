@@ -4,6 +4,7 @@ var LiveBomb = function(player) {
     my.entityType = 'livebomb';
     my.getFootPrint().setSize(16, 16);
     my.icon = Icon(my, SpriteSheets.items, 1);
+    my.icon.drawOffset.y = -3;
     my.icon.imageOptions = ImageOptions.RedToBlue;
     my.playerId = player.playerId; // expose for kill counting in monster
 
@@ -37,6 +38,14 @@ var LiveBomb = function(player) {
         clouds[5].position.y = my.position.y + 16;
         clouds[6].position.y = my.position.y;
 
+        clouds[0].icon.startFlickering(2, 1);
+        clouds[1].icon.startFlickering(2, 0);
+        clouds[2].icon.startFlickering(2, 0);
+        clouds[3].icon.startFlickering(2, 0);
+        clouds[4].icon.startFlickering(2, 1);
+        clouds[5].icon.startFlickering(2, 1);
+
+
         for (var i = 0; i < 7; i++) {
             my.room.addEntity(clouds[i]);
         }
@@ -50,12 +59,7 @@ var LiveBomb = function(player) {
 
     };
 
-    var warning = function() {
-        my.icon.startFlashing();
-    };
-
-    my.setFrameTimeout(160, explode);
-    my.setFrameTimeout(80, warning);
+    my.setFrameTimeout(48, explode);
 
     return my;
 };

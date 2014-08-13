@@ -34,8 +34,11 @@ var Icon = function(entity, spriteSheet, initialSpriteIndex) {
     var flickerFrame = 0;
     var flickerInterval = 2;
 
-    my.startFlickering = function() {
+    my.startFlickering = function(interval, startFrame) {
         flickering = true;
+
+        flickerInterval = interval || flickerInterval;
+        flickerFrame = startFrame || 0;
     };
 
     my.stopFlickering = function() {
