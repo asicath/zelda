@@ -43,6 +43,7 @@
     ]},
     {"url":"assets/sprites/letters.gif", "name":"letters"},
     {"url":"assets/sprites/icons.gif", "name":"icons"},
+    {"url":"assets/sprites/boomerang.gif", "name":"boomerang"},
     {"url":"assets/sprites/bigbomb.gif", "name":"bigbomb"},
     {"url":"assets/sprites/weapon_border.gif", "name":"weaponBorder"},
     {"url":"assets/sprites/weapon_icons.gif", "name":"weaponIcons", "width": 14}

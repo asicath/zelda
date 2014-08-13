@@ -11,6 +11,7 @@ var PlayerRoom = function(data) {
 
         my.players[playerId] = p;
         p.addAltAction(DropBomb(p, LiveBomb));
+        p.addAltAction(ThrowBoomerang(p));
 
         my.addEntityAtOpenTile(my.players[playerId]);
 
