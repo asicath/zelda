@@ -29,6 +29,20 @@ var Entity = function() {
         my.icon.drawIcon(ctx);
     };
 
+
+
+    var freezeCount = 0;
+    my.freeze = function() {
+        freezeCount++;
+    };
+    my.unfreeze = function() {
+        freezeCount--;
+    };
+    my.isFrozen = function() {
+        return freezeCount > 0;
+    };
+
+
     return my;
 };
 

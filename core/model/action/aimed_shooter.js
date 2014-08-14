@@ -6,7 +6,7 @@ var AimedShooter = function(my) {
 
     var setCheckShoot = function() {
         my.setFrameTimeout(16, function() {
-            if (Math.random() < my.shootPercent) {
+            if (Math.random() < my.shootPercent && !my.isFrozen()) {
                 // shooting!
                 shoot();
             }

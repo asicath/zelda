@@ -11,7 +11,7 @@ var Action = function(actor) {
     my.executeFrame = function() {
 
         // Intent detected, activate!
-        if (my.activateIntent && !activated) {
+        if (my.activateIntent && !activated && !actor.isFrozen()) {
             my.onActivate();
             activated = true;
             heldFrameCount = 0;

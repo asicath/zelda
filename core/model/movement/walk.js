@@ -18,7 +18,7 @@ var Walk = function(mover) {
 
         if (!my.moveIntent) return false;
 
-        if (mover.isfrozen()) {
+        if (mover.isFrozen()) {
 
             if (mover.canChangeFace) {
                 // can't walk, but make sure to update facing

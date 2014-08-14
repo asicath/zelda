@@ -13,7 +13,7 @@ var Shuffle = function(mover) {
     // Returns true if this source moved this frame
     my.executeMove = function() {
 
-        if (mover.isfrozen()) return false;
+        if (mover.isFrozen()) return false;
 
         if (--info.frameUntilCheck < 0) {
             if (Math.random() < 0.25) {

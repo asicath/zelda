@@ -3,20 +3,6 @@ var Mover = function(my) {
 
     my.wallSensitive = false;
 
-
-    var freezeCount = 0;
-    my.freeze = function() {
-        freezeCount++;
-    };
-    my.unfreeze = function() {
-        freezeCount--;
-    };
-    my.isfrozen = function() {
-        return freezeCount > 0;
-    };
-
-
-
     my.movementSources = [];
 
     var executeMove = function() {
