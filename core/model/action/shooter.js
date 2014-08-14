@@ -19,7 +19,7 @@ var Shooter = function(my) {
     setCheckShoot();
 
     var shoot = function() {
-        my.canWalk = false;
+        my.freeze();
 
         // Create the missile
         my.setFrameTimeout(34, function() {
@@ -28,7 +28,7 @@ var Shooter = function(my) {
 
         // when done shooting, allow walk and wait for next
         my.setFrameTimeout(49, function() {
-            my.canWalk = true;
+            my.unfreeze();
             setCheckShoot();
         });
     };

@@ -2,8 +2,6 @@
 var Shuffle = function(mover) {
     var my = MovementSource(mover);
 
-    mover.canWalk = true;
-
     var speed = 0.1;
     var info = {
         moving: null,
@@ -15,7 +13,7 @@ var Shuffle = function(mover) {
     // Returns true if this source moved this frame
     my.executeMove = function() {
 
-        if (!mover.canWalk) return false;
+        if (mover.isfrozen()) return false;
 
         if (--info.frameUntilCheck < 0) {
             if (Math.random() < 0.25) {

@@ -18,7 +18,7 @@ var Protection = function(actor) {
                 stage = 1;
                 frame = 0;
 
-                actor.canWalk = false;
+                actor.freeze();
 
                 sound = Sounds.whiteMagic.play();
 
@@ -35,7 +35,7 @@ var Protection = function(actor) {
         if (stage == 1) {
             frame++;
 
-            actor.canWalk = false;
+            actor.freeze();
 
 
 
@@ -93,7 +93,7 @@ var Protection = function(actor) {
 
             frame++;
 
-            actor.canWalk = false;
+            actor.freeze();
 
             if (circle.icon.spriteIndex > 0 && frame % 1 == 0) {
                 circle.icon.spriteIndex--;
@@ -121,7 +121,7 @@ var Protection = function(actor) {
 
             if (!my.activateIntent) {
                 stage = 0;
-                actor.canWalk = true;
+                actor.unfreeze();
                 sound.pause();
             }
         }

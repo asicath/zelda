@@ -9,7 +9,7 @@ var SwordRain = function(actor) {
         swords = [];
 
         // prevent movement while charging
-        actor.canWalk = false;
+        actor.freeze();
         actor.canChangeFace = false;
     };
 
@@ -35,7 +35,7 @@ var SwordRain = function(actor) {
         }
 
         // allow move again
-        actor.canWalk = true;
+        actor.unfreeze();
         actor.canChangeFace = true;
     };
 

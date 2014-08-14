@@ -53,9 +53,9 @@ var Boomerang = function(player, direction) {
     setupNextFrame();
 
     var freeze = function(entity) {
-        entity.canWalk = false;
+        entity.freeze();
         entity.setFrameTimeout(154, function() {
-            entity.canWalk = true;
+            entity.unfreeze();
         });
     };
 

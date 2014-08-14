@@ -64,7 +64,7 @@ var ThrustSword = function(actor) {
         swordState = 1;
 
         // can't move while attacking
-        actor.canWalk = false;
+        actor.freeze();
         actor.shieldUp = false;
 
         // start thrust sound
@@ -119,7 +119,7 @@ var ThrustSword = function(actor) {
 
     var thrustCleanUp = function() {
         sword = null;
-        actor.canWalk = true;
+        actor.unfreeze();
         actor.shieldUp = true;
         actor.resetStep();
 
