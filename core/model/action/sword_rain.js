@@ -4,20 +4,20 @@ var SwordRain = function(actor) {
     var swords = null;
     my.weaponIconIndex = 3;
 
-    my.onActivate = function(room) {
+    my.onActivate = function() {
         // clear swords for new charging
         swords = [];
 
         // prevent movement while charging
-        actor.canWalk = false;
+        actor.freeze();
         actor.canChangeFace = false;
     };
 
-    my.onHold = function(room, frame) {
+    my.onHold = function(frame) {
         if (frame % 20 == 0) {
             var i = Math.floor(frame / 20) - 1;
             if (i < 5) {
-                createSword(i, room);
+                createSword(i);
             }
         }
     };
@@ -35,11 +35,11 @@ var SwordRain = function(actor) {
         }
 
         // allow move again
-        actor.canWalk = true;
+        actor.unfreeze();
         actor.canChangeFace = true;
     };
 
-    var createSword = function(i,room) {
+    var createSword = function(i) {
         var pos = swordPosition[actor.facing];
 
         var p = pos.positions[i];
@@ -56,7 +56,7 @@ var SwordRain = function(actor) {
 
         swords.push(sword);
 
-        room.addEntity(sword);
+        actor.room.addEntity(sword);
         Sounds.candle.play();
     };
 

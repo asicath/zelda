@@ -59,7 +59,7 @@ var Missile = function(mover) {
     var moveRect = null;
 
     // Returns true if this source moved this frame
-    my.executeMove = function(room) {
+    my.executeMove = function() {
 
         if (info.velocity == 0) return false;
 
@@ -73,17 +73,17 @@ var Missile = function(mover) {
         moveRect.position.x += Math.cos(info.angle) * info.velocity;
         moveRect.position.y += Math.sin(info.angle) * info.velocity;
 
-        mover.attemptMove(room, moveRect, my);
+        mover.attemptMove(moveRect, my);
 
         return true;
     };
 
-    my.onEdgeEvent = function(room, wall, rect) {
-        return mover.onEdgeEvent(room, wall, rect);
+    my.onEdgeEvent = function(edge, rect) {
+        return mover.onEdgeEvent(edge, rect);
     };
 
-    my.onWallEvent = function(room, wall, rect) {
-        mover.onEdgeEvent(room, wall, rect);
+    my.onWallEvent = function(wall, rect) {
+        mover.onEdgeEvent(wall, rect);
     };
 
     return my;

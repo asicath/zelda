@@ -9,13 +9,13 @@ var WalkRandom = function(mover) {
     var framesUntilNextMove = 0;
 
     var executeMove_parent = my.executeMove;
-    my.executeMove = function(room) {
+    my.executeMove = function() {
         // check for new random move
-        checkMove(room);
-        executeMove_parent(room);
+        checkMove();
+        executeMove_parent();
     };
 
-    var checkMove = function(room) {
+    var checkMove = function() {
 
         framesUntilNextMove--;
 
@@ -45,15 +45,15 @@ var WalkRandom = function(mover) {
     };
 
     var onWallEvent_parent = my.onWallEvent;
-    my.onWallEvent = function(room, wall, rect) {
-        onWallEvent_parent(room, wall, rect);
+    my.onWallEvent = function(wall, rect) {
+        onWallEvent_parent(wall, rect);
         framesUntilNextMove = 0;
         moving = null;
     };
 
     var onEdgeEvent_parent = my.onEdgeEvent;
-    my.onEdgeEvent = function(room, wall, rect) {
-        onEdgeEvent_parent(room, wall, rect);
+    my.onEdgeEvent = function(edge, rect) {
+        onEdgeEvent_parent(edge, rect);
         framesUntilNextMove = 0;
         moving = null;
     };

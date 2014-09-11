@@ -3,14 +3,14 @@ var Mortal = function(my) {
     my.life = 4;
     var invincible = 0;
 
-    my.takeDamage = function(amount, entity, room) {
+    my.takeDamage = function(amount, entity) {
 
         if (invincible || my.isDead) return;
 
         my.life -= amount;
 
         if (my.life <= 0) {
-            death(room, entity);
+            death(entity);
         }
         else {
             Sounds.hit.play();
@@ -31,18 +31,20 @@ var Mortal = function(my) {
 
     };
 
-    var death = function(room, entity) {
+    var death = function(entity) {
 
         // remove from the room
-        room.removeEntity(my);
+        my.room.removeEntity(my);
 
         // tell the room the monster was killed
         if (my.entityType == 'player') {
-            room.onPlayerKill(my, entity);
+            my.room.onPlayerKill(my, entity);
         }
         else {
-            room.onMonsterKill(my, entity);
+            my.onDeath(my, entity);
         }
+
+
 
 
         // prevent further actions
@@ -50,10 +52,12 @@ var Mortal = function(my) {
 
         // replace with a death animation
         var ani = Death(my, my.afterDeath);
-        room.addEntity(ani);
+        my.room.addEntity(ani);
 
         Sounds.kill.play();
     };
+
+    my.onDeath = function(killed, killer) {};
 
     my.afterDeath = function() {};
 

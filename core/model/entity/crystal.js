@@ -44,13 +44,13 @@ var Crystal = function() {
     my.setLevel(level);
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        executeFrame_parent(room);
+    my.executeFrame = function() {
+        executeFrame_parent();
 
         if (level < 3) return;
 
         // check for intersection
-        var a = room.getIntersectingEntities(my, 'sword');
+        var a = my.room.getIntersectingEntities(my, 'sword');
         if (a) {
             // create the entity
             var e = Aquamentus();
@@ -61,9 +61,9 @@ var Crystal = function() {
 
             // place it in a spawn cloud
             var spawn = SpawnCloud(e);
-            room.addEntity(spawn);
+            my.room.addEntity(spawn);
 
-            room.removeEntity(my);
+            my.room.removeEntity(my);
         }
 
     };

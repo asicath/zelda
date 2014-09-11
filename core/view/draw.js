@@ -47,6 +47,8 @@ var View = (function() {
             room.entities[i].drawEntity(ctx);
         }
 
+
+
         ctx.restore();
     };
 

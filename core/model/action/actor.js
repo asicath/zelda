@@ -12,20 +12,16 @@ var Actor = function(my) {
     };
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-
+    my.executeFrame = function() {
         updateInput(my.playerInputIndex);
-
-        executeActions(room);
-
-        executeFrame_parent(room);
-
+        executeActions();
+        executeFrame_parent();
     };
 
     // Give the actions a frame of time
-    var executeActions = function(room) {
+    var executeActions = function() {
         for (var i = 0; i < actions.length; i++) {
-            actions[i].action.executeFrame(room);
+            actions[i].action.executeFrame();
         }
     };
 

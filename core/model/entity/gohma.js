@@ -30,15 +30,15 @@ var Gohma = function() {
     var eyeSwapFrames = 0;
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
+    my.executeFrame = function() {
 
-        executeFrame_parent(room);
+        executeFrame_parent();
 
         // check for intersection with player
-        var a = room.getIntersectingEntities(my, 'player', 'monsterHit');
+        var a = my.room.getIntersectingEntities(my, 'player', 'monsterHit');
         if (a) {
             for (var i = a.length-1; i >= 0; i--) {
-                a[i].takeDamage(2, my, room);
+                a[i].takeDamage(2, my);
             }
         }
 
@@ -76,7 +76,7 @@ var Gohma = function() {
 
     var soundWait = 0;
     var takeDamage_parent = my.takeDamage;
-    my.takeDamage = function(amount, entity, room) {
+    my.takeDamage = function(amount, entity) {
 
         if (eyeClosed || eyeSwapFrames > 0) {
             if (soundWait == 0) {
@@ -86,13 +86,13 @@ var Gohma = function() {
 
         }
         else {
-            takeDamage_parent(amount, entity, room);
+            takeDamage_parent(amount, entity);
         }
 
     };
 
-    my.afterDeath = function(room) {
-        my.dropItem(room, 'c');
+    my.afterDeath = function() {
+        my.dropItem('c');
     };
 
     return my;

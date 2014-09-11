@@ -16,36 +16,36 @@ var Item = function() {
     });
 
     // Lasts for 508 frames
-    my.setFrameTimeout(508, function(room) {
-        room.removeEntity(my);
+    my.setFrameTimeout(508, function() {
+        my.room.removeEntity(my);
     });
 
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        executeFrame_parent(room);
+    my.executeFrame = function() {
+        executeFrame_parent();
 
         if (pickupAllowed)
-            checkForPickup(room);
+            checkForPickup();
 
     };
 
-    var checkForPickup = function(room) {
+    var checkForPickup = function() {
         // check for player intersection
-        var a = room.getIntersectingEntities(my, 'player');
+        var a = my.room.getIntersectingEntities(my, 'player');
         if (a) {
             for (var i = a.length-1; i >= 0; i--) {
                 my.onPickUp(a[i]);
-                room.removeEntity(my);
+                my.room.removeEntity(my);
             }
         }
 
         // players swords can pickup items
-        a = room.getIntersectingEntities(my, 'sword');
+        a = my.room.getIntersectingEntities(my, 'sword');
         if (a) {
             for (var i = a.length-1; i >= 0; i--) {
                 my.onPickUp(a[i].player);
-                room.removeEntity(my);
+                my.room.removeEntity(my);
             }
         }
     };

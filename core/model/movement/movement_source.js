@@ -10,13 +10,13 @@ var MovementSource = function(mover) {
     var my = {};
 
     // Returns true if this source moved this frame
-    my.executeMove = function(room) {
+    my.executeMove = function() {
         return false;
     };
 
     var attemptRect = null;
 
-    my.attemptSimpleMove = function(room, moveDirection, amount, facingDirection) {
+    my.attemptSimpleMove = function(moveDirection, amount, facingDirection) {
 
         // Change facing if supplied
         if (facingDirection) {
@@ -44,20 +44,20 @@ var MovementSource = function(mover) {
                 break;
         }
 
-        mover.attemptMove(room, attemptRect, my);
+        mover.attemptMove(attemptRect, my);
     };
 
-    my.onEdgeEvent = function(room, edge) {
+    my.onEdgeEvent = function(edge, rect) {
 
     };
 
-    my.onWallEvent = function(room, wall, rect) {
+    my.onWallEvent = function(wall, rect) {
 
     };
 
     var stopShortRect = null;
 
-    my.stopShort = function(room, wallRect, moving) {
+    my.stopShort = function(wallRect, moving) {
 
         if (!stopShortRect) {
             stopShortRect = new Rect(new Position(0, 0), mover.getFootPrint().width, mover.getFootPrint().height, 0, 0);
@@ -85,7 +85,7 @@ var MovementSource = function(mover) {
         }
 
         // attempt again
-        mover.attemptMove(room, stopShortRect, my);
+        mover.attemptMove(stopShortRect, my);
     };
 
     return my;

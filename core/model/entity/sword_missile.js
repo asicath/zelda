@@ -23,19 +23,19 @@ var SwordMissile = function(player, sword) {
         my.shootDirection(my.facing, 204/68);
     };
 
-    my.onHit = function(room) {
-        finish(room);
+    my.onHit = function() {
+        finish();
     };
 
-    my.onEdgeEvent = function(room, wall, rect) {
-        finish(room);
+    my.onEdgeEvent = function(edge, rect) {
+        finish();
     };
 
-    var finish = function(room) {
-        room.removeEntity(my);
+    var finish = function() {
+        my.room.removeEntity(my);
         my.complete = true;
 
-        Explosion.create(room, my.position.x, my.position.y);
+        Explosion.create(my.room, my.position.x, my.position.y);
     };
 
     return my;

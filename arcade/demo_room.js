@@ -1,22 +1,64 @@
+var musicDefeat = new Audio("music/Defeat1.mp3");
+var musicVictory = new Audio("music/Victory1.mp3");
 
+var musicMiniBossIntro = new Audio("music/minibossintro.mp3");
 
 var DemoRoom = function(data) {
     var my = PlayerRoom(data);
 
-    //Music.eightBit.loop = true;
-    //Music.eightBit.play();
+    Music.eightBit.loop = true;
+    Music.eightBit.play();
 
-    var wave = Wave(my);
+    var waveCount = 0;
 
-    wave.onComplete = function() {
-        // start adding monsters
-        my.setFrameTimeout(60*2, my.onComplete);
+    var nextWave = function() {
+        waveCount++;
+
+
+
+        // First two waves just start a new monster wave
+        if (waveCount <= 3) {
+            var wave = MonsterWave(my, 10 * waveCount);
+            my.title = "wave " + waveCount;
+            wave.onComplete = nextWave;
+        }
+        else if (waveCount == 4) {
+            // aquamentus
+            var wave = BossWave(my);
+
+            musicMiniBossIntro.play();
+            musicMiniBossIntro.addEventListener('ended', function(){
+                musicMiniBossIntro.load();
+            });
+
+            my.title = "boss";
+            wave.onComplete = nextWave;
+        }
+        else {
+
+            // stop the music
+            Music.eightBit.pause();
+            Music.eightBit.load();
+
+            musicMiniBossIntro.pause();
+            musicMiniBossIntro.load();
+
+            my.setFrameTimeout(30, function() {
+                musicVictory.play();
+
+                musicVictory.addEventListener('ended', function() {
+                    musicVictory.load();
+                    my.setFrameTimeout(30, my.onComplete);
+                });
+            });
+
+
+
+
+        }
     };
 
-    // should be added onto each monster?
-    my.onMonsterKill = function(monster, player) {
-        wave.onMonsterKill(monster, player);
-    };
+    my.setFrameTimeout(60*2, nextWave);
 
     // container will overwrite
     my.onComplete = function() {};
@@ -25,13 +67,47 @@ var DemoRoom = function(data) {
 };
 
 
+var BossWave = function(room) {
+    var my = {};
+
+    var addMonster = function() {
+
+        // create the entity
+        var e = Aquamentus();
+
+        e.onDeath = onMonsterKill;
+
+        // place it in a spawn cloud
+        var spawn = SpawnCloud(e);
+
+        // find a spot for it
+        room.addEntityAtOpenTile(spawn);
+    };
+
+    var onMonsterKill = function(monster, player) {
+
+        // keep track of kills
+        room.players[player.playerId].monstersKilled++;
+
+        // only one monster
+        my.onComplete();
+    };
+
+    // container will overwrite
+    my.onComplete = function() {};
+
+    // start adding monsters
+    room.setFrameTimeout(60*5, addMonster);
+
+    return my;
+};
 
 
-var Wave = function(room) {
+var MonsterWave = function(room, monsterCountMax) {
     var my = {};
 
     var monsterCount = 0;
-    var monsterCountMax = 10;
+    //var monsterCountMax = 10;
 
     var addMonsterCheck = function() {
         addMonster();
@@ -59,6 +135,8 @@ var Wave = function(room) {
             e = Monster(1);
         }
 
+        e.onDeath = onMonsterKill;
+
         // place it in a spawn cloud
         var spawn = SpawnCloud(e);
 
@@ -66,7 +144,7 @@ var Wave = function(room) {
         room.addEntityAtOpenTile(spawn);
     };
 
-    my.onMonsterKill = function(monster, player) {
+    var onMonsterKill = function(monster, player) {
 
         // keep track of kills
         room.players[player.playerId].monstersKilled++;
@@ -76,6 +154,7 @@ var Wave = function(room) {
 
         // when all the monsters are dead, room is complete
         if (monsterCount == monsterCountMax && killCount == monsterCount) {
+
             my.onComplete();
         }
 

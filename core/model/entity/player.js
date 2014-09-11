@@ -69,7 +69,7 @@ var Player = function(playerId, playerInputIndex) {
     my.maxLife = 20;
 
     var invincible = false;
-    my.takeDamage = function(amount, entity, room) {
+    my.takeDamage = function(amount, entity) {
 
         if (invincible) return;
 
@@ -84,7 +84,7 @@ var Player = function(playerId, playerInputIndex) {
         });
 
         if (my.life <= 0) {
-            death(room);
+            death();
         }
         else {
             Sounds.hurt.play();
@@ -93,22 +93,22 @@ var Player = function(playerId, playerInputIndex) {
 
     };
 
-    var death = function(room) {
+    var death = function() {
 
         // remove from the room
-        room.removeEntity(my);
+        my.room.removeEntity(my);
 
         // prevent further actions
         my.isDead = true;
 
-        room.onPlayerKill(my);
+        my.room.onPlayerKill(my);
 
 
         // replace with a death animation
         var ani = Death(my);
-        room.addEntity(ani);
+        my.room.addEntity(ani);
 
-        Sounds.die.play();
+        Sounds.playerDefeat.play();
     };
 
     return my;

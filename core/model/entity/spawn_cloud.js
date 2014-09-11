@@ -16,10 +16,10 @@ var SpawnCloud = function(entity) {
         my.icon.spriteIndex = 2;
     });
 
-    my.setFrameTimeout(44, function(room) {
-        room.removeEntity(my);
+    my.setFrameTimeout(44, function() {
+        my.room.removeEntity(my);
         if (entity)
-            room.addEntity(entity);
+            my.room.addEntity(entity);
     });
 
 

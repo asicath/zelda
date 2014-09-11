@@ -16,11 +16,11 @@ var Rock = function() {
 
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        executeFrame_parent(room);
+    my.executeFrame = function() {
+        executeFrame_parent();
 
         // check for intersection
-        var a = room.getIntersectingEntities(my, 'player', 'monsterHit');
+        var a = my.room.getIntersectingEntities(my, 'player', 'monsterHit');
         if (a) {
             var e;
             for (var i = a.length-1; i >= 0; i--) {
@@ -35,12 +35,12 @@ var Rock = function() {
                 }
 
                 if (blocked && e.shieldUp) {
-                    room.removeEntity(my);
+                    my.room.removeEntity(my);
                     Sounds.shield.play();
                 }
                 else {
-                    e.takeDamage(2, my, room);
-                    room.removeEntity(my);
+                    e.takeDamage(2, my);
+                    my.room.removeEntity(my);
                 }
 
             }
@@ -48,12 +48,12 @@ var Rock = function() {
 
     };
 
-    my.onEdgeEvent = function(room, wall, rect) {
-        room.removeEntity(my);
+    my.onEdgeEvent = function(edge, rect) {
+        my.room.removeEntity(my);
     };
 
-    my.onWallEvent = function(room, wall, rect) {
-        room.removeEntity(my);
+    my.onWallEvent = function(wall, rect) {
+        my.room.removeEntity(my);
     };
 
     return my;

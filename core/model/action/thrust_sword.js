@@ -32,7 +32,7 @@ var ThrustSword = function(actor) {
         return getSprite_parent();
     };
 
-    my.executeFrame = function(room) {
+    my.executeFrame = function() {
 
         // 14 frames to complete sword thrust
         // 14 - Take sword stance
@@ -64,7 +64,7 @@ var ThrustSword = function(actor) {
         swordState = 1;
 
         // can't move while attacking
-        actor.canWalk = false;
+        actor.freeze();
         actor.shieldUp = false;
 
         // start thrust sound
@@ -77,11 +77,11 @@ var ThrustSword = function(actor) {
         if (Directives) Directives.nextMessage(2);
     };
 
-    var createSwordEntity = function(room) {
+    var createSwordEntity = function() {
 
         // create the sword
         sword = Sword(actor);
-        room.addEntity(sword);
+        actor.room.addEntity(sword);
 
         // indicate that a missile should get created
         createMissile = true;
@@ -96,11 +96,11 @@ var ThrustSword = function(actor) {
 
         var slow = 1;
 
-        actor.setFrameTimeout(9 * slow, function(room) {
+        actor.setFrameTimeout(9 * slow, function() {
             swordStance = 1;
             sword.extend = "mid";
             if (actor.life == actor.maxLife && createMissile) {
-                attemptCreateMissile(room);
+                attemptCreateMissile();
                 createMissile = false;
             }
         });
@@ -110,16 +110,16 @@ var ThrustSword = function(actor) {
             sword.extend = "back";
         });
 
-        actor.setFrameTimeout(11 * slow, function(room) {
+        actor.setFrameTimeout(11 * slow, function() {
             // Remove sword from room
-            room.removeEntity(sword);
+            actor.room.removeEntity(sword);
             thrustCleanUp();
         });
     };
 
     var thrustCleanUp = function() {
         sword = null;
-        actor.canWalk = true;
+        actor.unfreeze();
         actor.shieldUp = true;
         actor.resetStep();
 
@@ -144,13 +144,13 @@ var ThrustSword = function(actor) {
         sword.facing = actor.facing;
     };
 
-    var attemptCreateMissile = function(room) {
+    var attemptCreateMissile = function() {
 
         if (missile && !missile.complete) {return;}
 
         // Lets also createa sword missile
         missile = SwordMissile(actor, sword);
-        room.addEntity(missile);
+        actor.room.addEntity(missile);
         missile.launch();
         Sounds.SwordShoot.play();
     };

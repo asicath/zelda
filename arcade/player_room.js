@@ -7,7 +7,12 @@ var PlayerRoom = function(data) {
     my.players = [];
     var playerInputMap = {};
     var createPlayer = function(playerId, playerInputIndex) {
-        my.players[playerId] = Player(playerId, playerInputIndex);
+        var p = Player(playerId, playerInputIndex);
+        my.players[playerId] = p;
+
+        p.addAltAction(DropBomb(p, LiveBomb));
+        p.addAltAction(ThrowBoomerang(p));
+
         my.addEntityAtOpenTile(my.players[playerId]);
 
         // advance message

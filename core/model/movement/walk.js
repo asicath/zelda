@@ -6,7 +6,6 @@ var Walk = function(mover) {
 
     my.moveIntent = null;
 
-    mover.canWalk = true;
     mover.canChangeFace = true;
 
     mover.isWalker = true;
@@ -15,11 +14,11 @@ var Walk = function(mover) {
     my.guideSize = 8;
 
     // Returns true if this source moved this frame
-    my.executeMove = function(room) {
+    my.executeMove = function() {
 
         if (!my.moveIntent) return false;
 
-        if (!mover.canWalk) {
+        if (mover.isFrozen()) {
 
             if (mover.canChangeFace) {
                 // can't walk, but make sure to update facing
@@ -32,12 +31,12 @@ var Walk = function(mover) {
         var amount = mover.speed;
 
         // Make sure that we are on a guide
-        amount = moveToGuide(room, amount);
+        amount = moveToGuide(amount);
 
         // Use any left over movement to move in the intended direction
         if (amount > 0) {
             mover.lastWalkDirection = my.moveIntent;
-            my.attemptSimpleMove(room, my.moveIntent, amount, my.moveIntent);
+            my.attemptSimpleMove(my.moveIntent, amount, my.moveIntent);
         }
 
         swapStep();
@@ -46,7 +45,7 @@ var Walk = function(mover) {
     };
 
     // Will return amount left over
-    var moveToGuide = function(room, amount) {
+    var moveToGuide = function(amount) {
 
         var toGuideAmount = 0;
         var direction = null;
@@ -91,7 +90,7 @@ var Walk = function(mover) {
 
         // Take the move
         mover.lastWalkDirection = direction;
-        my.attemptSimpleMove(room, direction, toGuideAmount, direction);
+        my.attemptSimpleMove(direction, toGuideAmount, direction);
 
         // give back whatever is left
         return amount - toGuideAmount;
@@ -107,11 +106,11 @@ var Walk = function(mover) {
         return toTopGuide == 0;
     };
 
-    my.onWallEvent = function(room, wall, rect) {
-        my.stopShort(room, wall.rect, my.moveIntent);
+    my.onWallEvent = function(wall, rect) {
+        my.stopShort(wall.rect, my.moveIntent);
     };
 
-    my.onEdgeEvent = function(room, wall, rect) {
+    my.onEdgeEvent = function(edge, rect) {
 
     };
 

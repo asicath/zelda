@@ -16,15 +16,15 @@ var ActionItem = function(cost, actionType, arg0) {
     };
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        executeFrame_parent(room);
+    my.executeFrame = function() {
+        executeFrame_parent();
 
-        checkForPickup(room);
+        checkForPickup();
     };
 
-    var checkForPickup = function(room) {
+    var checkForPickup = function() {
         // check for player intersection
-        var a = room.getIntersectingEntities(my, 'player');
+        var a = my.room.getIntersectingEntities(my, 'player');
         if (a) {
             for (var i = a.length-1; i >= 0; i--) {
 
@@ -32,7 +32,7 @@ var ActionItem = function(cost, actionType, arg0) {
 
                 if (player.rupees >= cost) {
                     my.onPickUp(player);
-                    room.removeEntity(my);
+                    my.room.removeEntity(my);
                     player.rupees -= cost;
 
                     if (Directives) Directives.nextMessage(4);

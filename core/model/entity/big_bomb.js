@@ -53,7 +53,7 @@ var BigBomb = function(player) {
         {x: 8, y: 16}
     ];
 
-    var explode = function(room) {
+    var explode = function() {
 
         Sounds.bombBlow.play();
 
@@ -61,17 +61,17 @@ var BigBomb = function(player) {
             var cloud = SpawnCloud(null);
             cloud.position.x = my.position.x + cloudPositions[i].x;
             cloud.position.y = my.position.y + cloudPositions[i].y;
-            room.addEntity(cloud);
+            my.room.addEntity(cloud);
         }
 
         for (var i = 0; i < blastPositions.length; i++) {
             var blast = BombBlast(player);
             blast.position.x = my.position.x + blastPositions[i].x;
             blast.position.y = my.position.y + blastPositions[i].y;
-            room.addEntity(blast);
+            my.room.addEntity(blast);
         }
 
-        room.removeEntity(my);
+        my.room.removeEntity(my);
 
     };
 

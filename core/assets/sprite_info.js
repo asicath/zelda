@@ -4,6 +4,7 @@
     {"url":"assets/sprites/outside_green.gif", "name":"outside"},
     {"url":"assets/sprites/link.gif", "name":"link"},
     {"url":"assets/sprites/octopus.gif", "name":"octopus"},
+    {"url":"assets/sprites/moblin.gif", "name":"moblin"},
     {"url":"assets/sprites/fly.gif", "name":"fly"},
     {"url":"assets/sprites/cloud.gif", "name":"cloud"},
     {"url":"assets/sprites/heart.gif", "name":"heart"},
@@ -42,6 +43,7 @@
     ]},
     {"url":"assets/sprites/letters.gif", "name":"letters"},
     {"url":"assets/sprites/icons.gif", "name":"icons"},
+    {"url":"assets/sprites/boomerang.gif", "name":"boomerang"},
     {"url":"assets/sprites/bigbomb.gif", "name":"bigbomb"},
     {"url":"assets/sprites/weapon_border.gif", "name":"weaponBorder"},
     {"url":"assets/sprites/weapon_icons.gif", "name":"weaponIcons", "width": 14}

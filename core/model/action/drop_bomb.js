@@ -5,13 +5,26 @@ var DropBomb = function(actor, type) {
 
     if (type == BigBomb) my.weaponIconIndex = 1;
 
-    my.onActivate = function(room) {
+    my.onActivate = function() {
         var bomb = type(actor);
-        bomb.position.x = actor.position.x;
-        bomb.position.y = actor.position.y;
-        room.addEntity(bomb);
+
+        var x = actor.position.x;
+        var y = actor.position.y;
+
+        switch(actor.facing) {
+            case Directions.bottom: y += 17; break;
+            case Directions.top: y -= 17; break;
+            case Directions.left: y -= 1; x -= 17; break;
+            case Directions.right: y -= 1; x += 17; break;
+        }
+
+        bomb.position.x = x;
+        bomb.position.y = y;
+
+        actor.room.addEntity(bomb);
         Sounds.bombDrop.play();
     };
 
     return my;
 };
+

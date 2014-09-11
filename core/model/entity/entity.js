@@ -1,7 +1,9 @@
 
 var Entity = function() {
 
-    var my = {};
+    var my = {
+        room: null
+    };
 
     FrameEventHaver(my);
 
@@ -12,8 +14,8 @@ var Entity = function() {
 
     my.icon = null;
 
-    my.executeFrame = function(room) {
-        my.processEventQueue(room);
+    my.executeFrame = function() {
+        my.processEventQueue();
     };
 
     my.getFootPrint = function(type) {
@@ -26,6 +28,20 @@ var Entity = function() {
         if (!my.icon) return;
         my.icon.drawIcon(ctx);
     };
+
+
+
+    var freezeCount = 0;
+    my.freeze = function() {
+        freezeCount++;
+    };
+    my.unfreeze = function() {
+        freezeCount--;
+    };
+    my.isFrozen = function() {
+        return freezeCount > 0;
+    };
+
 
     return my;
 };
@@ -40,10 +56,10 @@ var FrameEventHaver = function(my) {
         eventQueue.push(FrameEvent(frames, event));
     };
 
-    my.processEventQueue = function(room) {
+    my.processEventQueue = function() {
         if (eventQueue.length > 0) {
             for (var i = eventQueue.length - 1; i >= 0; i--) {
-                eventQueue[i].executeFrame(room);
+                eventQueue[i].executeFrame();
                 if (eventQueue[i].complete) {
                     eventQueue.splice(i, 1);
                 }
@@ -60,9 +76,9 @@ var FrameEvent = function(frames, execute) {
 
     var framesUntilExecute = frames;
 
-    my.executeFrame = function(room) {
+    my.executeFrame = function() {
         if (--framesUntilExecute == 0) {
-            execute(room);
+            execute();
             my.complete = true;
         }
     };

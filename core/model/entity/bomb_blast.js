@@ -7,29 +7,29 @@ var BombBlast = function(player) {
     my.getFootPrint().setSize(16, 16);
 
     var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function(room) {
-        executeFrame_parent(room);
+    my.executeFrame = function() {
+        executeFrame_parent();
 
         // check for intersection with player
-        var a = room.getIntersectingEntities(my, 'player', null);
+        var a = my.room.getIntersectingEntities(my, 'player', null);
         if (a) {
             for (var i = a.length-1; i >= 0; i--) {
-                a[i].takeDamage(4, my, room);
+                a[i].takeDamage(4, my);
             }
         }
 
         // check for intersection
-        a = room.getIntersectingEntities(my, 'monster');
+        a = my.room.getIntersectingEntities(my, 'monster');
         if (a) {
             for (var i = a.length-1; i >= 0; i--) {
-                a[i].takeDamage(8, player, room);
+                a[i].takeDamage(8, player);
             }
         }
 
     };
 
-    my.setFrameTimeout(10, function(room) {
-        room.removeEntity(my);
+    my.setFrameTimeout(10, function() {
+        my.room.removeEntity(my);
     });
 
     return my;
