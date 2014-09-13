@@ -1,4 +1,16 @@
-define(['../core/model/rooms/room', '../core/model/entity/player', '../core/model/action/drop_bomb', '../core/model/action/throw_boomerang'], function(Room, Player, DropBomb, ThrowBoomerang) {
+define([
+    '../core/model/rooms/room',
+    '../core/model/entity/player',
+    '../core/model/action/drop_bomb',
+    '../core/model/entity/live_bomb',
+    '../core/model/action/throw_boomerang'
+], function(
+    Room,
+    Player,
+    DropBomb,
+    LiveBomb,
+    ThrowBoomerang
+    ) {
 
     return function (data) {
         var my = Room(data);

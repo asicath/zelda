@@ -1,4 +1,16 @@
-define(['player_room', '../core/model/action/drop_bomb', '../core/model/action/protection', '../core/model/action/sword_rain'], function(PlayerRoom, DropBomb, Protection, SwordRain) {
+define([
+    'player_room',
+    '../core/model/action/drop_bomb',
+    '../core/model/entity/live_bomb',
+    '../core/model/action/protection',
+    '../core/model/action/sword_rain'
+], function(
+    PlayerRoom,
+    DropBomb,
+    LiveBomb,
+    Protection,
+    SwordRain
+    ) {
 
     var musicStore = new Audio("music/DISTANCE.mp3");
 
