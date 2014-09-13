@@ -1,4 +1,4 @@
-define(['../core/controller/cycle', 'demo_room'], function(Cycle, DemoRoom) {
+define(['../core/controller/cycle', 'demo_room', 'demo_draw'], function(Cycle, DemoRoom, DemoDraw) {
 
 return function() {
 
