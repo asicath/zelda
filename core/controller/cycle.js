@@ -1,4 +1,4 @@
-define(function() {
+define(['./gamepad_new'], function(gamepadSupport) {
 
     window.requestAnimFrame = (function () {
         return  window.requestAnimationFrame ||
@@ -17,7 +17,6 @@ define(function() {
             canvas: null,
             ctx: null
         };
-
 
         // Start both chain reactions
         my.start = function () {

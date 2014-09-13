@@ -1,6 +1,7 @@
 http://www.w3.org/TR/gamepad/#attributes
 
-var gamepadSupport = (function() {
+define(function() {
+
     var my = {};
 
     my.init = function() {
@@ -87,5 +88,5 @@ var gamepadSupport = (function() {
     };
 
     return my;
-})();
+});
 
