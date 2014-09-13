@@ -1,10 +1,11 @@
-define(function() {
+define(['demo_cycle'], function(cycle) {
+
+    window.baseUrl = "../core/";
 
     Sounds.loadAll();
     Music.loadAll();
 
     loadAllSprites(function() {
-        var cycle = DemoCycle();
         cycle.start();
     });
 
