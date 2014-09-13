@@ -1,4 +1,4 @@
-define(['../core/model/rooms/room'], function(Room) {
+define(['../core/model/rooms/room', '../core/model/action/drop_bomb'], function(Room, DropBomb) {
 
     return function (data) {
         var my = Room(data);

@@ -1,4 +1,4 @@
-define(['player_room'], function(PlayerRoom) {
+define(['player_room', '../core/model/action/drop_bomb'], function(PlayerRoom, DropBomb) {
 
     var musicStore = new Audio("music/DISTANCE.mp3");
 

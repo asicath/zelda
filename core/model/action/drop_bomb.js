@@ -1,30 +1,43 @@
-var DropBomb = function(actor, type) {
-    var my = Action(actor);
+define(function() {
 
-    my.weaponIconIndex = 0;
+    return function (actor, type) {
+        var my = Action(actor);
 
-    if (type == BigBomb) my.weaponIconIndex = 1;
+        my.weaponIconIndex = 0;
 
-    my.onActivate = function() {
-        var bomb = type(actor);
+        if (type == BigBomb) my.weaponIconIndex = 1;
 
-        var x = actor.position.x;
-        var y = actor.position.y;
+        my.onActivate = function () {
+            var bomb = type(actor);
 
-        switch(actor.facing) {
-            case Directions.bottom: y += 17; break;
-            case Directions.top: y -= 17; break;
-            case Directions.left: y -= 1; x -= 17; break;
-            case Directions.right: y -= 1; x += 17; break;
-        }
+            var x = actor.position.x;
+            var y = actor.position.y;
 
-        bomb.position.x = x;
-        bomb.position.y = y;
+            switch (actor.facing) {
+                case Directions.bottom:
+                    y += 17;
+                    break;
+                case Directions.top:
+                    y -= 17;
+                    break;
+                case Directions.left:
+                    y -= 1;
+                    x -= 17;
+                    break;
+                case Directions.right:
+                    y -= 1;
+                    x += 17;
+                    break;
+            }
 
-        actor.room.addEntity(bomb);
-        Sounds.bombDrop.play();
+            bomb.position.x = x;
+            bomb.position.y = y;
+
+            actor.room.addEntity(bomb);
+            Sounds.bombDrop.play();
+        };
+
+        return my;
     };
 
-    return my;
-};
-
+});
