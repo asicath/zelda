@@ -1,5 +1,5 @@
 
-var Color = function () {
+define(function () {
 
     var TrimPercent = function (percent) {
         while (percent > 1.0) { percent -= 1.0; }
@@ -96,4 +96,4 @@ var Color = function () {
         ByNumber: ByNumber
     };
 
-} ();
+});
