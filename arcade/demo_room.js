@@ -1,4 +1,4 @@
-define(function() {
+define(['player_room'], function(PlayerRoom) {
 
     var musicDefeat = new Audio("music/Defeat1.mp3");
     var musicVictory = new Audio("music/Victory1.mp3");

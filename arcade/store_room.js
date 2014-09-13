@@ -1,4 +1,4 @@
-define(function() {
+define(['player_room'], function(PlayerRoom) {
 
     var musicStore = new Audio("music/DISTANCE.mp3");
 
