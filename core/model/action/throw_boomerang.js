@@ -1,28 +1,41 @@
-var ThrowBoomerang = function(actor) {
-    var my = Action(actor);
+define(function() {
 
-    my.weaponIconIndex = 5;
+    return function (actor) {
+        var my = Action(actor);
 
-    my.onActivate = function() {
-        var boom = Boomerang(actor, actor.facing);
+        my.weaponIconIndex = 5;
 
-        var x = actor.position.x;
-        var y = actor.position.y;
+        my.onActivate = function () {
+            var boom = Boomerang(actor, actor.facing);
 
-        switch(actor.facing) {
-            case Directions.bottom: y += 17; break;
-            case Directions.top: y -= 17; break;
-            case Directions.left: y -= 1; x -= 17; break;
-            case Directions.right: y -= 1; x += 17; break;
-        }
+            var x = actor.position.x;
+            var y = actor.position.y;
 
-        boom.position.x = x;
-        boom.position.y = y;
+            switch (actor.facing) {
+                case Directions.bottom:
+                    y += 17;
+                    break;
+                case Directions.top:
+                    y -= 17;
+                    break;
+                case Directions.left:
+                    y -= 1;
+                    x -= 17;
+                    break;
+                case Directions.right:
+                    y -= 1;
+                    x += 17;
+                    break;
+            }
 
-        actor.room.addEntity(boom);
-        //Sounds.bombDrop.play();
+            boom.position.x = x;
+            boom.position.y = y;
+
+            actor.room.addEntity(boom);
+            //Sounds.bombDrop.play();
+        };
+
+        return my;
     };
 
-    return my;
-};
-
+});
