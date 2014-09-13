@@ -1,4 +1,4 @@
-define(['../movement/missile'], function(Missile) {
+define(['../movement/missile', '../movement/mover'], function(Missile, Mover) {
 
     return function () {
 
