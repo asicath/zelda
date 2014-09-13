@@ -1,4 +1,4 @@
-define(['demo_cycle'], function(cycle) {
+define(['demo_cycle'], function(DemoCycle) {
 
     window.baseUrl = "../core/";
 
@@ -6,6 +6,7 @@ define(['demo_cycle'], function(cycle) {
     Music.loadAll();
 
     loadAllSprites(function() {
+        var cycle = DemoCycle();
         cycle.start();
     });
 

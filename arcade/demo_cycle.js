@@ -1,5 +1,7 @@
 define(function() {
 
+return (function() {
+
     var virtualWidth = 342;
     var virtualHeight = 192;
     var room = null;
@@ -213,5 +215,5 @@ define(function() {
 
 
     return my;
-
+});
 });
