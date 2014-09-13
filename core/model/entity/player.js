@@ -1,4 +1,4 @@
-define(['../action/actor', '../action/thrust_sword', '../action/switch_alt'], function(Actor, ThrustSword, SwitchAlt) {
+define(['../action/actor', '../action/thrust_sword', '../action/switch_alt', './death'], function(Actor, ThrustSword, SwitchAlt, Death) {
 
     return function (playerId, playerInputIndex) {
         var my = Entity();

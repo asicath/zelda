@@ -1,47 +1,49 @@
-var Death = function(entity, after) {
-    var my = Entity();
+define(function() {
 
-    my.entityType = "death";
-    my.position = entity.position;
+    return function (entity, after) {
+        var my = Entity();
 
-    my.icon = Icon(my, SpriteSheets.deathstar);
+        my.entityType = "death";
+        my.position = entity.position;
 
-    // flash red/blue
-    my.icon.flashPalettes = [
-        ImageOptions('red_blue').addColorSwap("16", "08").addColorSwap("27", "1C"),
-        ImageOptions('white_gold').addColorSwap("16", "30").addColorSwap("27", "27"),
-        ImageOptions('white_blue').addColorSwap("16", "30").addColorSwap("27", "22"),
-        ImageOptions('red_gold').addColorSwap("16", "17").addColorSwap("27", "27")
-    ];
+        my.icon = Icon(my, SpriteSheets.deathstar);
 
-    my.icon.startFlashing();
+        // flash red/blue
+        my.icon.flashPalettes = [
+            ImageOptions('red_blue').addColorSwap("16", "08").addColorSwap("27", "1C"),
+            ImageOptions('white_gold').addColorSwap("16", "30").addColorSwap("27", "27"),
+            ImageOptions('white_blue').addColorSwap("16", "30").addColorSwap("27", "22"),
+            ImageOptions('red_gold').addColorSwap("16", "17").addColorSwap("27", "27")
+        ];
 
-    // 19 frames of animation
-    // 0 = blank
+        my.icon.startFlashing();
 
-    // 1-6 small
-    my.setFrameTimeout(1, function() {
-        my.icon.spriteIndex = 2; // small
-    });
+        // 19 frames of animation
+        // 0 = blank
 
-    // 7-12 large
-    my.setFrameTimeout(7, function() {
-        my.icon.spriteIndex = 1; // large
-    });
+        // 1-6 small
+        my.setFrameTimeout(1, function () {
+            my.icon.spriteIndex = 2; // small
+        });
 
-    // 13-18 small
-    my.setFrameTimeout(13, function() {
-        my.icon.spriteIndex = 2; // small
-    });
-    my.setFrameTimeout(19, function() {
-        // animation is complete, remove from room
-        my.room.removeEntity(my);
+        // 7-12 large
+        my.setFrameTimeout(7, function () {
+            my.icon.spriteIndex = 1; // large
+        });
 
-        if (after) after();
-    });
+        // 13-18 small
+        my.setFrameTimeout(13, function () {
+            my.icon.spriteIndex = 2; // small
+        });
+        my.setFrameTimeout(19, function () {
+            // animation is complete, remove from room
+            my.room.removeEntity(my);
+
+            if (after) after();
+        });
 
 
+        return my;
+    };
 
-
-    return my;
-};
+});
