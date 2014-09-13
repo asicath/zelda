@@ -1,4 +1,4 @@
-define(function() {
+define(['../core/model/rooms/room'], function(Room) {
 
     return function (data) {
         var my = Room(data);
