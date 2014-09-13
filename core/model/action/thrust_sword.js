@@ -11,7 +11,7 @@
 // 10 - Sword moves back, tip showing. foot change.
 // 11 - Sword gone.
 
-define(['./action'], function(Action) {
+define(['./action', '../entity/sword_missile'], function(Action, SwordMissile) {
 
     return function (actor) {
         var my = Action(actor);

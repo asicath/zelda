@@ -1,4 +1,4 @@
-define(['./action'], function(Action) {
+define(['./action', '../entity/sword_missile'], function(Action, SwordMissile) {
 
     return function (actor) {
         var my = Action(actor);

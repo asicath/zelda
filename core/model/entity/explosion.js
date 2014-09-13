@@ -1,71 +1,74 @@
-var Explosion = function(angle) {
-    var my = Entity();
+define(function() {
 
-    my.icon = Icon(my, SpriteSheets.explosion);
-    my.icon.startFlashing();
+    var ExplosionPart = function (angle) {
+        var my = Entity();
 
-    Mover(my);
+        my.icon = Icon(my, SpriteSheets.explosion);
+        my.icon.startFlashing();
 
-    my.movementSources.push(new Missile(my));
+        Mover(my);
 
-    my.entityType = "explosion";
+        my.movementSources.push(new Missile(my));
+
+        my.entityType = "explosion";
 
 
+        // Launch by default
+        my.shoot(angle, 30 / 22);
 
-    // Launch by default
-    my.shoot(angle, 30/22);
+        var frame = 0;
 
-    var frame = 0;
+        var executeFrame_parent = my.executeFrame;
+        my.executeFrame = function () {
+            executeFrame_parent();
 
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function() {
-        executeFrame_parent();
+            if (frame++ == 22) {
+                my.room.removeEntity(my);
+            }
 
-        if (frame++ == 22) {
-            my.room.removeEntity(my);
-        }
+        };
 
+        /*
+         my.icon.flashPalates = [
+         Palettes.DeathStarRedBlue, // should be all blue
+         Palettes.DeathStarWhiteGold,
+         Palettes.DeathStarWhiteBlue,
+         Palettes.DeathStarRedGold
+         ];
+         */
+
+        my.onEdgeEvent = function (edge, rect) {
+            return true;
+        };
+
+
+        return my;
     };
 
-    /*
-    my.icon.flashPalates = [
-        Palettes.DeathStarRedBlue, // should be all blue
-        Palettes.DeathStarWhiteGold,
-        Palettes.DeathStarWhiteBlue,
-        Palettes.DeathStarRedGold
-    ];
-    */
+    return function (room, x, y) {
+        var ex1 = ExplosionPart(Math.PI * 0.25);
+        ex1.position.x = x + 4;
+        ex1.position.y = y + 4;
+        ex1.icon.spriteIndex = 3;
+        room.addEntity(ex1);
 
-    my.onEdgeEvent = function(edge, rect) {
-        return true;
+        var ex2 = ExplosionPart(Math.PI * 0.75);
+        ex2.position.x = x;
+        ex2.position.y = y + 4;
+        ex2.icon.spriteIndex = 2;
+        room.addEntity(ex2);
+
+        var ex3 = ExplosionPart(Math.PI * 1.25);
+        ex3.position.x = x;
+        ex3.position.y = y;
+        ex3.icon.spriteIndex = 0;
+        room.addEntity(ex3);
+
+        var ex4 = ExplosionPart(Math.PI * 1.75);
+        ex4.position.x = x + 4;
+        ex4.position.y = y;
+        ex4.icon.spriteIndex = 1;
+        room.addEntity(ex4);
     };
 
-
-    return my;
-};
-
-Explosion.create = function(room, x, y) {
-    var ex1 = Explosion(Math.PI * 0.25);
-    ex1.position.x = x + 4;
-    ex1.position.y = y + 4;
-    ex1.icon.spriteIndex = 3;
-    room.addEntity(ex1);
-
-    var ex2 = Explosion(Math.PI * 0.75);
-    ex2.position.x = x;
-    ex2.position.y = y + 4;
-    ex2.icon.spriteIndex = 2;
-    room.addEntity(ex2);
-
-    var ex3 = Explosion(Math.PI * 1.25);
-    ex3.position.x = x;
-    ex3.position.y = y;
-    ex3.icon.spriteIndex = 0;
-    room.addEntity(ex3);
-
-    var ex4 = Explosion(Math.PI * 1.75);
-    ex4.position.x = x + 4;
-    ex4.position.y = y;
-    ex4.icon.spriteIndex = 1;
-    room.addEntity(ex4);
-};
+});
