@@ -1,4 +1,4 @@
-define(['../action/aimed_shooter', './mortal'], function(AimedShooter, Mortal) {
+define(['../action/aimed_shooter', './mortal', '../item/item_dropper'], function(AimedShooter, Mortal, ItemDropper) {
 
     return function () {
         var my = Entity();

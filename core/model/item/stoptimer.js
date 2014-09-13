@@ -1,12 +1,16 @@
-var StopTimer = function() {
-    var my = Item();
+define(['./item'], function(Item) {
 
-    my.icon.spriteIndex = 3;
+    return function () {
+        var my = Item();
 
-    my.onPickUp = function(player) {
+        my.icon.spriteIndex = 3;
 
-        Sounds.getItem.play();
+        my.onPickUp = function (player) {
+
+            Sounds.getItem.play();
+        };
+
+        return my;
     };
 
-    return my;
-};
+});

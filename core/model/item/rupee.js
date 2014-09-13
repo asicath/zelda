@@ -1,25 +1,26 @@
-var Rupee = function() {
-    var my = Item();
+define(['./item'], function(Item) {
 
-    my.icon.spriteIndex = 0;
+    return function () {
+        var my = Item();
 
-    // blinks every 8 frames
-    my.icon.startFlashing(8);
+        my.icon.spriteIndex = 0;
 
-    // flash red/blue
-    my.icon.flashPalettes = [
-        ImageOptions.RedToBlue,
-        null
-    ];
+        // blinks every 8 frames
+        my.icon.startFlashing(8);
 
-    my.onPickUp = function(player) {
-        // add money
-        player.rupees = (player.rupees || 0) + 1;
+        // flash red/blue
+        my.icon.flashPalettes = [
+            ImageOptions.RedToBlue,
+            null
+        ];
 
-        Sounds.getRupee.play();
+        my.onPickUp = function (player) {
+            // add money
+            player.rupees = (player.rupees || 0) + 1;
+            Sounds.getRupee.play();
+        };
 
-
+        return my;
     };
 
-    return my;
-};
+});

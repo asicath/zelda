@@ -1,26 +1,30 @@
-var Heart = function() {
-    var my = Item();
+define(['./item'], function(Item) {
 
-    my.icon.spriteIndex = 2;
+    return function () {
+        var my = Item();
 
-    // blinks every 8 frames
-    my.icon.startFlashing(8);
+        my.icon.spriteIndex = 2;
 
-    // flash red/blue
-    my.icon.flashPalettes = [
-        ImageOptions.RedToBlue,
-        null
-    ];
+        // blinks every 8 frames
+        my.icon.startFlashing(8);
 
-    my.onPickUp = function(player) {
-        var amount = 4;
-        if (player.maxLife - player.life < amount) {
-            amount = player.maxLife - player.life;
-        }
-        player.life += amount;
+        // flash red/blue
+        my.icon.flashPalettes = [
+            ImageOptions.RedToBlue,
+            null
+        ];
 
-        Sounds.getHeart.play();
+        my.onPickUp = function (player) {
+            var amount = 4;
+            if (player.maxLife - player.life < amount) {
+                amount = player.maxLife - player.life;
+            }
+            player.life += amount;
+
+            Sounds.getHeart.play();
+        };
+
+        return my;
     };
 
-    return my;
-};
+});

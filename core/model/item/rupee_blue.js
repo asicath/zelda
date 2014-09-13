@@ -1,15 +1,19 @@
-var RupeeBlue = function() {
-    var my = Item();
+define(['./item'], function(Item) {
 
-    my.icon.spriteIndex = 0;
-    my.icon.imageOptions = ImageOptions.RedToBlue;
+    return function () {
+        var my = Item();
 
-    my.onPickUp = function(player) {
-        // add money
-        player.rupees = (player.rupees || 0) + 5;
+        my.icon.spriteIndex = 0;
+        my.icon.imageOptions = ImageOptions.RedToBlue;
 
-        Sounds.getRupee.play();
+        my.onPickUp = function (player) {
+            // add money
+            player.rupees = (player.rupees || 0) + 5;
+
+            Sounds.getRupee.play();
+        };
+
+        return my;
     };
 
-    return my;
-};
+});
