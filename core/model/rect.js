@@ -1,3 +1,10 @@
+var Directions = {
+    top: 'top',
+    bottom: 'bottom',
+    left: 'left',
+    right: 'right'
+};
+
 
 var Rect = function(position, width, height, xOffset, yOffset) {
     this.position = position;

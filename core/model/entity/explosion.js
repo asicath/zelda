@@ -1,4 +1,4 @@
-define(function() {
+define(['../movement/missile'], function(Missile) {
 
     var ExplosionPart = function (angle) {
         var my = Entity();
