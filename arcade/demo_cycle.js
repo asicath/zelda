@@ -1,6 +1,6 @@
-define(function() {
+define(['../core/controller/cycle'], function(Cycle) {
 
-return (function() {
+return function() {
 
     var virtualWidth = 342;
     var virtualHeight = 192;
@@ -215,5 +215,5 @@ return (function() {
 
 
     return my;
-});
+};
 });
