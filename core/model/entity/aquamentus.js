@@ -1,6 +1,6 @@
 define(function() {
 
-    return function (data) {
+    return function () {
 
         var my = Entity();
 
