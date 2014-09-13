@@ -1,103 +1,106 @@
-var Gohma = function() {
-    var my = Entity();
+define(['../action/aimed_shooter'], function(AimedShooter) {
 
-    my.icon = Icon(my, SpriteSheets.gohma);
+    return function () {
+        var my = Entity();
 
-    Mortal(my);
-    Mover(my);
-    AimedShooter(my);
+        my.icon = Icon(my, SpriteSheets.gohma);
 
-    ItemDropper(my);
+        Mortal(my);
+        Mover(my);
+        AimedShooter(my);
 
-    my.movementSources.push(new Shuffle(my));
+        ItemDropper(my);
 
-    my.wallSensitive = false;
-    my.entityType = 'monster';
-    my.life = 20;
+        my.movementSources.push(new Shuffle(my));
 
-    my.stepChange = 8;
+        my.wallSensitive = false;
+        my.entityType = 'monster';
+        my.life = 20;
 
-    my.getFootPrint().setSize(48, 16);
+        my.stepChange = 8;
+
+        my.getFootPrint().setSize(48, 16);
 
 
+        var itemDropLevel = 0;
 
-    var itemDropLevel = 0;
+        my.speed = 0.25;
+        my.changeDirectionPercent = 4 / 16;
 
-    my.speed = 0.25;
-    my.changeDirectionPercent = 4/16;
+        var eyeClosed = false;
+        var eyeSwapFrames = 0;
 
-    var eyeClosed = false;
-    var eyeSwapFrames = 0;
+        var executeFrame_parent = my.executeFrame;
+        my.executeFrame = function () {
 
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function() {
+            executeFrame_parent();
 
-        executeFrame_parent();
-
-        // check for intersection with player
-        var a = my.room.getIntersectingEntities(my, 'player', 'monsterHit');
-        if (a) {
-            for (var i = a.length-1; i >= 0; i--) {
-                a[i].takeDamage(2, my);
+            // check for intersection with player
+            var a = my.room.getIntersectingEntities(my, 'player', 'monsterHit');
+            if (a) {
+                for (var i = a.length - 1; i >= 0; i--) {
+                    a[i].takeDamage(2, my);
+                }
             }
-        }
 
-        if (eyeSwapFrames > 0) {
-            if (eyeClosed) {
+            if (eyeSwapFrames > 0) {
+                if (eyeClosed) {
 
-                if (--eyeSwapFrames > 0) {
-                    my.icon.spriteIndex = 2;
+                    if (--eyeSwapFrames > 0) {
+                        my.icon.spriteIndex = 2;
+                    }
+                    else {
+                        my.icon.spriteIndex = 4;
+                    }
+
                 }
                 else {
-                    my.icon.spriteIndex = 4;
+                    if (--eyeSwapFrames > 0) {
+                        my.icon.spriteIndex = 2;
+                    }
+                    else {
+                        my.icon.spriteIndex = 0;
+                    }
+
+                }
+            }
+            else {
+                if (Math.random() < 0.01) {
+                    eyeSwapFrames = 30;
+                    eyeClosed = !eyeClosed;
+                }
+            }
+
+
+            if (soundWait > 0) {
+                soundWait--;
+            }
+        };
+
+        var soundWait = 0;
+        var takeDamage_parent = my.takeDamage;
+        my.takeDamage = function (amount, entity) {
+
+            if (eyeClosed || eyeSwapFrames > 0) {
+                if (soundWait == 0) {
+                    Sounds.shield.play();
+                    soundWait = 10;
                 }
 
             }
             else {
-                if (--eyeSwapFrames > 0) {
-                    my.icon.spriteIndex = 2;
-                }
-                else {
-                    my.icon.spriteIndex = 0;
-                }
-
-            }
-        }
-        else {
-            if (Math.random() < 0.01) {
-                eyeSwapFrames = 30;
-                eyeClosed = !eyeClosed;
-            }
-        }
-
-
-        if (soundWait > 0) {soundWait--;}
-    };
-
-    var soundWait = 0;
-    var takeDamage_parent = my.takeDamage;
-    my.takeDamage = function(amount, entity) {
-
-        if (eyeClosed || eyeSwapFrames > 0) {
-            if (soundWait == 0) {
-                Sounds.shield.play();
-                soundWait = 10;
+                takeDamage_parent(amount, entity);
             }
 
-        }
-        else {
-            takeDamage_parent(amount, entity);
-        }
+        };
 
+        my.afterDeath = function () {
+            my.dropItem('c');
+        };
+
+        return my;
     };
 
-    my.afterDeath = function() {
-        my.dropItem('c');
-    };
-
-    return my;
-};
-
-
+});
 
 

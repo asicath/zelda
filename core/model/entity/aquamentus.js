@@ -1,4 +1,4 @@
-define(function() {
+define(['../action/aimed_shooter'], function(AimedShooter) {
 
     return function () {
 
