@@ -1,11 +1,15 @@
-var Circle = function() {
-    var my = Entity();
+define(function() {
 
-    my.icon = Icon(my, SpriteSheets.circle);
+    return function () {
+        var my = Entity();
 
-    my.getFootPrint().setSize(32, 32);
+        my.icon = Icon(my, SpriteSheets.circle);
 
-    my.entityType = "circle";
+        my.getFootPrint().setSize(32, 32);
 
-    return my;
-};
+        my.entityType = "circle";
+
+        return my;
+    };
+
+});
