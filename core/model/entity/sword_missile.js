@@ -1,4 +1,4 @@
-define(['./explosion'], function(Explosion) {
+define(['./explosion', './sword'], function(Explosion, Sword) {
 
     return function (player, sword) {
         var my = Sword(player);
