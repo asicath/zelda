@@ -2,12 +2,14 @@ define([
     'player_room',
     '../core/model/action/drop_bomb',
     '../core/model/entity/live_bomb',
+    '../core/model/entity/big_bomb',
     '../core/model/action/protection',
     '../core/model/action/sword_rain'
 ], function(
     PlayerRoom,
     DropBomb,
     LiveBomb,
+    BigBomb,
     Protection,
     SwordRain
     ) {
