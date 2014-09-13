@@ -4,14 +4,16 @@ define([
     '../core/model/entity/live_bomb',
     '../core/model/entity/big_bomb',
     '../core/model/action/protection',
-    '../core/model/action/sword_rain'
+    '../core/model/action/sword_rain',
+    '../core/model/entity/edge'
 ], function(
     PlayerRoom,
     DropBomb,
     LiveBomb,
     BigBomb,
     Protection,
-    SwordRain
+    SwordRain,
+    Edge
     ) {
 
     var musicStore = new Audio("music/DISTANCE.mp3");
