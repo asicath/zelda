@@ -1,5 +1,4 @@
-
-var Logo = (function() {
+define(function() {
 
     var my = {};
 
@@ -228,5 +227,4 @@ var Logo = (function() {
 
 
     return my;
-
-})();
+});
