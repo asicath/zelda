@@ -1,4 +1,4 @@
-define(['./action', '../entity/circle'], function(Action, Circle) {
+define(['./action', '../entity/circle', '../entity/sigil'], function(Action, Circle, Sigil) {
 
     return function (actor) {
         var my = Action(actor);

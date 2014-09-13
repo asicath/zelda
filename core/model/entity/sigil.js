@@ -1,12 +1,16 @@
-var Sigil = function() {
-    var my = Entity();
+define(function() {
 
-    my.icon = Icon(my, SpriteSheets.elements);
+    return function () {
+        var my = Entity();
 
-    my.getFootPrint().setSize(16, 16);
+        my.icon = Icon(my, SpriteSheets.elements);
 
-    my.entityType = "sigil";
-    my.icon.startFlashing();
+        my.getFootPrint().setSize(16, 16);
 
-    return my;
-};
+        my.entityType = "sigil";
+        my.icon.startFlashing();
+
+        return my;
+    };
+
+});
