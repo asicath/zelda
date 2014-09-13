@@ -1,4 +1,4 @@
-define(function() {
+define(['./action'], function(Action) {
 
     return function (actor, type) {
         var my = Action(actor);

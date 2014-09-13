@@ -1,51 +1,59 @@
-var Action = function(actor) {
-    var my = {};
+define(function() {
 
-    // Will be updated elsewhere to indicate action should be taking place
-    my.activateIntent = false;
+    return function (actor) {
+        var my = {};
 
-    var activated = false;
-    var heldFrameCount = 0;
-    var waitFrameCount = 0;
+        // Will be updated elsewhere to indicate action should be taking place
+        my.activateIntent = false;
 
-    my.executeFrame = function() {
+        var activated = false;
+        var heldFrameCount = 0;
+        var waitFrameCount = 0;
 
-        // Intent detected, activate!
-        if (my.activateIntent && !activated && !actor.isFrozen()) {
-            my.onActivate();
-            activated = true;
-            heldFrameCount = 0;
+        my.executeFrame = function () {
 
-            if (!my.isMain) {
-                if (Directives) Directives.nextMessage(5);
+            // Intent detected, activate!
+            if (my.activateIntent && !activated && !actor.isFrozen()) {
+                my.onActivate();
+                activated = true;
+                heldFrameCount = 0;
+
+                if (!my.isMain) {
+                    if (Directives) Directives.nextMessage(5);
+                }
             }
-        }
 
-        // Intent Removed, deactivate
-        else if (!my.activateIntent && activated) {
-            my.onDeactivate();
-            activated = false;
-            waitFrameCount = 0;
-        }
+            // Intent Removed, deactivate
+            else if (!my.activateIntent && activated) {
+                my.onDeactivate();
+                activated = false;
+                waitFrameCount = 0;
+            }
 
-        // Intent held for more than one frame
-        else if (activated) {
-            my.onHold(++heldFrameCount);
-        }
+            // Intent held for more than one frame
+            else if (activated) {
+                my.onHold(++heldFrameCount);
+            }
 
-        else {
-            my.onWait(++waitFrameCount);
-        }
+            else {
+                my.onWait(++waitFrameCount);
+            }
 
+        };
+
+        my.onActivate = function () {
+        };
+
+        my.onDeactivate = function () {
+        };
+
+        my.onHold = function (frames) {
+        };
+
+        my.onWait = function (frames) {
+        };
+
+        return my;
     };
 
-    my.onActivate = function() {};
-
-    my.onDeactivate = function() {};
-
-    my.onHold = function(frames) {};
-
-    my.onWait = function(frames) {};
-
-    return my;
-};
+});

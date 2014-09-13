@@ -11,7 +11,7 @@
 // 10 - Sword moves back, tip showing. foot change.
 // 11 - Sword gone.
 
-define(function() {
+define(['./action'], function(Action) {
 
     return function (actor) {
         var my = Action(actor);
