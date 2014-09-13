@@ -1,3 +1,4 @@
+var baseUrl = "../core/";
 
 var Directives = (function() {
     var my = {};
