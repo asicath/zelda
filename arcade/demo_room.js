@@ -1,4 +1,4 @@
-define(['player_room'], function(PlayerRoom) {
+define(['player_room', '../core/model/entity/aquamentus'], function(PlayerRoom, Aquamentus) {
 
     var musicDefeat = new Audio("music/Defeat1.mp3");
     var musicVictory = new Audio("music/Victory1.mp3");
