@@ -5,7 +5,6 @@
     {"url":"assets/sprites/link.gif", "name":"link"},
     {"url":"assets/sprites/octopus.gif", "name":"octopus"},
     {"url":"assets/sprites/moblin.gif", "name":"moblin"},
-    {"url":"assets/sprites/fly.gif", "name":"fly"},
     {"url":"assets/sprites/cloud.gif", "name":"cloud"},
     {"url":"assets/sprites/heart.gif", "name":"heart"},
     {"url":"assets/sprites/rock.gif", "name":"rock"},
