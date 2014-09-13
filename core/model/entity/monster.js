@@ -1,4 +1,4 @@
-define(function() {
+define(['../action/shooter'], function(Shooter) {
 
     return function (level) {
         var my = Entity();
