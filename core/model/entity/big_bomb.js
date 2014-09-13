@@ -1,4 +1,4 @@
-define(function() {
+define(['./bomb_blast'], function(BombBlast) {
 
     return function (player) {
         var my = Entity();
