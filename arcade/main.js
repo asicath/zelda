@@ -12,7 +12,7 @@ requirejs.config({
     }
 });
 
-requirejs(['core/model/directions', 'arcade/demo_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound'], function(a, DemoCycle, LoadSprites, Music, Sounds) {
+requirejs(['core/model/directions', 'arcade/demo_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound', 'arcade/directives'], function(a, DemoCycle, LoadSprites, Music, Sounds, Directives) {
 
     window.baseUrl = "../core/";
 
