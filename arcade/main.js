@@ -1,4 +1,4 @@
-define(['demo_cycle'], function(DemoCycle) {
+requirejs(['demo_cycle'], function(DemoCycle) {
 
     window.baseUrl = "../core/";
 
