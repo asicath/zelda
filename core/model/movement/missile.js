@@ -1,4 +1,4 @@
-define(['./movement_source', '../rect'], function(MovementSource, Rect) {
+define(['./movement_source', '../rect', '../position'], function(MovementSource, Rect, Position) {
 
     return function (mover) {
         var my = MovementSource(mover);
