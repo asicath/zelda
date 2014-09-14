@@ -1,40 +1,47 @@
-var Rect = function(position, width, height, xOffset, yOffset) {
-    this.position = position;
-    this.xOffset = xOffset;
-    this.yOffset = yOffset;
-    this.width = width;
-    this.height = height;
-};
+define(function() {
 
-Rect.prototype.left = function() {
-    return this.position.x + this.xOffset;
-};
+    var Rect = function(position, width, height, xOffset, yOffset) {
+        this.position = position;
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+        this.width = width;
+        this.height = height;
+    };
 
-Rect.prototype.right = function() {
-    return this.left() + this.width;
-};
+    Rect.prototype.left = function() {
+        return this.position.x + this.xOffset;
+    };
 
-Rect.prototype.top = function() {
-    return this.position.y + this.yOffset;
-};
+    Rect.prototype.right = function() {
+        return this.left() + this.width;
+    };
 
-Rect.prototype.bottom = function() {
-    return this.top() + this.height;
-};
+    Rect.prototype.top = function() {
+        return this.position.y + this.yOffset;
+    };
 
-Rect.prototype.intersects = function(rect) {
-    return !(
-           this.left() >= rect.right()
-        || this.right() <= rect.left()
-        || this.top() >= rect.bottom()
-        || this.bottom() <= rect.top()
-        );
-};
+    Rect.prototype.bottom = function() {
+        return this.top() + this.height;
+    };
 
-Rect.prototype.setSize = function(width, height) {
-    this.width = width;
-    this.height = height;
-};
+    Rect.prototype.intersects = function(rect) {
+        return !(
+            this.left() >= rect.right()
+            || this.right() <= rect.left()
+            || this.top() >= rect.bottom()
+            || this.bottom() <= rect.top()
+            );
+    };
+
+    Rect.prototype.setSize = function(width, height) {
+        this.width = width;
+        this.height = height;
+    };
+
+    return Rect;
+});
+
+
 
 /*
 var intersects = function(positionA, sizeA, positionB, sizeB) {

@@ -1,4 +1,4 @@
-define(function() {
+define(['../rect'], function(Rect) {
 
     return function (data) {
 
