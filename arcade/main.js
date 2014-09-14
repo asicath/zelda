@@ -12,7 +12,7 @@ requirejs.config({
     }
 });
 
-requirejs(['../core/model/directions.js', 'arcade/demo_cycle', 'controller/load_sprites'], function(a, DemoCycle, LoadSprites) {
+requirejs(['core/model/directions', 'arcade/demo_cycle', 'controller/load_sprites'], function(a, DemoCycle, LoadSprites) {
 
     window.baseUrl = "../core/";
 

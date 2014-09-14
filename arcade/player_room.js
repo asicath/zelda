@@ -1,9 +1,9 @@
 define([
-    '../core/model/rooms/room',
-    '../core/model/entity/player',
-    '../core/model/action/drop_bomb',
-    '../core/model/entity/live_bomb',
-    '../core/model/action/throw_boomerang'
+    'core/model/rooms/room',
+    'core/model/entity/player',
+    'core/model/action/drop_bomb',
+    'core/model/entity/live_bomb',
+    'core/model/action/throw_boomerang'
 ], function(
     Room,
     Player,

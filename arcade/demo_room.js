@@ -1,4 +1,4 @@
-define(['arcade/player_room', '../core/model/entity/aquamentus', '../core/model/entity/monster', '../core/model/entity/spawn_cloud'], function(PlayerRoom, Aquamentus, Monster, SpawnCloud) {
+define(['arcade/player_room', 'core/model/entity/aquamentus', 'core/model/entity/monster', 'core/model/entity/spawn_cloud'], function(PlayerRoom, Aquamentus, Monster, SpawnCloud) {
 
     var musicDefeat = new Audio("music/Defeat1.mp3");
     var musicVictory = new Audio("music/Victory1.mp3");
