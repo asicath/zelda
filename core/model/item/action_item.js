@@ -1,4 +1,4 @@
-define(['../entity/entity', '../icon'], function(Entity, Icon) {
+define(['../entity/entity', '../icon', 'view/draw'], function(Entity, Icon, View) {
 
     return function (cost, actionType, arg0) {
         var my = Entity();

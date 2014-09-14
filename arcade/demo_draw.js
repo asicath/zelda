@@ -1,4 +1,4 @@
-define(function() {
+define(['view/draw'], function(View) {
 
     var my = {};
 

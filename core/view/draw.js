@@ -1,8 +1,8 @@
+define(function() {
 
-var View = (function() {
     var my = {};
 
-    var createRoomBackground = function(room) {
+    var createRoomBackground = function (room) {
 
         // Create the virtual screen
         var buffer = document.createElement('canvas');
@@ -31,7 +31,7 @@ var View = (function() {
     };
 
 
-    my.drawRoom = function(ctx, xOffset, yOffset, room) {
+    my.drawRoom = function (ctx, xOffset, yOffset, room) {
 
         // should only be needed once
         if (!room.backgroundImage) createRoomBackground(room);
@@ -43,15 +43,13 @@ var View = (function() {
         ctx.drawImage(room.backgroundImage, 0, 0);
 
         // now the entities
-        for (var i = room.entities.length-1; i >= 0; i--) {
+        for (var i = room.entities.length - 1; i >= 0; i--) {
             room.entities[i].drawEntity(ctx);
         }
 
 
-
         ctx.restore();
     };
-
 
 
     var textMap = {
@@ -102,9 +100,9 @@ var View = (function() {
         "9": 42
     };
 
-    my.drawText = function(ctx, text, x, y) {
+    my.drawText = function (ctx, text, x, y) {
 
-        ctx.fillStyle="#000000";
+        ctx.fillStyle = "#000000";
         ctx.fillRect(x, y, text.length * 8, 8);
 
         for (var i = 0; i < text.length; i++) {
@@ -113,22 +111,12 @@ var View = (function() {
             if (typeof char === "undefined") char = 43;
 
             var sprite = SpriteSheets.letters.sprites[char];
-            sprite.drawSprite(ctx, x + i*8, y);
+            sprite.drawSprite(ctx, x + i * 8, y);
         }
 
 
     };
 
-
-
-
-
-
-
-
-
     return my;
-})();
 
-
-
+});

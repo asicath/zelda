@@ -1,4 +1,4 @@
-define(['controller/cycle', 'demo_room', 'store_room', 'demo_draw', 'logo', 'controller/load_rooms'], function(Cycle, DemoRoom, StoreRoom, DemoDraw, Logo, LoadRooms) {
+define(['controller/cycle', 'demo_room', 'store_room', 'demo_draw', 'logo', 'controller/load_rooms', 'view/draw'], function(Cycle, DemoRoom, StoreRoom, DemoDraw, Logo, LoadRooms, View) {
 
 return function() {
 
