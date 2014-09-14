@@ -1,4 +1,6 @@
-requirejs(['demo_cycle'], function(DemoCycle) {
+
+
+requirejs(['../core/model/directions.js', 'demo_cycle'], function(a, DemoCycle) {
 
     window.baseUrl = "../core/";
 
