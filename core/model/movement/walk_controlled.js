@@ -1,4 +1,4 @@
-define(['./walk'], function(Walk) {
+define(['./walk', 'controller/input'], function(Walk, playerInput) {
 
     return function (mover) {
         var my = Walk(mover);

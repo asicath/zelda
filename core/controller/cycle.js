@@ -1,4 +1,4 @@
-define(['./gamepad_new'], function(gamepadSupport) {
+define(['jquery', './gamepad_new'], function($, gamepadSupport) {
 
     window.requestAnimFrame = (function () {
         return  window.requestAnimationFrame ||

@@ -1,4 +1,4 @@
-define(['view/sprite_sheet'], function(SpriteSheet) {
+define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
 
     var loadRoomJson = function (key, filename, success) {
 

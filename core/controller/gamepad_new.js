@@ -1,6 +1,6 @@
 http://www.w3.org/TR/gamepad/#attributes
 
-define(function() {
+define(['controller/input'], function(playerInput) {
 
     var my = {};
 

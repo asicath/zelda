@@ -3,13 +3,15 @@ define([
     'core/model/entity/player',
     'core/model/action/drop_bomb',
     'core/model/entity/live_bomb',
-    'core/model/action/throw_boomerang'
+    'core/model/action/throw_boomerang',
+    'controller/input'
 ], function(
     Room,
     Player,
     DropBomb,
     LiveBomb,
-    ThrowBoomerang
+    ThrowBoomerang,
+    playerInput
     ) {
 
     return function (data) {

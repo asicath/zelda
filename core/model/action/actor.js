@@ -1,4 +1,4 @@
-define(function() {
+define(['controller/input'], function(playerInput) {
 
     return function (my) {
 
