@@ -1,4 +1,4 @@
-define(['./entity', '../movement/missile', '../movement/mover'], function(Entity, Missile, Mover) {
+define(['./entity', '../icon', '../movement/missile', '../movement/mover'], function(Entity, Icon, Missile, Mover) {
 
     return function () {
         var my = Entity();

@@ -1,4 +1,4 @@
-define(['../entity/entity'], function(Entity) {
+define(['../entity/entity', '../icon'], function(Entity, Icon) {
 
     return function () {
         var my = Entity();

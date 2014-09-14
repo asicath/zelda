@@ -1,4 +1,4 @@
-define(['./item'], function(Item) {
+define(['./item', '../icon'], function(Item, Icon) {
 
     return function () {
         var my = Item();

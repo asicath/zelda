@@ -1,4 +1,4 @@
-define(['./entity', './bomb_blast', './spawn_cloud'], function(Entity, BombBlast, SpawnCloud) {
+define(['./entity', '../icon', './bomb_blast', './spawn_cloud'], function(Entity, Icon, BombBlast, SpawnCloud) {
 
     return function (player) {
         var my = Entity();
