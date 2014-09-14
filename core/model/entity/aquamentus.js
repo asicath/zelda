@@ -1,4 +1,4 @@
-define(['../action/aimed_shooter', './mortal', '../item/item_dropper', '../movement/shuffle', '../movement/mover'], function(AimedShooter, Mortal, ItemDropper, Shuffle, Mover) {
+define(['./entity', '../action/aimed_shooter', './mortal', '../item/item_dropper', '../movement/shuffle', '../movement/mover'], function(Entity, AimedShooter, Mortal, ItemDropper, Shuffle, Mover) {
 
     return function () {
 

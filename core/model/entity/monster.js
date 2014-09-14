@@ -1,4 +1,4 @@
-define(['../action/shooter', './mortal', '../item/item_dropper', '../movement/push', '../movement/walk_random', '../movement/mover'], function(Shooter, Mortal, ItemDropper, Push, WalkRandom, Mover) {
+define(['./entity', '../action/shooter', './mortal', '../item/item_dropper', '../movement/push', '../movement/walk_random', '../movement/mover'], function(Entity, Shooter, Mortal, ItemDropper, Push, WalkRandom, Mover) {
 
     return function (level) {
         var my = Entity();
