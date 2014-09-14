@@ -1,4 +1,4 @@
-define(['./color'], function(Color) {
+define(['./color', './pixel', './sprite'], function(Color, Pixel, Sprite) {
 
     var SpriteSheet = function (naturalSprites) {
         var my = {
