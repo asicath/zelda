@@ -1,4 +1,4 @@
-define(function() {
+define(['view/image_options'], function(ImageOptions) {
 
     // Setup the flashPalettes
 

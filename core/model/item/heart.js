@@ -1,4 +1,4 @@
-define(['./item'], function(Item) {
+define(['./item', 'view/image_options'], function(Item, ImageOptions) {
 
     return function () {
         var my = Item();

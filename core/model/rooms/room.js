@@ -1,4 +1,4 @@
-define(['../rect', '../position', '../frame_event_haver'], function(Rect, Position, FrameEventHaver) {
+define(['../rect', '../position', '../frame_event_haver', 'view/color', 'view/image_options'], function(Rect, Position, FrameEventHaver, Color, ImageOptions) {
 
     return function (data) {
 

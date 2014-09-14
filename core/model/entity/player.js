@@ -1,4 +1,4 @@
-define(['./entity', '../icon', '../action/actor', '../action/thrust_sword', '../action/switch_alt', './death', '../movement/push', '../movement/walk_controlled', '../movement/mover', '../rect'], function(Entity, Icon, Actor, ThrustSword, SwitchAlt, Death, Push, WalkControlled, Mover, Rect) {
+define(['./entity', '../icon', '../action/actor', '../action/thrust_sword', '../action/switch_alt', './death', '../movement/push', '../movement/walk_controlled', '../movement/mover', '../rect', 'view/image_options'], function(Entity, Icon, Actor, ThrustSword, SwitchAlt, Death, Push, WalkControlled, Mover, Rect, ImageOptions) {
 
     return function (playerId, playerInputIndex) {
         var my = Entity();
