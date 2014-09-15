@@ -39,7 +39,7 @@ define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
     addSpriteSheet({url:"assets/sprites/fairy.gif", name:"fairy"});
     addSpriteSheet({url:"assets/sprites/outside_green.gif", name:"outside"});
     addSpriteSheet({url:"assets/sprites/link.gif", name:"link"});
-    addSpriteSheet({url:"assets/sprites/octopus.gif", name:"octopus"});
+
     addSpriteSheet({url:"assets/sprites/moblin.gif", name:"moblin"});
     addSpriteSheet({url:"assets/sprites/cloud.gif", name:"cloud"});
     addSpriteSheet({url:"assets/sprites/heart.gif", name:"heart"});

@@ -1,4 +1,28 @@
-define(['./entity', '../icon', '../action/shooter', './mortal', '../item/item_dropper', '../movement/push', '../movement/walk_random', '../movement/mover', 'view/image_options'], function(Entity, Icon, Shooter, Mortal, ItemDropper, Push, WalkRandom, Mover, ImageOptions) {
+define([
+    './entity',
+    '../icon',
+    '../action/shooter',
+    './mortal',
+    '../item/item_dropper',
+    '../movement/push',
+    '../movement/walk_random',
+    '../movement/mover',
+    'view/image_options',
+    'controller/load_sprites'
+], function(
+    Entity,
+    Icon,
+    Shooter,
+    Mortal,
+    ItemDropper,
+    Push,
+    WalkRandom,
+    Mover,
+    ImageOptions,
+    LoadSprites
+    ) {
+
+    LoadSprites.addSpriteSheet({url:"assets/sprites/octopus.gif", name:"octopus"});
 
     return function (level) {
         var my = Entity();
