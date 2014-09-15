@@ -1,4 +1,32 @@
-define(['./entity', '../icon', '../action/actor', '../action/thrust_sword', '../action/switch_alt', './death', '../movement/push', '../movement/walk_controlled', '../movement/mover', '../rect', 'view/image_options'], function(Entity, Icon, Actor, ThrustSword, SwitchAlt, Death, Push, WalkControlled, Mover, Rect, ImageOptions) {
+define([
+    './entity',
+    '../icon',
+    '../action/actor',
+    '../action/thrust_sword',
+    '../action/switch_alt',
+    './death',
+    '../movement/push',
+    '../movement/walk_controlled',
+    '../movement/mover',
+    '../rect',
+    'view/image_options',
+    'controller/load_sprites'
+], function(
+    Entity,
+    Icon,
+    Actor,
+    ThrustSword,
+    SwitchAlt,
+    Death,
+    Push,
+    WalkControlled,
+    Mover,
+    Rect,
+    ImageOptions,
+    LoadSprites
+    ) {
+
+    LoadSprites.addSpriteSheet({url:"assets/sprites/link.gif", name:"link"});
 
     return function (playerId, playerInputIndex) {
         var my = Entity();

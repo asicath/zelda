@@ -1,4 +1,11 @@
-define(['./entity', '../icon'], function(Entity, Icon) {
+define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
+
+    LoadSprites.addSpriteSheet({url:"assets/sprites/sword.gif", name:"sword",map:[
+        {x:0, y: 0, width: 8, height:16},
+        {x:8, y: 0, width: 8, height:16},
+        {x:16, y: 0, width: 16, height:8},
+        {x:16, y: 8, width: 16, height:8}
+    ]});
 
     return function (player) {
         var my = Entity();

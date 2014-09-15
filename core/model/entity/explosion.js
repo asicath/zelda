@@ -1,4 +1,11 @@
-define(['./entity', '../icon', '../movement/missile', '../movement/mover'], function(Entity, Icon, Missile, Mover) {
+define(['./entity', '../icon', '../movement/missile', '../movement/mover', 'controller/load_sprites'], function(Entity, Icon, Missile, Mover, LoadSprites) {
+
+    LoadSprites.addSpriteSheet({url:"assets/sprites/explosion.gif", name:"explosion", map:[
+        {x:0,  y: 0, width: 8, height:10},
+        {x:8,  y: 0, width: 8, height:10},
+        {x:16, y: 0, width: 8, height:10},
+        {x:24, y: 0, width: 8, height:10}
+    ]});
 
     var ExplosionPart = function (angle) {
         var my = Entity();

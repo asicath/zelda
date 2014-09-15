@@ -1,4 +1,11 @@
-define(['./entity', '../icon', '../action/aimed_shooter', './mortal', '../item/item_dropper', '../movement/shuffle', '../movement/mover'], function(Entity, Icon, AimedShooter, Mortal, ItemDropper, Shuffle, Mover) {
+define(['./entity', '../icon', '../action/aimed_shooter', './mortal', '../item/item_dropper', '../movement/shuffle', '../movement/mover', 'controller/load_sprites'], function(Entity, Icon, AimedShooter, Mortal, ItemDropper, Shuffle, Mover, LoadSprites) {
+
+    LoadSprites.addSpriteSheet({url:"assets/sprites/aquamentus.gif", name:"aquamentus", map:[
+        {x:0,  y: 0, width: 24, height:32},
+        {x:24, y: 0, width: 24, height:32},
+        {x:48, y: 0, width: 24, height:32},
+        {x:72, y: 0, width: 24, height:32}
+    ]});
 
     return function () {
 

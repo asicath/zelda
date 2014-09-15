@@ -1,4 +1,6 @@
-define(['./entity', '../icon', 'view/image_options'], function(Entity, Icon, ImageOptions) {
+define(['./entity', '../icon', 'view/image_options', 'controller/load_sprites'], function(Entity, Icon, ImageOptions, LoadSprites) {
+
+    LoadSprites.addSpriteSheet({url:"assets/sprites/deathstar.gif", name:"deathstar"});
 
     return function (entity, after) {
         var my = Entity();

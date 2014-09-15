@@ -1,4 +1,6 @@
-define(['./entity', '../icon', '../movement/missile', '../movement/mover'], function(Entity, Icon, Missile, Mover) {
+define(['./entity', '../icon', '../movement/missile', '../movement/mover', 'controller/load_sprites'], function(Entity, Icon, Missile, Mover, LoadSprites) {
+
+    LoadSprites.addSpriteSheet({url:"assets/sprites/rock.gif", name:"rock"});
 
     return function () {
 

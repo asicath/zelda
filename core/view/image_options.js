@@ -1,4 +1,4 @@
-define(['./color'], function(Color, ImageOptions) {
+define(['./color'], function(Color) {
 
     var ImageOptions = function (key) {
         var my = {
