@@ -1,13 +1,17 @@
-define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
+define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/sword.gif", name:"sword",map:[
-        {x:0, y: 0, width: 8, height:16},
-        {x:8, y: 0, width: 8, height:16},
-        {x:16, y: 0, width: 16, height:8},
-        {x:16, y: 8, width: 16, height:8}
+    LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flamingsword.png", name:"flamingsword",map:[
+        {x:0, y: 0, width: 9, height:18},
+        {x:9, y: 0, width: 9, height:18},
+        {x:18, y: 0, width: 9, height:18},
+        {x:27, y: 0, width: 9, height:18},
+        {x:36, y: 0, width: 18, height:9},
+        {x:36, y: 9, width: 18, height:9},
+        {x:54, y: 0, width: 18, height:9},
+        {x:54, y: 9, width: 18, height:9}
     ]});
 
-    return function() {
+    return function(player) {
         var my = Entity();
 
         my.icon = Icon(my, SpriteSheets.flamingsword);
