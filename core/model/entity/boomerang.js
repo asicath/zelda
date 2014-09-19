@@ -1,6 +1,6 @@
 define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"assets/sprites/boomerang.gif", name:"boomerang"});
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/boomerang.gif", name:"boomerang"});
 
     return function (player, direction) {
         var my = Entity();

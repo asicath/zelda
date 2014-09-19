@@ -1,6 +1,6 @@
 define(['./entity', '../icon', '../action/aimed_shooter', './mortal', '../item/item_dropper', '../movement/shuffle', '../movement/mover', 'controller/load_sprites'], function(Entity, Icon, AimedShooter, Mortal, ItemDropper, Shuffle, Mover, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"assets/sprites/gohma.gif", name:"gohma", map:[
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/gohma.gif", name:"gohma", map:[
         {x:0,  y: 0, width: 48, height:16},
         {x:0,  y: 16, width: 48, height:16},
         {x:48,  y: 0, width: 48, height:16},

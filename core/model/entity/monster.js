@@ -22,7 +22,7 @@ define([
     LoadSprites
     ) {
 
-    LoadSprites.addSpriteSheet({url:"assets/sprites/octopus.gif", name:"octopus"});
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/octopus.gif", name:"octopus"});
 
     return function (level) {
         var my = Entity();

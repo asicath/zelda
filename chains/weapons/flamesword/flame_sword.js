@@ -1,42 +1,53 @@
-var FlameSword = function(player) {
-    var my = Entity();
+define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
 
-    my.icon = Icon(my, SpriteSheets.flamingsword);
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/sword.gif", name:"sword",map:[
+        {x:0, y: 0, width: 8, height:16},
+        {x:8, y: 0, width: 8, height:16},
+        {x:16, y: 0, width: 16, height:8},
+        {x:16, y: 8, width: 16, height:8}
+    ]});
 
-    my.entityType = "sword";
-    my.playerId = player.playerId; // expose for kill counting in monster
-    my.player = player;             // expose so items can be picked up by swords
+    return function() {
+        var my = Entity();
 
-    var frame = 0;
+        my.icon = Icon(my, SpriteSheets.flamingsword);
 
-    var alt = 0;
+        my.entityType = "sword";
+        my.playerId = player.playerId; // expose for kill counting in monster
+        my.player = player;             // expose so items can be picked up by swords
 
-    my.icon.getSprite = function() {
-        return my.icon.spriteSheet.sprites[my.icon.spriteIndex + alt];
-    };
+        var frame = 0;
 
-    var executeFrame_parent = my.executeFrame;
-    my.executeFrame = function() {
-        executeFrame_parent();
+        var alt = 0;
 
-        frame++;
+        my.icon.getSprite = function () {
+            return my.icon.spriteSheet.sprites[my.icon.spriteIndex + alt];
+        };
 
-        alt = Math.floor(frame / 6) % 2;
+        var executeFrame_parent = my.executeFrame;
+        my.executeFrame = function () {
+            executeFrame_parent();
 
-        // check for intersection
-        var a = my.room.getIntersectingEntities(my, 'monster');
-        if (a) {
-            for (var i = a.length-1; i >= 0; i--) {
-                a[i].takeDamage(4, my);
-                my.onHit();
+            frame++;
+
+            alt = Math.floor(frame / 6) % 2;
+
+            // check for intersection
+            var a = my.room.getIntersectingEntities(my, 'monster');
+            if (a) {
+                for (var i = a.length - 1; i >= 0; i--) {
+                    a[i].takeDamage(4, my);
+                    my.onHit();
+                }
             }
-        }
 
+        };
+
+        my.onHit = function () {
+
+        };
+
+        return my;
     };
 
-    my.onHit = function() {
-
-    };
-
-    return my;
-};
+});

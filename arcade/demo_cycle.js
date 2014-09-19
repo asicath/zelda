@@ -77,7 +77,7 @@ return function() {
             treasureRoomCount = 0;
             roomType = StoreRoom;
 
-            LoadRooms.loadRoomJsonFromOverlay('assets/rooms/cave.gif', 'assets/rooms/cave_overlay.gif', 'first', function(data) {
+            LoadRooms.loadRoomJsonFromOverlay('core/assets/rooms/cave.gif', 'core/assets/rooms/cave_overlay.gif', 'first', function(data) {
                 var room = roomType(data);
                 room.title = "store";
                 onSuccess(room);
@@ -157,7 +157,7 @@ return function() {
         if (x.length == 1) x = "0" + x;
         if (y.length == 1) y = "0" + y;
 
-        LoadRooms.loadRoomJson('', baseUrl + 'assets/rooms/ow' + x + '-' + y + '.js', function(data) {
+        LoadRooms.loadRoomJson('', baseUrl + 'core/assets/rooms/ow' + x + '-' + y + '.js', function(data) {
             var room = type(data);
             room.title = "room " + x + "-" + y;
             success(room);

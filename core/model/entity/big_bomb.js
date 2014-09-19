@@ -1,6 +1,6 @@
 define(['./entity', '../icon', './bomb_blast', './spawn_cloud', 'view/image_options', 'controller/load_sprites'], function(Entity, Icon, BombBlast, SpawnCloud, ImageOptions, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"assets/sprites/bigbomb.gif", name:"bigbomb"});
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/bigbomb.gif", name:"bigbomb"});
 
     return function (player) {
         var my = Entity();

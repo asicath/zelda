@@ -1,6 +1,6 @@
 define(['./item', '../icon', 'controller/load_sprites'], function(Item, Icon, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"assets/sprites/fairy.gif", name:"fairy"});
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/fairy.gif", name:"fairy"});
 
     return function () {
         var my = Item();

@@ -35,14 +35,14 @@ define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
 
     // load default sheets, MOVE THESE?
 
-    addSpriteSheet({url:"assets/sprites/outside_green.gif", name:"outside"});
-    addSpriteSheet({url:"assets/sprites/heart.gif", name:"heart"});
-    addSpriteSheet({url:"assets/sprites/ball.gif", name:"ball"});
-    addSpriteSheet({url:"assets/sprites/items.gif", name:"items"});
-    addSpriteSheet({url:"assets/sprites/letters.gif", name:"letters"});
-    addSpriteSheet({url:"assets/sprites/icons.gif", name:"icons"});
-    addSpriteSheet({url:"assets/sprites/weapon_border.gif", name:"weaponBorder"});
-    addSpriteSheet({url:"assets/sprites/weapon_icons.gif", name:"weaponIcons", width: 14});
+    addSpriteSheet({url:"core/assets/sprites/outside_green.gif", name:"outside"});
+    addSpriteSheet({url:"core/assets/sprites/heart.gif", name:"heart"});
+    addSpriteSheet({url:"core/assets/sprites/ball.gif", name:"ball"});
+    addSpriteSheet({url:"core/assets/sprites/items.gif", name:"items"});
+    addSpriteSheet({url:"core/assets/sprites/letters.gif", name:"letters"});
+    addSpriteSheet({url:"core/assets/sprites/icons.gif", name:"icons"});
+    addSpriteSheet({url:"core/assets/sprites/weapon_border.gif", name:"weaponBorder"});
+    addSpriteSheet({url:"core/assets/sprites/weapon_icons.gif", name:"weaponIcons", width: 14});
 
 
     return {

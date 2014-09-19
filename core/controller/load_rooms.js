@@ -62,7 +62,7 @@ define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
 
                 }
                 else {
-                    var filepath = baseUrl + 'assets/rooms/ow' + xVal + '-' + yVal + '.js';
+                    var filepath = baseUrl + 'core/assets/rooms/ow' + xVal + '-' + yVal + '.js';
                     loadRoomJson(key, filepath, function (data, key) {
                         data.key = key;
 
