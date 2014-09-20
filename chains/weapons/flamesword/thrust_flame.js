@@ -9,7 +9,7 @@ define(['core/model/action/action','./flame_sword'], function(Action, FlameSword
         my.onActivate = function () {
 
             // can't move while attacking
-            actor.freeze();
+            //actor.freeze();
             actor.shieldUp = false;
 
             // start thrust sound
@@ -39,6 +39,8 @@ define(['core/model/action/action','./flame_sword'], function(Action, FlameSword
                 updateSwordPosition();
             }
 
+            if (frame == 50) sword.flameOn();
+
         };
 
         my.onDeactivate = function () {
@@ -46,7 +48,7 @@ define(['core/model/action/action','./flame_sword'], function(Action, FlameSword
             actor.room.removeEntity(sword);
 
             sword = null;
-            actor.unfreeze();
+            //actor.unfreeze();
             actor.shieldUp = true;
             actor.resetStep();
         };
@@ -61,7 +63,7 @@ define(['core/model/action/action','./flame_sword'], function(Action, FlameSword
             sword.position.x = actor.position.x + pos[sword.extend].x;
             sword.position.y = actor.position.y + pos[sword.extend].y;
             sword.getFootPrint().setSize(pos.width, pos.height);
-            sword.icon.spriteIndex = pos.spriteIndex;
+            //sword.icon.spriteIndex = pos.spriteIndex;
             sword.facing = actor.facing;
         };
 
