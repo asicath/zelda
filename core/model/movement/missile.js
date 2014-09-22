@@ -19,7 +19,7 @@ define(['./movement_source', '../rect', '../position'], function(MovementSource,
 
             if (!direction) {
 
-                var i = Math.floor(((angle + Math.PI / 4) % (Math.PI * 2)) / (Math.PI / 2));
+                var i = Math.floor(((angle + Math.PI / 4) % (Math.PI * 2)) / (Math.PI / 2)) % 4;
 
 
                 switch (i) {
@@ -32,7 +32,7 @@ define(['./movement_source', '../rect', '../position'], function(MovementSource,
                     case 1:
                         direction = Directions.bottom;
                         break;
-                    case 4:
+                    case 0:
                         direction = Directions.right;
                         break;
                 }

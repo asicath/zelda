@@ -1,10 +1,12 @@
-define(['core/model/action/action','./flame_sword'], function(Action, FlameSword) {
+define(['core/model/action/action','./flame_sword', './flaming_missile'], function(Action, FlameSword, FlamingMissile) {
 
     return function (actor) {
         var my = Action(actor);
 
         var sword = null;
         my.isMain = true; //?
+
+        var canShoot = false;
 
         my.onActivate = function () {
 
@@ -39,11 +41,40 @@ define(['core/model/action/action','./flame_sword'], function(Action, FlameSword
                 updateSwordPosition();
             }
 
-            if (frame == 50) sword.flameOn();
+
+
+            if (frame == 50) {
+                sword.flameOn();
+                canShoot = true;
+            }
 
         };
 
+        var shootMissile = function () {
+
+            var missile = FlamingMissile();
+
+            missile.position.x = sword.position.x;
+            missile.position.y = sword.position.y;
+            missile.facing = actor.facing;
+
+            actor.room.addEntity(missile);
+
+            var angle = 0;
+
+            switch (actor.facing) {
+                case Directions.right: angle = 0; break;
+                case Directions.bottom: angle = Math.PI / 2; break;
+                case Directions.left: angle = Math.PI; break;
+                case Directions.top: angle = Math.PI / 2 * 3; break;
+            }
+
+            missile.shoot(angle, 3);
+        };
+
         my.onDeactivate = function () {
+
+            if (canShoot) shootMissile();
 
             actor.room.removeEntity(sword);
 
