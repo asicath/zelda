@@ -81,7 +81,9 @@ define(function() {
 
                 {file: 'core/assets/sounds/bomb_blow.wav', name: 'bombBlow'},
                 {file: 'core/assets/sounds/bomb_drop.wav', name: 'bombDrop'},
-                {file: 'core/assets/sounds/Defeat1.mp3', name: 'playerDefeat'}
+                {file: 'core/assets/sounds/Defeat1.mp3', name: 'playerDefeat'},
+
+                {file: 'chains/weapons/flamesword/fire_sword.mp3', name: 'flamingSword'}
             ]
         };
 

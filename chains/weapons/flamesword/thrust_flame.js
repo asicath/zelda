@@ -21,6 +21,8 @@ define(['core/model/action/action','./flame_sword', './flaming_missile'], functi
             // Waiting for sword to come out
             actor.setFrameTimeout(4, createSwordEntity);
 
+            canShoot = false;
+
         };
 
         var createSwordEntity = function () {
@@ -39,20 +41,27 @@ define(['core/model/action/action','./flame_sword', './flaming_missile'], functi
 
             if (sword) {
                 updateSwordPosition();
+
+                if (!sword.stillOut) {
+                    return;
+                }
+
+                if (frame == 50) {
+                    sword.flameOn();
+                    canShoot = true;
+                }
             }
 
 
 
-            if (frame == 50) {
-                sword.flameOn();
-                canShoot = true;
-            }
 
         };
 
         var shootMissile = function () {
 
-            var missile = FlamingMissile();
+
+
+            var missile = FlamingMissile(actor);
 
             missile.position.x = sword.position.x;
             missile.position.y = sword.position.y;
@@ -63,20 +72,35 @@ define(['core/model/action/action','./flame_sword', './flaming_missile'], functi
             var angle = 0;
 
             switch (actor.facing) {
-                case Directions.right: angle = 0; break;
-                case Directions.bottom: angle = Math.PI / 2; break;
-                case Directions.left: angle = Math.PI; break;
-                case Directions.top: angle = Math.PI / 2 * 3; break;
+                case Directions.right:
+                    angle = 0;
+                    missile.position.y -= 2;
+                    break;
+                case Directions.bottom:
+                    missile.position.x -= 2;
+                    angle = Math.PI / 2;
+                    break;
+                case Directions.left:
+                    angle = Math.PI;
+                    missile.position.y -= 2;
+                    break;
+                case Directions.top:
+                    angle = Math.PI / 2 * 3;
+                    missile.position.x -= 2;
+                    break;
             }
 
             missile.shoot(angle, 3);
+
+            Sounds.flamingSword.play();
         };
 
         my.onDeactivate = function () {
 
-            if (canShoot) shootMissile();
-
-            actor.room.removeEntity(sword);
+            if (sword.stillOut) {
+                if (canShoot) shootMissile();
+                actor.room.removeEntity(sword);
+            }
 
             sword = null;
             //actor.unfreeze();

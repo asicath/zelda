@@ -122,7 +122,7 @@ define(['arcade/player_room', 'core/model/entity/aquamentus', 'core/model/entity
 
             // First two waves just start a new monster wave
             if (waveCount <= 3) {
-                var wave = MonsterWave(my, 1 * waveCount);
+                var wave = MonsterWave(my, 10 * waveCount);
                 my.title = "wave " + waveCount;
                 wave.onComplete = nextWave;
             }

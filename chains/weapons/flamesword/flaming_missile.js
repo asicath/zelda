@@ -1,4 +1,4 @@
-define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/mover', 'core/model/movement/missile', 'controller/load_sprites'], function(Entity, Icon, Mover, Missile, LoadSprites) {
+define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/mover', 'core/model/movement/missile', 'controller/load_sprites', './flame'], function(Entity, Icon, Mover, Missile, LoadSprites, Flame) {
 
     LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flaming_missile.png", name:"flamingmissile",
         map:[
@@ -20,8 +20,10 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/move
         ]
     });
 
-    return function () {
+    return function (player) {
         var my = Entity();
+
+        my.playerId = player.playerId; // expose for kill counting in monster
 
         my.icon = Icon(my, SpriteSheets.flamingmissile);
         my.icon.startFlashing();
@@ -33,14 +35,13 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/move
         my.movementSources.push(new Missile(my));
 
         my.wallSensitive = false;
-        my.entityType = "sword";
+        my.entityType = "flamesword";
 
         my.getFootPrint().setSize(13, 18);
 
         my.onEdgeEvent = function (edge, rect) {
             my.room.removeEntity(my);
         };
-
 
         var spriteIndex = {};
         spriteIndex[Directions.top] = 0;
@@ -60,6 +61,27 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/move
             executeFrame_parent();
             frame++;
             altFrame = Math.floor(frame / 6) % 2;
+
+            // check for intersection
+            var a = my.room.getIntersectingEntities(my, 'monster');
+            if (a) {
+                for (var i = a.length - 1; i >= 0; i--) {
+                    a[i].takeDamage(8, my);
+                    my.onHit();
+                }
+            }
+
+        };
+
+        my.onHit = function() {
+            // drop a flame?
+            var flame = new Flame();
+            flame.position.x = my.position.x;
+            flame.position.y = my.position.y;
+
+            my.room.addEntity(flame);
+
+            Sounds.candle.play();
         };
 
         return my;

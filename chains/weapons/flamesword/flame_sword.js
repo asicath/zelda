@@ -42,6 +42,7 @@ define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'
         var frame = 0;
 
         var alt = 0;
+        my.stillOut = true;
 
         var flaming = false;
         my.icon.startFlashing(4);
@@ -75,13 +76,18 @@ define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'
             alt = Math.floor(frame / 6) % 2;
 
             // check for intersection
-            var a = my.room.getIntersectingEntities(my, 'monster');
-            if (a) {
-                for (var i = a.length - 1; i >= 0; i--) {
-                    a[i].takeDamage(4, my);
-                    my.onHit();
+            if (flaming) {
+                var a = my.room.getIntersectingEntities(my, 'monster');
+                if (a) {
+                    for (var i = a.length - 1; i >= 0; i--) {
+                        a[i].takeDamage(4, my);
+                        my.onHit();
+                    }
+                    my.stillOut = false;
+                    my.room.removeEntity(my);
                 }
             }
+
 
         };
 
