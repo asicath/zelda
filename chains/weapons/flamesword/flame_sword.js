@@ -1,6 +1,6 @@
 define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flamingsword.png", name:"flamingsword",map:[
+    var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flamingsword.png", name:"flamingsword",map:[
         {x:0, y: 0, width: 9, height:18},
         {x:9, y: 0, width: 9, height:18},
         {x:18, y: 0, width: 9, height:18},
@@ -33,7 +33,7 @@ define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'
     return function(player) {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.flamingsword);
+        my.icon = Icon(my, spriteInfo.spriteSheet);
 
         my.entityType = "sword";
         my.playerId = player.playerId; // expose for kill counting in monster

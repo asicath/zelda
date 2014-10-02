@@ -22,12 +22,12 @@ define([
     LoadSprites
     ) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/octopus.gif", name:"octopus"});
+    var spriteInfo = LoadSprites.addSpriteSheet({url:"core/assets/sprites/octopus.gif", name:"octopus"});
 
     return function (level) {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.octopus);
+        my.icon = Icon(my, spriteInfo.spriteSheet);
         my.icon.drawOffset.y = -2;
 
         Mortal(my);

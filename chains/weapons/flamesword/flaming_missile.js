@@ -1,6 +1,6 @@
 define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/mover', 'core/model/movement/missile', 'controller/load_sprites', './flame'], function(Entity, Icon, Mover, Missile, LoadSprites, Flame) {
 
-    LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flaming_missile.png", name:"flamingmissile",
+    var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flaming_missile.png", name:"flamingmissile",
         map:[
             // up
             {x:0, y: 0, width: 13, height:18},
@@ -25,7 +25,7 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/move
 
         my.playerId = player.playerId; // expose for kill counting in monster
 
-        my.icon = Icon(my, SpriteSheets.flamingmissile);
+        my.icon = Icon(my, spriteInfo.spriteSheet);
         my.icon.startFlashing();
 
         var altFrame = 0, frame = 0;

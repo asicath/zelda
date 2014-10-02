@@ -1,11 +1,11 @@
 define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flame.png", name:"flame"});
+    var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flame.png", name:"flame"});
 
     return function () {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.flame);
+        my.icon = Icon(my, spriteInfo.spriteSheet);
 
         my.entityType = "flame";
 
