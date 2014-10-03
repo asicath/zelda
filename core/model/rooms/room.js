@@ -119,6 +119,8 @@ define(['../rect', '../position', '../frame_event_haver', 'view/color', 'view/im
                 var entity = addAfterFrame.pop();
                 my.entities.push(entity);
                 entity.room = my;
+
+                entity.onAddToRoom();
             }
 
 

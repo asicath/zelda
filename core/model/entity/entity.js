@@ -19,6 +19,8 @@ define(['../rect', '../position', '../frame_event_haver'], function(Rect, Positi
             my.processEventQueue();
         };
 
+        my.onAddToRoom = function() {};
+
         my.getFootPrint = function (type) {
             if (!type || !my.footPrints[type]) {
                 return my.footPrints.default;
