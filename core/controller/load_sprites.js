@@ -9,6 +9,7 @@ define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
     // called from any file that will be needing a spritesheet
     var addSpriteSheet = function(info) {
         spriteInfo.push(info);
+        return info;
     };
 
     var loadAllSprites = function (success) {
@@ -23,6 +24,7 @@ define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
         var load = function (info) {
             SpriteSheet.loadFromImgUrl(info.url, info.map, info.width, function (sheet) {
                 SpriteSheets[info.name] = sheet;
+                info.spriteSheet = sheet;
                 spriteLoadFinish();
             });
         };
