@@ -9,13 +9,8 @@ define(['dev/player_room', 'chains/monsters/eyeball/eyeball', 'core/model/entity
         var my = {};
 
         var addMonster = function () {
-
-            // create the entity
             var e = BossMonster();
-
             e.onDeath = onMonsterKill;
-
-            // find a spot for it
             room.addEntity(e);
         };
 

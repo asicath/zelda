@@ -16,19 +16,32 @@ define([
     LoadSprites
     ) {
 
-    LoadSprites.addSpriteSheet({url:"chains/monsters/eyeball/purple.png", name:"eyeball", map:[
-        {x:  0, y: 0, width: 56, height:33},
-        {x: 56, y: 0, width: 42, height:42},
-        {x: 98, y: 0, width: 33, height:56},
-        {x:131, y: 0, width: 42, height:42}
+    LoadSprites.addSpriteSheet({url:"chains/monsters/eyeball/eye_black.png", name:"eyeball", map:[
+        {x:   0, y: 0, width: 56, height:33},
+        {x:  56, y: 0, width: 56, height:33},
+        {x: 112, y: 0, width: 56, height:33},
+        {x: 168, y: 0, width: 56, height:33},
+        {x: 224, y: 0, width: 56, height:33},
+
+        {x:   0, y: 33, width: 56, height:33},
+        {x:  56, y: 33, width: 56, height:33},
+        {x: 112, y: 33, width: 56, height:33},
+        {x: 168, y: 33, width: 56, height:33},
+        {x: 224, y: 33, width: 56, height:33},
+
+        {x:   0, y: 66, width: 56, height:33},
+        {x:  56, y: 66, width: 56, height:33},
+        {x: 112, y: 66, width: 56, height:33},
+        {x: 168, y: 66, width: 56, height:33},
+        {x: 224, y: 66, width: 56, height:33}
     ]});
 
-    return function () {
+    return function (angleBase) {
         var my = Entity();
 
         Mortal(my);
 
-        my.icon = Icon(my, SpriteSheets.eyeball);
+        my.icon = Icon(my, SpriteSheets.eyeball, 10);
 
         my.entityType = 'monster';
         my.life = 100;
@@ -38,22 +51,47 @@ define([
         var maxMoveFrame = 60 * 2;
         var moveRadius = 72;
 
-        var angleBase = 0;
+        //var angleBase = 0;
+        if (!angleBase) angleBase = 0;
 
         var isRotating = false;
 
-        var rotation = [
-            {i:2, a: Math.PI * ( 2/16)}, // key
-            {i:3, a: Math.PI * ( 6/16)},
-            {i:0, a: Math.PI * (10/16)}, // key
-            {i:1, a: Math.PI * (14/16)},
+        var appearingFrame = 0;
+        var openingFrame = 0;
 
-            {i:2, a: Math.PI * (18/16)}, // key
-            {i:3, a: Math.PI * (22/16)},
-            {i:0, a: Math.PI * (26/16)}, // key
-            {i:1, a: Math.PI * (30/16)},
-            {i:2, a: Math.PI * (33/16)} // key
-        ];
+        var processAppearingFrame = function() {
+            my.icon.spriteIndex = 10 + appearingFrame;
+            my.setFrameTimeout(30, function () {
+                if (++appearingFrame < 5) {
+                    processAppearingFrame();
+                }
+                else {
+                    processOpeningFrame();
+                }
+            });
+        };
+
+        var processOpeningFrame = function() {
+            my.icon.spriteIndex = 9 - openingFrame;
+            my.setFrameTimeout(30, function () {
+                if (++openingFrame < 5) {
+                    processOpeningFrame();
+                }
+                else {
+                    my.setFrameTimeout(60, function () {
+                        isRotating = true;
+                    });
+                }
+            });
+        };
+
+
+        my.setFrameTimeout(60, function () {
+            processAppearingFrame();
+        });
+
+
+
 
         my.onAddToRoom = function() {
             my.center = {
@@ -67,26 +105,11 @@ define([
         };
 
         var setAngle = function(offset) {
-
             var angle = (angleBase + offset) % (Math.PI * 2);
-
-            for (var j = 0; j < rotation.length; j++) {
-                if (angle < rotation[j].a) {
-                    my.icon.spriteIndex = rotation[j].i;
-                    break;
-                }
-            }
-
             var sprite = my.icon.getSprite();
-
-
-            my.position.x = Math.cos(angle) * moveRadius + my.center.x - Math.floor(sprite.width / 2);
+            my.position.x = Math.cos(angle) * moveRadius * 1.4 + my.center.x - Math.floor(sprite.width / 2);
             my.position.y = Math.sin(angle) * moveRadius + my.center.y - Math.floor(sprite.height / 2);
         };
-
-        my.setFrameTimeout(60, function () {
-            isRotating = true;
-        });
 
         var lastStop = 0;
         var tillNextStop = 3;
@@ -103,10 +126,9 @@ define([
 
                 // check for event at every quarter
                 if (Math.floor(percent / 0.25) != lastStop) {
-                    onQuarter();
                     lastStop = Math.floor(percent / 0.25);
+                    onQuarter();
                 }
-
             }
 
             // check for intersection with player
@@ -127,8 +149,31 @@ define([
             if (tillNextStop == 0) {
                 isRotating = false;
 
-                my.setFrameTimeout(60, function () {
+                my.setFrameTimeout(30, function () {
+                    switch (lastStop) {
+                        case 0:
+                            my.icon.spriteIndex = 1;
+                            break;
+                        case 1:
+                            my.icon.spriteIndex = 2;
+                            break;
+                        case 2:
+                            my.icon.spriteIndex = 3;
+                            break;
+                        case 3:
+                            my.icon.spriteIndex = 4;
+                            break;
+                    }
+                });
+
+                my.setFrameTimeout(90, function () {
+                    my.icon.spriteIndex = 0;
+                });
+
+
+                my.setFrameTimeout(120, function () {
                     isRotating = true;
+
                     tillNextStop = Math.floor(Math.random() * 4 + 2);
                 });
             }
