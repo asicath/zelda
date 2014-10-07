@@ -5,7 +5,8 @@ define([
     'core/model/entity/mortal',
     'core/model/item/item_dropper',
     'view/image_options',
-    'controller/load_sprites'
+    'controller/load_sprites',
+    'chains/monsters/eyeball/fireball'
 ], function(
     Entity,
     Icon,
@@ -13,7 +14,8 @@ define([
     Mortal,
     ItemDropper,
     ImageOptions,
-    LoadSprites
+    LoadSprites,
+    Fireball
     ) {
 
     LoadSprites.addSpriteSheet({url:"chains/monsters/eyeball/eye_black.png", name:"eyeball", map:[
@@ -147,8 +149,12 @@ define([
             tillNextStop--;
 
             if (tillNextStop == 0) {
+
+                // stop
                 isRotating = false;
 
+
+                // look at center
                 my.setFrameTimeout(30, function () {
                     switch (lastStop) {
                         case 0:
@@ -166,11 +172,18 @@ define([
                     }
                 });
 
-                my.setFrameTimeout(90, function () {
-                    my.icon.spriteIndex = 0;
+                //var fireball = Fireball(my);
+                my.setFrameTimeout(60, function () {
+                    //my.room.addEntity(fireball);
                 });
 
+                // look back
+                my.setFrameTimeout(90, function () {
+                    my.icon.spriteIndex = 0;
+                    //fireball.launch();
+                });
 
+                // start moving again
                 my.setFrameTimeout(120, function () {
                     isRotating = true;
 
