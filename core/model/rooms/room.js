@@ -168,31 +168,48 @@ define(['../rect', '../position', '../frame_event_haver', 'view/color', 'view/im
             return false;
         };
 
-        my.getIntersectingEntities = function (entity, targetEntityType, footPrintType) {
+        my.getEntities = function(checks) {
             var a = null;
             var e = null;
-            var rect = entity.getFootPrint();
+            var found = false;
 
             for (var i = my.entities.length - 1; i >= 0; i--) {
 
                 e = my.entities[i];
 
-                // Only check certain types, eventually split into different arrays for speed
-                if (e.entityType == targetEntityType) {
-
-                    var targetRect = e.getFootPrint(footPrintType);
-
-                    // check for intersection
-                    if (targetRect.intersects(rect)) {
-                        if (a == null) a = [];
-                        a.push(e);
+                found = true;
+                for (var j = 0; j < checks.length; j++) {
+                    if (!checks[j](e)) {
+                        found = false;
+                        break;
                     }
+                }
 
+                if (found) {
+                    if (a == null) a = [];
+                    a.push(e);
                 }
 
             }
 
             return a;
+        };
+
+
+        // outdated, remove...
+        my.getIntersectingEntities = function (entity, targetEntityType, footPrintType) {
+
+            var rect = entity.getFootPrint();
+            return my.getEntities([
+                function(e) {
+                    return e.entityType == targetEntityType;
+                },
+                function(e) {
+                    var targetRect = e.getFootPrint(footPrintType);
+                    return targetRect.intersects(rect);
+                }
+            ]);
+
         };
 
 
