@@ -1,4 +1,24 @@
-define(['./entity', '../icon', '../action/aimed_shooter', './mortal', '../item/item_dropper', '../movement/shuffle', '../movement/mover', 'controller/load_sprites'], function(Entity, Icon, AimedShooter, Mortal, ItemDropper, Shuffle, Mover, LoadSprites) {
+define([
+    './entity',
+    '../icon',
+    './player_hitter',
+    '../action/aimed_shooter',
+    './mortal',
+    '../item/item_dropper',
+    '../movement/shuffle',
+    '../movement/mover',
+    'controller/load_sprites'
+], function(
+    Entity,
+    Icon,
+    PlayerHitter,
+    AimedShooter,
+    Mortal,
+    ItemDropper,
+    Shuffle,
+    Mover,
+    LoadSprites
+    ) {
 
     LoadSprites.addSpriteSheet({url:"core/assets/sprites/gohma.gif", name:"gohma", map:[
         {x:0,  y: 0, width: 48, height:16},
@@ -16,6 +36,7 @@ define(['./entity', '../icon', '../action/aimed_shooter', './mortal', '../item/i
 
         my.icon = Icon(my, SpriteSheets.gohma);
 
+        PlayerHitter(my);
         Mortal(my);
         Mover(my);
         AimedShooter(my);
@@ -45,14 +66,6 @@ define(['./entity', '../icon', '../action/aimed_shooter', './mortal', '../item/i
         my.executeFrame = function () {
 
             executeFrame_parent();
-
-            // check for intersection with player
-            var a = my.room.getIntersectingEntities(my, 'player', 'monsterHit');
-            if (a) {
-                for (var i = a.length - 1; i >= 0; i--) {
-                    a[i].takeDamage(2, my);
-                }
-            }
 
             if (eyeSwapFrames > 0) {
                 if (eyeClosed) {
@@ -107,6 +120,10 @@ define(['./entity', '../icon', '../action/aimed_shooter', './mortal', '../item/i
 
         my.afterDeath = function () {
             my.dropItem('c');
+        };
+
+        my.onPlayerHit = function(player) {
+            player.takeDamage(2, my);
         };
 
         return my;

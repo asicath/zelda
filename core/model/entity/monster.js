@@ -1,6 +1,7 @@
 define([
     './entity',
     '../icon',
+    './player_hitter',
     '../action/shooter',
     './mortal',
     '../item/item_dropper',
@@ -12,6 +13,7 @@ define([
 ], function(
     Entity,
     Icon,
+    PlayerHitter,
     Shooter,
     Mortal,
     ItemDropper,
@@ -30,6 +32,7 @@ define([
         my.icon = Icon(my, spriteInfo.spriteSheet);
         my.icon.drawOffset.y = -2;
 
+        PlayerHitter(my);
         Mortal(my);
         Mover(my);
         Shooter(my);
@@ -84,20 +87,8 @@ define([
             my.dropItem(itemDropLevel);
         };
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-
-            executeFrame_parent();
-
-            // check for intersection with player
-            var a = my.room.getIntersectingEntities(my, 'player', 'monsterHit');
-            if (a) {
-                for (var i = a.length - 1; i >= 0; i--) {
-                    a[i].takeDamage(2, my);
-                }
-            }
-
-
+        my.onPlayerHit = function(player) {
+            player.takeDamage(2, my);
         };
 
         return my;

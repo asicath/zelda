@@ -40,6 +40,8 @@ define([
         my.movementSources.push(new WalkControlled(my));
         my.movementSources.push(new Push(my));
 
+        my.isPlayer = true;
+
 
         my.setAction(ThrustSword(my), 'button_a');
 
