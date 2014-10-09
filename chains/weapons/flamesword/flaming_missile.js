@@ -1,4 +1,4 @@
-define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/mover', 'core/model/movement/missile', 'controller/load_sprites', './flame'], function(Entity, Icon, Mover, Missile, LoadSprites, Flame) {
+define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monster_hitter', 'core/model/movement/mover', 'core/model/movement/missile', 'controller/load_sprites', './flame'], function(Entity, Icon, MonsterHitter, Mover, Missile, LoadSprites, Flame) {
 
     var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flaming_missile.png", name:"flamingmissile",
         map:[
@@ -30,6 +30,7 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/move
 
         var altFrame = 0, frame = 0;
 
+        MonsterHitter(my);
         Mover(my);
 
         my.movementSources.push(new Missile(my));
@@ -59,18 +60,13 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/move
         var executeFrame_parent = my.executeFrame;
         my.executeFrame = function () {
             executeFrame_parent();
-            frame++;
-            altFrame = Math.floor(frame / 6) % 2;
 
-            // check for intersection
-            var a = my.room.getIntersectingEntities(my, 'monster');
-            if (a) {
-                for (var i = a.length - 1; i >= 0; i--) {
-                    a[i].takeDamage(8, my);
-                    my.onHit();
-                }
-            }
+            altFrame = Math.floor(++frame / 6) % 2;
+        };
 
+        my.onMonsterHit = function(monster) {
+            monster.takeDamage(8, my);
+            my.onHit();
         };
 
         my.onHit = function() {

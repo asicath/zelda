@@ -1,4 +1,4 @@
-define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
+define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'controller/load_sprites'], function(Entity, Icon, MonsterHitter, LoadSprites) {
 
     LoadSprites.addSpriteSheet({url:"core/assets/sprites/sword.gif", name:"sword",map:[
         {x:0, y: 0, width: 8, height:16},
@@ -11,6 +11,8 @@ define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon
         var my = Entity();
 
         my.icon = Icon(my, SpriteSheets.sword);
+
+        MonsterHitter(my);
 
         my.entityType = "sword";
         my.playerId = player.playerId; // expose for kill counting in monster
@@ -30,22 +32,13 @@ define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon
                 // should do this differently
                 my.room.removeEntity(my);
             }
-
-            // check for intersection
-            var a = my.room.getIntersectingEntities(my, 'monster');
-            if (a) {
-                for (var i = a.length - 1; i >= 0; i--) {
-                    a[i].takeDamage(4, my);
-                    my.onHit();
-                }
-            }
-
-            //if (e.entityType == 'player' && e.playerId != my.player.playerId) {
-            //e.takeDamage(4, my);
-            //my.onHit();
-            //}
-
         };
+
+        my.onMonsterHit = function(monster) {
+            monster.takeDamage(4, my);
+            my.onHit();
+        };
+
 
         my.onHit = function () {
 
