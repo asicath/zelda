@@ -36,6 +36,8 @@ define([
 
         my.icon = Icon(my, SpriteSheets.gohma);
 
+        my.isMonster = true;
+
         PlayerHitter(my);
         Mortal(my);
         Mover(my);

@@ -32,6 +32,8 @@ define([
         my.icon = Icon(my, spriteInfo.spriteSheet);
         my.icon.drawOffset.y = -2;
 
+        my.isMonster = true;
+
         PlayerHitter(my);
         Mortal(my);
         Mover(my);

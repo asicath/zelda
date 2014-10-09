@@ -1,4 +1,4 @@
-define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
+define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monster_hitter', 'controller/load_sprites'], function(Entity, Icon, MonsterHitter, LoadSprites) {
 
     var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flamingsword.png", name:"flamingsword",map:[
         {x:0, y: 0, width: 9, height:18},
@@ -34,6 +34,8 @@ define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'
         var my = Entity();
 
         my.icon = Icon(my, spriteInfo.spriteSheet);
+
+        MonsterHitter(my);
 
         my.entityType = "sword";
         my.playerId = player.playerId; // expose for kill counting in monster
@@ -75,20 +77,18 @@ define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'
 
             alt = Math.floor(frame / 6) % 2;
 
-            // check for intersection
-            if (flaming) {
-                var a = my.room.getIntersectingEntities(my, 'monster');
-                if (a) {
-                    for (var i = a.length - 1; i >= 0; i--) {
-                        a[i].takeDamage(4, my);
-                        my.onHit();
-                    }
-                    my.stillOut = false;
-                    my.room.removeEntity(my);
-                }
-            }
+            // intersected with a monster, fail
+            if (!my.stillOut) my.room.removeEntity(my);
 
 
+        };
+
+        my.onMonsterHit = function(monster) {
+            if (!flaming) return;
+
+            monster.takeDamage(4, my);
+            my.onHit();
+            my.stillOut = false;
         };
 
         my.onHit = function () {

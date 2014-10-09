@@ -33,6 +33,8 @@ define([
 
         my.icon = Icon(my, SpriteSheets.aquamentus);
 
+        my.isMonster = true;
+
         PlayerHitter(my);
         Mortal(my);
         Mover(my);
