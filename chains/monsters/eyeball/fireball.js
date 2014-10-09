@@ -1,4 +1,4 @@
-define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/missile', 'core/model/movement/mover', 'controller/load_sprites'], function(Entity, Icon, Missile, Mover, LoadSprites) {
+define(['core/model/entity/entity', 'core/model/icon', './player_hitter', 'core/model/movement/missile', 'core/model/movement/mover', 'controller/load_sprites'], function(Entity, Icon, PlayerHitter, Missile, Mover, LoadSprites) {
 
     LoadSprites.addSpriteSheet({url:"chains/monsters/eyeball/fire.png", name:"eyeFireball"});
 
@@ -7,6 +7,7 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/miss
 
         my.icon = Icon(my, SpriteSheets.eyeFireball);
 
+        PlayerHitter(my);
         Mover(my);
 
         my.movementSources.push(new Missile(my));
@@ -19,21 +20,9 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/movement/miss
         my.position.x = eyeball.position.x;
         my.position.y = eyeball.position.y;
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-            executeFrame_parent();
-
-            // check for intersection
-            var a = my.room.getIntersectingEntities(my, 'player', 'monsterHit');
-            if (a) {
-                var e;
-                for (var i = a.length - 1; i >= 0; i--) {
-                    e = a[i];
-                    e.takeDamage(2, my);
-                    my.room.removeEntity(my);
-                }
-            }
-
+        my.onPlayerHit = function(player) {
+            player.takeDamage(2, my);
+            my.room.removeEntity(my);
         };
 
         my.launch = function() {
