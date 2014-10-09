@@ -3,7 +3,6 @@ define(['../entity/entity', '../icon', 'view/draw'], function(Entity, Icon, View
     return function (cost, actionType, arg0) {
         var my = Entity();
 
-        my.entityType = 'actionItem';
         my.getFootPrint().setSize(16, 16);
 
         my.icon = Icon(my, SpriteSheets.weaponIcons);

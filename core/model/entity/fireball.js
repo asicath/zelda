@@ -12,8 +12,6 @@ define(['./entity', '../icon', './player_hitter', '../movement/missile', '../mov
         my.movementSources.push(new Missile(my));
 
         my.wallSensitive = false;
-        my.entityType = "fireball";
-
 
         my.getFootPrint().setSize(16, 16);
 

@@ -4,7 +4,6 @@ define(['./entity'], function(Entity) {
         var my = Entity();
 
         my.wallSensitive = true;
-        my.entityType = "edge";
         my.icon = null;
 
         switch (direction) {

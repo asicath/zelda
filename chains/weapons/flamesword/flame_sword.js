@@ -37,7 +37,6 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monste
 
         MonsterHitter(my);
 
-        my.entityType = "sword";
         my.playerId = player.playerId; // expose for kill counting in monster
         my.player = player;             // expose so items can be picked up by swords
 

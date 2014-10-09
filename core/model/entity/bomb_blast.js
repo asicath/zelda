@@ -5,7 +5,6 @@ define(['./entity', 'core/model/entity/monster_hitter', 'core/model/entity/playe
 
         MonsterHitter(my);
 
-        my.entityType = "blast";
         my.icon = null;
         my.visible = false;
         my.getFootPrint().setSize(16, 16);

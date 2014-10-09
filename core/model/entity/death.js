@@ -5,7 +5,6 @@ define(['./entity', '../icon', 'view/image_options', 'controller/load_sprites'],
     return function (entity, after) {
         var my = Entity();
 
-        my.entityType = "death";
         my.position = entity.position;
 
         my.icon = Icon(my, SpriteSheets.deathstar);

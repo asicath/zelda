@@ -5,7 +5,6 @@ define(['./entity', '../icon', './bomb_blast', './spawn_cloud', 'view/image_opti
     return function (player) {
         var my = Entity();
 
-        my.entityType = 'livebomb';
         my.getFootPrint().setSize(16, 16);
         my.icon = Icon(my, SpriteSheets.bigbomb);
         my.icon.imageOptions = ImageOptions.RedToBlue;

@@ -9,7 +9,6 @@ define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'controller/l
 
         MonsterHitter(my);
 
-        my.entityType = "boomerang";
         my.playerId = player.playerId; // expose for kill counting in monster
         my.player = player;            // expose so items can be picked up by swords
 

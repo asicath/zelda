@@ -49,8 +49,6 @@ define([
         my.icon = Icon(my, SpriteSheets.eyeball, 10);
 
         my.isMonster = true;
-
-        my.entityType = 'monster';
         my.life = 100;
         my.getFootPrint().setSize(56, 33);
 

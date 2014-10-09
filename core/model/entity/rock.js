@@ -14,7 +14,6 @@ define(['./entity', '../icon', './player_hitter', '../movement/missile', '../mov
         my.movementSources.push(new Missile(my));
 
         my.wallSensitive = true;
-        my.entityType = "rock";
 
         my.getFootPrint().setSize(16, 16);
 

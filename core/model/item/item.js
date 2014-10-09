@@ -3,7 +3,6 @@ define(['../entity/entity', '../icon'], function(Entity, Icon) {
     return function () {
         var my = Entity();
 
-        my.entityType = 'item';
         my.getFootPrint().setSize(16, 16);
         my.icon = Icon(my, SpriteSheets.items);
 
@@ -22,14 +21,12 @@ define(['../entity/entity', '../icon'], function(Entity, Icon) {
             my.room.removeEntity(my);
         });
 
-
         var executeFrame_parent = my.executeFrame;
         my.executeFrame = function () {
             executeFrame_parent();
 
             if (pickupAllowed)
                 checkForPickup();
-
         };
 
         var allowedToPickup = function(e) {

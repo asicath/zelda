@@ -13,7 +13,6 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/player
         my.movementSources.push(new Missile(my));
 
         my.wallSensitive = false;
-        my.entityType = "fireball";
 
         my.getFootPrint().setSize(16, 16);
 

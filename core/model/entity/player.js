@@ -63,7 +63,6 @@ define([
         my.playerId = playerId;
         my.playerInputIndex = playerInputIndex;
         my.wallSensitive = true;
-        my.entityType = 'player';
 
         my.getFootPrint().setSize(16, 16);
 

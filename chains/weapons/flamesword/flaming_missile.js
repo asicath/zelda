@@ -36,7 +36,6 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monste
         my.movementSources.push(new Missile(my));
 
         my.wallSensitive = false;
-        my.entityType = "flamesword";
 
         my.getFootPrint().setSize(13, 18);
 

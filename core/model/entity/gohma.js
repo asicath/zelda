@@ -48,7 +48,6 @@ define([
         my.movementSources.push(new Shuffle(my));
 
         my.wallSensitive = false;
-        my.entityType = 'monster';
         my.life = 20;
 
         my.stepChange = 8;

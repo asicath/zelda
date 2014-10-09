@@ -45,7 +45,6 @@ define([
         my.movementSources.push(new Push(my));
 
         my.wallSensitive = true;
-        my.entityType = 'monster';
 
         if (level == 1) {
             my.life = 4;

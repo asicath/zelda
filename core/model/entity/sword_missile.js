@@ -6,7 +6,6 @@ define(['./explosion', './sword', '../movement/missile', '../movement/mover'], f
 
         my.movementSources.push(new Missile(my));
 
-        my.entityType = "sword_missile";
         my.icon.startFlashing();
         my.complete = false;
 
