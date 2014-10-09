@@ -32,21 +32,17 @@ define(['../entity/entity', '../icon'], function(Entity, Icon) {
 
         };
 
+        var allowedToPickup = function(e) {
+            return e.canPickupItems;
+        };
+
         var checkForPickup = function () {
             // check for player intersection
-            var a = my.room.getIntersectingEntities(my, 'player');
+            var a = my.room.getEntities([allowedToPickup, my.intersects]);
             if (a) {
                 for (var i = a.length - 1; i >= 0; i--) {
-                    my.onPickUp(a[i]);
-                    my.room.removeEntity(my);
-                }
-            }
-
-            // players swords can pickup items
-            a = my.room.getIntersectingEntities(my, 'sword');
-            if (a) {
-                for (var i = a.length - 1; i >= 0; i--) {
-                    my.onPickUp(a[i].player);
+                    if (a[i].isPlayer) my.onPickUp(a[i]);
+                    else my.onPickUp(a[i].player);
                     my.room.removeEntity(my);
                 }
             }

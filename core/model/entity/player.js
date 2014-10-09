@@ -41,7 +41,7 @@ define([
         my.movementSources.push(new Push(my));
 
         my.isPlayer = true;
-
+        my.canPickupItems = true;
 
         my.setAction(ThrustSword(my), 'button_a');
 

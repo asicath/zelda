@@ -195,24 +195,6 @@ define(['../rect', '../position', '../frame_event_haver', 'view/color', 'view/im
             return a;
         };
 
-
-        // outdated, remove...
-        my.getIntersectingEntities = function (entity, targetEntityType, footPrintType) {
-
-            var rect = entity.getFootPrint();
-            return my.getEntities([
-                function(e) {
-                    return e.entityType == targetEntityType;
-                },
-                function(e) {
-                    var targetRect = e.getFootPrint(footPrintType);
-                    return targetRect.intersects(rect);
-                }
-            ]);
-
-        };
-
-
         return my;
     };
 
