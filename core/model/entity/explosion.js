@@ -17,9 +17,6 @@ define(['./entity', '../icon', '../movement/missile', '../movement/mover', 'cont
 
         my.movementSources.push(new Missile(my));
 
-        my.entityType = "explosion";
-
-
         // Launch by default
         my.shoot(angle, 30 / 22);
 

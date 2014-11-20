@@ -3,7 +3,6 @@ define(['../entity/entity', '../icon'], function(Entity, Icon) {
     return function () {
         var my = Entity();
 
-        my.entityType = 'item';
         my.getFootPrint().setSize(16, 16);
         my.icon = Icon(my, SpriteSheets.items);
 
@@ -22,31 +21,25 @@ define(['../entity/entity', '../icon'], function(Entity, Icon) {
             my.room.removeEntity(my);
         });
 
-
         var executeFrame_parent = my.executeFrame;
         my.executeFrame = function () {
             executeFrame_parent();
 
             if (pickupAllowed)
                 checkForPickup();
+        };
 
+        var allowedToPickup = function(e) {
+            return e.canPickupItems;
         };
 
         var checkForPickup = function () {
             // check for player intersection
-            var a = my.room.getIntersectingEntities(my, 'player');
+            var a = my.room.getEntities([allowedToPickup, my.intersects]);
             if (a) {
                 for (var i = a.length - 1; i >= 0; i--) {
-                    my.onPickUp(a[i]);
-                    my.room.removeEntity(my);
-                }
-            }
-
-            // players swords can pickup items
-            a = my.room.getIntersectingEntities(my, 'sword');
-            if (a) {
-                for (var i = a.length - 1; i >= 0; i--) {
-                    my.onPickUp(a[i].player);
+                    if (a[i].isPlayer) my.onPickUp(a[i]);
+                    else my.onPickUp(a[i].player);
                     my.room.removeEntity(my);
                 }
             }

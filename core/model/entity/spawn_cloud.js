@@ -10,8 +10,6 @@ define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon
 
         my.icon = Icon(my, SpriteSheets.cloud);
 
-        my.entityType = "spawn";
-
         my.setFrameTimeout(32, function () {
             my.icon.spriteIndex = 1;
         });

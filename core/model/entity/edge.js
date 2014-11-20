@@ -4,7 +4,6 @@ define(['./entity'], function(Entity) {
         var my = Entity();
 
         my.wallSensitive = true;
-        my.entityType = "edge";
         my.icon = null;
 
         switch (direction) {
@@ -32,12 +31,16 @@ define(['./entity'], function(Entity) {
 
         my.visible = false;
 
+        var getPlayers = function(e) {
+            return e.isPlayer;
+        };
+
         var executeFrame_parent = my.executeFrame;
         my.executeFrame = function () {
             executeFrame_parent();
 
             // check for intersection
-            var a = my.room.getIntersectingEntities(my, 'player', null);
+            var a = my.room.getEntities([getPlayers, my.intersects]);
             if (a) {
                 var e;
                 for (var i = a.length - 1; i >= 0; i--) {

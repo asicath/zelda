@@ -40,6 +40,8 @@ define([
         my.movementSources.push(new WalkControlled(my));
         my.movementSources.push(new Push(my));
 
+        my.isPlayer = true;
+        my.canPickupItems = true;
 
         my.setAction(ThrustSword(my), 'button_a');
 
@@ -61,7 +63,6 @@ define([
         my.playerId = playerId;
         my.playerInputIndex = playerInputIndex;
         my.wallSensitive = true;
-        my.entityType = 'player';
 
         my.getFootPrint().setSize(16, 16);
 

@@ -3,7 +3,6 @@ define(['../entity/entity', '../icon', 'view/draw'], function(Entity, Icon, View
     return function (cost, actionType, arg0) {
         var my = Entity();
 
-        my.entityType = 'actionItem';
         my.getFootPrint().setSize(16, 16);
 
         my.icon = Icon(my, SpriteSheets.weaponIcons);
@@ -24,9 +23,13 @@ define(['../entity/entity', '../icon', 'view/draw'], function(Entity, Icon, View
             checkForPickup();
         };
 
+        var getPlayers = function(e) {
+            return e.isPlayer;
+        };
+
         var checkForPickup = function () {
             // check for player intersection
-            var a = my.room.getIntersectingEntities(my, 'player');
+            var a = my.room.getEntities([getPlayers, my.intersects]);
             if (a) {
                 for (var i = a.length - 1; i >= 0; i--) {
 

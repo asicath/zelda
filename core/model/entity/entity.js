@@ -47,6 +47,18 @@ define(['../rect', '../position', '../frame_event_haver'], function(Rect, Positi
         };
 
 
+
+        my.intersects = function (entity) {
+            var theirs = entity.getFootPrint();
+            var mine = my.getFootPrint();
+
+            // check for intersection
+            return mine.intersects(theirs);
+        };
+
+
+
+
         return my;
     };
 

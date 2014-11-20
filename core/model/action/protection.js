@@ -149,17 +149,6 @@ define(['./action', '../entity/circle', '../entity/sigil'], function(Action, Cir
             actor.room.addEntity(circle);
 
             // give it protection from fireballs
-            var executeFrame_parent = circle.executeFrame;
-            circle.executeFrame = function () {
-                executeFrame_parent();
-
-                var c = circle.room.getIntersectingEntities(circle, 'fireball', null);
-                while (c && c.length > 0) {
-                    var fireball = c.pop();
-                    circle.room.removeEntity(fireball);
-                }
-            };
-
 
         };
 

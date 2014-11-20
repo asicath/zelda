@@ -9,8 +9,6 @@ define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon
 
         my.getFootPrint().setSize(32, 32);
 
-        my.entityType = "circle";
-
         return my;
     };
 

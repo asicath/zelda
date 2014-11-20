@@ -7,8 +7,6 @@ define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'
 
         my.icon = Icon(my, spriteInfo.spriteSheet);
 
-        my.entityType = "flame";
-
         var setupSwap = function() {
             my.setFrameTimeout(4, function () {
                 my.icon.spriteIndex = my.icon.spriteIndex ? 0 : 1;

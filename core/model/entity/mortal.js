@@ -39,7 +39,7 @@ define(['./death'], function(Death) {
             my.room.removeEntity(my);
 
             // tell the room the monster was killed
-            if (my.entityType == 'player') {
+            if (my.isPlayer) {
                 my.room.onPlayerKill(my, entity);
             }
             else {

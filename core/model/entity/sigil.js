@@ -9,7 +9,6 @@ define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon
 
         my.getFootPrint().setSize(16, 16);
 
-        my.entityType = "sigil";
         my.icon.startFlashing();
 
         return my;

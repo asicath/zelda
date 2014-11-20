@@ -1,4 +1,4 @@
-define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
+define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'controller/load_sprites'], function(Entity, Icon, MonsterHitter, LoadSprites) {
 
     LoadSprites.addSpriteSheet({url:"core/assets/sprites/boomerang.gif", name:"boomerang"});
 
@@ -7,7 +7,8 @@ define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon
 
         my.icon = Icon(my, SpriteSheets.boomerang);
 
-        my.entityType = "boomerang";
+        MonsterHitter(my);
+
         my.playerId = player.playerId; // expose for kill counting in monster
         my.player = player;            // expose so items can be picked up by swords
 
@@ -63,18 +64,14 @@ define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon
             });
         };
 
+        my.onMonsterHit = function(monster) {
+            freeze(monster);
+            if (!isReturning) startReturn();
+        };
+
         var executeFrame_parent = my.executeFrame;
         my.executeFrame = function () {
             executeFrame_parent();
-
-            // check for intersection
-            var a = my.room.getIntersectingEntities(my, 'monster');
-            if (a) {
-                for (var i = a.length - 1; i >= 0; i--) {
-                    freeze(a[i]);
-                }
-                startReturn();
-            }
 
             var x = 0;
             var y = 0;
