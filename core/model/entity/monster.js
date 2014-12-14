@@ -24,7 +24,7 @@ define([
     LoadSprites
     ) {
 
-    var spriteInfo = LoadSprites.addSpriteSheet({url:"core/assets/sprites/octopus.gif", name:"octopus"});
+    var spriteInfo = LoadSprites.addSpriteSheet({url:"core/assets/sprites/octorok.png", name:"octorok"});
 
     return function (level) {
         var my = Entity();
