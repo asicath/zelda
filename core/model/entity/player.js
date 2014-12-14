@@ -27,7 +27,7 @@ define([
     LoadSprites
     ) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/link.gif", name:"link"});
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/link.png", name:"link"});
 
     return function (playerId, playerInputIndex) {
         var my = Entity();
