@@ -1,6 +1,6 @@
 define(['./entity', '../icon', 'view/image_options', 'controller/load_sprites'], function(Entity, Icon, ImageOptions, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/deathstar.gif", name:"deathstar"});
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/deathstar.png", name:"deathstar"});
 
     return function (entity, after) {
         var my = Entity();

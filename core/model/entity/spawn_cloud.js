@@ -1,6 +1,6 @@
 define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/cloud.gif", name:"cloud"});
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/cloud.png", name:"cloud"});
 
     return function (entity) {
         var my = Entity();

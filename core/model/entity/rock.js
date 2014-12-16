@@ -1,6 +1,6 @@
 define(['./entity', '../icon', './player_hitter', '../movement/missile', '../movement/mover', 'controller/load_sprites'], function(Entity, Icon, PlayerHitter, Missile, Mover, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/rock.gif", name:"rock"});
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/rock.png", name:"rock"});
 
     return function () {
 

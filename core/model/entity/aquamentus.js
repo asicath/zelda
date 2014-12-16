@@ -20,7 +20,7 @@ define([
     LoadSprites
     ) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/aquamentus.gif", name:"aquamentus", map:[
+    LoadSprites.addSpriteSheet({url:"core/assets/sprites/aquamentus.png", name:"aquamentus", map:[
         {x:0,  y: 0, width: 24, height:32},
         {x:24, y: 0, width: 24, height:32},
         {x:48, y: 0, width: 24, height:32},
