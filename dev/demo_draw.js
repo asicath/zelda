@@ -1,4 +1,4 @@
-define(['view/draw'], function(View) {
+define(['view/draw'], function(DrawText) {
 
     var my = {};
 
@@ -15,11 +15,11 @@ define(['view/draw'], function(View) {
 
         // Top screen info
         if (Directives.message) {
-            View.drawText(ctx, Directives.message, (virtualWidth - Directives.message.length * 8) / 2, 8);
+            DrawText.drawText(ctx, Directives.message, (virtualWidth - Directives.message.length * 8) / 2, 8);
         }
 
         if (room.title) {
-            View.drawText(ctx, room.title, (virtualWidth - room.title.length * 8) / 2, 0);
+            DrawText.drawText(ctx, room.title, (virtualWidth - room.title.length * 8) / 2, 0);
         }
     };
 
@@ -30,12 +30,12 @@ define(['view/draw'], function(View) {
         }
 
         //var y = 16;
-        //View.drawText(ctx, "playr " + (playerId + 1).toString(), x, y);
+        //DrawText.drawText(ctx, "playr " + (playerId + 1).toString(), x, y);
         //y+=8;
 
-        View.drawText(ctx, "kills", x, y);
+        DrawText.drawText(ctx, "kills", x, y);
         y += 8;
-        View.drawText(ctx, player.monstersKilled.toString(), x + 40 - player.monstersKilled.toString().length * 8, y);
+        DrawText.drawText(ctx, player.monstersKilled.toString(), x + 40 - player.monstersKilled.toString().length * 8, y);
 
         y += 8;
         var i = player.maxLife;
@@ -56,23 +56,23 @@ define(['view/draw'], function(View) {
         }
 
         y += 8;
-        View.drawText(ctx, " x" + (player.rupees || 0), x, y);
+        DrawText.drawText(ctx, " x" + (player.rupees || 0), x, y);
         SpriteSheets.icons.sprites[0].drawSprite(ctx, x, y);
 
         y += 8;
-        View.drawText(ctx, " x" + (player.bombs || 0), x, y);
+        DrawText.drawText(ctx, " x" + (player.bombs || 0), x, y);
         SpriteSheets.icons.sprites[2].drawSprite(ctx, x, y);
 
         y += 8;
 
 
         SpriteSheets.weaponBorder.sprites[0].drawSprite(ctx, x, y + 3);
-        View.drawText(ctx, "b", x + 5, y);
+        DrawText.drawText(ctx, "b", x + 5, y);
         SpriteSheets.weaponIcons.sprites[2].drawSprite(ctx, x + 2, y + 5);
 
 
         SpriteSheets.weaponBorder.sprites[0].drawSprite(ctx, x + 21, y + 3);
-        View.drawText(ctx, "a", x + 26, y);
+        DrawText.drawText(ctx, "a", x + 26, y);
 
         if (player.altWeaponIconIndex > -1) {
             SpriteSheets.weaponIcons.sprites[player.altWeaponIconIndex].drawSprite(ctx, x + 2 + 21, y + 5);

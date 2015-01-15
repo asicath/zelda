@@ -1,4 +1,4 @@
-define(['jquery', 'controller/cycle', 'dev/demo_room', 'dev/store_room', 'dev/demo_draw', 'dev/logo', 'controller/load_rooms', 'view/draw'], function($, Cycle, DemoRoom, StoreRoom, DemoDraw, Logo, LoadRooms, View) {
+define(['jquery', 'controller/cycle', 'dev/demo_room', 'dev/store_room', 'dev/demo_draw', 'dev/logo', 'controller/load_rooms'], function($, Cycle, DemoRoom, StoreRoom, DemoDraw, Logo, LoadRooms) {
 
 return function() {
 
@@ -126,7 +126,7 @@ return function() {
 
 
         if (!room) {
-            //View.drawText(ctx, "loading", 64, 64);
+            //DrawText.drawText(ctx, "loading", 64, 64);
             return;
         }
 

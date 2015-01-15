@@ -13,15 +13,28 @@ define(['jquery', './gamepad_new'], function($, gamepadSupport) {
 
     return function (virtualWidth, virtualHeight) {
 
-        var my = {
-            canvas: null,
-            ctx: null
-        };
+        var my = {};
 
         // Start both chain reactions
         my.start = function () {
             gameFrame();
             animate();
+        };
+
+        var ctx, canvas;
+
+        // the current process
+        var current = {
+            // process a single frame of time
+            processFrame: function() {},
+
+            // draw a single frame of animation
+            drawFrame: function(ctx) {}
+        };
+
+        // swap out the current cycle handler
+        my.setCurrent = function(c) {
+            current = c;
         };
 
 
@@ -36,23 +49,20 @@ define(['jquery', './gamepad_new'], function($, gamepadSupport) {
             gamepadSupport.pollStatus();
 
             // just one frame
-            my.processFrame();
+            current.processFrame();
 
             // Let the animate function know that its ok to draw
             needsDraw = true;
         };
 
-        // process a single frame of time
-        my.processFrame = function () {
-        };
 
 
         // *** DISPLAY ***
 
         var needsResize = true;
 
-        my.canvas = document.getElementById('img');
-        my.ctx = my.canvas.getContext('2d');
+        canvas = document.getElementById('img');
+        ctx = canvas.getContext('2d');
 
         // Create the offscreen canvas if need be
         // Should only be the first time throgh
@@ -81,25 +91,22 @@ define(['jquery', './gamepad_new'], function($, gamepadSupport) {
                     needsResize = false;
                 }
 
-                my.drawFrame(offscreenCtx);
+                current.drawFrame(offscreenCtx);
 
                 // *** DRAW TO SCREEN ***
 
                 // draw to the onscreen canvas
 
-                my.ctx.mozImageSmoothingEnabled = false;
-                my.ctx.webkitImageSmoothingEnabled = false;
-                my.ctx.msImageSmoothingEnabled = false;
-                my.ctx.imageSmoothingEnabled = false;
-                my.ctx.drawImage(offscreen, 0, 0, offscreen.width, offscreen.height, drawOffset.x, drawOffset.y, drawWidth, drawHeight);
+                ctx.mozImageSmoothingEnabled = false;
+                ctx.webkitImageSmoothingEnabled = false;
+                ctx.msImageSmoothingEnabled = false;
+                ctx.imageSmoothingEnabled = false;
+                ctx.drawImage(offscreen, 0, 0, offscreen.width, offscreen.height, drawOffset.x, drawOffset.y, drawWidth, drawHeight);
 
 
                 needsDraw = false;
             }
 
-        };
-
-        my.drawFrame = function (ctx) {
         };
 
 
@@ -109,7 +116,7 @@ define(['jquery', './gamepad_new'], function($, gamepadSupport) {
         // ensure the canvas is taking up the whole parent
         var fullscreen = function () {
 
-            var c = $(my.canvas);
+            var c = $(canvas);
 
             var container = c.parent();
             var displayWidth = container.width();

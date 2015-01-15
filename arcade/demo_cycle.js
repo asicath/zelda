@@ -1,15 +1,16 @@
-define(['jquery', 'controller/cycle', 'arcade/demo_room', 'arcade/store_room', 'arcade/demo_draw', 'arcade/logo', 'controller/load_rooms', 'view/draw'], function($, Cycle, DemoRoom, StoreRoom, DemoDraw, Logo, LoadRooms, View) {
+define(['jquery', 'arcade/demo_room', 'arcade/store_room', 'arcade/demo_draw', 'arcade/logo', 'controller/load_rooms'], function($, DemoRoom, StoreRoom, DemoDraw, Logo, LoadRooms) {
 
 return function() {
 
-    var virtualWidth = 342;
-    var virtualHeight = 192;
+    var my = {};
+
     var room = null;
     var previousRoom;
     var loading = false;
     var xOffset, yOffset;
     var treasureRoomCount = 0;
-
+    var virtualWidth = 342;
+    var virtualHeight = 192;
 
     // *** LOGO ***
     var showLogo = true;
@@ -39,8 +40,6 @@ return function() {
 
     // Just temp for forcing right away
     //treasureRoomCount = 1;
-
-    var my = Cycle(virtualWidth, virtualHeight);
 
     // guaranteed one call per 16ms
     my.processFrame = function() {
@@ -120,7 +119,7 @@ return function() {
 
 
         if (!room) {
-            //View.drawText(ctx, "loading", 64, 64);
+            //DrawText.drawText(ctx, "loading", 64, 64);
             return;
         }
 

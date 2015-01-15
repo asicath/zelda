@@ -12,7 +12,7 @@ requirejs.config({
     }
 });
 
-requirejs(['core/model/directions', 'arcade/demo_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound', 'arcade/directives'], function(a, DemoCycle, LoadSprites, Music, Sounds, Directives) {
+requirejs(['core/model/directions', 'core/controller/cycle', 'arcade/demo_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound', 'arcade/directives'], function(a, Cycle, DemoCycle, LoadSprites, Music, Sounds, Directives) {
 
     window.baseUrl = "../";
 
@@ -20,7 +20,14 @@ requirejs(['core/model/directions', 'arcade/demo_cycle', 'controller/load_sprite
     Music.loadAll();
 
     LoadSprites.loadAllSprites(function() {
-        var cycle = DemoCycle();
+        var demoCycle = DemoCycle();
+
+        var virtualWidth = 342;
+        var virtualHeight = 192;
+        var cycle = Cycle(virtualWidth, virtualHeight);
+
+        cycle.setCurrent(demoCycle);
+
         cycle.start();
     });
 

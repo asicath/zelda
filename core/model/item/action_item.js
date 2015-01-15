@@ -1,4 +1,4 @@
-define(['../entity/entity', '../icon', 'view/draw'], function(Entity, Icon, View) {
+define(['../entity/entity', '../icon', 'view/draw'], function(Entity, Icon, DrawText) {
 
     return function (cost, actionType, arg0) {
         var my = Entity();
@@ -13,7 +13,7 @@ define(['../entity/entity', '../icon', 'view/draw'], function(Entity, Icon, View
 
         my.drawEntity = function (ctx) {
             my.icon.drawIcon(ctx);
-            View.drawText(ctx, costDisplay, my.position.x - 1 - 8 * (costDisplay.length - 2), my.position.y + 8 * 3);
+            DrawText.drawText(ctx, costDisplay, my.position.x - 1 - 8 * (costDisplay.length - 2), my.position.y + 8 * 3);
         };
 
         var executeFrame_parent = my.executeFrame;
