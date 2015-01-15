@@ -195,6 +195,58 @@ define(['../rect', '../position', '../frame_event_haver', 'view/color', 'view/im
             return a;
         };
 
+
+
+
+        var createRoomBackground = function () {
+
+            // Create the virtual screen
+            var buffer = document.createElement('canvas');
+            buffer.width = my.rect.width;
+            buffer.height = my.rect.height;
+            var ctxBuffer = buffer.getContext('2d');
+
+            // actually draw the sprites
+            if (my.backgroundSprite) {
+                my.backgroundSprite[0].drawSprite(ctxBuffer, 0, 0);
+            }
+            else {
+                // draw to the virtual screen
+                var i = 0;
+                var img;
+                while (i < my.tiles.length) {
+                    var t = my.tiles[i];
+                    img = t.sprite.getImage(t.imageOptions);
+                    ctxBuffer.drawImage(img, t.x, t.y);
+                    i++;
+                }
+            }
+
+            my.backgroundImage = buffer;
+
+        };
+
+
+        my.drawRoom = function (ctx, xOffset, yOffset) {
+
+            // should only be needed once
+            if (!my.backgroundImage) createRoomBackground();
+
+            ctx.save();
+            ctx.translate(xOffset, yOffset);
+
+            // draw to the real screen
+            ctx.drawImage(my.backgroundImage, 0, 0);
+
+            // now the entities
+            for (var i = my.entities.length - 1; i >= 0; i--) {
+                my.entities[i].drawEntity(ctx);
+            }
+
+
+            ctx.restore();
+        };
+
         return my;
     };
 

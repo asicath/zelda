@@ -2,54 +2,7 @@ define(function() {
 
     var my = {};
 
-    var createRoomBackground = function (room) {
 
-        // Create the virtual screen
-        var buffer = document.createElement('canvas');
-        buffer.width = room.rect.width;
-        buffer.height = room.rect.height;
-        var ctxBuffer = buffer.getContext('2d');
-
-        // actually draw the sprites
-        if (room.backgroundSprite) {
-            room.backgroundSprite[0].drawSprite(ctxBuffer, 0, 0);
-        }
-        else {
-            // draw to the virtual screen
-            var i = 0;
-            var img;
-            while (i < room.tiles.length) {
-                var t = room.tiles[i];
-                img = t.sprite.getImage(t.imageOptions);
-                ctxBuffer.drawImage(img, t.x, t.y);
-                i++;
-            }
-        }
-
-        room.backgroundImage = buffer;
-
-    };
-
-
-    my.drawRoom = function (ctx, xOffset, yOffset, room) {
-
-        // should only be needed once
-        if (!room.backgroundImage) createRoomBackground(room);
-
-        ctx.save();
-        ctx.translate(xOffset, yOffset);
-
-        // draw to the real screen
-        ctx.drawImage(room.backgroundImage, 0, 0);
-
-        // now the entities
-        for (var i = room.entities.length - 1; i >= 0; i--) {
-            room.entities[i].drawEntity(ctx);
-        }
-
-
-        ctx.restore();
-    };
 
 
     var textMap = {

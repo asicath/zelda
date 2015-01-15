@@ -127,7 +127,7 @@ return function() {
         drawMenu(ctx);
 
         // draw the room
-        View.drawRoom(ctx, xOffset, yOffset, room);
+        room.drawRoom(ctx, xOffset, yOffset);
 
     };
 
