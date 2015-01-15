@@ -1,6 +1,8 @@
-define(['jquery', 'controller/cycle', 'dev/demo_room', 'dev/store_room', 'dev/demo_draw', 'dev/logo', 'controller/load_rooms'], function($, Cycle, DemoRoom, StoreRoom, DemoDraw, Logo, LoadRooms) {
+define(['jquery', 'dev/demo_room', 'dev/store_room', 'dev/demo_draw', 'dev/logo', 'controller/load_rooms'], function($, DemoRoom, StoreRoom, DemoDraw, Logo, LoadRooms) {
 
 return function() {
+
+    var my = {};
 
     var virtualWidth = 342;
     var virtualHeight = 192;
@@ -39,8 +41,6 @@ return function() {
 
     // Just temp for forcing right away
     //treasureRoomCount = 1;
-
-    var my = Cycle(virtualWidth, virtualHeight);
 
     // guaranteed one call per 16ms
     my.processFrame = function() {
