@@ -22,9 +22,7 @@ requirejs(['core/model/directions', 'core/controller/cycle', 'dev/demo_cycle', '
     LoadSprites.loadAllSprites(function() {
         var demoCycle = DemoCycle();
 
-        var virtualWidth = 342;
-        var virtualHeight = 192;
-        var cycle = Cycle(virtualWidth, virtualHeight);
+        var cycle = Cycle();
         cycle.setCurrent(demoCycle);
         cycle.start();
     });

@@ -11,7 +11,7 @@ define(['jquery', './gamepad_new'], function($, gamepadSupport) {
             };
     })();
 
-    return function (virtualWidth, virtualHeight) {
+    return function () {
 
         var my = {};
 
@@ -35,6 +35,14 @@ define(['jquery', './gamepad_new'], function($, gamepadSupport) {
         // swap out the current cycle handler
         my.setCurrent = function(c) {
             current = c;
+
+            virtualWidth = current.virtualWidth;
+            virtualHeight = current.virtualHeight;
+
+            offscreen.width = virtualWidth;
+            offscreen.height = virtualHeight;
+
+            offscreenCtx = offscreen.getContext('2d');
         };
 
 
@@ -68,9 +76,8 @@ define(['jquery', './gamepad_new'], function($, gamepadSupport) {
         // Should only be the first time throgh
 
         var offscreen = document.createElement('canvas');
-        offscreen.width = virtualWidth;
-        offscreen.height = virtualHeight;
-        var offscreenCtx = offscreen.getContext('2d');
+        var offscreenCtx, virtualWidth, virtualHeight;
+
 
         $(window).resize(function () {
             // reset the room cache

@@ -12,7 +12,7 @@ requirejs.config({
     }
 });
 
-requirejs(['core/model/directions', 'core/controller/cycle', 'arcade/demo_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound', 'arcade/directives'], function(a, Cycle, DemoCycle, LoadSprites, Music, Sounds, Directives) {
+requirejs(['core/model/directions', 'core/controller/cycle', 'arcade/demo_cycle', 'arcade/blazingpixel_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound', 'arcade/directives'], function(a, Cycle, DemoCycle, LogoCycle, LoadSprites, Music, Sounds, Directives) {
 
     window.baseUrl = "../";
 
@@ -21,12 +21,17 @@ requirejs(['core/model/directions', 'core/controller/cycle', 'arcade/demo_cycle'
 
     LoadSprites.loadAllSprites(function() {
         var demoCycle = DemoCycle();
+        var logoCycle = LogoCycle();
 
-        var virtualWidth = 342;
-        var virtualHeight = 192;
-        var cycle = Cycle(virtualWidth, virtualHeight);
+        logoCycle.onLogoEnd = function() {
+            cycle.setCurrent(demoCycle);
+        };
 
-        cycle.setCurrent(demoCycle);
+        var cycle = Cycle();
+
+        cycle.setCurrent(logoCycle);
+
+
 
         cycle.start();
     });

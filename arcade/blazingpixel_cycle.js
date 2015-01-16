@@ -2,10 +2,10 @@ define(['jquery', 'arcade/logo'], function($, Logo) {
 
     return function() {
 
-        var my = {};
-
-        var virtualWidth = 342;
-        var virtualHeight = 192;
+        var my = {
+            virtualWidth: 342,
+            virtualHeight: 192
+        };
 
         // Music
         var logoMusic = new Audio("music/aum_logo.mp3");
@@ -32,7 +32,7 @@ define(['jquery', 'arcade/logo'], function($, Logo) {
             var factor = 2;
             var w = 63 * factor;
             var h = 63 * factor;
-            Logo.drawFrame(ctx, Math.floor((virtualWidth - w) / 2), Math.floor((virtualHeight - h) / 2), factor);
+            Logo.drawFrame(ctx, Math.floor((my.virtualWidth - w) / 2), Math.floor((my.virtualHeight - h) / 2), factor);
         };
 
         my.onLogoEnd = function() {
