@@ -1,4 +1,4 @@
-define(['../entity/entity', '../icon', 'view/draw'], function(Entity, Icon, DrawText) {
+define(['../entity/entity', '../icon', 'view/draw', 'core/model/directives'], function(Entity, Icon, DrawText, Directives) {
 
     return function (cost, actionType, arg0) {
         var my = Entity();
@@ -40,8 +40,8 @@ define(['../entity/entity', '../icon', 'view/draw'], function(Entity, Icon, Draw
                         my.room.removeEntity(my);
                         player.rupees -= cost;
 
-                        if (Directives) Directives.nextMessage(4);
-                        if (Directives) Directives.nextMessage(6);
+                        Directives.nextMessage(4);
+                        Directives.nextMessage(6);
                     }
 
                 }

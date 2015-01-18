@@ -1,4 +1,4 @@
-define(['view/draw'], function(DrawText) {
+define(['view/draw', 'core/model/directives'], function(DrawText, Directives) {
 
     var my = {};
 

@@ -1,4 +1,4 @@
-define(['jquery', 'arcade/demo_room', 'arcade/store_room', 'arcade/demo_draw', 'arcade/logo', 'controller/load_rooms'], function($, DemoRoom, StoreRoom, DemoDraw, Logo, LoadRooms) {
+define(['jquery', 'arcade/demo_room', 'arcade/store_room', 'arcade/demo_draw', 'arcade/logo', 'controller/load_rooms', 'core/model/directives'], function($, DemoRoom, StoreRoom, DemoDraw, Logo, LoadRooms, Directives) {
 
 return function() {
 
@@ -53,7 +53,7 @@ return function() {
             });
             loading = true;
 
-            if (Directives) Directives.nextMessage(3);
+            Directives.nextMessage(3);
         }
         else {
             roomType = DemoRoom;

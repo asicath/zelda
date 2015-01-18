@@ -11,7 +11,7 @@
 // 10 - Sword moves back, tip showing. foot change.
 // 11 - Sword gone.
 
-define(['./action', '../entity/sword_missile', '../entity/sword'], function(Action, SwordMissile, Sword) {
+define(['./action', '../entity/sword_missile', '../entity/sword', 'core/model/directives'], function(Action, SwordMissile, Sword, Directives) {
 
     return function (actor) {
         var my = Action(actor);
@@ -76,7 +76,7 @@ define(['./action', '../entity/sword_missile', '../entity/sword'], function(Acti
             // Waiting for sword to come out
             actor.setFrameTimeout(4, createSwordEntity);
 
-            if (Directives) Directives.nextMessage(2);
+            Directives.nextMessage(2);
         };
 
         var createSwordEntity = function () {

@@ -1,4 +1,4 @@
-define(['./action'], function(Action) {
+define(['./action', 'core/model/directives'], function(Action, Directives) {
 
     return function (actor) {
         var my = Action(actor);
@@ -10,7 +10,7 @@ define(['./action'], function(Action) {
             index = (index + 1) % actor.altActions.length;
             actor.setAltAction(actor.altActions[index]);
 
-            if (Directives) Directives.nextMessage(7);
+            Directives.nextMessage(7);
         };
 
         return my;

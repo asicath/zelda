@@ -1,4 +1,4 @@
-define(function() {
+define(['core/model/directives'], function(Directives) {
 
     return function (actor) {
         var my = {};
@@ -19,7 +19,7 @@ define(function() {
                 heldFrameCount = 0;
 
                 if (!my.isMain) {
-                    if (Directives) Directives.nextMessage(5);
+                    Directives.nextMessage(5);
                 }
             }
 

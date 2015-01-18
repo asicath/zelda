@@ -14,10 +14,6 @@ define(['view/draw'], function(DrawText) {
         }
 
         // Top screen info
-        if (Directives.message) {
-            DrawText.drawText(ctx, Directives.message, (virtualWidth - Directives.message.length * 8) / 2, 8);
-        }
-
         if (room.title) {
             DrawText.drawText(ctx, room.title, (virtualWidth - room.title.length * 8) / 2, 0);
         }

@@ -1,4 +1,4 @@
-define(['./walk', 'controller/input'], function(Walk, playerInput) {
+define(['./walk', 'controller/input', 'core/model/directives'], function(Walk, playerInput, Directives) {
 
     return function (mover) {
         var my = Walk(mover);
@@ -43,7 +43,7 @@ define(['./walk', 'controller/input'], function(Walk, playerInput) {
             my.moveIntent = getMovingPriority();
 
             // advance message
-            if (Directives) Directives.nextMessage(1);
+            Directives.nextMessage(1);
         };
 
         var endMoving = function (direction) {

@@ -12,7 +12,7 @@ requirejs.config({
     }
 });
 
-requirejs(['core/model/directions', 'core/controller/cycle', 'dev/demo_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound', 'dev/directives'], function(a, Cycle, DemoCycle, LoadSprites, Music, Sounds, Directives) {
+requirejs(['core/model/directions', 'core/controller/cycle', 'dev/demo_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound'], function(a, Cycle, DemoCycle, LoadSprites, Music, Sounds) {
 
     window.baseUrl = "../";
 

@@ -4,14 +4,16 @@ define([
     'core/model/action/drop_bomb',
     'core/model/entity/live_bomb',
     'core/model/action/throw_boomerang',
-    'controller/input'
+    'controller/input',
+    'core/model/directives'
 ], function(
     Room,
     Player,
     DropBomb,
     LiveBomb,
     ThrowBoomerang,
-    playerInput
+    playerInput,
+    Directives
     ) {
 
     return function (data) {
@@ -30,7 +32,7 @@ define([
             my.addEntityAtOpenTile(my.players[playerId]);
 
             // advance message
-            if (Directives) Directives.nextMessage(0);
+            Directives.nextMessage(0);
         };
 
         var checkForPlayerAdd = function () {

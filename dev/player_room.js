@@ -29,8 +29,6 @@ define([
 
             my.addEntityAtOpenTile(my.players[playerId]);
 
-            // advance message
-            if (Directives) Directives.nextMessage(0);
         };
 
         var checkForPlayerAdd = function () {
