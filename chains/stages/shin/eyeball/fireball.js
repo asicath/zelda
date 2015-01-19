@@ -1,6 +1,6 @@
 define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/player_hitter', 'core/model/movement/missile', 'core/model/movement/mover', 'controller/load_sprites'], function(Entity, Icon, PlayerHitter, Missile, Mover, LoadSprites) {
 
-    LoadSprites.addSpriteSheet({url:"chains/monsters/eyeball/fire.png", name:"eyeFireball"});
+    LoadSprites.addSpriteSheet({url:"chains/stages/shin/eyeball/fire.png", name:"eyeFireball"});
 
     return function (eyeball) {
         var my = Entity();

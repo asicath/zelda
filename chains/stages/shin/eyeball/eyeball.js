@@ -7,7 +7,7 @@ define([
     'core/model/item/item_dropper',
     'view/image_options',
     'controller/load_sprites',
-    'chains/monsters/eyeball/fireball'
+    'chains/stages/shin/eyeball/fireball'
 ], function(
     Entity,
     Icon,
@@ -20,7 +20,7 @@ define([
     Fireball
     ) {
 
-    LoadSprites.addSpriteSheet({url:"chains/monsters/eyeball/eye_black.png", name:"eyeball", map:[
+    LoadSprites.addSpriteSheet({url:"chains/stages/shin/eyeball/eye_black.png", name:"eyeball", map:[
         {x:   0, y: 0, width: 56, height:33},
         {x:  56, y: 0, width: 56, height:33},
         {x: 112, y: 0, width: 56, height:33},
