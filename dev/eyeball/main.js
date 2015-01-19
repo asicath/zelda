@@ -19,7 +19,7 @@ requirejs([
     'controller/load_sprites',
     'controller/music',
     'controller/sound',
-    'chains/monsters/eyeball/eyeball'
+    'chains/stages/shin/eyeball/eyeball'
 ], function(
     a,
     Cycle,
