@@ -66,11 +66,12 @@ define(['view/draw', 'core/model/directives'], function(DrawText, Directives) {
         y += 8;
 
 
+        // The Sword icon
         SpriteSheets.weaponBorder.sprites[0].drawSprite(ctx, x, y + 3);
         DrawText.drawText(ctx, "b", x + 5, y);
         SpriteSheets.weaponIcons.sprites[2].drawSprite(ctx, x + 2, y + 5);
 
-
+        // The alt weapon
         SpriteSheets.weaponBorder.sprites[0].drawSprite(ctx, x + 21, y + 3);
         DrawText.drawText(ctx, "a", x + 26, y);
 

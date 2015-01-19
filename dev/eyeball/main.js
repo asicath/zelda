@@ -1,6 +1,6 @@
 requirejs.config({
     //By default load any module IDs from js/lib
-    baseUrl: '../',
+    baseUrl: '../../',
     //except, if the module ID starts with "app",
     //load it from the js/app directory. paths
     //config is relative to the baseUrl, and
@@ -12,15 +12,31 @@ requirejs.config({
     }
 });
 
-requirejs(['core/model/directions', 'core/controller/cycle', 'dev/demo_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound'], function(a, Cycle, DemoCycle, LoadSprites, Music, Sounds) {
+requirejs([
+    'core/model/directions',
+    'core/controller/cycle',
+    'dev/demo_cycle',
+    'controller/load_sprites',
+    'controller/music',
+    'controller/sound',
+    'chains/monsters/eyeball/eyeball'
+], function(
+    a,
+    Cycle,
+    DemoCycle,
+    LoadSprites,
+    Music,
+    Sounds,
+    Eyeball
+) {
 
-    window.baseUrl = "../";
+    window.baseUrl = "../../";
 
     Sounds.loadAll();
     Music.loadAll();
 
     LoadSprites.loadAllSprites(function() {
-        var demoCycle = DemoCycle();
+        var demoCycle = DemoCycle(Eyeball);
 
         var cycle = Cycle();
         cycle.setCurrent(demoCycle);
