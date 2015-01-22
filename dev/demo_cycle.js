@@ -1,6 +1,6 @@
 define(['jquery', 'dev/demo_room', 'dev/demo_draw', 'controller/load_rooms'], function($, DemoRoom, DemoDraw, LoadRooms) {
 
-return function(Monster) {
+return function(Monster, randomPosition) {
 
     var my = {
         virtualWidth: 342,
@@ -25,8 +25,8 @@ return function(Monster) {
         }
 
         // needs a new room
-        LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/dessertONE.gif', 'chains/stages/shin/dessertONE_map.gif', 'first', function(data) {
-            room = DemoRoom(data, Monster);
+        LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/desert.png', 'chains/stages/shin/desert_map.png', 'first', function(data) {
+            room = DemoRoom(data, Monster, randomPosition);
             room.title = "dessert";
 
             loading = false;
