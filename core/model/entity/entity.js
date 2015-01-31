@@ -6,6 +6,12 @@ define(['../rect', '../position', '../frame_event_haver'], function(Rect, Positi
             room: null
         };
 
+        var frameEventQueues = {
+            pre:[],
+            find:[],
+            post:[]
+        };
+
         FrameEventHaver(my);
 
         my.position = new Position(0, 0);
@@ -15,9 +21,48 @@ define(['../rect', '../position', '../frame_event_haver'], function(Rect, Positi
 
         my.icon = null;
 
+
+
         my.executeFrame = function () {
             my.processEventQueue();
+
+            // temporary until the room calls these individually
+            my.executeFramePre();
+            my.executeFrameFind();
+            my.executeFramePost();
         };
+
+        // called after draw, before any entities have examined intersections
+        // setup for intersections, move intents, etc.
+        my.executeFramePre = function() {
+            executeFrameEventQueue(frameEventQueues.pre);
+        };
+
+        // allows entities to find intersections all at the same time without reacting
+        my.executeFrameFind = function() {
+            executeFrameEventQueue(frameEventQueues.find);
+        };
+
+        // called after all entities have found intersections
+        // for reacting to the intersections (or lack thereof)
+        my.executeFramePost = function() {
+            executeFrameEventQueue(frameEventQueues.post);
+        };
+
+        var executeFrameEventQueue = function(queue) {
+            // process the event queues
+            var i;
+            for (i = 0; i < queue.length; i++) {
+                queue[i]();
+            }
+        };
+
+        // allows items to be added to the queues
+        my.addFrameItem = function(queueName, item) {
+            frameEventQueues[queueName].push(item);
+        };
+
+
 
         my.onAddToRoom = function() {};
 

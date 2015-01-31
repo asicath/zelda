@@ -6,10 +6,7 @@ define(function() {
             return e.isMonster;
         };
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-
-            executeFrame_parent();
+        function checkForHit () {
 
             var a = my.room.getEntities([getMonsters, my.intersects]);
             if (a) {
@@ -18,7 +15,9 @@ define(function() {
                 }
             }
 
-        };
+        }
+
+        my.addFrameItem('find', checkForHit);
 
         my.onMonsterHit = function(monster) {};
 

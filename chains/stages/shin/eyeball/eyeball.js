@@ -119,11 +119,7 @@ define([
         var lastStop = 0;
         var tillNextStop = 3;
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-
-            executeFrame_parent();
-
+        my.addFrameItem('post', function() {
             if (isRotating) {
                 var percent = ((moveFrame++ % maxMoveFrame) / maxMoveFrame);
 
@@ -135,8 +131,7 @@ define([
                     onQuarter();
                 }
             }
-
-        };
+        });
 
         // called each time the eye hits a quarter
         var onQuarter = function() {

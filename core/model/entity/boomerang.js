@@ -69,9 +69,9 @@ define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'controller/l
             if (!isReturning) startReturn();
         };
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-            executeFrame_parent();
+        my.addFrameItem('post', executeMove);
+
+        function executeMove() {
 
             var x = 0;
             var y = 0;
@@ -117,8 +117,7 @@ define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'controller/l
                 my.room.removeEntity(my);
             }
 
-
-        };
+        }
 
         return my;
     };

@@ -63,10 +63,7 @@ define([
         var eyeClosed = false;
         var eyeSwapFrames = 0;
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-
-            executeFrame_parent();
+        function eyeAnimationFrame() {
 
             if (eyeSwapFrames > 0) {
                 if (eyeClosed) {
@@ -96,11 +93,17 @@ define([
                 }
             }
 
+        }
 
+        function waitForSoundReset() {
             if (soundWait > 0) {
                 soundWait--;
             }
-        };
+        }
+
+        my.addFrameItem('pre', eyeAnimationFrame);
+
+        my.addFrameItem('pre', waitForSoundReset);
 
         var soundWait = 0;
         var takeDamage_parent = my.takeDamage;

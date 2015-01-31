@@ -22,15 +22,12 @@ define(['./entity', '../icon', '../movement/missile', '../movement/mover', 'cont
 
         var frame = 0;
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-            executeFrame_parent();
-
+        // count down to clear, should make an event?
+        my.addFrameItem('pre', function() {
             if (frame++ == 22) {
                 my.room.removeEntity(my);
             }
-
-        };
+        });
 
         /*
          my.icon.flashPalates = [

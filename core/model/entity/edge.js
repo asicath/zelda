@@ -35,10 +35,7 @@ define(['./entity'], function(Entity) {
             return e.isPlayer;
         };
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-            executeFrame_parent();
-
+        my.addFrameItem('find', function() {
             // check for intersection
             var a = my.room.getEntities([getPlayers, my.intersects]);
             if (a) {
@@ -48,8 +45,7 @@ define(['./entity'], function(Entity) {
                     onPlayerOver(e);
                 }
             }
-
-        };
+        });
 
         return my;
     };

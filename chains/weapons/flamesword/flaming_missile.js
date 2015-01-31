@@ -56,12 +56,9 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monste
             return my.icon.spriteSheet.sprites[index];
         };
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-            executeFrame_parent();
-
+        my.addFrameItem('post', function() {
             altFrame = Math.floor(++frame / 6) % 2;
-        };
+        });
 
         my.onMonsterHit = function(monster) {
             monster.takeDamage(8, my);

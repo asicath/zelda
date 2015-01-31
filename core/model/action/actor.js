@@ -13,12 +13,10 @@ define(['controller/input'], function(playerInput) {
             actions[i] = {action: action, inputName: inputName};
         };
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
+        my.addFrameItem('pre', function() {
             updateInput(my.playerInputIndex);
             executeActions();
-            executeFrame_parent();
-        };
+        });
 
         // Give the actions a frame of time
         var executeActions = function () {

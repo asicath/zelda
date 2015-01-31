@@ -68,19 +68,15 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monste
             return my.icon.spriteSheet.sprites[index];
         };
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-            executeFrame_parent();
-
+        my.addFrameItem('post', function() {
             frame++;
 
             alt = Math.floor(frame / 6) % 2;
 
             // intersected with a monster, fail
             if (!my.stillOut) my.room.removeEntity(my);
+        });
 
-
-        };
 
         my.onMonsterHit = function(monster) {
             if (!flaming) return;

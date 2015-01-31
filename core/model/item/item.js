@@ -21,19 +21,16 @@ define(['../entity/entity', '../icon'], function(Entity, Icon) {
             my.room.removeEntity(my);
         });
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-            executeFrame_parent();
-
-            if (pickupAllowed)
-                checkForPickup();
-        };
+        my.addFrameItem('find', checkForPickup);
 
         var allowedToPickup = function(e) {
             return e.canPickupItems;
         };
 
-        var checkForPickup = function () {
+        function checkForPickup() {
+
+            if (!pickupAllowed) return;
+
             // check for player intersection
             var a = my.room.getEntities([allowedToPickup, my.intersects]);
             if (a) {
@@ -43,7 +40,7 @@ define(['../entity/entity', '../icon'], function(Entity, Icon) {
                     my.room.removeEntity(my);
                 }
             }
-        };
+        }
 
         my.onPickUp = function (player) {
         };

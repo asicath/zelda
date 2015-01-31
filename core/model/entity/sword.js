@@ -21,10 +21,7 @@ define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'controller/l
         var frame = 0;
         my.maxFrame = 12;
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-            executeFrame_parent();
-
+        my.addFrameItem('post', function() {
             frame++;
 
             if (frame > my.maxFrame) {
@@ -32,7 +29,7 @@ define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'controller/l
                 // should do this differently
                 my.room.removeEntity(my);
             }
-        };
+        });
 
         my.onMonsterHit = function(monster) {
             monster.takeDamage(4, my);

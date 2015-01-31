@@ -16,18 +16,14 @@ define(['../entity/entity', '../icon', 'view/draw', 'core/model/directives'], fu
             DrawText.drawText(ctx, costDisplay, my.position.x - 1 - 8 * (costDisplay.length - 2), my.position.y + 8 * 3);
         };
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-            executeFrame_parent();
-
-            checkForPickup();
-        };
-
         var getPlayers = function(e) {
             return e.isPlayer;
         };
 
-        var checkForPickup = function () {
+        my.addFrameItem('find', checkForPickup);
+
+        function checkForPickup() {
+
             // check for player intersection
             var a = my.room.getEntities([getPlayers, my.intersects]);
             if (a) {

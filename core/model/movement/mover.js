@@ -6,22 +6,14 @@ define(['../rect', '../position'], function(Rect, Position) {
 
         my.movementSources = [];
 
+        // check for new input from player
         var executeMove = function () {
             for (var i = my.movementSources.length - 1; i >= 0; i--) {
                 if (my.movementSources[i].executeMove()) return;
             }
         };
 
-        var executeFrame_parent = my.executeFrame;
-        my.executeFrame = function () {
-
-            // allow for inputto be read
-            executeFrame_parent();
-
-            // check for new input from player
-            executeMove();
-
-        };
+        my.addFrameItem('pre', executeMove);
 
         my.facing = Directions.bottom;
 
