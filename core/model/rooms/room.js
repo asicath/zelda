@@ -91,27 +91,33 @@ define(['../rect', '../position', '../frame_event_haver', 'view/color', 'view/im
 
             my.processEventQueue(my);
 
+            executeFrameRound('executeFramePre');
+            executeFrameRound('executeFrameFind');
+            executeFrameRound('executeFramePost');
+        };
+
+        function executeFrameRound(name) {
+            var entity;
+
             // do entities
             for (var i = my.entities.length - 1; i >= 0; i--) {
-                my.entities[i].executeFrame(my);
+                entity = my.entities[i];
+                entity[name]();
             }
 
+            // check add remove after each
+            processAddAndRemoves();
+        }
+
+        function processAddAndRemoves() {
             // Remove entities
             while (removeAfterFrame.length) {
                 var entity = removeAfterFrame.pop();
 
-                // construct a new array without the entity
-                var a = [];
-                for (var i = 0; i < my.entities.length; i++) {
-                    if (my.entities[i] != entity) {
-                        a.push(my.entities[i]);
-                    }
+                var index = my.entities.indexOf(entity);
+                if (index >= 0) {
+                    my.entities.splice( index, 1 );
                 }
-
-                my.entities = a;
-
-                // let it keep reference
-                //entity.room = null;
             }
 
             // Add entities
@@ -122,12 +128,9 @@ define(['../rect', '../position', '../frame_event_haver', 'view/color', 'view/im
 
                 entity.onAddToRoom();
             }
+        }
 
-
-        };
-
-        my.onPlayerKill = function () {
-        };
+        my.onPlayerKill = function () {};
 
         my.transferPlayers = function (sourceRoom) {
             // first get the players

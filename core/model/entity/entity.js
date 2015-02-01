@@ -22,19 +22,13 @@ define(['../rect', '../position', '../frame_event_haver'], function(Rect, Positi
         my.icon = null;
 
 
-
-        my.executeFrame = function () {
-            my.processEventQueue();
-
-            // temporary until the room calls these individually
-            my.executeFramePre();
-            my.executeFrameFind();
-            my.executeFramePost();
-        };
-
         // called after draw, before any entities have examined intersections
         // setup for intersections, move intents, etc.
         my.executeFramePre = function() {
+
+            // put this for here now...
+            my.processEventQueue();
+
             executeFrameEventQueue(frameEventQueues.pre);
         };
 
