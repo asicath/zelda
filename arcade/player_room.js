@@ -63,7 +63,11 @@ define([
             }
         };
 
-        my.addFrameItem('post', checkForPlayerAdd);
+        var executeFrame_parent = my.executeFrame;
+        my.executeFrame = function () {
+            checkForPlayerAdd();
+            executeFrame_parent();
+        };
 
         my.onComplete = function () {
 
