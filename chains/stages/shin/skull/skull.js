@@ -9,7 +9,8 @@ define([
     'core/model/movement/walk_random',
     'core/model/movement/mover',
     'view/image_options',
-    'controller/load_sprites'
+    'controller/load_sprites',
+    'view/draw'
 ], function(
     Entity,
     Icon,
@@ -21,7 +22,8 @@ define([
     WalkRandom,
     Mover,
     ImageOptions,
-    LoadSprites
+    LoadSprites,
+    DrawText
     ) {
 
     var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/stages/shin/skull/skull.png", name:"skull"});
@@ -34,6 +36,8 @@ define([
 
         my.isMonster = true;
 
+
+
         PlayerHitter(my);
         Mortal(my);
         Mover(my);
@@ -41,7 +45,7 @@ define([
         my.movementSources.push(new Push(my));
 
         my.wallSensitive = true;
-        my.life = 4;
+        my.life = 8;
 
 
         my.getFootPrint().setSize(16, 16);
@@ -56,6 +60,83 @@ define([
         my.onPlayerHit = function(player) {
             player.takeDamage(2, my);
         };
+
+
+        my.isOff = true;
+        my.setFrameTimeout(60*3, function() {
+            my.icon.spriteIndex = 1;
+
+            my.setFrameTimeout(60*3, function() {
+                sayHello();
+            });
+        });
+
+        var sayHello = function() {
+            talk("hello chris", laugh);
+        };
+
+        var laugh = function() {
+            isScreaming = true;
+            talk("aaaahhhhhhhhhh");
+        };
+
+        var isTalking = false;
+        var talkVisible, talkMessage, afterTalk, isScreaming;
+        var talk = function(message, after) {
+            isTalking = true;
+            talkFrame = 0;
+            talkMessage = message;
+            talkVisible = "";
+            afterTalk = after;
+        };
+
+
+        var talkFrame = 0;
+
+        my.addFrameItem('post', function() {
+
+            if (talkFrame && ! isTalking) {
+                talkFrame--;
+                if (talkFrame == 0) {
+                    talkVisible = null;
+                    if (afterTalk) afterTalk();
+                }
+            }
+
+            if (!isTalking) return;
+
+            talkFrame++;
+
+            if (isScreaming) {
+                my.icon.spriteIndex = 2;
+            }
+            else {
+                my.icon.spriteIndex = 1 + Math.floor(talkFrame / 6) % 2;
+            }
+
+
+            if (talkVisible.length < talkMessage.length && talkFrame % 10 == 0) {
+                talkVisible = talkMessage.substr(0, talkVisible.length+1);
+
+                if (talkVisible.length == talkMessage.length) {
+                    isTalking = false;
+                    my.icon.spriteIndex = 1;
+
+                }
+            }
+
+        });
+
+        var drawEntity_parent = my.drawEntity;
+        my.drawEntity = function (ctx) {
+            drawEntity_parent(ctx);
+            if (talkVisible) {
+                DrawText.drawText(ctx, talkVisible, my.position.x, my.position.y + 20);
+            }
+
+        };
+
+
 
         return my;
     };

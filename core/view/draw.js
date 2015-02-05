@@ -55,8 +55,8 @@ define(function() {
 
     my.drawText = function (ctx, text, x, y) {
 
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(x, y, text.length * 8, 8);
+        //ctx.fillStyle = "#000000";
+        //ctx.fillRect(x, y, text.length * 8, 8);
 
         for (var i = 0; i < text.length; i++) {
 
