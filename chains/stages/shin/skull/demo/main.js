@@ -36,7 +36,7 @@ requirejs([
 
     LoadSprites.loadAllSprites(function() {
 
-        var demoCycle = DemoCycle({Monster: Monster});
+        var demoCycle = DemoCycle({room:"talkingSkulls"});
 
         var cycle = Cycle();
         cycle.setCurrent(demoCycle);

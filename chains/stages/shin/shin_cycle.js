@@ -1,4 +1,16 @@
-define(['jquery', 'chains/stages/shin/desert_room', 'dev/demo_draw', 'controller/load_rooms'], function($, DemoRoom, DemoDraw, LoadRooms) {
+define([
+    'jquery',
+    'chains/stages/shin/desert_room',
+    'chains/stages/shin/skull_room',
+    'dev/demo_draw',
+    'controller/load_rooms'
+], function(
+    $,
+    DemoRoom,
+    SkullRoom,
+    DemoDraw,
+    LoadRooms
+) {
 
     return function(options) {
 
@@ -26,7 +38,14 @@ define(['jquery', 'chains/stages/shin/desert_room', 'dev/demo_draw', 'controller
                 return;
             }
 
-            loadDesertRoom();
+            if (!options.room) {
+                loadDesertRoom();
+            }
+            else if (options.room == 'talkingSkulls') {
+                loadTalkingSkullRoom();
+            }
+
+
             loading = true;
 
         };
@@ -36,6 +55,18 @@ define(['jquery', 'chains/stages/shin/desert_room', 'dev/demo_draw', 'controller
             LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/images/desert.png', 'chains/stages/shin/images/desert_map.png', 'first', function(data) {
                 room = DemoRoom(data, options.Monster, true);
                 room.title = "dessert";
+
+                loading = false;
+                xOffset = Math.floor((my.virtualWidth - room.rect.width)/2);
+                yOffset = Math.floor((my.virtualHeight - room.rect.height));
+            });
+        };
+
+        var loadTalkingSkullRoom = function() {
+            // needs a new room
+            LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/images/desert.png', 'chains/stages/shin/images/desert_map.png', 'first', function(data) {
+                room = SkullRoom(data);
+                room.title = "skulls";
 
                 loading = false;
                 xOffset = Math.floor((my.virtualWidth - room.rect.width)/2);
