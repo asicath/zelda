@@ -15,7 +15,7 @@ requirejs.config({
 requirejs([
     'core/model/directions',
     'core/controller/cycle',
-    'dev/demo_cycle',
+    'chains/stages/shin/shin_cycle',
     'controller/load_sprites',
     'controller/music',
     'controller/sound',
