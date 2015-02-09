@@ -1,6 +1,6 @@
 define(['jquery', 'chains/stages/shin/desert_room', 'dev/demo_draw', 'controller/load_rooms'], function($, DemoRoom, DemoDraw, LoadRooms) {
 
-    return function(Monster, randomPosition) {
+    return function(options) {
 
         var my = {
             virtualWidth: 342,
@@ -10,6 +10,8 @@ define(['jquery', 'chains/stages/shin/desert_room', 'dev/demo_draw', 'controller
         var room = null;
         var loading = false;
         var xOffset, yOffset;
+
+
 
         // guaranteed one call per 16ms
         my.processFrame = function() {
@@ -24,18 +26,21 @@ define(['jquery', 'chains/stages/shin/desert_room', 'dev/demo_draw', 'controller
                 return;
             }
 
+            loadDesertRoom();
+            loading = true;
+
+        };
+
+        var loadDesertRoom = function() {
             // needs a new room
             LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/images/desert.png', 'chains/stages/shin/images/desert_map.png', 'first', function(data) {
-                room = DemoRoom(data, Monster, randomPosition);
+                room = DemoRoom(data, options.Monster, true);
                 room.title = "dessert";
 
                 loading = false;
                 xOffset = Math.floor((my.virtualWidth - room.rect.width)/2);
                 yOffset = Math.floor((my.virtualHeight - room.rect.height));
             });
-
-            loading = true;
-
         };
 
         // one call per animation call from window

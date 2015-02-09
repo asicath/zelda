@@ -36,7 +36,7 @@ requirejs([
     Music.loadAll();
 
     LoadSprites.loadAllSprites(function() {
-        var demoCycle = DemoCycle(Eyeball, false);
+        var demoCycle = DemoCycle({Monster: Eyeball});
 
         var cycle = Cycle();
         cycle.setCurrent(demoCycle);

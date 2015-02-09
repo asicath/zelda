@@ -34,14 +34,9 @@ requirejs([
 
     Sounds.loadAll();
 
-    //var music = new Audio(baseUrl + "chains/music/fire_in_the_arese.mp3");
-
     LoadSprites.loadAllSprites(function() {
 
-        //music.loop = true;
-        //music.play();
-
-        var demoCycle = DemoCycle(Monster, true);
+        var demoCycle = DemoCycle({Monster: Monster});
 
         var cycle = Cycle();
         cycle.setCurrent(demoCycle);
