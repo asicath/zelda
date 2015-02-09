@@ -25,7 +25,7 @@ return function(Monster, randomPosition) {
         }
 
         // needs a new room
-        LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/desert.png', 'chains/stages/shin/desert_map.png', 'first', function(data) {
+        LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/images/desert.png', 'chains/stages/shin/images/desert_map.png', 'first', function(data) {
             room = DemoRoom(data, Monster, randomPosition);
             room.title = "dessert";
 
