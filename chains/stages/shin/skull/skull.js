@@ -63,31 +63,20 @@ define([
 
 
         my.isOff = true;
-        my.setFrameTimeout(60*3, function() {
-            my.icon.spriteIndex = 1;
-
-            my.setFrameTimeout(60*3, function() {
-                sayHello();
-            });
-        });
-
-        var sayHello = function() {
-            talk("hello chris", laugh);
-        };
-
-        var laugh = function() {
-            isScreaming = true;
-            talk("aaaahhhhhhhhhh");
-        };
 
         var isTalking = false;
         var talkVisible, talkMessage, afterTalk, isScreaming;
-        var talk = function(message, after) {
+        my.talk = function(message, after) {
             isTalking = true;
             talkFrame = 0;
             talkMessage = message;
             talkVisible = "";
             afterTalk = after;
+        };
+
+        my.scream = function(message, after) {
+            isScreaming = true;
+            my.talk(message, after);
         };
 
 

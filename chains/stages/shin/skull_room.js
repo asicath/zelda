@@ -13,17 +13,45 @@ define([
         var leftSkull, rightSkull;
 
         var addSkulls = function() {
-            var leftSkull = Skull();
-            leftSkull.position.x = 64;
-            leftSkull.position.y = 64;
+            leftSkull = Skull();
+            leftSkull.position.x = 16*6;
+            leftSkull.position.y = 16*7;
             my.addEntity(leftSkull);
+
+            rightSkull = Skull();
+            rightSkull.position.x = 16*8;
+            rightSkull.position.y = 16*7;
+            my.addEntity(rightSkull);
         };
 
-        // add the monster after a second
-        //my.setFrameTimeout(60, function () {
-            //my.title = "boss";
-            addSkulls();
-        //});
+        addSkulls();
+
+        my.setFrameTimeout(60*3, function() {
+            leftSkull.icon.spriteIndex = 1;
+
+            leftSkull.setFrameTimeout(60*3, function() {
+                sayHello();
+            });
+        });
+
+        var sayHello = function() {
+            leftSkull.talk("why didn't the skull", function() {
+                leftSkull.talk("dance at the party?", function() {
+                    rightSkull.talk("idk why?", function() {
+                        leftSkull.talk("he had nobody to dance with!", function() {
+                            laugh();
+                        });
+                    });
+                });
+                //
+            });
+        };
+
+        var laugh = function() {
+            rightSkull.scream("aaaahhhhhhhhhh");
+        };
+
+
 
         return my;
     };
