@@ -37,6 +37,23 @@ define([
         my.isMonster = true;
 
 
+        var looking = 0;
+        var mouthOpen = 0;
+
+        my.icon.getSpriteIndex = function() {
+            if (!looking) return 0;
+            return looking + mouthOpen;
+        };
+
+        my.look = function(direction) {
+            switch(direction) {
+                case "foreward": looking = 1; break;
+                case "left": looking = 3; break;
+                case "right": looking = 5; break;
+                default: looking = 0;
+            }
+        };
+
 
         PlayerHitter(my);
         Mortal(my);
@@ -97,20 +114,18 @@ define([
             talkFrame++;
 
             if (isScreaming) {
-                my.icon.spriteIndex = 2;
+                mouthOpen = 1;
             }
             else {
-                my.icon.spriteIndex = 1 + Math.floor(talkFrame / 6) % 2;
+                mouthOpen = Math.floor(talkFrame / 6) % 2;
             }
-
 
             if (talkVisible.length < talkMessage.length && talkFrame % 10 == 0) {
                 talkVisible = talkMessage.substr(0, talkVisible.length+1);
 
                 if (talkVisible.length == talkMessage.length) {
                     isTalking = false;
-                    my.icon.spriteIndex = 1;
-
+                    mouthOpen = 0;
                 }
             }
 
