@@ -127,6 +127,50 @@ define([
 
 
 
+        // HOPPING
+        var isHopping = false;
+        var startHopPosition = null;
+        var hopDistance = 0;
+        var hopFrames = 0;
+        var hopFrame = 0;
+        var hopHeight = 0;
+
+        my.addFrameItem('post', function() {
+            if (!isHopping) return;
+
+
+
+            if (hopFrame == hopFrames) {
+                my.position.x = startHopPosition.x + hopDistance;
+                my.position.y = startHopPosition.y;
+                isHopping = false;
+            }
+            else {
+
+                var percent = hopFrame / hopFrames;
+
+                var xChange = hopDistance * percent;
+                my.position.x = startHopPosition.x + xChange;
+
+                var yChange = hopHeight * Math.sin(Math.PI + Math.PI * percent);
+                my.position.y = startHopPosition.y + yChange;
+
+                hopFrame++;
+            }
+
+        });
+
+        my.hopLeft = function() {
+            isHopping = true;
+            startHopPosition = my.position.clone();
+            hopDistance = -16;
+            hopFrames = 30;
+            hopFrame = 0;
+            hopHeight = 4;
+        };
+
+
+
         return my;
     };
 });

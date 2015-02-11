@@ -35,6 +35,7 @@ define([
         });
 
         var sayHello = function() {
+            leftSkull.hopLeft();
             leftSkull.talk("why didn't the skull", function() {
                 leftSkull.talk("dance at the party?", function() {
                     rightSkull.talk("idk why?", function() {
@@ -48,7 +49,10 @@ define([
         };
 
         var laugh = function() {
-            rightSkull.scream("aaaahhhhhhhhhh");
+            rightSkull.scream("ahahahahahahahaha");
+            my.setFrameTimeout(60, function() {
+                leftSkull.hopLeft();
+            });
         };
 
 
