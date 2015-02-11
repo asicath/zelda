@@ -39,7 +39,7 @@ define([
             leftSkull.look("foreward");
             leftSkull.talk("why didn't the skull", function() {
                 leftSkull.talk("dance at the party?", function() {
-                    leftSkull.look("foreward");
+                    rightSkull.look("foreward");
                     rightSkull.talk("idk why?", function() {
                         leftSkull.talk("he had nobody to dance with!", function() {
                             laugh();
@@ -51,16 +51,20 @@ define([
         };
 
         var laugh = function() {
-            rightSkull.scream("ahahahahahahahaha");
-            my.setFrameTimeout(60, function() {
-                leftSkull.look("right");
-            });
+            rightSkull.scream("ahahahahahahahaha", avoid);
+        };
+
+        var avoid = function() {
+            leftSkull.look("right");
+
             my.setFrameTimeout(60*3, function() {
                 leftSkull.hopLeft();
-            });
-            my.setFrameTimeout(60*4, function() {
-                leftSkull.look("left");
-            });
+
+                my.setFrameTimeout(60*3, function() {
+                    leftSkull.look("left");
+                });
+            })
+
         };
 
 
