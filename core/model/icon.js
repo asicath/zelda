@@ -44,8 +44,12 @@ define(['view/image_options'], function(ImageOptions) {
             return entity.position.y + my.drawOffset.y;
         };
 
+        my.getSpriteIndex = function() {
+            return my.spriteIndex;
+        };
+
         my.getSprite = function () {
-            return my.spriteSheet.sprites[my.spriteIndex];
+            return my.spriteSheet.sprites[my.getSpriteIndex()];
         };
 
         // Default image options
