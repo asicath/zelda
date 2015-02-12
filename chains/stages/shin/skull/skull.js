@@ -41,15 +41,14 @@ define([
         var mouthOpen = 0;
 
         my.icon.getSpriteIndex = function() {
-            if (!looking) return 0;
             return looking + mouthOpen;
         };
 
         my.look = function(direction) {
             switch(direction) {
-                case "foreward": looking = 1; break;
-                case "left": looking = 3; break;
-                case "right": looking = 5; break;
+                case "foreward": looking = 2; break;
+                case "left": looking = 4; break;
+                case "right": looking = 6; break;
                 default: looking = 0;
             }
         };
@@ -120,7 +119,7 @@ define([
                 mouthOpen = Math.floor(talkFrame / 6) % 2;
             }
 
-            if (talkVisible.length < talkMessage.length && talkFrame % 10 == 0) {
+            if (talkVisible.length < talkMessage.length && talkFrame % 7 == 0) {
                 talkVisible = talkMessage.substr(0, talkVisible.length+1);
 
                 if (talkVisible.length == talkMessage.length) {
@@ -153,8 +152,6 @@ define([
         my.addFrameItem('post', function() {
             if (!isHopping) return;
 
-
-
             if (hopFrame == hopFrames) {
                 my.position.x = startHopPosition.x + hopDistance;
                 my.position.y = startHopPosition.y;
@@ -179,7 +176,16 @@ define([
             isHopping = true;
             startHopPosition = my.position.clone();
             hopDistance = -16;
-            hopFrames = 30;
+            hopFrames = 15;
+            hopFrame = 0;
+            hopHeight = 4;
+        };
+
+        my.hopRight = function() {
+            isHopping = true;
+            startHopPosition = my.position.clone();
+            hopDistance = 16;
+            hopFrames = 15;
             hopFrame = 0;
             hopHeight = 4;
         };
