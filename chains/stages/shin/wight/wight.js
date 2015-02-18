@@ -62,6 +62,7 @@ define([
             my.pushFromThrust(entity.facing);
 
             my.speed = 1.0; // can move 40 pixels in 1s or 60 frames
+            my.movementSources[0].stepChange = 10;
             my.changeDirectionPercent = 6 / 16;
             my.homingPercent = 128 / 255;
             my.facingSpriteBaseIndex = [2, 2, 2, 2];
