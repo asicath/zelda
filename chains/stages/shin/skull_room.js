@@ -86,6 +86,11 @@ define([
 
                 my.setFrameTimeout(60*2, function() {
                     leftSkull.look("left");
+                    my.setFrameTimeout(60*2, function() {
+                        leftSkull.talk("what a bonehead...", function () {
+
+                        });
+                    });
                 });
 
             })
