@@ -84,7 +84,10 @@ define(['view/image_options'], function(ImageOptions) {
 
             if (flickering) {
                 // flickers invisible in 2 frame intervals
-                return flickerFrame++ % flickerInterval == 0;
+                if (Math.floor(flickerFrame++ / flickerInterval) % 2 == 0) return false;
+
+
+                //return flickerFrame++ % flickerInterval == 0;
             }
 
             return my.visible;
