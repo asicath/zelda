@@ -6,7 +6,7 @@ define([
     'controller/load_rooms'
 ], function(
     $,
-    DemoRoom,
+    DesertRoom,
     SkullRoom,
     DemoDraw,
     LoadRooms
@@ -19,8 +19,16 @@ define([
             virtualHeight: 192
         };
 
+        // standard room size
+        var roomWidth = 256;
+        var roomHeight = 176;
+
+        // where to draw the room
+        var xOffset = Math.floor((my.virtualWidth - roomWidth)/2);
+        var yOffset = Math.floor((my.virtualHeight - roomHeight));
+
+
         var rooms = [];
-        var xOffset, yOffset;
 
         function addRoom(room) {
             rooms.push(room);
@@ -29,6 +37,7 @@ define([
         // load the specified room
         if (!options.room) {
             loadDesertRoom();
+            
         }
         else if (options.room == 'talkingSkulls') {
             loadTalkingSkullRoom();
@@ -38,11 +47,6 @@ define([
 
         // guaranteed one call per 16ms
         my.processFrame = function() {
-
-            if (rooms.length == 0) {
-                // wait
-                return;
-            }
 
             for (var i = 0; i < rooms.length; i++) {
                 // Give the room a frame of animation
@@ -54,25 +58,20 @@ define([
         function loadDesertRoom() {
             // needs a new room
             LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/images/desert.png', 'chains/stages/shin/images/desert_map.png', 'first', function(data) {
-                var room = DemoRoom(data, options.Monster, true);
+                var room = DesertRoom(data, options.Monster, true);
                 room.title = "dessert";
-
-                xOffset = Math.floor((my.virtualWidth - room.rect.width)/2);
-                yOffset = Math.floor((my.virtualHeight - room.rect.height));
-
                 addRoom(room);
             });
         }
 
         function loadTalkingSkullRoom() {
+
+            SkullRoom(addRoom);
+
             // needs a new room
             LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/images/desert.png', 'chains/stages/shin/images/desert_map.png', 'first', function(data) {
                 var room = SkullRoom(data);
                 room.title = "skulls";
-
-                xOffset = Math.floor((my.virtualWidth - room.rect.width)/2);
-                yOffset = Math.floor((my.virtualHeight - room.rect.height));
-
                 addRoom(room);
             });
         }
