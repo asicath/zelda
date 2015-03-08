@@ -19,87 +19,92 @@ define([
             virtualHeight: 192
         };
 
-        var room = null;
-        var loading = false;
+        var rooms = [];
         var xOffset, yOffset;
+
+        function addRoom(room) {
+            rooms.push(room);
+        }
+
+        // load the specified room
+        if (!options.room) {
+            loadDesertRoom();
+        }
+        else if (options.room == 'talkingSkulls') {
+            loadTalkingSkullRoom();
+        }
 
 
 
         // guaranteed one call per 16ms
         my.processFrame = function() {
 
-            if (room != null) {
-                // Give the room a frame of animation
-                room.executeFrame();
-                return;
-            }
-            else if (loading) {
+            if (rooms.length == 0) {
                 // wait
                 return;
             }
 
-            if (!options.room) {
-                loadDesertRoom();
+            for (var i = 0; i < rooms.length; i++) {
+                // Give the room a frame of animation
+                rooms[i].executeFrame();
             }
-            else if (options.room == 'talkingSkulls') {
-                loadTalkingSkullRoom();
-            }
-
-
-            loading = true;
 
         };
 
-        var loadDesertRoom = function() {
+        function loadDesertRoom() {
             // needs a new room
             LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/images/desert.png', 'chains/stages/shin/images/desert_map.png', 'first', function(data) {
-                room = DemoRoom(data, options.Monster, true);
+                var room = DemoRoom(data, options.Monster, true);
                 room.title = "dessert";
 
-                loading = false;
                 xOffset = Math.floor((my.virtualWidth - room.rect.width)/2);
                 yOffset = Math.floor((my.virtualHeight - room.rect.height));
-            });
-        };
 
-        var loadTalkingSkullRoom = function() {
+                addRoom(room);
+            });
+        }
+
+        function loadTalkingSkullRoom() {
             // needs a new room
             LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/images/desert.png', 'chains/stages/shin/images/desert_map.png', 'first', function(data) {
-                room = SkullRoom(data);
+                var room = SkullRoom(data);
                 room.title = "skulls";
 
-                loading = false;
                 xOffset = Math.floor((my.virtualWidth - room.rect.width)/2);
                 yOffset = Math.floor((my.virtualHeight - room.rect.height));
+
+                addRoom(room);
             });
-        };
+        }
 
         // one call per animation call from window
         my.drawFrame = function(ctx) {
 
-            if (!room) {
+            if (rooms.length == 0) {
                 //DrawText.drawText(ctx, "loading", 64, 64);
                 return;
             }
 
-            drawMenu(ctx);
+            for (var i = 0; i < rooms.length; i++) {
+                // draw the room
+                rooms[i].drawRoom(ctx, xOffset, yOffset);
+            }
 
-            // draw the room
-            room.drawRoom(ctx, xOffset, yOffset);
+            drawMenu(ctx);
         };
 
         var drawMenu = function(ctx) {
             // black out the sides
             ctx.fillStyle = 'black';
             // left
-            ctx.fillRect(0, yOffset, xOffset, room.rect.height);
+            ctx.fillRect(0, yOffset, xOffset, my.virtualHeight);
             // right
-            ctx.fillRect(xOffset + room.rect.width, yOffset, xOffset, room.rect.height);
+            ctx.fillRect(my.virtualWidth - xOffset, yOffset, xOffset, my.virtualHeight);
             // top
             ctx.fillRect(0, 0, my.virtualWidth, yOffset);
 
             // draw the arcade overlay
-            DemoDraw.drawInfo(ctx, room, my.virtualWidth, my.virtualHeight);
+            DemoDraw.drawInfo(ctx, rooms[0], my.virtualWidth, my.virtualHeight);
         };
 
         return my;

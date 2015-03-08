@@ -18,6 +18,8 @@ define([
 
         FrameEventHaver(my);
 
+        var isActive = true;
+
         var removeAfterFrame = [];
         var addAfterFrame = [];
 
@@ -100,6 +102,9 @@ define([
 
 
         my.executeFrame = function () {
+
+            // don't execute if not active
+            if (!isActive) return;
 
             my.processEventQueue(my);
 
@@ -243,6 +248,9 @@ define([
 
 
         my.drawRoom = function (ctx, xOffset, yOffset) {
+
+            // don't draw if not active
+            if (!isActive) return;
 
             // should only be needed once
             if (!my.backgroundImage) createRoomBackground();
