@@ -22,7 +22,7 @@ define([
     LoadSprites
     ) {
 
-    var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/stages/shin/ghost/ghost.png", name:"wight"});
+    var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/stages/shin/ghost/ghost_t.png", name:"wight"});
 
     return function () {
         var my = Entity();
@@ -49,7 +49,7 @@ define([
         my.life = 8;
 
         my.facingSpriteBaseIndex = [0, 0, 0, 0];
-        my.icon.startFlickering(1);
+        //my.icon.startFlickering(1);
 
         var itemDropLevel = 'a';
 
