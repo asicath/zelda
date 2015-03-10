@@ -102,6 +102,10 @@ define(function() {
     // HACK
     window.Sounds = Sounds;
 
+    // just Load them
+    Sounds.loadAll();
+
+
     return Sounds;
 });
 

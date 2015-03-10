@@ -12,6 +12,8 @@ requirejs.config({
     }
 });
 
+window.baseUrl = "../../../../../";
+
 requirejs([
     'core/model/directions',
     'core/controller/cycle',
@@ -30,9 +32,7 @@ requirejs([
     Monster
 ) {
 
-    window.baseUrl = "../../../../../";
 
-    Sounds.loadAll();
 
     LoadSprites.loadAllSprites(function() {
 
