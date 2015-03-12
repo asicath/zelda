@@ -1,9 +1,11 @@
-define(['./entity', '../icon', './player_hitter', '../movement/missile', '../movement/mover'], function(Entity, Icon, PlayerHitter, Missile, Mover) {
+define(['./entity', '../icon', './player_hitter', '../movement/missile', '../movement/mover', 'view/sprite_sheet'], function(Entity, Icon, PlayerHitter, Missile, Mover, SpriteSheet) {
+
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/ball.png"});
 
     return function () {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.ball);
+        my.icon = Icon(my, spriteSheet);
         my.icon.startFlashing();
 
         PlayerHitter(my);

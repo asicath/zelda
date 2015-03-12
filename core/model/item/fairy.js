@@ -1,11 +1,11 @@
-define(['./item', '../icon', 'controller/load_sprites'], function(Item, Icon, LoadSprites) {
+define(['./item', '../icon', 'view/sprite_sheet'], function(Item, Icon, SpriteSheet) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/fairy.gif", name:"fairy"});
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/fairy.gif"});
 
     return function () {
         var my = Item();
 
-        my.icon = Icon(my, SpriteSheets.fairy);
+        my.icon = Icon(my, spriteSheet);
 
         my.onPickUp = function (player) {
             var amount = 12;

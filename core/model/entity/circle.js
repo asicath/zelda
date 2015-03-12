@@ -1,11 +1,11 @@
-define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
+define(['./entity', '../icon', 'view/sprite_sheet'], function(Entity, Icon, SpriteSheet) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/circle.png", name:"circle"});
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/circle.png"});
 
     return function () {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.circle);
+        my.icon = Icon(my, spriteSheet);
 
         my.getFootPrint().setSize(32, 32);
 

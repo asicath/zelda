@@ -1,12 +1,12 @@
-define(['./entity', '../icon', './bomb_blast', './spawn_cloud', 'view/image_options', 'controller/load_sprites'], function(Entity, Icon, BombBlast, SpawnCloud, ImageOptions, LoadSprites) {
+define(['./entity', '../icon', './bomb_blast', './spawn_cloud', 'view/image_options', 'view/sprite_sheet'], function(Entity, Icon, BombBlast, SpawnCloud, ImageOptions, SpriteSheet) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/bigbomb.png", name:"bigbomb"});
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/bigbomb.png"});
 
     return function (player) {
         var my = Entity();
 
         my.getFootPrint().setSize(16, 16);
-        my.icon = Icon(my, SpriteSheets.bigbomb);
+        my.icon = Icon(my, spriteSheet);
         my.icon.imageOptions = ImageOptions.RedToBlue;
         my.playerId = player.playerId; // expose for kill counting in monster
 

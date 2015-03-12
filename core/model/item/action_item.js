@@ -1,11 +1,13 @@
-define(['../entity/entity', '../icon', 'view/draw', 'core/model/directives'], function(Entity, Icon, DrawText, Directives) {
+define(['../entity/entity', '../icon', 'view/draw', 'core/model/directives', 'view/sprite_sheet'], function(Entity, Icon, DrawText, Directives, SpriteSheet) {
+
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/weapon_icons.png"});
 
     return function (cost, actionType, arg0) {
         var my = Entity();
 
         my.getFootPrint().setSize(16, 16);
 
-        my.icon = Icon(my, SpriteSheets.weaponIcons);
+        my.icon = Icon(my, spriteSheet);
         my.icon.spriteIndex = actionType().weaponIconIndex;
 
         var costDisplay = cost.toString();

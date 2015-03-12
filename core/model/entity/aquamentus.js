@@ -7,7 +7,7 @@ define([
     '../item/item_dropper',
     '../movement/shuffle',
     '../movement/mover',
-    'controller/load_sprites'
+    'view/sprite_sheet'
 ], function(
     Entity,
     Icon,
@@ -17,10 +17,10 @@ define([
     ItemDropper,
     Shuffle,
     Mover,
-    LoadSprites
+    SpriteSheet
     ) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/aquamentus.png", name:"aquamentus", map:[
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/aquamentus.png", name:"aquamentus", map:[
         {x:0,  y: 0, width: 24, height:32},
         {x:24, y: 0, width: 24, height:32},
         {x:48, y: 0, width: 24, height:32},
@@ -31,7 +31,7 @@ define([
 
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.aquamentus);
+        my.icon = Icon(my, spriteSheet);
 
         my.isMonster = true;
 

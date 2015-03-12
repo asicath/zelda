@@ -7,7 +7,7 @@ define([
     '../item/item_dropper',
     '../movement/shuffle',
     '../movement/mover',
-    'controller/load_sprites'
+    'view/sprite_sheet'
 ], function(
     Entity,
     Icon,
@@ -17,10 +17,10 @@ define([
     ItemDropper,
     Shuffle,
     Mover,
-    LoadSprites
+    SpriteSheet
     ) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/gohma.gif", name:"gohma", map:[
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/gohma.gif", map:[
         {x:0,  y: 0, width: 48, height:16},
         {x:0,  y: 16, width: 48, height:16},
         {x:48,  y: 0, width: 48, height:16},
@@ -34,7 +34,7 @@ define([
     return function () {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.gohma);
+        my.icon = Icon(my, spriteSheet);
 
         my.isMonster = true;
 

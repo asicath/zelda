@@ -11,7 +11,7 @@ define([
     '../movement/mover',
     '../rect',
     'view/image_options',
-    'controller/load_sprites'
+    'view/sprite_sheet'
 ], function(
     Entity,
     Icon,
@@ -24,15 +24,15 @@ define([
     Mover,
     Rect,
     ImageOptions,
-    LoadSprites
+    SpriteSheet
     ) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/link.png", name:"link"});
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/link.png"});
 
     return function (playerId, playerInputIndex) {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.link);
+        my.icon = Icon(my, spriteSheet);
 
         Mover(my);
         Actor(my);

@@ -1,11 +1,11 @@
-define(['core/model/entity/entity', 'core/model/icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
+define(['core/model/entity/entity', 'core/model/icon', 'view/sprite_sheet'], function(Entity, Icon, SpriteSheet) {
 
-    var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flame.png", name:"flame"});
+    var spriteSheet = SpriteSheet({url:"chains/weapons/flamesword/flame.png"});
 
     return function () {
         var my = Entity();
 
-        my.icon = Icon(my, spriteInfo.spriteSheet);
+        my.icon = Icon(my, spriteSheet);
 
         var setupSwap = function() {
             my.setFrameTimeout(4, function () {

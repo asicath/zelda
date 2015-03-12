@@ -1,6 +1,6 @@
-define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monster_hitter', 'core/model/movement/mover', 'core/model/movement/missile', 'controller/load_sprites', './flame'], function(Entity, Icon, MonsterHitter, Mover, Missile, LoadSprites, Flame) {
+define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monster_hitter', 'core/model/movement/mover', 'core/model/movement/missile', 'view/sprite_sheet', './flame'], function(Entity, Icon, MonsterHitter, Mover, Missile, SpriteSheet, Flame) {
 
-    var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flaming_missile.png", name:"flamingmissile",
+    var spriteSheet = SpriteSheet({url:"chains/weapons/flamesword/flaming_missile.png",
         map:[
             // up
             {x:0, y: 0, width: 13, height:18},
@@ -25,7 +25,7 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monste
 
         my.playerId = player.playerId; // expose for kill counting in monster
 
-        my.icon = Icon(my, spriteInfo.spriteSheet);
+        my.icon = Icon(my, spriteSheet);
         my.icon.startFlashing();
 
         var altFrame = 0, frame = 0;

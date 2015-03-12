@@ -1,6 +1,6 @@
-define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon, LoadSprites) {
+define(['./entity', '../icon', 'view/sprite_sheet'], function(Entity, Icon, SpriteSheet) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/cloud.png", name:"cloud"});
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/cloud.png", name:"cloud"});
 
     return function (entity) {
         var my = Entity();
@@ -8,7 +8,7 @@ define(['./entity', '../icon', 'controller/load_sprites'], function(Entity, Icon
         if (entity)
             my.position = entity.position;
 
-        my.icon = Icon(my, SpriteSheets.cloud);
+        my.icon = Icon(my, spriteSheet);
 
         my.setFrameTimeout(32, function () {
             my.icon.spriteIndex = 1;

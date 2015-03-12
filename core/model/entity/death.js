@@ -1,13 +1,13 @@
-define(['./entity', '../icon', 'view/image_options', 'controller/load_sprites'], function(Entity, Icon, ImageOptions, LoadSprites) {
+define(['./entity', '../icon', 'view/image_options', 'view/sprite_sheet'], function(Entity, Icon, ImageOptions, SpriteSheet) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/deathstar.png", name:"deathstar"});
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/deathstar.png"});
 
     return function (entity, after) {
         var my = Entity();
 
         my.position = entity.position;
 
-        my.icon = Icon(my, SpriteSheets.deathstar);
+        my.icon = Icon(my, spriteSheet);
 
         // flash red/blue
         my.icon.flashPalettes = [

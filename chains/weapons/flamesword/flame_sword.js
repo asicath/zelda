@@ -1,6 +1,6 @@
-define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monster_hitter', 'controller/load_sprites'], function(Entity, Icon, MonsterHitter, LoadSprites) {
+define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monster_hitter', 'view/sprite_sheet'], function(Entity, Icon, MonsterHitter, SpriteSheet) {
 
-    var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/weapons/flamesword/flamingsword.png", name:"flamingsword",map:[
+    var spriteSheet = SpriteSheet({url:"chains/weapons/flamesword/flamingsword.png", map:[
         {x:0, y: 0, width: 9, height:18},
         {x:9, y: 0, width: 9, height:18},
         {x:18, y: 0, width: 9, height:18},
@@ -33,7 +33,7 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monste
     return function(player) {
         var my = Entity();
 
-        my.icon = Icon(my, spriteInfo.spriteSheet);
+        my.icon = Icon(my, spriteSheet);
 
         MonsterHitter(my);
 

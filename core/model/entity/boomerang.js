@@ -1,11 +1,11 @@
-define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'controller/load_sprites'], function(Entity, Icon, MonsterHitter, LoadSprites) {
+define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'view/sprite_sheet'], function(Entity, Icon, MonsterHitter, SpriteSheet) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/boomerang.png", name:"boomerang"});
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/boomerang.png"});
 
     return function (player, direction) {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.boomerang);
+        my.icon = Icon(my, spriteSheet);
 
         MonsterHitter(my);
 

@@ -1,6 +1,6 @@
-define(['./entity', '../icon', '../movement/missile', '../movement/mover', 'controller/load_sprites'], function(Entity, Icon, Missile, Mover, LoadSprites) {
+define(['./entity', '../icon', '../movement/missile', '../movement/mover', 'view/sprite_sheet'], function(Entity, Icon, Missile, Mover, SpriteSheet) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/explosion.png", name:"explosion", map:[
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/explosion.png", name:"explosion", map:[
         {x:0,  y: 0, width: 8, height:10},
         {x:8,  y: 0, width: 8, height:10},
         {x:16, y: 0, width: 8, height:10},
@@ -10,7 +10,7 @@ define(['./entity', '../icon', '../movement/missile', '../movement/mover', 'cont
     var ExplosionPart = function (angle) {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.explosion);
+        my.icon = Icon(my, spriteSheet);
         my.icon.startFlashing();
 
         Mover(my);

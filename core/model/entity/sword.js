@@ -1,6 +1,6 @@
-define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'controller/load_sprites'], function(Entity, Icon, MonsterHitter, LoadSprites) {
+define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'view/sprite_sheet'], function(Entity, Icon, MonsterHitter, SpriteSheet) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/sword.png", name:"sword",map:[
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/sword.png", name:"sword",map:[
         {x:0, y: 0, width: 8, height:16},
         {x:8, y: 0, width: 8, height:16},
         {x:16, y: 0, width: 16, height:8},
@@ -10,7 +10,7 @@ define(['./entity', '../icon', 'core/model/entity/monster_hitter', 'controller/l
     return function (player) {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.sword);
+        my.icon = Icon(my, spriteSheet);
 
         MonsterHitter(my);
 

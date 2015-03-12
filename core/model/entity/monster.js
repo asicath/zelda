@@ -9,7 +9,7 @@ define([
     '../movement/walk_random',
     '../movement/mover',
     'view/image_options',
-    'controller/load_sprites'
+    'view/sprite_sheet'
 ], function(
     Entity,
     Icon,
@@ -21,15 +21,15 @@ define([
     WalkRandom,
     Mover,
     ImageOptions,
-    LoadSprites
+    SpriteSheet
     ) {
 
-    var spriteInfo = LoadSprites.addSpriteSheet({url:"core/assets/sprites/octorok.png", name:"octorok"});
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/octorok.png"});
 
     return function (level) {
         var my = Entity();
 
-        my.icon = Icon(my, spriteInfo.spriteSheet);
+        my.icon = Icon(my, spriteSheet);
         my.icon.drawOffset.y = -2;
 
         my.isMonster = true;

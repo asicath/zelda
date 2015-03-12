@@ -1,12 +1,12 @@
-define(['./entity', '../icon', './player_hitter', '../movement/missile', '../movement/mover', 'controller/load_sprites'], function(Entity, Icon, PlayerHitter, Missile, Mover, LoadSprites) {
+define(['./entity', '../icon', './player_hitter', '../movement/missile', '../movement/mover', 'view/sprite_sheet'], function(Entity, Icon, PlayerHitter, Missile, Mover, SpriteSheet) {
 
-    LoadSprites.addSpriteSheet({url:"core/assets/sprites/rock.png", name:"rock"});
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/rock.png"});
 
     return function () {
 
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.rock);
+        my.icon = Icon(my, spriteSheet);
 
         PlayerHitter(my);
         Mover(my);

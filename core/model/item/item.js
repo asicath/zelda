@@ -1,10 +1,12 @@
-define(['../entity/entity', '../icon'], function(Entity, Icon) {
+define(['../entity/entity', '../icon', 'view/sprite_sheet'], function(Entity, Icon, SpriteSheet) {
+
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/items.png"});
 
     return function () {
         var my = Entity();
 
         my.getFootPrint().setSize(16, 16);
-        my.icon = Icon(my, SpriteSheets.items);
+        my.icon = Icon(my, spriteSheet);
 
         var pickupAllowed = false;
 
