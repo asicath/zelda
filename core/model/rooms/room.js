@@ -3,14 +3,18 @@ define([
     '../position',
     '../frame_event_haver',
     'view/color',
-    'view/image_options'
+    'view/image_options',
+    'view/sprite_sheet'
 ], function(
     Rect,
     Position,
     FrameEventHaver,
     Color,
-    ImageOptions
+    ImageOptions,
+    SpriteSheet
 ) {
+
+    var outsideSpriteSheet = SpriteSheet({url: "core/assets/sprites/outside_green.png"});
 
     return function (data) {
 
@@ -48,7 +52,7 @@ define([
                 tile.rect = new Rect(tile.position, 16, 16, 0, 0);
 
 
-                tile.sprite = SpriteSheets.outside.sprites[tile.index];
+                tile.sprite = outsideSpriteSheet.sprites[tile.index];
                 tile.imageOptions = imageOptions[tile.palette];
             }
 

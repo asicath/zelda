@@ -37,10 +37,7 @@ define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
 
     // load default sheets, MOVE THESE?
 
-    addSpriteSheet({url:"core/assets/sprites/outside_green.png", name:"outside"});
     addSpriteSheet({url:"core/assets/sprites/heart.png", name:"heart"});
-    addSpriteSheet({url:"core/assets/sprites/ball.png", name:"ball"});
-    addSpriteSheet({url:"core/assets/sprites/items.png", name:"items"});
     addSpriteSheet({url:"core/assets/sprites/letters.png", name:"letters"});
     addSpriteSheet({url:"core/assets/sprites/icons.png", name:"icons"});
     addSpriteSheet({url:"core/assets/sprites/weapon_border.png", name:"weaponBorder"});
