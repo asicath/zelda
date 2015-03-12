@@ -12,8 +12,6 @@ requirejs.config({
     }
 });
 
-window.baseUrl = "../../../../../";
-
 requirejs([
     'core/model/directions',
     'core/controller/cycle',
@@ -36,7 +34,7 @@ requirejs([
 
     Sounds.loadAll();
 
-    var music = new Audio(baseUrl + "chains/music/fire_in_the_arese.mp3");
+    var music = new Audio(requirejs.s.contexts._.config.baseUrl + "chains/music/fire_in_the_arese.mp3");
 
     LoadSprites.loadAllSprites(function() {
 

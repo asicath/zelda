@@ -117,7 +117,7 @@ return function() {
         if (x.length == 1) x = "0" + x;
         if (y.length == 1) y = "0" + y;
 
-        LoadRooms.loadRoomJson('', baseUrl + 'core/assets/rooms/ow' + x + '-' + y + '.js', function(data) {
+        LoadRooms.loadRoomJson('', requirejs.s.contexts._.config.baseUrl + 'core/assets/rooms/ow' + x + '-' + y + '.js', function(data) {
             var room = type(data);
             room.title = "room " + x + "-" + y;
             success(room);

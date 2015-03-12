@@ -14,8 +14,6 @@ requirejs.config({
 
 requirejs(['core/model/directions', 'core/controller/cycle', 'arcade/demo_cycle', 'arcade/blazingpixel_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound'], function(a, Cycle, DemoCycle, LogoCycle, LoadSprites, Music, Sounds) {
 
-    window.baseUrl = "../";
-
     Sounds.loadAll();
     Music.loadAll();
 

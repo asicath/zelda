@@ -12,8 +12,6 @@ requirejs.config({
     }
 });
 
-window.baseUrl = "../../../../../";
-
 requirejs([
     'core/model/directions',
     'core/controller/cycle',

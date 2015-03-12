@@ -10,7 +10,8 @@ define([
     'core/model/movement/mover',
     'view/image_options',
     'controller/load_sprites',
-    'view/draw'
+    'view/draw',
+    'core/model/sound-effect'
 ], function(
     Entity,
     Icon,
@@ -23,10 +24,13 @@ define([
     Mover,
     ImageOptions,
     LoadSprites,
-    DrawText
+    DrawText,
+    Sound
     ) {
 
     var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/stages/shin/skull/skull.png", name:"skull"});
+    var teeth = Sound('chains/stages/shin/skull/skullteeth.wav');
+    // http://localhost:63342/zelda/chains/stages/shin/skull/demo/   chains/stages/shin/skull/skullteeth.wav
 
     return function () {
         var my = Entity();

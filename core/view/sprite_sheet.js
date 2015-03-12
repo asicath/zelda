@@ -14,7 +14,7 @@ define(['./color', './pixel', './sprite'], function(Color, Pixel, Sprite) {
     SpriteSheet.loadFromImgUrl = function (imgUrl, map, width, success) {
 
         var img = new Image();
-        img.src = baseUrl + imgUrl;
+        img.src = requirejs.s.contexts._.config.baseUrl + imgUrl;
         img.onload = function () {
 
             // Create canvas, size it, get the context

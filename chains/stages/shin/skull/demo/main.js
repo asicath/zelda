@@ -30,8 +30,6 @@ requirejs([
     Monster
 ) {
 
-    window.baseUrl = "../../../../../";
-
     Sounds.loadAll();
 
     LoadSprites.loadAllSprites(function() {

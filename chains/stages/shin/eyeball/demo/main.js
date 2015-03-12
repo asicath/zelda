@@ -30,8 +30,6 @@ requirejs([
     Eyeball
 ) {
 
-    window.baseUrl = "../../../../../";
-
     Sounds.loadAll();
     Music.loadAll();
 
