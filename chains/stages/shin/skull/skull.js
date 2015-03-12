@@ -9,7 +9,7 @@ define([
     'core/model/movement/walk_random',
     'core/model/movement/mover',
     'view/image_options',
-    'controller/load_sprites',
+    'view/sprite_sheet',
     'view/draw',
     'core/model/sound-effect'
 ], function(
@@ -23,19 +23,19 @@ define([
     WalkRandom,
     Mover,
     ImageOptions,
-    LoadSprites,
+    SpriteSheet,
     DrawText,
     Sound
     ) {
 
-    var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/stages/shin/skull/skull.png", name:"skull"});
+    var spriteSheet = SpriteSheet({url:"chains/stages/shin/skull/skull.png"});
     var teeth = Sound('chains/stages/shin/skull/skullteeth.wav');
     // http://localhost:63342/zelda/chains/stages/shin/skull/demo/   chains/stages/shin/skull/skullteeth.wav
 
     return function () {
         var my = Entity();
 
-        my.icon = Icon(my, spriteInfo.spriteSheet);
+        my.icon = Icon(my, spriteSheet);
         my.icon.drawOffset.y = -2;
 
         my.isMonster = true;

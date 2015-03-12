@@ -6,7 +6,7 @@ define([
     'core/model/entity/mortal',
     'core/model/item/item_dropper',
     'view/image_options',
-    'controller/load_sprites',
+    'view/sprite_sheet',
     'chains/stages/shin/eyeball/fireball'
 ], function(
     Entity,
@@ -16,11 +16,11 @@ define([
     Mortal,
     ItemDropper,
     ImageOptions,
-    LoadSprites,
+    SpriteSheet,
     Fireball
     ) {
 
-    LoadSprites.addSpriteSheet({url:"chains/stages/shin/eyeball/eye_black.png", name:"eyeball", map:[
+    var spriteSheet = SpriteSheet({url:"chains/stages/shin/eyeball/eye_black.png", map:[
         {x:   0, y: 0, width: 56, height:33},
         {x:  56, y: 0, width: 56, height:33},
         {x: 112, y: 0, width: 56, height:33},
@@ -46,7 +46,7 @@ define([
         PlayerHitter(my);
         Mortal(my);
 
-        my.icon = Icon(my, SpriteSheets.eyeball, 10);
+        my.icon = Icon(my, spriteSheet, 10);
 
         my.isMonster = true;
         my.life = 100;

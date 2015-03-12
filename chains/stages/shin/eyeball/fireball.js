@@ -1,11 +1,25 @@
-define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/player_hitter', 'core/model/movement/missile', 'core/model/movement/mover', 'controller/load_sprites'], function(Entity, Icon, PlayerHitter, Missile, Mover, LoadSprites) {
+define([
+    'core/model/entity/entity',
+    'core/model/icon',
+    'core/model/entity/player_hitter',
+    'core/model/movement/missile',
+    'core/model/movement/mover',
+    'view/sprite_sheet'
+], function(
+    Entity,
+    Icon,
+    PlayerHitter,
+    Missile,
+    Mover,
+    SpriteSheet
+) {
 
-    LoadSprites.addSpriteSheet({url:"chains/stages/shin/eyeball/fire.png", name:"eyeFireball"});
+    var spriteSheet = SpriteSheet({url:"chains/stages/shin/eyeball/fire.png"});
 
     return function (eyeball) {
         var my = Entity();
 
-        my.icon = Icon(my, SpriteSheets.eyeFireball);
+        my.icon = Icon(my, spriteSheet);
 
         PlayerHitter(my);
         Mover(my);

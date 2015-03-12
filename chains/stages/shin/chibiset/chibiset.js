@@ -9,7 +9,7 @@ define([
     'core/model/movement/walk_random',
     'core/model/movement/mover',
     'view/image_options',
-    'controller/load_sprites'
+    'view/sprite_sheet'
 ], function(
     Entity,
     Icon,
@@ -21,15 +21,15 @@ define([
     WalkRandom,
     Mover,
     ImageOptions,
-    LoadSprites
+    SpriteSheet
     ) {
 
-    var spriteInfo = LoadSprites.addSpriteSheet({url:"chains/stages/shin/chibiset/set.png", name:"miniset"});
+    var spriteSheet = SpriteSheet({url:"chains/stages/shin/chibiset/set.png"});
 
     return function (level) {
         var my = Entity();
 
-        my.icon = Icon(my, spriteInfo.spriteSheet);
+        my.icon = Icon(my, spriteSheet);
         my.icon.drawOffset.y = -2;
 
         my.isMonster = true;

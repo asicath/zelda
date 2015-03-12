@@ -28,6 +28,7 @@ define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
                 data.overlay.overlay = overlaySheet.sprites;
                 success(data, key);
             });
+
         });
 
     };
