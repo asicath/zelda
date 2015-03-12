@@ -1,17 +1,24 @@
 define(['./color', './pixel', './sprite'], function(Color, Pixel, Sprite) {
 
-    var SpriteSheet = function (naturalSprites) {
-        var my = {
-            sprites: naturalSprites
+    return function(info, onLoadComplete) {
+        var o = {
+            info: info
         };
 
-        // will eventually contain a method for mapping all natural sprites to modified color
+        loadFromImgUrl(o, function() {
+            if (onLoadComplete) onLoadComplete(o);
+            // INDICATE THAT LOAD IS COMPLETE
+        });
 
-        return my;
+        return o;
     };
 
+    function loadFromImgUrl(sheet, success) {
 
-    SpriteSheet.loadFromImgUrl = function (imgUrl, map, width, success) {
+        var imgUrl = sheet.info.url;
+        var map = sheet.info.map;
+        var width = sheet.info.width;
+
 
         var img = new Image();
         img.src = requirejs.s.contexts._.config.baseUrl + imgUrl;
@@ -90,11 +97,10 @@ define(['./color', './pixel', './sprite'], function(Color, Pixel, Sprite) {
 
             }
 
-            var sheet = SpriteSheet(sprites);
+            sheet.sprites = sprites;
 
             success(sheet);
         };
-    };
+    }
 
-    return SpriteSheet;
 });

@@ -20,20 +20,16 @@ define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
             imageUrl: imageUrl,
             overlayUrl: overlayUrl
         };
-
-        SpriteSheet.loadFromImgUrl(data.overlay.imageUrl, [
-            {x: 0, y: 0, width: 256, height: 176}
-        ], null, function (sheet) {
-
+        
+        SpriteSheet({url:data.overlay.imageUrl, map:[{x: 0, y: 0, width: 256, height: 176}]}, function(sheet) {
             data.overlay.sprite = sheet.sprites;
 
-            SpriteSheet.loadFromImgUrl(data.overlay.overlayUrl, [
-                {x: 0, y: 0, width: 256, height: 176}
-            ], null, function (overlay) {
-                data.overlay.overlay = overlay.sprites;
+            SpriteSheet({url:data.overlay.overlayUrl, map:[{x: 0, y: 0, width: 256, height: 176}]}, function(overlaySheet) {
+                data.overlay.overlay = overlaySheet.sprites;
                 success(data, key);
             });
-        }, true);
+        });
+
     };
 
     var loadAllRooms = function (roomModel, success) {

@@ -22,7 +22,7 @@ define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
         };
 
         var load = function (info) {
-            SpriteSheet.loadFromImgUrl(info.url, info.map, info.width, function (sheet) {
+            SpriteSheet(info, function (sheet) {
                 SpriteSheets[info.name] = sheet;
                 info.spriteSheet = sheet;
                 spriteLoadFinish();
