@@ -16,19 +16,21 @@ requirejs([
     'core/model/directions',
     'core/controller/cycle',
     'chains/stages/shin/shin_cycle',
+    'controller/load_watcher',
     'controller/music',
     'controller/sound',
-    'controller/load_watcher',
     'chains/stages/shin/wight/wight'
 ], function(
     a,
     Cycle,
     DemoCycle,
+    LoadWatcher,
     Music,
     Sounds,
-    LoadWatcher,
     Monster
 ) {
+
+    Sounds.loadAll();
 
     LoadWatcher.addLoadCompleteWatcher(function() {
 

@@ -16,7 +16,7 @@ requirejs([
     'core/model/directions',
     'core/controller/cycle',
     'chains/stages/shin/shin_cycle',
-    'controller/load_sprites',
+    'controller/load_watcher',
     'controller/music',
     'controller/sound',
     'chains/stages/shin/chibiset/chibiset'
@@ -24,22 +24,15 @@ requirejs([
     a,
     Cycle,
     DemoCycle,
-    LoadSprites,
+    LoadWatcher,
     Music,
     Sounds,
     Monster
 ) {
 
-
-
     Sounds.loadAll();
 
-    var music = new Audio(requirejs.s.contexts._.config.baseUrl + "chains/music/fire_in_the_arese.mp3");
-
-    LoadSprites.loadAllSprites(function() {
-
-        music.loop = true;
-        music.play();
+    LoadWatcher.addLoadCompleteWatcher(function() {
 
         var demoCycle = DemoCycle({Monster: Monster});
 

@@ -12,12 +12,28 @@ requirejs.config({
     }
 });
 
-requirejs(['core/model/directions', 'core/controller/cycle', 'arcade/demo_cycle', 'arcade/blazingpixel_cycle', 'controller/load_sprites', 'controller/music', 'controller/sound'], function(a, Cycle, DemoCycle, LogoCycle, LoadSprites, Music, Sounds) {
+requirejs([
+    'core/model/directions',
+    'core/controller/cycle',
+    'arcade/demo_cycle',
+    'arcade/blazingpixel_cycle',
+    'controller/load_watcher',
+    'controller/music',
+    'controller/sound'
+], function(
+    a,
+    Cycle,
+    DemoCycle,
+    LogoCycle,
+    LoadWatcher,
+    Music,
+    Sounds
+) {
 
     Sounds.loadAll();
     Music.loadAll();
 
-    LoadSprites.loadAllSprites(function() {
+    LoadWatcher.addLoadCompleteWatcher(function() {
         var demoCycle = DemoCycle();
         var logoCycle = LogoCycle();
 
@@ -26,11 +42,7 @@ requirejs(['core/model/directions', 'core/controller/cycle', 'arcade/demo_cycle'
         };
 
         var cycle = Cycle();
-
         cycle.setCurrent(logoCycle);
-
-
-
         cycle.start();
     });
 

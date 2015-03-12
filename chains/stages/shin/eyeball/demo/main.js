@@ -16,7 +16,7 @@ requirejs([
     'core/model/directions',
     'core/controller/cycle',
     'chains/stages/shin/shin_cycle',
-    'controller/load_sprites',
+    'controller/load_watcher',
     'controller/music',
     'controller/sound',
     'chains/stages/shin/eyeball/eyeball'
@@ -24,7 +24,7 @@ requirejs([
     a,
     Cycle,
     DemoCycle,
-    LoadSprites,
+    LoadWatcher,
     Music,
     Sounds,
     Eyeball
@@ -33,7 +33,7 @@ requirejs([
     Sounds.loadAll();
     Music.loadAll();
 
-    LoadSprites.loadAllSprites(function() {
+    LoadWatcher.addLoadCompleteWatcher(function() {
         var demoCycle = DemoCycle({Monster: Eyeball});
 
         var cycle = Cycle();
