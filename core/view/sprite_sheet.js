@@ -1,13 +1,16 @@
-define(['./color', './pixel', './sprite'], function(Color, Pixel, Sprite) {
+define(['./color', './pixel', './sprite', 'controller/load_watcher'], function(Color, Pixel, Sprite, LoadWatcher) {
 
     return function(info, onLoadComplete) {
         var o = {
             info: info
         };
 
+        LoadWatcher.addWatch();
+
         loadFromImgUrl(o, function() {
             if (onLoadComplete) onLoadComplete(o);
             // INDICATE THAT LOAD IS COMPLETE
+            LoadWatcher.complete();
         });
 
         return o;

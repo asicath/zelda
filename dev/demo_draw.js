@@ -1,6 +1,11 @@
-define(['view/draw'], function(DrawText) {
+define(['view/draw', 'view/sprite_sheet'], function(DrawText, SpriteSheet) {
 
     var my = {};
+
+    var heart = SpriteSheet({url: "core/assets/sprites/heart.png"});
+    var icons = SpriteSheet({url: "core/assets/sprites/icons.png"});
+    var weaponBorder = SpriteSheet({url: "core/assets/sprites/weapon_border.png"});
+    var weaponIcons = SpriteSheet({url: "core/assets/sprites/weapon_icons.png", width:14});
 
     my.drawInfo = function (ctx, room, virtualWidth, virtualHeight) {
 
@@ -47,31 +52,31 @@ define(['view/draw'], function(DrawText) {
                     index = 2;
                 }
             }
-            SpriteSheets.heart.sprites[index].drawSprite(ctx, x + (i / 4) * 8 - 8, y);
+            heart.sprites[index].drawSprite(ctx, x + (i / 4) * 8 - 8, y);
             i -= 4;
         }
 
         y += 8;
         DrawText.drawText(ctx, " x" + (player.rupees || 0), x, y);
-        SpriteSheets.icons.sprites[0].drawSprite(ctx, x, y);
+        icons.sprites[0].drawSprite(ctx, x, y);
 
         y += 8;
         DrawText.drawText(ctx, " x" + (player.bombs || 0), x, y);
-        SpriteSheets.icons.sprites[2].drawSprite(ctx, x, y);
+        icons.sprites[2].drawSprite(ctx, x, y);
 
         y += 8;
 
 
-        SpriteSheets.weaponBorder.sprites[0].drawSprite(ctx, x, y + 3);
+        weaponBorder.sprites[0].drawSprite(ctx, x, y + 3);
         DrawText.drawText(ctx, "b", x + 5, y);
-        SpriteSheets.weaponIcons.sprites[2].drawSprite(ctx, x + 2, y + 5);
+        weaponIcons.sprites[2].drawSprite(ctx, x + 2, y + 5);
 
 
-        SpriteSheets.weaponBorder.sprites[0].drawSprite(ctx, x + 21, y + 3);
+        weaponBorder.sprites[0].drawSprite(ctx, x + 21, y + 3);
         DrawText.drawText(ctx, "a", x + 26, y);
 
         if (player.altWeaponIconIndex > -1) {
-            SpriteSheets.weaponIcons.sprites[player.altWeaponIconIndex].drawSprite(ctx, x + 2 + 21, y + 5);
+            weaponIcons.sprites[player.altWeaponIconIndex].drawSprite(ctx, x + 2 + 21, y + 5);
         }
 
 

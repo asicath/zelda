@@ -16,23 +16,21 @@ requirejs([
     'core/model/directions',
     'core/controller/cycle',
     'chains/stages/shin/shin_cycle',
-    'controller/load_sprites',
     'controller/music',
     'controller/sound',
+    'controller/load_watcher',
     'chains/stages/shin/wight/wight'
 ], function(
     a,
     Cycle,
     DemoCycle,
-    LoadSprites,
     Music,
     Sounds,
+    LoadWatcher,
     Monster
 ) {
 
-
-
-    LoadSprites.loadAllSprites(function() {
+    LoadWatcher.addLoadCompleteWatcher(function() {
 
         var demoCycle = DemoCycle({Monster: Monster});
 

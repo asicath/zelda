@@ -10,27 +10,15 @@ define(['jquery', 'view/sprite_sheet'], function($, SpriteSheet) {
 
     };
 
-    var loadRoomJsonFromOverlay = function (imageUrl, overlayUrl, key, success) {
-        var data = {
-            key: key
+    var loadRoomJsonFromOverlay = function (imageSheet, overlaySheet, key) {
+        return {
+            key: key,
+            tiles: null,
+            overlay: {
+                sprite: imageSheet.sprites,
+                overlay: overlaySheet.sprites
+            }
         };
-        data.tiles = null;
-
-        data.overlay = {
-            imageUrl: imageUrl,
-            overlayUrl: overlayUrl
-        };
-        
-        SpriteSheet({url:data.overlay.imageUrl, map:[{x: 0, y: 0, width: 256, height: 176}]}, function(sheet) {
-            data.overlay.sprite = sheet.sprites;
-
-            SpriteSheet({url:data.overlay.overlayUrl, map:[{x: 0, y: 0, width: 256, height: 176}]}, function(overlaySheet) {
-                data.overlay.overlay = overlaySheet.sprites;
-                success(data, key);
-            });
-
-        });
-
     };
 
     var loadAllRooms = function (roomModel, success) {

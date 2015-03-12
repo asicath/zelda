@@ -3,14 +3,19 @@ define([
     'chains/stages/shin/desert_room',
     'chains/stages/shin/skull_room',
     'dev/demo_draw',
-    'controller/load_rooms'
+    'controller/load_rooms',
+    'view/sprite_sheet'
 ], function(
     $,
     DesertRoom,
     SkullRoom,
     DemoDraw,
-    LoadRooms
+    LoadRooms,
+    SpriteSheet
 ) {
+
+    var desertImage = SpriteSheet({url:'chains/stages/shin/images/desert.png', map:[{x: 0, y: 0, width: 256, height: 176}]});
+    var desertOverlay = SpriteSheet({url:'chains/stages/shin/images/desert_map.png', map:[{x: 0, y: 0, width: 256, height: 176}]});
 
     return function(options) {
 
@@ -37,7 +42,6 @@ define([
         // load the specified room
         if (!options.room) {
             loadDesertRoom();
-            
         }
         else if (options.room == 'talkingSkulls') {
             loadTalkingSkullRoom();
@@ -57,11 +61,10 @@ define([
 
         function loadDesertRoom() {
             // needs a new room
-            LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/images/desert.png', 'chains/stages/shin/images/desert_map.png', 'first', function(data) {
-                var room = DesertRoom(data, options.Monster, true);
-                room.title = "dessert";
-                addRoom(room);
-            });
+            var data = LoadRooms.loadRoomJsonFromOverlay(desertImage, desertOverlay, 'first')
+            var room = DesertRoom(data, options.Monster, true);
+            room.title = "dessert";
+            addRoom(room);
         }
 
         function loadTalkingSkullRoom() {
@@ -69,11 +72,11 @@ define([
             SkullRoom(addRoom);
 
             // needs a new room
-            LoadRooms.loadRoomJsonFromOverlay('chains/stages/shin/images/desert.png', 'chains/stages/shin/images/desert_map.png', 'first', function(data) {
-                var room = SkullRoom(data);
-                room.title = "skulls";
-                addRoom(room);
-            });
+            var data = LoadRooms.loadRoomJsonFromOverlay(desertImage, desertOverlay, 'first')
+            var room = SkullRoom(data);
+            room.title = "skulls";
+            addRoom(room);
+
         }
 
         // one call per animation call from window
