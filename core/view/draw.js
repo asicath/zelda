@@ -1,9 +1,8 @@
-define(function() {
+define(['view/sprite_sheet'], function(SpriteSheet) {
 
     var my = {};
 
-
-
+    var letters = SpriteSheet({url: "core/assets/sprites/letters.png"});
 
     var textMap = {
         "a": 0,
@@ -63,7 +62,7 @@ define(function() {
             var char = textMap[text[i]];
             if (typeof char === "undefined") char = 43;
 
-            var sprite = SpriteSheets.letters.sprites[char];
+            var sprite = letters.sprites[char];
             sprite.drawSprite(ctx, x + i * 8, y);
         }
 
