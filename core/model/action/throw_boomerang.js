@@ -32,7 +32,6 @@ define(['./action', '../entity/boomerang'], function(Action, Boomerang) {
             boom.position.y = y;
 
             actor.room.addEntity(boom);
-            //Sounds.bombDrop.play();
         };
 
         return my;

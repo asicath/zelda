@@ -48,7 +48,6 @@ define(['../entity/entity', '../icon', 'view/draw', 'core/model/directives', 'vi
 
         my.onPickUp = function (player) {
             player.addAltAction(actionType(player, arg0));
-            //Sounds.getRupee.play();
         };
 
         return my;
