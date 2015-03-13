@@ -32,7 +32,7 @@ define([
         var previousRoom;
         var loading = false;
         var xOffset, yOffset;
-        var treasureRoomCount = 1;
+        var treasureRoomCount = 0;
 
 
         var onSuccess = function(loadedRoom) {
