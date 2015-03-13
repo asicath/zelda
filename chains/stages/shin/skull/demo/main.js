@@ -17,14 +17,12 @@ requirejs([
     'core/controller/cycle',
     'chains/stages/shin/shin_cycle',
     'controller/load_watcher',
-    'controller/music',
     'controller/sound'
 ], function(
     a,
     Cycle,
     DemoCycle,
     LoadWatcher,
-    Music,
     Sounds
 ) {
 

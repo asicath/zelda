@@ -1,5 +1,16 @@
-define(['arcade/player_room', 'core/model/entity/aquamentus', 'core/model/entity/monster', 'core/model/entity/spawn_cloud', 'controller/music'], function(PlayerRoom, Aquamentus, Monster, SpawnCloud, Music) {
+define([
+    'arcade/player_room',
+    'core/model/entity/aquamentus',
+    'core/model/entity/monster',
+    'core/model/entity/spawn_cloud'
+], function(
+    PlayerRoom,
+    Aquamentus,
+    Monster,
+    SpawnCloud
+) {
 
+    var eightBit = new Audio("music/8 Bit legend.mp3");
     var musicDefeat = new Audio("music/Defeat1.mp3");
     var musicVictory = new Audio("music/Victory1.mp3");
     var musicMiniBossIntro = new Audio("music/minibossintro.mp3");
@@ -111,8 +122,8 @@ define(['arcade/player_room', 'core/model/entity/aquamentus', 'core/model/entity
 
         var my = PlayerRoom(data);
 
-        Music.eightBit.loop = true;
-        Music.eightBit.play();
+        eightBit.loop = true;
+        eightBit.play();
 
         var waveCount = 0;
 
@@ -141,8 +152,8 @@ define(['arcade/player_room', 'core/model/entity/aquamentus', 'core/model/entity
             else {
 
                 // stop the music
-                Music.eightBit.pause();
-                Music.eightBit.load();
+                eightBit.pause();
+                eightBit.load();
 
                 musicMiniBossIntro.pause();
                 musicMiniBossIntro.load();

@@ -17,7 +17,6 @@ requirejs([
     'core/controller/cycle',
     'chains/stages/shin/shin_cycle',
     'controller/load_watcher',
-    'controller/music',
     'controller/sound',
     'chains/stages/shin/eyeball/eyeball'
 ], function(
@@ -25,13 +24,11 @@ requirejs([
     Cycle,
     DemoCycle,
     LoadWatcher,
-    Music,
     Sounds,
     Eyeball
 ) {
 
     Sounds.loadAll();
-    Music.loadAll();
 
     LoadWatcher.addLoadCompleteWatcher(function() {
         var demoCycle = DemoCycle({Monster: Eyeball});

@@ -1,4 +1,4 @@
-define(['jquery', 'controller/music'], function($, Music) {
+define(['jquery'], function($) {
 
     var playerInput = [];
 
@@ -62,12 +62,7 @@ define(['jquery', 'controller/music'], function($, Music) {
 
             // P
             case 80:
-                if (Music.eightBit.paused) {
-                    Music.eightBit.play();
-                }
-                else {
-                    Music.eightBit.pause();
-                }
+                // disable music?
                 break;
         }
 
