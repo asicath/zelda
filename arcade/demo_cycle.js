@@ -32,8 +32,20 @@ define([
         var previousRoom;
         var loading = false;
         var xOffset, yOffset;
-        var treasureRoomCount = 0;
+        var treasureRoomCount = 1;
 
+
+        var onSuccess = function(loadedRoom) {
+            if (previousRoom) {
+                loadedRoom.transferPlayers(previousRoom);
+            }
+
+            room = loadedRoom;
+            loading = false;
+            xOffset = Math.floor((my.virtualWidth - room.rect.width)/2);
+            yOffset = Math.floor((my.virtualHeight - room.rect.height));
+            room.onComplete = nextRoom;
+        };
 
         // guaranteed one call per 16ms
         my.processFrame = function() {
@@ -50,19 +62,7 @@ define([
 
             // needs a new room
             var roomType = null;
-
-            var onSuccess = function(loadedRoom) {
-                if (previousRoom) {
-                    loadedRoom.transferPlayers(previousRoom);
-                }
-
-                room = loadedRoom;
-                loading = false;
-                xOffset = Math.floor((my.virtualWidth - room.rect.width)/2);
-                yOffset = Math.floor((my.virtualHeight - room.rect.height));
-                room.onComplete = nextRoom;
-            };
-
+            
             if (++treasureRoomCount > 1) {
                 treasureRoomCount = 0;
                 roomType = StoreRoom;
@@ -76,7 +76,7 @@ define([
 
                 Directives.nextMessage(3);
 
-                //onSuccess(room);
+                onSuccess(room);
             }
             else {
                 roomType = DemoRoom;
