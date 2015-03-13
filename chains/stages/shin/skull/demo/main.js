@@ -16,22 +16,16 @@ requirejs([
     'core/model/directions',
     'core/controller/cycle',
     'chains/stages/shin/shin_cycle',
-    'controller/load_watcher',
-    'controller/sound'
+    'controller/load_watcher'
 ], function(
     a,
     Cycle,
     DemoCycle,
-    LoadWatcher,
-    Sounds
+    LoadWatcher
 ) {
 
-    Sounds.loadAll();
-
     LoadWatcher.addLoadCompleteWatcher(function() {
-
         var demoCycle = DemoCycle({room:"talkingSkulls"});
-
         var cycle = Cycle();
         cycle.setCurrent(demoCycle);
         cycle.start();

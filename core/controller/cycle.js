@@ -1,4 +1,4 @@
-define(['jquery', './gamepad_new'], function($, gamepadSupport) {
+define(['jquery', './gamepad_new', 'core/controller/sound'], function($, gamepadSupport, Sounds) {
 
     window.requestAnimFrame = (function () {
         return  window.requestAnimationFrame ||

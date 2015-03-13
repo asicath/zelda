@@ -17,18 +17,14 @@ requirejs([
     'core/controller/cycle',
     'arcade/demo_cycle',
     'arcade/blazingpixel_cycle',
-    'controller/load_watcher',
-    'controller/sound'
+    'controller/load_watcher'
 ], function(
     a,
     Cycle,
     DemoCycle,
     LogoCycle,
-    LoadWatcher,
-    Sounds
+    LoadWatcher
 ) {
-
-    Sounds.loadAll();
 
     LoadWatcher.addLoadCompleteWatcher(function() {
         var demoCycle = DemoCycle();

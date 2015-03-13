@@ -17,23 +17,17 @@ requirejs([
     'core/controller/cycle',
     'chains/stages/shin/shin_cycle',
     'controller/load_watcher',
-    'controller/sound',
     'chains/stages/shin/wight/wight'
 ], function(
     a,
     Cycle,
     DemoCycle,
     LoadWatcher,
-    Sounds,
     Monster
 ) {
 
-    Sounds.loadAll();
-
     LoadWatcher.addLoadCompleteWatcher(function() {
-
         var demoCycle = DemoCycle({Monster: Monster});
-
         var cycle = Cycle();
         cycle.setCurrent(demoCycle);
         cycle.start();
