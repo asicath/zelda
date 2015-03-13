@@ -1,6 +1,6 @@
 define(['../entity/entity', '../icon', 'view/draw', 'core/model/directives', 'view/sprite_sheet'], function(Entity, Icon, DrawText, Directives, SpriteSheet) {
 
-    var spriteSheet = SpriteSheet({url:"core/assets/sprites/weapon_icons.png"});
+    var spriteSheet = SpriteSheet({url:"core/assets/sprites/weapon_icons.png", width:14});
 
     return function (cost, actionType, arg0) {
         var my = Entity();
