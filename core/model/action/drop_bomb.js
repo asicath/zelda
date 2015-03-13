@@ -1,4 +1,6 @@
-define(['./action', '../entity/big_bomb'], function(Action, BigBomb) {
+define(['./action', '../entity/big_bomb', 'core/controller/sound'], function(Action, BigBomb, Sound) {
+
+    var sound = Sound('core/assets/sounds/bomb_drop.wav');
 
     return function (actor, type) {
         var my = Action(actor);
@@ -34,7 +36,7 @@ define(['./action', '../entity/big_bomb'], function(Action, BigBomb) {
             bomb.position.y = y;
 
             actor.room.addEntity(bomb);
-            Sounds.bombDrop.play();
+            sound.play();
         };
 
         return my;

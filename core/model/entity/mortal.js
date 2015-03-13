@@ -1,4 +1,7 @@
-define(['./death'], function(Death) {
+define(['./death', 'core/controller/sound'], function(Death, Sound) {
+
+    var hitSound = Sound('core/assets/sounds/hit.wav');
+    var killSound = Sound('core/assets/sounds/kill.wav');
 
     return function (my) {
 
@@ -15,7 +18,7 @@ define(['./death'], function(Death) {
                 death(entity);
             }
             else {
-                Sounds.hit.play();
+                hitSound.play();
                 my.onTakeDamage(entity);
             }
 
@@ -54,7 +57,7 @@ define(['./death'], function(Death) {
             var ani = Death(my, my.afterDeath);
             my.room.addEntity(ani);
 
-            Sounds.kill.play();
+            killSound.play();
         };
 
         my.onDeath = function (killed, killer) {

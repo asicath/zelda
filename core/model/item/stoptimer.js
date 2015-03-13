@@ -1,4 +1,6 @@
-define(['./item'], function(Item) {
+define(['./item', 'core/controller/sound'], function(Item, Sound) {
+
+    var sound = Sound('core/assets/sounds/get_item.wav');
 
     return function () {
         var my = Item();
@@ -6,8 +8,7 @@ define(['./item'], function(Item) {
         my.icon.spriteIndex = 3;
 
         my.onPickUp = function (player) {
-
-            Sounds.getItem.play();
+            sound.play();
         };
 
         return my;

@@ -1,4 +1,6 @@
-define(['./item', 'view/image_options'], function(Item, ImageOptions) {
+define(['./item', 'view/image_options', 'core/controller/sound'], function(Item, ImageOptions, Sound) {
+
+    var sound = Sound('core/assets/sounds/get_rupee.wav');
 
     return function () {
         var my = Item();
@@ -17,7 +19,7 @@ define(['./item', 'view/image_options'], function(Item, ImageOptions) {
         my.onPickUp = function (player) {
             // add money
             player.rupees = (player.rupees || 0) + 1;
-            Sounds.getRupee.play();
+            sound.play();
         };
 
         return my;

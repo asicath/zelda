@@ -11,7 +11,8 @@ define([
     '../movement/mover',
     '../rect',
     'view/image_options',
-    'view/sprite_sheet'
+    'view/sprite_sheet',
+    'core/controller/sound'
 ], function(
     Entity,
     Icon,
@@ -24,10 +25,13 @@ define([
     Mover,
     Rect,
     ImageOptions,
-    SpriteSheet
+    SpriteSheet,
+    Sound
     ) {
 
     var spriteSheet = SpriteSheet({url:"core/assets/sprites/link.png"});
+    var hurtSound = Sound('core/assets/sounds/hurt.wav');
+    var deathSound = Sound('core/assets/sounds/death1_B.wav');
 
     return function (playerId, playerInputIndex) {
         var my = Entity();
@@ -115,7 +119,7 @@ define([
                 death();
             }
             else {
-                Sounds.hurt.play();
+                hurtSound.play();
                 my.pushFromContact(entity.position);
             }
 
@@ -136,7 +140,7 @@ define([
             var ani = Death(my);
             my.room.addEntity(ani);
 
-            Sounds.playerDefeat.play();
+            deathSound.play();
         };
 
         return my;

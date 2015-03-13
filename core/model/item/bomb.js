@@ -1,4 +1,6 @@
-define(['./item', 'view/image_options'], function(Item, ImageOptions) {
+define(['./item', 'view/image_options', 'core/controller/sound'], function(Item, ImageOptions, Sound) {
+
+    var sound = Sound('core/assets/sounds/get_item.wav');
 
     return function () {
         var my = Item();
@@ -10,7 +12,7 @@ define(['./item', 'view/image_options'], function(Item, ImageOptions) {
             // add a bomb
             player.bombs = (player.bombs || 0) + 1;
 
-            Sounds.getItem.play();
+            sound.play();
         };
 
         return my;

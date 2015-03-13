@@ -1,4 +1,6 @@
-define(['./item', 'view/image_options'], function(Item, ImageOptions) {
+define(['./item', 'view/image_options', 'core/controller/sound'], function(Item, ImageOptions, Sound) {
+
+    var sound = Sound('core/assets/sounds/get_heart.wav');
 
     return function () {
         var my = Item();
@@ -21,7 +23,7 @@ define(['./item', 'view/image_options'], function(Item, ImageOptions) {
             }
             player.life += amount;
 
-            Sounds.getHeart.play();
+            sound.play();
         };
 
         return my;

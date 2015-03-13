@@ -1,6 +1,7 @@
-define(['./item', '../icon', 'view/sprite_sheet'], function(Item, Icon, SpriteSheet) {
+define(['./item', '../icon', 'view/sprite_sheet', 'core/controller/sound'], function(Item, Icon, SpriteSheet, Sound) {
 
     var spriteSheet = SpriteSheet({url:"core/assets/sprites/fairy.gif"});
+    var sound = Sound('core/assets/sounds/get_item.wav');
 
     return function () {
         var my = Item();
@@ -14,7 +15,7 @@ define(['./item', '../icon', 'view/sprite_sheet'], function(Item, Icon, SpriteSh
             }
             player.life += amount;
 
-            Sounds.getItem.play();
+            sound.play();
         };
 
         return my;

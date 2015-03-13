@@ -1,6 +1,7 @@
-define(['./entity', '../icon', './bomb_blast', './spawn_cloud', 'view/image_options', 'view/sprite_sheet'], function(Entity, Icon, BombBlast, SpawnCloud, ImageOptions, SpriteSheet) {
+define(['./entity', '../icon', './bomb_blast', './spawn_cloud', 'view/image_options', 'view/sprite_sheet', 'core/controller/sound'], function(Entity, Icon, BombBlast, SpawnCloud, ImageOptions, SpriteSheet, Sound) {
 
     var spriteSheet = SpriteSheet({url:"core/assets/sprites/bigbomb.png"});
+    var sound = Sound('core/assets/sounds/bomb_blow.wav');
 
     return function (player) {
         var my = Entity();
@@ -58,7 +59,7 @@ define(['./entity', '../icon', './bomb_blast', './spawn_cloud', 'view/image_opti
 
         var explode = function () {
 
-            Sounds.bombBlow.play();
+            sound.play();
 
             for (var i = 0; i < cloudPositions.length; i++) {
                 var cloud = SpawnCloud(null);
