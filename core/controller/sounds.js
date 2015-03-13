@@ -33,7 +33,7 @@ define(['core/controller/sound'], function(Sound) {
 
             for (var i = 0; i < config.sounds.length; i++) {
                 var c = config.sounds[i];
-                my[c.name] = Sound(requirejs.s.contexts._.config.baseUrl + c.file);
+                my[c.name] = Sound(c.file);
             }
 
         };

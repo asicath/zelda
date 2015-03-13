@@ -3,27 +3,32 @@
 
 define(function() {
 
-    return function (url) {
+    return function (path) {
         var my = {};
 
+        // an array of loading audio container objects from createNewAudio
         var array = [];
+
+        // the time of the last play
         var lastPlay = 0;
 
+
         var createNewAudio = function () {
-            var value = {
-                audio: new Audio(url),
+            var o = {
+                audio: new Audio(requirejs.s.contexts._.config.baseUrl + path),
                 playing: false
             };
 
-            value.audio.addEventListener('ended', function () {
-                value.playing = false;
-                value.audio.load();
+            o.audio.addEventListener('ended', function () {
+                o.playing = false;
+                o.audio.load();
             });
 
-            array.push(value);
+            array.push(o);
 
-            return value;
+            return o;
         };
+
 
         // prime with one
         createNewAudio();
@@ -31,28 +36,30 @@ define(function() {
         my.play = function () {
             var now = new Date();
 
-            if (now - lastPlay > 0) {
-                lastPlay = now;
+            // make sure we don't play at the same time
+            if (now <= lastPlay) return;
 
-                // Find the next available audio
-                var i = 0;
-                var target = null;
-                while (!target && i < array.length) {
-                    if (!array[i].playing) target = array[i];
-                    i++;
-                }
 
-                // all other audio busy, create a new one
-                if (!target) {
-                    target = createNewAudio();
-                }
+            lastPlay = now;
 
-                target.playing = true;
-                target.audio.play();
-
-                return target.audio;
+            // Find the next available audio
+            var i = 0;
+            var target = null;
+            while (!target && i < array.length) {
+                if (!array[i].playing) target = array[i];
+                i++;
             }
 
+            // all other audio busy, create a new one
+            if (!target) {
+                target = createNewAudio();
+            }
+
+            target.playing = true;
+            target.audio.play();
+
+            // return it so they can manipulate it
+            return target.audio;
         };
 
         return my;
