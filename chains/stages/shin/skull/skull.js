@@ -11,7 +11,7 @@ define([
     'view/image_options',
     'view/sprite_sheet',
     'view/draw',
-    'core/model/sound-effect'
+    'core/controller/sound'
 ], function(
     Entity,
     Icon,
