@@ -1,4 +1,4 @@
-define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monster_hitter', 'view/sprite_sheet'], function(Entity, Icon, MonsterHitter, SpriteSheet) {
+define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monster_hitter', 'view/sprite_sheet', 'core/controller/sound'], function(Entity, Icon, MonsterHitter, SpriteSheet, Sound) {
 
     var spriteSheet = SpriteSheet({url:"chains/weapons/flamesword/flamingsword.png", map:[
         {x:0, y: 0, width: 9, height:18},
@@ -16,6 +16,8 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monste
         {x:90, y: 0, width: 18, height:9},
         {x:90, y: 9, width: 18, height:9}
     ]});
+
+    var candleSound = Sound('core/assets/sounds/candle.wav');
 
     var spriteIndexFlaming = {};
     spriteIndexFlaming[Directions.top] = 0;
@@ -51,7 +53,7 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monste
         my.flameOn = function() {
             flaming = true;
             my.icon.stopFlashing();
-            Sounds.candle.play();
+            candleSound.play();
         };
 
         my.icon.getSprite = function () {

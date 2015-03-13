@@ -1,4 +1,7 @@
-define(['./action', '../entity/sword_missile'], function(Action, SwordMissile) {
+define(['./action', '../entity/sword_missile', 'core/controller/sound'], function(Action, SwordMissile, Sound) {
+
+    var candleSound = Sound('core/assets/sounds/candle.wav');
+    var swordForceSound = Sound('core/assets/sounds/Swrd Brst Full 2.mp3');
 
     return function (actor) {
         var my = Action(actor);
@@ -33,7 +36,7 @@ define(['./action', '../entity/sword_missile'], function(Action, SwordMissile) {
 
             // Play a sound if there were swords
             if (swords.length > 0) {
-                Sounds.swordForce.play();
+                swordForceSound.play();
             }
 
             // allow move again
@@ -59,7 +62,7 @@ define(['./action', '../entity/sword_missile'], function(Action, SwordMissile) {
             swords.push(sword);
 
             actor.room.addEntity(sword);
-            Sounds.candle.play();
+            candleSound.play();
         };
 
 

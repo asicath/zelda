@@ -7,7 +7,8 @@ define([
     '../item/item_dropper',
     '../movement/shuffle',
     '../movement/mover',
-    'view/sprite_sheet'
+    'view/sprite_sheet',
+    'core/controller/sound'
 ], function(
     Entity,
     Icon,
@@ -17,7 +18,8 @@ define([
     ItemDropper,
     Shuffle,
     Mover,
-    SpriteSheet
+    SpriteSheet,
+    Sound
     ) {
 
     var spriteSheet = SpriteSheet({url:"core/assets/sprites/gohma.gif", map:[
@@ -30,6 +32,8 @@ define([
         {x:144,  y: 0, width: 48, height:16},
         {x:144,  y: 16, width: 48, height:16}
     ]});
+
+    var shieldSound = Sound('core/assets/sounds/shield.wav');
 
     return function () {
         var my = Entity();
@@ -111,7 +115,7 @@ define([
 
             if (eyeClosed || eyeSwapFrames > 0) {
                 if (soundWait == 0) {
-                    Sounds.shield.play();
+                    shieldSound.play();
                     soundWait = 10;
                 }
 

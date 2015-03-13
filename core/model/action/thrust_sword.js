@@ -11,7 +11,10 @@
 // 10 - Sword moves back, tip showing. foot change.
 // 11 - Sword gone.
 
-define(['./action', '../entity/sword_missile', '../entity/sword', 'core/model/directives'], function(Action, SwordMissile, Sword, Directives) {
+define(['./action', '../entity/sword_missile', '../entity/sword', 'core/model/directives', 'core/controller/sound'], function(Action, SwordMissile, Sword, Directives, Sound) {
+
+    var swordSound = Sound('core/assets/sounds/sword.wav');
+    var swordShootSound = Sound('core/assets/sounds/sword_shoot.wav');
 
     return function (actor) {
         var my = Action(actor);
@@ -70,7 +73,7 @@ define(['./action', '../entity/sword_missile', '../entity/sword', 'core/model/di
             actor.shieldUp = false;
 
             // start thrust sound
-            Sounds.sword.play();
+            swordSound.play();
 
             // count down to actual sword thrust
             // Waiting for sword to come out
@@ -156,7 +159,7 @@ define(['./action', '../entity/sword_missile', '../entity/sword', 'core/model/di
             missile = SwordMissile(actor, sword);
             actor.room.addEntity(missile);
             missile.launch();
-            Sounds.SwordShoot.play();
+            swordShootSound.play();
         };
 
         var swordPosition = {};

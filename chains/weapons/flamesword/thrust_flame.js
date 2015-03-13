@@ -1,4 +1,7 @@
-define(['core/model/action/action','./flame_sword', './flaming_missile'], function(Action, FlameSword, FlamingMissile) {
+define(['core/model/action/action','./flame_sword', './flaming_missile', 'core/controller/sound'], function(Action, FlameSword, FlamingMissile, Sound) {
+
+    var swordSound = Sound('core/assets/sounds/sword.wav');
+    var flamingSwordSound = Sound('chains/weapons/flamesword/fire_sword.mp3');
 
     return function (actor) {
         var my = Action(actor);
@@ -15,7 +18,7 @@ define(['core/model/action/action','./flame_sword', './flaming_missile'], functi
             actor.shieldUp = false;
 
             // start thrust sound
-            Sounds.sword.play();
+            swordSound.play();
 
             // count down to actual sword thrust
             // Waiting for sword to come out
@@ -92,7 +95,7 @@ define(['core/model/action/action','./flame_sword', './flaming_missile'], functi
 
             missile.shoot(angle, 3);
 
-            Sounds.flamingSword.play();
+            flamingSwordSound.play();
         };
 
         my.onDeactivate = function () {

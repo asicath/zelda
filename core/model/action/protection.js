@@ -1,4 +1,6 @@
-define(['./action', '../entity/circle', '../entity/sigil'], function(Action, Circle, Sigil) {
+define(['./action', '../entity/circle', '../entity/sigil', 'core/controller/sound'], function(Action, Circle, Sigil, Sound) {
+
+    var sound = Sound('core/assets/sounds/White Magic.mp3');
 
     return function (actor) {
         var my = Action(actor);
@@ -22,7 +24,7 @@ define(['./action', '../entity/circle', '../entity/sigil'], function(Action, Cir
 
                     actor.freeze();
 
-                    sound = Sounds.whiteMagic.play();
+                    sound = sound.play();
 
                     sound.loop = true;
                 }

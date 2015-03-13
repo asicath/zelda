@@ -1,6 +1,7 @@
-define(['./entity', '../icon', './player_hitter', '../movement/missile', '../movement/mover', 'view/sprite_sheet'], function(Entity, Icon, PlayerHitter, Missile, Mover, SpriteSheet) {
+define(['./entity', '../icon', './player_hitter', '../movement/missile', '../movement/mover', 'view/sprite_sheet', 'core/controller/sound'], function(Entity, Icon, PlayerHitter, Missile, Mover, SpriteSheet, Sound) {
 
     var spriteSheet = SpriteSheet({url:"core/assets/sprites/ball.png"});
+    var shieldSound = Sound('core/assets/sounds/shield.wav');
 
     return function () {
         var my = Entity();
@@ -37,7 +38,7 @@ define(['./entity', '../icon', './player_hitter', '../movement/missile', '../mov
 
             if (blocked && player.shieldUp) {
                 my.room.removeEntity(my);
-                Sounds.shield.play();
+                shieldSound.play();
             }
             else {
                 player.takeDamage(2, my);

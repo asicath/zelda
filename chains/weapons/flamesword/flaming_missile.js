@@ -1,4 +1,4 @@
-define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monster_hitter', 'core/model/movement/mover', 'core/model/movement/missile', 'view/sprite_sheet', './flame'], function(Entity, Icon, MonsterHitter, Mover, Missile, SpriteSheet, Flame) {
+define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monster_hitter', 'core/model/movement/mover', 'core/model/movement/missile', 'view/sprite_sheet', './flame', 'core/controller/sound'], function(Entity, Icon, MonsterHitter, Mover, Missile, SpriteSheet, Flame, Sound) {
 
     var spriteSheet = SpriteSheet({url:"chains/weapons/flamesword/flaming_missile.png",
         map:[
@@ -19,6 +19,8 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monste
             {x:106, y: 0, width: 18, height:13}
         ]
     });
+
+    var candleSound = Sound('core/assets/sounds/candle.wav');
 
     return function (player) {
         var my = Entity();
@@ -73,7 +75,7 @@ define(['core/model/entity/entity', 'core/model/icon', 'core/model/entity/monste
 
             my.room.addEntity(flame);
 
-            Sounds.candle.play();
+            candleSound.play();
         };
 
         return my;
