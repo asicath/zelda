@@ -62,7 +62,7 @@ define([
 
             // needs a new room
             var roomType = null;
-            
+
             if (++treasureRoomCount > 1) {
                 treasureRoomCount = 0;
                 roomType = StoreRoom;
@@ -70,9 +70,6 @@ define([
                 var data = LoadRooms.loadRoomJsonFromOverlay(roomImage, roomOverlay, 'first');
                 room = roomType(data);
                 room.title = "store";
-
-
-                //loading = true;
 
                 Directives.nextMessage(3);
 
