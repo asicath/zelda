@@ -1,18 +1,20 @@
 define([
-    'dev/player_room',
+    'chains/stages/shin/desert_room',
     'chains/stages/shin/skull/skull',
     'core/controller/sound'
 ], function(
-    PlayerRoom,
+    DesertRoom,
     Skull,
     Sound
 ) {
 
     var music = Sound('chains/stages/shin/sound/skullstart.wav');
 
-    return function (data) {
+    return function () {
 
-        var my = PlayerRoom(data);
+        var my = DesertRoom();
+
+        my.title = "skulls";
 
         var leftSkull, rightSkull;
 
