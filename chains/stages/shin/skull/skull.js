@@ -29,8 +29,7 @@ define([
     ) {
 
     var spriteSheet = SpriteSheet({url:"chains/stages/shin/skull/skull.png"});
-    var teeth = Sound('chains/stages/shin/skull/skullteeth.wav');
-    // http://localhost:63342/zelda/chains/stages/shin/skull/demo/   chains/stages/shin/skull/skullteeth.wav
+    var teethShound = Sound('chains/stages/shin/skull/skullteeth.wav');
 
     return function () {
         var my = Entity();
@@ -125,6 +124,8 @@ define([
 
             if (talkVisible.length < talkMessage.length && talkFrame % 7 == 0) {
                 talkVisible = talkMessage.substr(0, talkVisible.length+1);
+
+                teethShound.play();
 
                 if (talkVisible.length == talkMessage.length) {
                     isTalking = false;

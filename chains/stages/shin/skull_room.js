@@ -1,10 +1,14 @@
 define([
     'dev/player_room',
-    'chains/stages/shin/skull/skull'
+    'chains/stages/shin/skull/skull',
+    'core/controller/sound'
 ], function(
     PlayerRoom,
-    Skull
+    Skull,
+    Sound
 ) {
+
+    var music = Sound('chains/stages/shin/sound/skullstart.wav');
 
     return function (data) {
 
@@ -25,6 +29,8 @@ define([
         };
 
         addSkulls();
+
+        music.play();
 
         my.setFrameTimeout(60*3, function() {
             leftSkull.icon.spriteIndex = 1;
