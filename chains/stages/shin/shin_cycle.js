@@ -31,6 +31,7 @@ define([
 
         function addRoom(room) {
             rooms.push(room);
+            room.addRoom = addRoom;
         }
 
         // load the specified room

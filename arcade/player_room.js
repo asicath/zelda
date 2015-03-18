@@ -35,6 +35,19 @@ define([
             Directives.nextMessage(0);
         };
 
+        my.transferPlayers = function (sourceRoom) {
+            // first get the players
+            my.players = sourceRoom.players;
+
+            // then add them to valid spots in the room
+            for (var i = 0; i < my.players.length; i++) {
+                // Allow start if possible
+                if (my.players[i] && !my.players[i].isDead) {
+                    my.addEntityAtOpenTile(my.players[i]);
+                }
+            }
+        };
+
         var checkForPlayerAdd = function () {
             // check for player creation
             for (var i = 0; i < playerInput.length; i++) {

@@ -31,6 +31,11 @@ define([
         my.rect = new Rect(new Position(0, 0), 256, 176, 0, 0);
         my.entities = [];
 
+        my.drawOffset = {
+            x: 0,
+            y: 0
+        };
+
         // Load from tiles if present
         if (data.tiles) {
             my.tiles = data.tiles;
@@ -153,19 +158,6 @@ define([
 
         my.onPlayerKill = function () {};
 
-        my.transferPlayers = function (sourceRoom) {
-            // first get the players
-            my.players = sourceRoom.players;
-
-            // then add them to valid spots in the room
-            for (var i = 0; i < my.players.length; i++) {
-                // Allow start if possible
-                if (my.players[i] && !my.players[i].isDead) {
-                    my.addEntityAtOpenTile(my.players[i]);
-                }
-            }
-        };
-
         my.addEntityAtOpenTile = function (entity) {
             var tile = null;
             while (!tile) {
@@ -260,7 +252,7 @@ define([
             if (!my.backgroundImage) createRoomBackground();
 
             ctx.save();
-            ctx.translate(xOffset, yOffset);
+            ctx.translate(xOffset + my.drawOffset.x, yOffset + my.drawOffset.y);
 
             // draw to the real screen
             ctx.drawImage(my.backgroundImage, 0, 0);
