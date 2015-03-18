@@ -21,7 +21,7 @@ define([
 
         // *** Players ***
         my.players = [];
-        var playerInputMap = {};
+
         var createPlayer = function (playerId, playerInputIndex) {
             var p = Player(playerId, playerInputIndex);
             my.players[playerId] = p;
