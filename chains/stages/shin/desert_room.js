@@ -42,7 +42,7 @@ define([
             next = DesertRoom(Monster, randomPosition);
             next.drawOffset.x = 256;
 
-            my.addRoom(next);
+            my.parent.addRoom(next);
 
             slideRight();
 

@@ -29,19 +29,19 @@ define([
 
         var rooms = [];
 
-        function addRoom(room) {
+        my.addRoom = function(room) {
             rooms.push(room);
-            room.addRoom = addRoom;
-        }
+            room.parent = my;
+        };
 
         // load the specified room
         if (!options.room) {
             var room = DesertRoom(options.Monster, true);
-            addRoom(room);
+            my.addRoom(room);
         }
         else if (options.room == 'talkingSkulls') {
             var room = SkullRoom();
-            addRoom(room);
+            my.addRoom(room);
         }
 
 
