@@ -40,30 +40,61 @@ define([
             complete = true;
 
             next = DesertRoom(Monster, randomPosition);
-            next.drawOffset.x = 256;
+
+            slideInfo = {
+                totalFrames: 60,
+                drawnFrames: 0,
+                x: -my.rect.width,
+                y: 0
+            };
+
+            slide();
 
             my.parent.addRoom(next);
 
-            slideRight();
-
-            //my.removeEntity(player);
+            next.pause();
+            my.pause();
 
             next.transferPlayers(my);
 
         }));
 
-        var next;
+        var next, slideInfo;
 
-        var slideRight = function() {
+        var slide = function() {
 
-            next.drawOffset.x -= 2;
-            my.drawOffset.x -= 2;
+            if (!slideInfo) return;
 
-            if (next.drawOffset.x > 0) {
-                my.setFrameTimeout(1, slideRight);
+            slideInfo.drawnFrames++;
+
+            if (slideInfo.drawnFrames == slideInfo.totalFrames) {
+                next.drawOffset.x = 0;
+                my.drawOffset.x = slideInfo.x;
+                next.resume();
+                slideInfo = null;
+            }
+            else {
+                var p = slideInfo.drawnFrames / slideInfo.totalFrames;
+                var xDiff = slideInfo.x * p;
+                var yDiff = slideInfo.y * p;
+
+                next.drawOffset.x = xDiff + my.rect.width;
+                my.drawOffset.x = xDiff;
             }
 
+
+
+
+
         };
+
+        my.executePreFrame = function() {
+            slide();
+        };
+
+
+
+
 
         if (Monster) {
             // add the monster after a second

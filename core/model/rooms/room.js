@@ -112,6 +112,8 @@ define([
 
         my.executeFrame = function () {
 
+            my.executePreFrame();
+
             // don't execute if not active
             if (!isActive) return;
 
@@ -121,6 +123,9 @@ define([
             executeFrameRound('executeFrameFind');
             executeFrameRound('executeFramePost');
         };
+
+        // frame event executed before checking isActive
+        my.executePreFrame = function() {};
 
         function executeFrameRound(name) {
             var entity;
@@ -242,11 +247,17 @@ define([
 
         };
 
+        function isVisible() {
+            return my.drawOffset.x > -my.rect.width &&
+                my.drawOffset.x < my.rect.width &&
+                my.drawOffset.y > -my.rect.height &&
+                my.drawOffset.y < my.rect.height;
+        }
+
 
         my.drawRoom = function (ctx, xOffset, yOffset) {
 
-            // don't draw if not active
-            if (!isActive) return;
+            if (!isVisible()) return;
 
             // should only be needed once
             if (!my.backgroundImage) createRoomBackground();
@@ -265,6 +276,15 @@ define([
 
             ctx.restore();
         };
+
+        my.pause = function() {
+            isActive = false;
+        };
+
+        my.resume = function() {
+            isActive = true;
+        };
+
 
         return my;
     };
