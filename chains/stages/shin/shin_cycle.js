@@ -2,13 +2,16 @@ define([
     'jquery',
     'chains/stages/shin/desert_room',
     'chains/stages/shin/skull_room',
-    'chains/demo_draw'
-
+    'chains/demo_draw',
+    'core/model/entity/player',
+    'controller/input'
 ], function(
     $,
     DesertRoom,
     SkullRoom,
-    DemoDraw
+    DemoDraw,
+    Player,
+    PlayerInput
 ) {
 
     return function(options) {
@@ -48,6 +51,9 @@ define([
         // guaranteed one call per 16ms
         my.processFrame = function() {
 
+
+            if (rooms.length > 0) checkForPlayerAdd();
+
             for (var i = 0; i < rooms.length; i++) {
                 // Give the room a frame of animation
                 rooms[i].executeFrame();
@@ -84,6 +90,52 @@ define([
             // draw the arcade overlay
             DemoDraw.drawInfo(ctx, rooms[0], my.virtualWidth, my.virtualHeight);
         };
+
+
+
+        // *** Players ***
+        my.players = [];
+
+        function createPlayer(playerId, playerInputIndex) {
+            var p = Player(playerId, playerInputIndex);
+            my.players[playerId] = p;
+            rooms[0].players[playerId] = p; // TODO remove
+
+            //p.addAltAction(DropBomb(p, LiveBomb));
+            //p.addAltAction(ThrowBoomerang(p));
+
+            rooms[0].addEntityAtOpenTile(my.players[playerId]);
+
+        }
+
+        function checkForPlayerAdd() {
+            // check for player creation
+            for (var i = 0; i < PlayerInput.length; i++) {
+                if (!PlayerInput[i]) continue;
+
+                if (PlayerInput[i].start) {
+
+                    var playerId = PlayerInput[i].playerId;
+
+                    // create playerId
+                    if (typeof playerId === 'undefined') {
+                        var max = -1;
+                        for (var j = 0; j < PlayerInput.length; j++) {
+                            if (PlayerInput[j] && typeof PlayerInput[j].playerId !== 'undefined')
+                                max = PlayerInput[j].playerId > max ? PlayerInput[j].playerId : max;
+                        }
+                        playerId = max + 1;
+                        PlayerInput[i].playerId = playerId;
+                    }
+
+                    // Allow start if possible
+                    if (!my.players[playerId] || my.players[playerId].isDead) {
+                        createPlayer(playerId, i);
+                    }
+                }
+            }
+        }
+
 
         return my;
     };

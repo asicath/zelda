@@ -1,10 +1,10 @@
 define([
-    'chains/player_room',
+    'core/model/rooms/room',
     'view/sprite_sheet',
     'controller/load_rooms',
     'core/model/entity/edge'
 ], function(
-    PlayerRoom,
+    Room,
     SpriteSheet,
     LoadRooms,
     Edge
@@ -16,7 +16,7 @@ define([
     var DesertRoom = function (Monster, randomPosition) {
 
         var data = LoadRooms.loadRoomJsonFromOverlay(desertImage, desertOverlay, 'first');
-        var my = PlayerRoom(data);
+        var my = Room(data);
 
         my.title = "dessert";
 
@@ -55,7 +55,7 @@ define([
             next.pause();
             my.pause();
 
-            next.transferPlayers(my);
+            transferPlayers(next);
 
         }));
 
@@ -82,10 +82,6 @@ define([
                 my.drawOffset.x = xDiff;
             }
 
-
-
-
-
         };
 
         my.executePreFrame = function() {
@@ -93,6 +89,20 @@ define([
         };
 
 
+        function transferPlayers(destinationRoom) {
+            // first get the players
+            destinationRoom.players = my.players;
+
+            // then add them to valid spots in the room
+            for (var i = 0; i < my.players.length; i++) {
+                // Allow start if possible
+                if (my.players[i] && !my.players[i].isDead) {
+                    destinationRoom.addEntityAtOpenTile(my.players[i]);
+                    my.removeEntity(my.players[i]);
+                }
+
+            }
+        }
 
 
 
