@@ -1,5 +1,5 @@
 define([
-    'arcade/player_room',
+    'core/model/rooms/room',
     'core/model/action/drop_bomb',
     'core/model/entity/live_bomb',
     'core/model/entity/big_bomb',
@@ -8,7 +8,7 @@ define([
     'core/model/entity/edge',
     'core/model/item/action_item'
 ], function(
-    PlayerRoom,
+    Room,
     DropBomb,
     LiveBomb,
     BigBomb,
@@ -21,7 +21,7 @@ define([
     var musicStore = new Audio("music/DISTANCE.mp3");
 
     return function (data) {
-        var my = PlayerRoom(data);
+        var my = Room(data);
 
 
         musicStore.play();

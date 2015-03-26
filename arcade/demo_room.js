@@ -1,17 +1,16 @@
 define([
-    'arcade/player_room',
+    'core/model/rooms/room',
     'core/model/entity/aquamentus',
     'core/model/entity/monster',
     'core/model/entity/spawn_cloud'
 ], function(
-    PlayerRoom,
+    Room,
     Aquamentus,
     Monster,
     SpawnCloud
 ) {
 
     var eightBit = new Audio("music/8 Bit legend.mp3");
-    var musicDefeat = new Audio("music/Defeat1.mp3");
     var musicVictory = new Audio("music/Victory1.mp3");
     var musicMiniBossIntro = new Audio("music/minibossintro.mp3");
 
@@ -33,10 +32,10 @@ define([
             room.addEntityAtOpenTile(spawn);
         };
 
-        var onMonsterKill = function (monster, player) {
+        var onMonsterKill = function (monster, entity) {
 
             // keep track of kills
-            room.players[player.playerId].monstersKilled++;
+            room.parent.players[entity.playerId].monstersKilled++;
 
             // only one monster
             my.onComplete();
@@ -94,10 +93,10 @@ define([
             room.addEntityAtOpenTile(spawn);
         };
 
-        var onMonsterKill = function (monster, player) {
+        var onMonsterKill = function (monster, entity) {
 
             // keep track of kills
-            room.players[player.playerId].monstersKilled++;
+            room.parent.players[entity.playerId].monstersKilled++;
 
             // keep track of total room kills
             killCount++;
@@ -120,7 +119,7 @@ define([
 
     return function (data) {
 
-        var my = PlayerRoom(data);
+        var my = Room(data);
 
         eightBit.loop = true;
         eightBit.play();
@@ -176,6 +175,10 @@ define([
         // container will overwrite
         my.onComplete = function () {
         };
+
+
+
+
 
         return my;
     };

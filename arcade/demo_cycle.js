@@ -6,7 +6,9 @@ define([
     'arcade/logo',
     'controller/load_rooms',
     'core/model/directives',
-    'view/sprite_sheet'
+    'view/sprite_sheet',
+    'controller/input',
+    'core/model/entity/player'
 ], function(
     $,
     DemoRoom,
@@ -15,7 +17,9 @@ define([
     Logo,
     LoadRooms,
     Directives,
-    SpriteSheet
+    SpriteSheet,
+    PlayerInput,
+    Player
 ) {
 
     var roomImage = SpriteSheet({url:'core/assets/rooms/cave.gif', map:[{x: 0, y: 0, width: 256, height: 176}]});
@@ -37,10 +41,11 @@ define([
 
         var onSuccess = function(loadedRoom) {
             if (previousRoom) {
-                loadedRoom.transferPlayers(previousRoom);
+                transferPlayers(previousRoom, loadedRoom);
             }
 
             room = loadedRoom;
+            room.parent = my;
             loading = false;
             xOffset = Math.floor((my.virtualWidth - room.rect.width)/2);
             yOffset = Math.floor((my.virtualHeight - room.rect.height));
@@ -49,6 +54,9 @@ define([
 
         // guaranteed one call per 16ms
         my.processFrame = function() {
+
+            // check for adding a player at the top
+            checkForPlayerAdd();
 
             if (room != null) {
                 // Give the room a frame of animation
@@ -122,7 +130,7 @@ define([
             ctx.fillRect(0, 0, my.virtualWidth, yOffset);
 
             // draw the arcade overlay
-            DemoDraw.drawInfo(ctx, room, my.virtualWidth, my.virtualHeight);
+            DemoDraw.drawInfo(ctx, my, room, my.virtualWidth, my.virtualHeight);
         };
 
         var loadRoom = function(x, y, type, success) {
@@ -191,6 +199,73 @@ define([
 
             return c;
         };
+
+
+
+
+
+
+
+        // *** Players ***
+        my.players = [];
+
+        function createPlayer(playerId, playerInputIndex) {
+            var p = Player(playerId, playerInputIndex);
+            my.players[playerId] = p;
+            room.players[playerId] = p;
+
+            //p.addAltAction(DropBomb(p, LiveBomb));
+            //p.addAltAction(ThrowBoomerang(p));
+
+            room.addEntityAtOpenTile(my.players[playerId]);
+
+            // advance message
+            Directives.nextMessage(0);
+        }
+
+        function transferPlayers(sourceRoom, destinationRoom) {
+            // first get the players
+            destinationRoom.players = sourceRoom.players;
+
+            // then add them to valid spots in the room
+            for (var i = 0; i < destinationRoom.players.length; i++) {
+                // Allow start if possible
+                if (destinationRoom.players[i] && !destinationRoom.players[i].isDead) {
+                    destinationRoom.addEntityAtOpenTile(my.players[i]);
+                }
+            }
+        }
+
+        function checkForPlayerAdd() {
+            // check for player creation
+            for (var i = 0; i < PlayerInput.length; i++) {
+                if (!PlayerInput[i]) continue;
+
+                if (PlayerInput[i].start) {
+
+                    var playerId = PlayerInput[i].playerId;
+
+                    // create playerId
+                    if (typeof playerId === 'undefined') {
+                        var max = -1;
+                        for (var j = 0; j < PlayerInput.length; j++) {
+                            if (PlayerInput[j] && typeof PlayerInput[j].playerId !== 'undefined')
+                                max = PlayerInput[j].playerId > max ? PlayerInput[j].playerId : max;
+                        }
+                        playerId = max + 1;
+                        PlayerInput[i].playerId = playerId;
+                    }
+
+                    // Allow start if possible
+                    if (!my.players[playerId] || my.players[playerId].isDead) {
+                        createPlayer(playerId, i);
+                    }
+                }
+            }
+        }
+
+
+
 
         return my;
     };

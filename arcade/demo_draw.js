@@ -7,15 +7,15 @@ define(['view/draw', 'core/model/directives', 'view/sprite_sheet'], function(Dra
     var weaponBorder = SpriteSheet({url: "core/assets/sprites/weapon_border.png"});
     var weaponIcons = SpriteSheet({url: "core/assets/sprites/weapon_icons.png", width:14});
 
-    my.drawInfo = function (ctx, room, virtualWidth, virtualHeight) {
+    my.drawInfo = function (ctx, cycle, room, virtualWidth, virtualHeight) {
 
         // Optional draws
-        if (room.players) {
-            displayPlayerInfo(ctx, 0, 2, 16, room.players[0]);
-            displayPlayerInfo(ctx, 1, virtualWidth - 5 * 8 - 1, 16, room.players[1]);
+        if (cycle.players) {
+            displayPlayerInfo(ctx, 0, 2, 16, cycle.players[0]);
+            displayPlayerInfo(ctx, 1, virtualWidth - 5 * 8 - 1, 16, cycle.players[1]);
 
-            displayPlayerInfo(ctx, 2, 2, ((virtualHeight - 16) / 2) + 16, room.players[2]);
-            displayPlayerInfo(ctx, 3, virtualWidth - 5 * 8 - 1, ((virtualHeight - 16) / 2) + 16, room.players[3]);
+            displayPlayerInfo(ctx, 2, 2, ((virtualHeight - 16) / 2) + 16, cycle.players[2]);
+            displayPlayerInfo(ctx, 3, virtualWidth - 5 * 8 - 1, ((virtualHeight - 16) / 2) + 16, cycle.players[3]);
         }
 
         // Top screen info

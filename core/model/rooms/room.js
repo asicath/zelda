@@ -31,6 +31,9 @@ define([
         my.rect = new Rect(new Position(0, 0), 256, 176, 0, 0);
         my.entities = [];
 
+        // for now, given references by the cycle
+        my.players = [];
+
         my.drawOffset = {
             x: 0,
             y: 0

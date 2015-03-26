@@ -67,6 +67,7 @@ define([
         my.playerId = playerId;
         my.playerInputIndex = playerInputIndex;
         my.wallSensitive = true;
+        my.monstersKilled = 0;
 
         my.getFootPrint().setSize(16, 16);
 
