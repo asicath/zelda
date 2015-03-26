@@ -1,5 +1,5 @@
 define([
-    'core/model/rooms/room',
+    '../core/model/rooms/room',
     'core/model/entity/player',
     'core/model/action/drop_bomb',
     'core/model/entity/live_bomb',

@@ -2,7 +2,7 @@ define([
     'jquery',
     'chains/stages/shin/desert_room',
     'chains/stages/shin/skull_room',
-    'dev/demo_draw'
+    'chains/demo_draw'
 
 ], function(
     $,

@@ -1,5 +1,5 @@
 define([
-    'dev/player_room',
+    'chains/player_room',
     'view/sprite_sheet',
     'controller/load_rooms',
     'core/model/entity/edge'
