@@ -10,12 +10,12 @@ define([
     Edge
 ) {
 
-    var desertImage = SpriteSheet({url:'chains/stages/shin/images/desert.png', map:[{x: 0, y: 0, width: 256, height: 176}]});
-    var desertOverlay = SpriteSheet({url:'chains/stages/shin/images/desert_map.png', map:[{x: 0, y: 0, width: 256, height: 176}]});
+    var defaultImage = SpriteSheet({url:'chains/stages/shin/images/desert.png', map:[{x: 0, y: 0, width: 256, height: 176}]});
+    var defaultOverlay = SpriteSheet({url:'chains/stages/shin/images/desert_map.png', map:[{x: 0, y: 0, width: 256, height: 176}]});
 
-    var DesertRoom = function (Monster, randomPosition) {
+    var DesertRoom = function (Monster, randomPosition, image, overlay) {
 
-        var data = LoadRooms.loadRoomJsonFromOverlay(desertImage, desertOverlay, 'first');
+        var data = LoadRooms.loadRoomJsonFromOverlay(image || defaultImage, overlay || defaultOverlay, 'first');
         var my = Room(data);
 
         my.title = "dessert";
