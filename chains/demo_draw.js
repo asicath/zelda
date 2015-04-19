@@ -7,15 +7,15 @@ define(['view/draw', 'view/sprite_sheet'], function(DrawText, SpriteSheet) {
     var weaponBorder = SpriteSheet({url: "core/assets/sprites/weapon_border.png"});
     var weaponIcons = SpriteSheet({url: "core/assets/sprites/weapon_icons.png", width:14});
 
-    my.drawInfo = function (ctx, room, virtualWidth, virtualHeight) {
+    my.drawInfo = function (ctx, players, room, virtualWidth, virtualHeight) {
 
         // Optional draws
-        if (room.players) {
-            displayPlayerInfo(ctx, 0, 2, 16, room.players[0]);
-            displayPlayerInfo(ctx, 1, virtualWidth - 5 * 8 - 1, 16, room.players[1]);
+        if (players) {
+            displayPlayerInfo(ctx, 0, 2, 16, players[0]);
+            displayPlayerInfo(ctx, 1, virtualWidth - 5 * 8 - 1, 16, players[1]);
 
-            displayPlayerInfo(ctx, 2, 2, ((virtualHeight - 16) / 2) + 16, room.players[2]);
-            displayPlayerInfo(ctx, 3, virtualWidth - 5 * 8 - 1, ((virtualHeight - 16) / 2) + 16, room.players[3]);
+            displayPlayerInfo(ctx, 2, 2, ((virtualHeight - 16) / 2) + 16, players[2]);
+            displayPlayerInfo(ctx, 3, virtualWidth - 5 * 8 - 1, ((virtualHeight - 16) / 2) + 16, players[3]);
         }
 
         // Top screen info

@@ -44,11 +44,12 @@ define(['../entity/fireball'], function(Fireball) {
             // find a player
             var target = null;
 
-            if (my.room.players.length == 1) {
-                target = my.room.players[0];
+            var players = my.room.getPlayers();
+            if (players.length == 1) {
+                target = players[0];
             }
             else {
-                target = my.room.players[Math.floor(Math.random() * my.room.players.length)];
+                target = players[Math.floor(Math.random() * players.length)];
             }
 
             // no target no missile

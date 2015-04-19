@@ -66,7 +66,7 @@ define([
         var exited = 0;
         var exit = new Edge(Directions.bottom, function (player) {
             my.removeEntity(player);
-            if (++exited == my.players.length) {
+            if (my.getPlayers().length == 0) {
 
                 musicStore.pause();
                 musicStore.load();

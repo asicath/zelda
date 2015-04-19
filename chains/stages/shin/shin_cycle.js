@@ -88,7 +88,7 @@ define([
             ctx.fillRect(0, 0, my.virtualWidth, yOffset);
 
             // draw the arcade overlay
-            DemoDraw.drawInfo(ctx, rooms[0], my.virtualWidth, my.virtualHeight);
+            DemoDraw.drawInfo(ctx, my.players, rooms[0], my.virtualWidth, my.virtualHeight);
         };
 
 
@@ -99,12 +99,11 @@ define([
         function createPlayer(playerId, playerInputIndex) {
             var p = Player(playerId, playerInputIndex);
             my.players[playerId] = p;
-            rooms[0].players[playerId] = p; // TODO remove
 
             //p.addAltAction(DropBomb(p, LiveBomb));
             //p.addAltAction(ThrowBoomerang(p));
 
-            rooms[0].addEntityAtOpenTile(my.players[playerId]);
+            rooms[0].addEntityAtOpenTile(p);
 
         }
 

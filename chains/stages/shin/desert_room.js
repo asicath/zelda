@@ -90,15 +90,16 @@ define([
 
 
         function transferPlayers(destinationRoom) {
+
             // first get the players
-            destinationRoom.players = my.players;
+            var players = my.getPlayers();
 
             // then add them to valid spots in the room
-            for (var i = 0; i < my.players.length; i++) {
+            for (var i = 0; i < players.length; i++) {
                 // Allow start if possible
-                if (my.players[i] && !my.players[i].isDead) {
-                    destinationRoom.addEntityAtOpenTile(my.players[i]);
-                    my.removeEntity(my.players[i]);
+                if (!players[i].isDead) {
+                    destinationRoom.addEntityAtOpenTile(players[i]);
+                    my.removeEntity(players[i]);
                 }
 
             }

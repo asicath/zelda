@@ -212,7 +212,6 @@ define([
         function createPlayer(playerId, playerInputIndex) {
             var p = Player(playerId, playerInputIndex);
             my.players[playerId] = p;
-            room.players[playerId] = p;
 
             //p.addAltAction(DropBomb(p, LiveBomb));
             //p.addAltAction(ThrowBoomerang(p));
@@ -225,13 +224,13 @@ define([
 
         function transferPlayers(sourceRoom, destinationRoom) {
             // first get the players
-            destinationRoom.players = sourceRoom.players;
+            var players = sourceRoom.getPlayers();
 
             // then add them to valid spots in the room
-            for (var i = 0; i < destinationRoom.players.length; i++) {
+            for (var i = 0; i < players.length; i++) {
                 // Allow start if possible
-                if (destinationRoom.players[i] && !destinationRoom.players[i].isDead) {
-                    destinationRoom.addEntityAtOpenTile(my.players[i]);
+                if (!players[i].isDead) {
+                    destinationRoom.addEntityAtOpenTile(players[i]);
                 }
             }
         }
