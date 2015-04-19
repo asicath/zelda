@@ -1,8 +1,8 @@
 define([
     'core/model/rooms/room',
     'view/sprite_sheet',
-    'controller/load_rooms',
-    'core/model/entity/edge'
+    'controller/load_rooms'
+
 ], function(
     Room,
     SpriteSheet,
@@ -18,7 +18,7 @@ define([
         var data = LoadRooms.loadRoomJsonFromOverlay(image || defaultImage, overlay || defaultOverlay, 'first');
         var my = Room(data);
 
-        my.title = "dessert";
+        my.title = "room";
 
         var addMonster = function() {
             var e = Monster();
@@ -31,15 +31,12 @@ define([
             }
         };
 
-        var complete = false;
 
-        my.addEntity(Edge(Directions.right, function (player) {
+        var next, slideInfo;
 
-            if (complete) return;
+        my.slideRoomLeft = function(nextRoom) {
 
-            complete = true;
-
-            next = DesertRoom(Monster, randomPosition);
+            next = nextRoom;
 
             slideInfo = {
                 totalFrames: 60,
@@ -57,9 +54,7 @@ define([
 
             transferPlayers(next);
 
-        }));
-
-        var next, slideInfo;
+        };
 
         var slide = function() {
 
