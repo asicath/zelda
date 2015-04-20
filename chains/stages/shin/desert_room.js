@@ -56,6 +56,28 @@ define([
 
         };
 
+        my.slideRoomDown = function(nextRoom) {
+
+            next = nextRoom;
+
+            slideInfo = {
+                totalFrames: 60,
+                drawnFrames: 0,
+                x: 0,
+                y: my.rect.height
+            };
+
+            slide();
+
+            my.parent.addRoom(next);
+
+            next.pause();
+            my.pause();
+
+            transferPlayers(next);
+
+        };
+
         var slide = function() {
 
             if (!slideInfo) return;
@@ -65,16 +87,28 @@ define([
             if (slideInfo.drawnFrames == slideInfo.totalFrames) {
                 next.drawOffset.x = 0;
                 my.drawOffset.x = slideInfo.x;
+
+                next.drawOffset.y = 0;
+                my.drawOffset.y = slideInfo.y;
+
                 next.resume();
                 slideInfo = null;
             }
             else {
                 var p = slideInfo.drawnFrames / slideInfo.totalFrames;
-                var xDiff = slideInfo.x * p;
-                var yDiff = slideInfo.y * p;
 
-                next.drawOffset.x = xDiff + my.rect.width;
-                my.drawOffset.x = xDiff;
+                if (slideInfo.x < 0) {
+                    var xDiff = slideInfo.x * p;
+                    next.drawOffset.x = xDiff + my.rect.width;
+                    my.drawOffset.x = xDiff;
+                }
+
+                if (slideInfo.y > 0) {
+                    var yDiff = slideInfo.y * p;
+                    next.drawOffset.y = yDiff - my.rect.height;
+                    my.drawOffset.y = yDiff;
+                }
+
             }
 
         };

@@ -2,22 +2,22 @@ define([
     'chains/stages/shin/desert_room',
     'view/sprite_sheet',
     'core/model/entity/edge',
-    'chains/stages/shin/rooms/pyramid_wall'
+    'chains/stages/shin/rooms/pyramid_middle'
 ], function(
     ShinRoom,
     SpriteSheet,
     Edge,
-    PyramidWall
+    PyramidMiddle
 ) {
 
-    var image = SpriteSheet({url:'chains/stages/shin/images/shin_level_backs/shin2.png', map:[{x: 0, y: 0, width: 256, height: 176}]});
-    var overlay = SpriteSheet({url:'chains/stages/shin/images/shin_level_backs/shin2_overlay.png', map:[{x: 0, y: 0, width: 256, height: 176}]});
+    var image = SpriteSheet({url:'chains/stages/shin/images/shin_level_backs/shin2.5.png', map:[{x: 0, y: 0, width: 256, height: 176}]});
+    var overlay = SpriteSheet({url:'chains/stages/shin/images/shin_level_backs/shin2.5_overlay.png', map:[{x: 0, y: 0, width: 256, height: 176}]});
 
     return function (Monster, randomPosition) {
 
         var my = ShinRoom(Monster, randomPosition, image, overlay);
 
-        my.title = "pyramid edge";
+        my.title = "pyramid wall";
 
 
 
@@ -28,7 +28,7 @@ define([
 
             complete = true;
 
-            var next = PyramidWall(Monster, randomPosition);
+            var next = PyramidMiddle(Monster, randomPosition);
 
             my.slideRoomLeft(next);
 
