@@ -1,11 +1,15 @@
 define([
     '../shin_room',
     'chains/stages/shin/skull/skull',
-    'core/controller/sound'
+    'core/controller/sound',
+    'core/model/entity/edge',
+    'chains/stages/shin/rooms/desert'
 ], function(
     ShinRoom,
     Skull,
-    Sound
+    Sound,
+    Edge,
+    DesertRoom
 ) {
 
     var music = Sound('chains/stages/shin/sound/skullstart.wav');
@@ -15,6 +19,23 @@ define([
         var my = ShinRoom();
 
         my.title = "skulls";
+
+
+        var complete = false;
+        my.addEntity(Edge(Directions.right, function (player) {
+
+            if (complete) return;
+
+            complete = true;
+
+            var next = DesertRoom(null, false);
+
+            my.slideRoomLeft(next);
+
+        }));
+
+
+
 
         var leftSkull, rightSkull;
 
@@ -114,6 +135,9 @@ define([
                 });
             });
         };
+
+
+
 
 
 
