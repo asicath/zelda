@@ -1,5 +1,5 @@
 define([
-    'chains/stages/shin/desert_room',
+    'chains/stages/shin/shin_room',
     'view/sprite_sheet',
     'core/model/entity/edge',
     'chains/stages/shin/rooms/pyramid_wall'

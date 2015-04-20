@@ -1,9 +1,9 @@
 define([
-    'chains/stages/shin/desert_room',
+    '../shin_room',
     'chains/stages/shin/skull/skull',
     'core/controller/sound'
 ], function(
-    DesertRoom,
+    ShinRoom,
     Skull,
     Sound
 ) {
@@ -12,7 +12,7 @@ define([
 
     return function () {
 
-        var my = DesertRoom();
+        var my = ShinRoom();
 
         my.title = "skulls";
 

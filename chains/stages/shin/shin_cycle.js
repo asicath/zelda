@@ -1,7 +1,7 @@
 define([
     'jquery',
     'chains/stages/shin/rooms/desert',
-    'chains/stages/shin/skull_room',
+    'chains/stages/shin/rooms/skull_room',
     'chains/demo_draw',
     'core/model/entity/player',
     'controller/input'
