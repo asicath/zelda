@@ -52,7 +52,7 @@ define([
             next.pause();
             my.pause();
 
-            transferPlayers(next);
+            transferPlayers(next, Directions.left);
 
         };
 
@@ -74,7 +74,7 @@ define([
             next.pause();
             my.pause();
 
-            transferPlayers(next);
+            transferPlayers(next, Directions.bottom);
 
         };
 
@@ -118,16 +118,31 @@ define([
         };
 
 
-        function transferPlayers(destinationRoom) {
+        function transferPlayers(destinationRoom, placement) {
 
             // first get the players
             var players = my.getPlayers();
 
             // then add them to valid spots in the room
             for (var i = 0; i < players.length; i++) {
+
+                var player = players[i];
+
                 // Allow start if possible
                 if (!players[i].isDead) {
-                    destinationRoom.addEntityAtOpenTile(players[i]);
+                    switch (placement) {
+                        case Directions.left:
+                            player.position.x = 0;
+                            destinationRoom.addEntity(player);
+                            break;
+                        case Directions.bottom:
+                            player.position.y = destinationRoom.rect.height - player.footPrints.default.height;
+                            destinationRoom.addEntity(player);
+                            break;
+                        default:
+                            destinationRoom.addEntityAtOpenTile(player);
+                    }
+
                     my.removeEntity(players[i]);
                 }
 
